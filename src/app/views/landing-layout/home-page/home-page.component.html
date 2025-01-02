@@ -2,7 +2,7 @@
 <app-header></app-header>
 <main>
   <!-- slider-area -->
-  <section id="home" class="slider-area relative fix ">
+  <section id="home" class="slider-area relative fix">
 
     <div class="relative">
       <!-- Background Section -->
@@ -12,27 +12,32 @@
           style="background-image: url(/assets/uploads/slider/DSC_0543_filtered_1721217402.jpg); background-size: cover;">
           <div class="overlay"></div>
         </div>
-        <div class="bg-green-900/45 absolute z-[100] w-full top-0 h-full"></div>
+        <div class="bg-transparent absolute z-[100] w-full top-0 h-full opacity-50"></div>
       </div>
 
       <!-- Hero Content -->
       <div class="container absolute w-full h-screen flex z-[6666] top-0">
+        <div class="flex items-center">
         <div class="w-full px-8 md:px-20 mt-[120px]">
           <h1
-            class="text-white font-bold text-4xl md:text-5xl lg:text-6xl leading-tight md:leading-snug tracking-wide max-w-[650px]">
-            Defence Intelligence College
+            class="text-white font-semibold text-5xl md:text-6xl lg:text-7xl leading-tight md:leading-snug tracking-wide max-w-[1000px]">
+            Welcome to Defence Intelligence College, Nigeria
           </h1>
-          <p
+          <!-- <p
             class="text-white text-base md:text-lg leading-relaxed md:leading-loose tracking-wide max-w-[650px] mt-4">
             Forging the Future of Intelligence. The Defence Intelligence College (DIC) is committed to
             equipping the next generation of intelligence professionals with the knowledge and skills
             to safeguard Nigeria's national security.
-          </p>
-          <button class="mt-8">
-            <a target="_blank" routerLink="/pg-application" class="uppercase px-6 py-3 bg-yellow-500  font-semibold text-black hover:bg-yellow-600 transition duration-300 ease-in-out">
-              Start A Course
+          </p> -->
+          <button class="mt-8 uppercase px-10 py-3 flex space-x-2 items-center bg-icons transition duration-300 ease-in-out">
+            <a target="_blank" routerLink="/auth/login" class="text-white font-semibold">
+              Log In
             </a>
+            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5328 1.77223C14.6299 1.76242 14.7218 1.7706 14.8067 1.79337L4.43571 6.92097C4.14327 7.06556 3.7909 7.00452 3.56413 6.76999L1.21383 4.33926C0.778358 3.88889 1.05428 3.13473 1.67757 3.07172L14.5328 1.77223ZM4.87892 7.81739L8.71632 5.92011L5.15452 8.29475C4.52117 8.71701 4.23341 9.50026 4.44277 10.2321L5.37269 13.4829C5.77472 14.8883 7.62057 15.2106 8.47506 14.0246L16.0281 3.54142C16.91 2.31734 15.9332 0.625565 14.4322 0.777302L1.577 2.07679C0.122643 2.22381 -0.521169 3.9835 0.494927 5.03437L2.84523 7.4651C3.37436 8.01234 4.19655 8.15476 4.87892 7.81739ZM15.2167 2.95685C15.2738 2.87768 15.3126 2.79395 15.3354 2.70906L5.70924 9.12679C5.43781 9.30776 5.31448 9.64344 5.40421 9.95709L6.33413 13.2079C6.50643 13.8102 7.2975 13.9483 7.66372 13.44L15.2167 2.95685Z" fill="white"/>
+            </svg>              
           </button>
+        </div>
         </div>
       </div>
 
@@ -103,7 +108,7 @@
   <section class="about-area about-p pt-0 pb-120 p-relative fix" style="background: #eff7ff;">
       <div class="animations-02"><img src="/assets/web/img/bg/an-img-02.png" alt="About"></div>
       <div class="container">
-          <div class="flex flex-col md:flex-col lg:flex-row">
+          <div class="flex flex-col lg:w-2/3 lg:px-20">
 
             <!-- <div class="sub-menu flex py-16 gap-4">
               <button class=" px-4 py-1 rounded-full border bg-white">About</button>
@@ -113,33 +118,22 @@
             <div class="basis-[40%]">
 
 
-                <div class="h-full flex items-center lg:justify-center mt-16 md:mt-16 lg:mt-0 ">
+                <div class="h-full flex items-center mt-16 md:mt-16">
                     <div class="s-about-img p-relative wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
-                        <img src="/assets/uploads/about-us/DIC200_1723031419.png" alt="img">
+                        <img src="/dic.png" alt="img">
                     </div>
                 </div>
             </div>
 
               <div class="basis-[60%]">
-                  <div class="about-content s-about-content pl-15 fadeInRight animated w-full mt-8 lg:mt-[120px]" data-animation="fadeInRight" data-delay=".4s">
+                  <div class="about-content s-about-content pl-15 fadeInRight animated w-full mt-8 lg:mt-10" data-animation="fadeInRight" data-delay=".4s">
                       <div class="about-title second-title ">
                           <!-- <h5><i class="fal fa-graduation-cap"></i> ABOUT</h5> -->
-                          <h2>About DIC</h2>
+                          <h2>Overview</h2>
                       </div>
 
                       <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">
-                        The Defence Intelligence College (DIC), established in 2001 and located in Karu, Abuja,
-                        serves as a premier institution for intelligence and security training in Nigeria.
-                        Originally known as the Defence Intelligence School (DIS), it was renamed DIC in 2013
-                        to reflect its status as a center of excellence in intelligence education. The College
-                        primarily trains intelligence officers, military personnel, and other security operatives
-                        to enhance national security through real-time defense intelligence. <br> <br>
-
-                        DIC operates under the leadership of a Commandant, supported by a Deputy Commandant and a
-                        Director of Studies. The College is organized into three main branches—Training, Administration,
-                        and Logistics—with the Training Branch comprising a Centre for Strategic Studies and six
-                        specialized departments, including Counter Intelligence, Technical Studies, and a Joint
-                        Military Attaché/Adviser Programme.
+                        The Defence Intelligence College (DIC) hitherto known as the Defence Intelligence School (DIS) was established in 2001. At inception it was located at a temporary site within the Headquarters of the Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due to the need for a large space and conducive environment, the school was relocated to its present location in Karu a suburb of Federal Capital Territory Abuja in October 2005. The objective of the relocation was to reposition the school with a focus on capacity building in support of DIA and the Armed Forces of Nigeria (AFN) through the provision of real-time defence intelligence to enhance national security. The nomenclature of the school was subsequently changed to Defence Intelligence College in March 2013 thereby encapsulating the vision of the Agency which is to make the College a citadel of intelligence and security training in Nigeria. The college has trained personnel drawn from DIA, Nigeria Armed Forces, Paramilitary Organisations and Staff of Ministries Department and Agencies. It also pertinent to state that the College has trained allied officers from Niger, Chad, Benin Republic and Ghana
                       </p>
 
                   </div>
@@ -150,10 +144,10 @@
           </div>
       </div>
 
-      <div class="flex flex-col md:flex-col lg:flex-row gap-8 w-full px-8 md:px-8 lg:px-24 mt-24">
+      <div class="flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-0 w-full px-8 md:px-8 lg:px-24 mt-24">
 
         <div>
-          <div class="abcontent">
+          <div class="abcontent border-y-2 lg:border-e-2 border-gray-200 p-5">
               <div class="text">
                   <h3 class="text-gray-800 text-3xl font-bold">Mission Statement</h3>
                   <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">Provide security and intelligence training for all categories of DIA staff, personnel of the Nigerian Armed Forces and other security agencies, in order to enable them perform optimally wherever they may be deployed</p>
@@ -162,7 +156,7 @@
         </div>
 
         <div>
-            <div class="abcontent">
+            <div class="abcontent border-y-2 border-gray-200 p-5">
                 <div class="text">
                     <h3 class="text-gray-800 text-3xl font-bold">Vision Statement</h3>
                     <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
@@ -176,17 +170,17 @@
 
 
   <!-- commandant section -->
-  <section class="about-area about-p pt-0 pb-120 p-relative fix" style="background: #eff7ff;">
-    <div class="container flex flex-row-reverse gap-8">
+  <section class="about-area about-p pt-0 pb-120 lg:px-24 p-relative fix" style="background: #eff7ff;">
+    <div class="container flex flex-col lg:flex-row-reverse gap-8">
       <div class="image basis-1/2 flex flex-col gap-2">
         <img src="/assets/commandant.jpeg" class="rounded-md" alt="commandant image">
-        <div class="text-2xl text-gray-800 font-bold">REAR ADMIRAL PE Effah DSS psc(+) nwc(+) fdc MSc MLC MIAD FIIPS</div>
+        <div class="lg:text-2xl text-lg text-gray-800 font-bold">REAR ADMIRAL PE Effah DSS psc(+) nwc(+) fdc MSc MLC MIAD FIIPS</div>
       </div>
 
       <div class="detail basis-1/2 flex items-center">
         <div>
           <h1 class="text-gray-800 text-3xl font-bold">The Commandant</h1>
-          <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">
+          <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800 lg:w-4/5">
             The Commandant of the Defence College is a distinguished military leader with extensive
             experience in strategic operations, leadership, and defense policy. He has a proven track record in fostering innovation in military
             education and preparing leaders for global challenges. As the head of the institution,
@@ -204,7 +198,7 @@
   <div class="divider border-b w-full"></div>
 
 
-
+  <app-dic-gallery></app-dic-gallery>
 
 
 

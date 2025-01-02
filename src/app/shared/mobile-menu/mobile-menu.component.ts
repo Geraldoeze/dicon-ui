@@ -15,10 +15,16 @@ export class MobileMenuComponent {
       "icon": "assets/icons/layout.png",
       "route": "/home"
     },
-    {
-      "name": "CSS",
+    // {
+    //   "name": "CSS",
+    //   "icon": "assets/icons/layout.png",
+    //   "route": "/css"
+    // },
+     {
+      "name": "About",
       "icon": "assets/icons/layout.png",
-      "route": "/css"
+      "route": "/about"
+
     },
     {
       "name": "PG Programmes",
@@ -26,17 +32,17 @@ export class MobileMenuComponent {
       "route": "/unndic"
 
     },
-    {
-      "name": "Gallery",
-      "icon": "assets/icons/reciept.png",
-      "route": "/gallery"
+    // {
+    //   "name": "Gallery",
+    //   "icon": "assets/icons/reciept.png",
+    //   "route": "/gallery"
 
-    },
-    {
-      "name": "News ",
-      "icon": "assets/icons/cart.png",
-      "route": "/news"
-    },
+    // },
+    // {
+    //   "name": "News ",
+    //   "icon": "assets/icons/cart.png",
+    //   "route": "/news"
+    // },
     {
       "name": "PG Application",
       "icon": "assets/icons/achive.png",
