@@ -13,6 +13,7 @@ import { PgApplicationComponent } from './pg-application/pg-application.componen
 import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../../primeng/primeng.module';
+import { CommandantComponent } from './commandant/commandant.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PrimengModule } from '../../primeng/primeng.module';
     NewsPageComponent,
     LayoutComponent,
     PgApplicationComponent,
-    AboutComponent
+    AboutComponent,
+    CommandantComponent
   ],
   imports: [
     CommonModule,

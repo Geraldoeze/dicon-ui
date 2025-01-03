@@ -1,0 +1,36 @@
+<app-header></app-header>
+<main>
+  <div class="min-h-screen bg-gray-100">
+    <!-- Header Section -->
+    <div class="bg-[#125875] text-white p-16 text-center">
+      <span class="bg-white text-accentBlue px-4 py-2 rounded-2xl">2016 - present</span>
+      <h1 class="lg:text-5xl text-3xl text-white font-semibold mt-4">Our Commandants</h1>
+    </div>
+
+    <!-- Commandants List -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+      <div class="flex flex-col gap-8">
+        <div *ngFor="let commandant of commandants; let i = index" 
+             class="flex flex-col lg:flex-row gap-5 p-6"
+             [ngClass]="{'lg:flex-row-reverse': i % 2 !== 0}">
+          
+          <!-- Image (Full Width) -->
+          <div class="w-full">
+            <img [src]="commandant.image" alt="Commandant" class="w-full h-96 object-cover rounded-lg">
+          </div>
+
+          <!-- Text (Full Width) -->
+          <div class="w-full"> 
+            <h2 class="lg:text-4xl text-2xl font-bold my-4">{{ commandant.name }}</h2>
+            <span class="bg-blue-200 text-blue-800 px-3 py-2 my-2 rounded-full text-sm">
+              {{ commandant.tenure }}
+            </span>
+            <p class="text-gray-700 my-4 leading-loose">{{ commandant.description }}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>

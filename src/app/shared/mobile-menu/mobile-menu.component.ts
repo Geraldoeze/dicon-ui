@@ -48,7 +48,12 @@ export class MobileMenuComponent {
       "icon": "assets/icons/achive.png",
       "route": "/pg-application"
 
-    }
+    },
+    {
+      "name": "Commandants",
+      "icon": "assets/icons/layout.png",
+      "route": "/commandants"
+    },
   ]
 
   constructor(private router: Router){}
