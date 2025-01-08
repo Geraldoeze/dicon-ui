@@ -9,7 +9,7 @@
       <div class="slider-active relative" style="background: #141b22;">
         <div
           class="single-slider slider-bg"
-          style="background-image: url(/assets/uploads/slider/DSC_0543_filtered_1721217402.jpg); background-size: cover;">
+          style="background-image: url(/marching.png); background-size: cover;">
           <div class="overlay"></div>
         </div>
         <div class="bg-transparent absolute z-[100] w-full top-0 h-full opacity-50"></div>
@@ -17,215 +17,223 @@
 
       <!-- Hero Content -->
       <div class="container absolute w-full h-screen flex z-[6666] top-0">
-        <div class="flex items-center">
-        <div class="w-full px-8 md:px-20 mt-[120px]">
-          <h1
-            class="text-white font-semibold text-5xl md:text-6xl lg:text-7xl leading-tight md:leading-loose tracking-wider max-w-[1000px]">
-            Welcome to Defence Intelligence College, Nigeria
+        
+        <div class="text-center mx-auto flex items-center justify-center gap-y-5 lg:gap-y-10 flex-col">
+          <button class="flex items-center gap-2 py-2 px-4 rounded-3xl text-[#04326B] bg-gradient-to-r from-[#E3EFFC] via-[#E4F3F8] to-[#E3E6FC]"><img src="/favicon-32x32.png" alt="">Welcome to DIC</button>
+          <h1 class="text-white font-semibold text-4xl md:text-6xl lg:text-7xl leading-tight md:leading-loose tracking-wider max-w-[1000px]">
+            Shaping Future Leaders in Defence and Intelligence
           </h1>
-          <!-- <p
-            class="text-white text-base md:text-lg leading-relaxed md:leading-loose tracking-wide max-w-[650px] mt-4">
-            Forging the Future of Intelligence. The Defence Intelligence College (DIC) is committed to
-            equipping the next generation of intelligence professionals with the knowledge and skills
-            to safeguard Nigeria's national security.
-          </p> -->
-          <button class="mt-8 uppercase px-10 py-3 flex space-x-2 items-center bg-icons transition duration-300 ease-in-out">
-            <a target="_blank" routerLink="/auth/login" class="text-white font-semibold">
-              Log In
-            </a>
-            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5328 1.77223C14.6299 1.76242 14.7218 1.7706 14.8067 1.79337L4.43571 6.92097C4.14327 7.06556 3.7909 7.00452 3.56413 6.76999L1.21383 4.33926C0.778358 3.88889 1.05428 3.13473 1.67757 3.07172L14.5328 1.77223ZM4.87892 7.81739L8.71632 5.92011L5.15452 8.29475C4.52117 8.71701 4.23341 9.50026 4.44277 10.2321L5.37269 13.4829C5.77472 14.8883 7.62057 15.2106 8.47506 14.0246L16.0281 3.54142C16.91 2.31734 15.9332 0.625565 14.4322 0.777302L1.577 2.07679C0.122643 2.22381 -0.521169 3.9835 0.494927 5.03437L2.84523 7.4651C3.37436 8.01234 4.19655 8.15476 4.87892 7.81739ZM15.2167 2.95685C15.2738 2.87768 15.3126 2.79395 15.3354 2.70906L5.70924 9.12679C5.43781 9.30776 5.31448 9.64344 5.40421 9.95709L6.33413 13.2079C6.50643 13.8102 7.2975 13.9483 7.66372 13.44L15.2167 2.95685Z" fill="white"/>
-            </svg>              
+          <p class="text-white text-xs md:text-lg leading-relaxed md:leading-loose tracking-wide max-w-[650px]">
+           A unique environment that combines academic excellence with the character building discipline of military training.
+          </p>
+          <button class="uppercase px-4 py-2 rounded-lg flex space-x-2 items-center text-white transition duration-300 ease-in-out"
+          style="background: linear-gradient(#AFADFF,#1B1B4C);">
+            Learn More            
           </button>
         </div>
-        </div>
+        
       </div>
-
-      <div class="hidden lg:flex absolute  bottom-0 w-full text-white z-[7777] px-16">
-        <div class=" bg-green-900/65 cursor-pointer w-full  border-r">
-          <div (click)="routeBlank('pg-application')" class="title p-12 flex flex-col">
-            <h3 class="text-white flex w-full justify-between items-center">
-              <span class="text-3xl font-bold">
-                PGD Application
-              </span>
-              <span class="text-green-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
-                  <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
-                  <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
-                </svg>
-              </span>
-            </h3>
-            <h6 class="text-white">
-              DIC-UNN & DIC Post graduate Application
-            </h6>
-          </div>
-        </div>
-
-        <div class=" bg-green-900/65 cursor-pointer w-full  border-r" (click)="route('/css')">
-          <div class="title p-12">
-            <h3 class="flex w-full justify-between items-center text-white">
-              Center for Strategic Studies
-              <span class="text-green-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
-                  <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                  <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/>
-                </svg>
-              </span>
-            </h3>
-            <h6 class="text-white">
-              Advanced Defence Intelligence Officers' Course (ADIOC)
-            </h6>
-          </div>
-        </div>
-
-        <div class=" bg-green-900/65 cursor-pointer w-full " (click)="route('unndic')">
-          <div class="title p-12 flex flex-col">
-            <h3 class="text-white flex w-full justify-between items-center">
-              PG Programes
-              <span class="text-green-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
-                  <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
-                </svg>
-              </span>
-            </h3>
-            <h6 class="text-white">
-              FSS-UNN & DIC PG Programes
-            </h6>
-          </div>
-        </div>
       </div>
-
-
-
-    </div>
-
-
-  </section>
-
-  <!-- slider-area-end -->
+    </section>
 
           <!-- about-area -->
-  <section class="about-area about-p pt-0 pb-120 p-relative fix" style="background: #eff7ff;">
-      <div class="animations-02"><img src="/assets/web/img/bg/an-img-02.png" alt="About"></div>
+  <section class="relative my-5" style="background: #fff;">
+
+    <img src="/lines.png" alt="" class="absolute left-0">
+
       <div class="container">
-          <div class="flex flex-col lg:w-2/3 lg:px-20">
+      
+          <div class="flex flex-col lg:px-10">
 
-            <!-- <div class="sub-menu flex py-16 gap-4">
-              <button class=" px-4 py-1 rounded-full border bg-white">About</button>
-              <button class=" px-4 py-1 rounded-full border ">CSS</button>
-            </div> -->
-
-            <div class="basis-[40%]">
-
-
-                <div class="h-full flex items-center mt-16 md:mt-16">
-                    <div class="s-about-img p-relative wow fadeInLeft animated" data-animation="fadeInLeft" data-delay=".4s">
-                        <img src="/dic.png" alt="img">
-                    </div>
-                </div>
-            </div>
-
-              <div class="basis-[60%]">
-                  <div class="about-content s-about-content pl-15 fadeInRight animated w-full mt-8 lg:mt-10" data-animation="fadeInRight" data-delay=".4s">
-                      <div class="about-title second-title ">
-                          <!-- <h5><i class="fal fa-graduation-cap"></i> ABOUT</h5> -->
-                          <h2>Overview</h2>
-                      </div>
-
-                      <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">
-                        The Defence Intelligence College (DIC) hitherto known as the Defence Intelligence School (DIS) was established in 2001. At inception it was located at a temporary site within the Headquarters of the Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due to the need for a large space and conducive environment, the school was relocated to its present location in Karu a suburb of Federal Capital Territory Abuja in October 2005. The objective of the relocation was to reposition the school with a focus on capacity building in support of DIA and the Armed Forces of Nigeria (AFN) through the provision of real-time defence intelligence to enhance national security. The nomenclature of the school was subsequently changed to Defence Intelligence College in March 2013 thereby encapsulating the vision of the Agency which is to make the College a citadel of intelligence and security training in Nigeria. The college has trained personnel drawn from DIA, Nigeria Armed Forces, Paramilitary Organisations and Staff of Ministries Department and Agencies. It also pertinent to state that the College has trained allied officers from Niger, Chad, Benin Republic and Ghana
-                      </p>
-
+                <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
+                  <div class="lg:w-[7%]">
+                  <span class="text-xs font-normal text-black">ABOUT US</span>
                   </div>
-
-
-              </div>
-
-          </div>
-      </div>
-
-      <div class="flex flex-col md:flex-col lg:flex-row gap-8 lg:gap-0 w-full px-8 md:px-8 lg:px-24 mt-24">
-
-        <div>
-          <div class="abcontent border-y-2 lg:border-e-2 border-gray-200 p-5">
-              <div class="text">
-                  <h3 class="text-gray-800 text-3xl font-bold">Mission Statement</h3>
-                  <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">Provide security and intelligence training for all categories of DIA staff, personnel of the Nigerian Armed Forces and other security agencies, in order to enable them perform optimally wherever they may be deployed</p>
-              </div>
-          </div>
-        </div>
-
-        <div>
-            <div class="abcontent border-y-2 border-gray-200 p-5">
-                <div class="text">
-                    <h3 class="text-gray-800 text-3xl font-bold">Vision Statement</h3>
-                    <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
+                  <div class="border-[1px] border-gray-500 w-full"></div>
                 </div>
-            </div>
-        </div>
+         
+                <div class="w-full my-5 text-center">
+                  <div class="flex flex-col items-center justify-center">
+                  <h1 class="text-3xl font-medium text-black my-2"> About DIC </h1>
+                  <p class="text-gray-600 max-w-2xl my-3">The Defence Intelligence College (DIC) hitherto known as the Defence Intelligence School (DIS) was established in 2001. At inception it was located at a temporary site within the Headquarters of the Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due to the need for a large space and conducive environment, the school was relocated to its present location in Karu a suburb of Federal Capital Territory Abuja in October 2005. The objective of the relocation was to reposition the school with a focus on capacity building in support of DIA and the Armed Forces of Nigeria (AFN) through the provision of real-time defence intelligence to enhan...</p>
+                  <button class="text-base px-4 py-2 my-3 flex items-center gap-2 border-gray-700 border-2 rounded-lg">
+                    Read More 
+                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.97446 3.09082C8.60627 3.09082 8.3078 3.3893 8.3078 3.75749C8.3078 4.12568 8.60627 4.42415 8.97446 4.42415H11.1362L3.78901 11.7714C3.52866 12.0317 3.52866 12.4538 3.78901 12.7142C4.04936 12.9745 4.47147 12.9745 4.73182 12.7142L12.079 5.36696V7.52872C12.079 7.89691 12.3775 8.19539 12.7457 8.19539C13.1139 8.19539 13.4124 7.89691 13.4124 7.52872V3.75749C13.4124 3.3893 13.1139 3.09082 12.7457 3.09082H8.97446Z" fill="black"/>
+                      </svg>                      
+                  </button>
+                </div>
+                </div>
 
-    </div>
+            </div>
+            </div>
+
+                <img src="/lines.png" alt="" class="absolute right-0 my-2">
+
+                 <div class="container">
+                  <div class="flex flex-col lg:px-10 my-10">
+
+                <div class="flex flex-col md:flex-row items-center justify-center text-center gap-3 mb-10">
+                  <div class="shadow-md p-3 bg-[#F9FAFB] rounded-md">
+                    <h1 class="mt-1 mb-3 text-5xl text-[#344054]">800+</h1>
+                    <p class="text-sm text-black"> Active Sergeants</p>
+                  </div>
+                  <div class="shadow-md p-3 bg-[#F9FAFB] rounded-md">
+                    <h1 class="mt-1 mb-3 text-5xl text-[#344054]">500+</h1>
+                    <p class="text-sm text-black">Active Commanders</p>
+                  </div>
+                  <div class="shadow-md p-3 bg-[#F9FAFB] rounded-md">
+                    <h1 class="mt-1 mb-3 text-5xl text-[#344054]">2000+</h1>
+                    <p class="text-sm text-black">Active Graduates</p>
+                  </div>
+                </div>
+
+          </div>
+          
+      </div>
   </section>
   <!-- about-area-end -->
 
 
   <!-- commandant section -->
-  <section class="about-area about-p pt-0 pb-120 lg:px-24 p-relative fix" style="background: #eff7ff;">
-    <div class="container flex flex-col lg:flex-row-reverse gap-8">
-      <div class="image basis-1/2 flex flex-col gap-2">
-        <img src="/commandant.jpg" class="rounded-md" alt="commandant image">
-        <!-- <div class="lg:text-2xl text-lg text-gray-800 font-bold">REAR ADMIRAL PE Effah DSS psc(+) nwc(+) fdc MSc MLC MIAD FIIPS</div> -->
-      </div>
+    <section class="mt-5">
+      <div class="m-10 bg-[#F9FAFB] text-[#344054] lg:p-10 rounded-md">
+        <div class="text-center">
+        <h1 class="md:text-5xl lg:my-10 text-3xl"> The Commandant </h1>
+        </div>
+        <div class="w-full flex items-center justify-around lg:gap-10 flex-col md:flex-row-reverse">
 
-      <div class="detail basis-1/2 flex items-center">
-        <div>
-          <h1 class="text-gray-800 text-3xl font-bold">The Commandant</h1>
-          <p class="mt-4 text-base leading-relaxed tracking-wide text-gray-800 lg:w-4/5">
-            The Commandant of the Defence College is a distinguished military leader with extensive
-            experience in strategic operations, leadership, and defense policy. He has a proven track record in fostering innovation in military
-            education and preparing leaders for global challenges. As the head of the institution,
-            the Commandant is committed to upholding excellence in academic and professional training,
-            equipping personnel with the skills to safeguard national and international security. With a
-            deep understanding of contemporary defense strategies, the Commandant plays a vital role in
-            shaping the future of the nation's armed forces.
+          <div class="">
+            <img src="/commandant.png" alt="" class="rounded-md">
+          </div>
+
+          <div class="text-start">
+            <h1 class="text-3xl my-5"> Rear Admiral Olumuyiwa Olotu</h1>
+            <p class="text-sm my-3 max-w-md">In March 2024, the commandant and students from the DIC visited the Directorate of Cyber Security (D-Cyber) for an educational tour. The commandant expressed gratitude for the warm reception</p>
+            <button class="text-sm lg:text-base px-4 py-2 my-3 flex items-center gap-2 border-gray-500 border-2 rounded-lg hover:bg-gray-200">
+              View Past Commandants 
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.97446 3.09082C8.60627 3.09082 8.3078 3.3893 8.3078 3.75749C8.3078 4.12568 8.60627 4.42415 8.97446 4.42415H11.1362L3.78901 11.7714C3.52866 12.0317 3.52866 12.4538 3.78901 12.7142C4.04936 12.9745 4.47147 12.9745 4.73182 12.7142L12.079 5.36696V7.52872C12.079 7.89691 12.3775 8.19539 12.7457 8.19539C13.1139 8.19539 13.4124 7.89691 13.4124 7.52872V3.75749C13.4124 3.3893 13.1139 3.09082 12.7457 3.09082H8.97446Z" fill="black"/>
+                </svg>                      
+            </button>
+          </div>
+
+          
+        </div>
+
+    </div>
+    </section>
+  <!-- comandant section end -->
+
+  <div class="w-full bg-white text-[#344054] flex flex-col md:flex-row items-center justify-center gap-4 lg:p-10 mt-10">
+    <div>
+      <div class="shadow-md bg-[#F9FAFB] p-5 text-center max-w-[500px] min-h-[300px]">
+          <div class="text">
+              <h3 class="text-gray-800 text-3xl font-bold">Mission Statement</h3>
+              <p class="mt-4 text-sm leading-relaxed tracking-wide text-gray-800 ">Provide security and intelligence training for all categories of DIA staff, personnel of the Nigerian Armed Forces and other security agencies, in order to enable them perform optimally wherever they may be deployed</p>
+          </div>
+      </div>
+    </div>
+
+    <div>
+        <div class="shadow-md bg-[#F9FAFB] p-5 text-center max-w-[500px] min-h-[300px]">
+            <div class="text">
+                <h3 class="text-gray-800 text-3xl font-bold">Vision Statement</h3>
+                <p class="mt-4 text-sm leading-relaxed tracking-wide text-gray-800 ">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- documentary section -->
+
+  <div class="text-white lg:p-10">
+
+    <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
+      <div class="lg:w-[12%]">
+      <span class="text-xs font-medium text-black">DOCUMENTARY VIDEO</span>
+      </div>
+      <div class="border-[1px] border-gray-500 w-full"></div>
+    </div>
+
+    <div class="w-full px-10">
+    <div class="flex flex-col items-center justify-center min-h-[500px] rounded-2xl my-5 mx-auto" style="background-image: url('/video.png'); background-size: cover;">
+      <div class="bg-white rounded-full p-2">
+        <img src="/play.svg" alt="">
+      </div>
+      <div class="mt-2"><p class="text-2xl">Documentary of  DIC</p></div> 
+    </div>
+    </div>
+
+  
+  </div>
+
+
+  <!-- news section -->
+
+  <section class="lg:p-10">
+    <div class="flex items-center w-full gap-2 mt-16 md:mt-16">
+      <div class="lg:w-[10%]">
+      <span class="uppercase text-xs font-medium text-black">News & Blog</span>
+      </div>
+      <div class="border-[1px] border-gray-500 w-full"></div>
+    </div>
+
+    <div class="text-center">
+      <h1 class="text-5xl my-5"> News & Blog </h1>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-center items-center gap-3">
+
+      <div class="p-3 rounded-md bg-white">
+        <div class="rounded-md w-full">
+          <img src="/greeting.png" alt="" class="mx-auto">
+        </div>
+        <div class="">
+          <h1 class="text-xl font-semibold my-2">News Headline</h1>
+          <p class="text-base my-2 max-w-xs">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...</p>
+          <p class="text-base text-gray-700">
+            <span class="border-e-2 border-gray-700 px-2">24th March, 2024</span> <span class="px-2">20:00</span>
+          </p>
+        </div>
+      </div>
+      <div class="p-3 rounded-md bg-white">
+        <div class="w-full rounded-md">
+          <img src="/greeting.png" alt="" class="mx-auto">
+        </div>
+        <div class="">
+          <h1 class="text-xl font-semibold my-2">News Headline</h1>
+          <p class="text-base my-2 max-w-xs">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...</p>
+          <p class="text-base text-gray-700">
+            <span class="border-e-2 border-gray-700 px-2">24th March, 2024</span> <span class="px-2">20:00</span>
+          </p>
+        </div>
+      </div>
+      <div class="p-3 rounded-md bg-white">
+        <div class="w-full rounded-md">
+          <img src="/greeting.png" alt="" class="mx-auto">
+        </div>
+        <div class="">
+          <h1 class="text-xl font-semibold my-2">News Headline</h1>
+          <p class="text-base my-2 max-w-xs">Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...</p>
+          <p class="text-base text-gray-700">
+            <span class="border-e-2 border-gray-700 px-2">24th March, 2024</span> <span class="px-2">20:00</span>
           </p>
         </div>
       </div>
     </div>
-</section>
-  <!-- comandant section end -->
+  </section>
 
-  <div class="divider border-b w-full"></div>
-
-  <!-- commandant section -->
-
-  <div class="bg-black text-white lg:p-24">
-    <div class="flex flex-col items-center justify-center min-h-[600px] rounded-2xl" style="background-image: url('/video.png'); background-size: cover;">
-      <div class="bg-white rounded-full p-2">
-        <img src="/play.svg" alt="">
-      </div>
-      <div class="mt-2"><p class="text-2xl">Documentary of  DIC</p></div>
-      
-    </div>
-
-    <div class="flex flex-col lg:flex-row items-center mt-5 ">
-      <div class="border-y-2 border-gray-700 container-xl lg:border-e-2 lg:p-10">
-        <h1 class="text-white">Core values</h1>
-        <p>Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
-      </div>
-      <div class="border-y-2 border-gray-700 container-xl lg:border-e-2 lg:p-10">
-        <h1 class="text-white">Core values</h1>
-        <p>Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
-      </div>
-      <div class="border-y-2 border-gray-700 container-xl lg:p-10">
-        <h1 class="text-white">Core values</h1>
-        <p>Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with friendly forces that will provide comprehensive and timely defence intelligence in support of national security strategy</p>
-      </div>
-    </div>
-  </div>
   <!-- gallery-section -->
+  <section class="lg:pt-10 lg:px-10">
+  <div class="flex items-center w-full gap-2 mt-16 md:mt-16">
+    <div class="lg:w-[10%]">
+    <span class="uppercase text-xs font-medium text-black">Gallery</span>
+    </div>
+    <div class="border-[1px] border-gray-500 w-full"></div>
+  </div>
   <app-dic-gallery></app-dic-gallery>
-
+  </section>
 
 
 

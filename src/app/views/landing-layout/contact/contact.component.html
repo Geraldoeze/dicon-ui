@@ -1,0 +1,53 @@
+
+<app-header></app-header>
+
+<main>
+    <div class="text-center my-5">
+        <h1 class="text-5xl font-medium my-2">Have any Questions?</h1>
+        <h2 class="text-lg my-2">Send us a message</h2>
+    </div>
+
+  <div class="flex flex-col justify-center gap-5 my-10 md:flex-row-reverse">
+    <div class="">
+        <img src="/group.png" alt="">
+    </div>
+    <div class="md:w-[40%] px-2">
+        <form action="">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="w-full">
+                <label for="">First Name</label>
+                <input type="text" placeholder="First Name" class="block w-full p-2 border-gray-200 border-[1px] bg-[#F7F9FC] my-2 rounded-md">
+                </div>
+                <div class="w-full">
+                    <label for="">Last Name</label>
+                    <input type="text" placeholder="Last Name" class="block w-full p-2 border-gray-200 border-[1px] bg-[#F7F9FC] my-2 rounded-md">
+                </div>
+            </div>
+                <label for="">Email</label>
+                <input type="email" placeholder="you@company.com" class="block w-full p-2 border-gray-200 border-[1px] bg-[#F7F9FC] my-2 rounded-md">
+                <label for="">Phone Number</label>
+                <div class="flex gap-2">
+                <select name="" id="" class="p-2 border-gray-200 border-[1px] bg-[#F7F9FC] text-black my-2 rounded-md">
+                    <option value="234">NG</option>
+                    <option value="1">US</option>
+                    <option value="44">UK</option>
+                </select>
+                <input type="text" placeholder="Phone Number" class="w-full p-2 border-gray-200 border-[1px] bg-[#F7F9FC] my-2 rounded-md">
+                </div>
+                <div class="">
+                    <label for="">Message</label>
+                    <textarea class="block w-full my-2 border-gray-200 border-[1px] bg-[#F7F9FC]" rows="7" cols="50" maxlength="200"></textarea>
+                </div>
+                <div class="flex items-center gap-2 my-2 mx-auto">
+                <input type="checkbox">
+                <p class="text-sm">You agree to our friendly privacy policy</p> 
+                </div>
+                <button class="w-full px-3 py-2 my-2 bg-[#1B1B4C] text-white mx-auto rounded-md">Send Message</button>
+        </form>
+    </div>
+  </div>
+      
+
+</main>
+
+<app-footer></app-footer>

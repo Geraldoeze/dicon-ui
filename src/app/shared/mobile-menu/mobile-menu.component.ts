@@ -27,33 +27,32 @@ export class MobileMenuComponent {
 
     },
     {
-      "name": "PG Programmes",
+      "name": "PG Program",
       "icon": "assets/icons/package.png",
       "route": "/unndic"
 
     },
-    // {
-    //   "name": "Gallery",
-    //   "icon": "assets/icons/reciept.png",
-    //   "route": "/gallery"
+    {
+      "name": "News & Blog",
+      "icon": "assets/icons/reciept.png",
+      "route": "/news"
 
-    // },
-    // {
-    //   "name": "News ",
-    //   "icon": "assets/icons/cart.png",
-    //   "route": "/news"
-    // },
+    },
+    {
+      "name": "Contact Us",
+      "icon": "assets/icons/cart.png",
+      "route": "/contact"
+    },
     {
       "name": "PG Application",
       "icon": "assets/icons/achive.png",
       "route": "/pg-application"
-
     },
-    {
-      "name": "Commandants",
-      "icon": "assets/icons/layout.png",
-      "route": "/commandants"
-    },
+    // {
+    //   "name": "Commandants",
+    //   "icon": "assets/icons/layout.png",
+    //   "route": "/commandants"
+    // },
   ]
 
   constructor(private router: Router){}

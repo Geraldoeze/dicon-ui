@@ -18,4 +18,5 @@ export class HomePageComponent {
     this.router.navigate([page]);
   }
 
+
 }
