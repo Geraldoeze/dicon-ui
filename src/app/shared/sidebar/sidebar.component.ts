@@ -9,11 +9,21 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  isActive(arg0: string): boolean {
+  return this.router.isActive(arg0, true);
+  }
+
+  toggleTab(menu:string){
+    this.currentMenu = menu;
+    console.log(this.currentMenu)
+  }
+
   dropdown:boolean = false;
   userAccountType: any;
   studentPortal:any;
   staffPortal:any;
   userAcccountId:any;
+  currentMenu:any = 'general';
 
   constructor(private router: Router, private storage: StorageService, private auth: AuthService){}
 

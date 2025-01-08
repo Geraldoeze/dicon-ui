@@ -18,6 +18,7 @@ import { StudentProfileComponent } from './student-profile/student-profile.compo
 import { StaffProfileComponent } from './staff-profile/staff-profile.component';
 import { SupportComponent } from './support/support.component';
 import { ProgramsComponent } from './programs/programs.component';
+import { StudentCoursesComponent } from './student-courses/student-courses.component';
 
 
 
@@ -39,6 +40,7 @@ const routes: Routes = [
       {path: 'students', component: StudentsComponent},
       {path: 'students/:id', component: StudentDetailComponent},
       {path: 'student-profile/:id', component: StudentProfileComponent},
+      {path: 'student-profile/courses', component:StudentCoursesComponent},
       {path: 'reports', component: ReportsComponent},
       {path: 'batches', component: BatchesComponent},
       {path: 'batches/:id', component: BatchDetailComponent},

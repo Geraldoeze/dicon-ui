@@ -9,6 +9,7 @@ import { LayoutComponent } from './layout.component';
 import { PgApplicationComponent } from './pg-application/pg-application.component';
 import { AboutComponent } from './about/about.component';
 import { CommandantComponent } from './commandant/commandant.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: LayoutComponent, children: [
@@ -19,7 +20,8 @@ const routes: Routes = [
     {path: 'news', component: NewsPageComponent},
     {path: 'pg-application', component: PgApplicationComponent},
     {path: 'about', component: AboutComponent},
-    {path: 'commandants', component: CommandantComponent}
+    {path: 'commandants', component: CommandantComponent},
+    {path: 'contact', component: ContactComponent}
   ]}
 ];
 

@@ -29,6 +29,7 @@ import { ProgramsComponent } from './programs/programs.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppLayoutComponent,
@@ -51,6 +52,7 @@ import { ProgramsComponent } from './programs/programs.component';
     StaffGeneralInfoComponent,
     SupportComponent,
     ProgramsComponent,
+  
 
   ],
   imports: [

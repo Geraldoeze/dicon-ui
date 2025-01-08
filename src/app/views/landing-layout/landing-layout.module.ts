@@ -14,6 +14,7 @@ import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../../primeng/primeng.module';
 import { CommandantComponent } from './commandant/commandant.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CommandantComponent } from './commandant/commandant.component';
     LayoutComponent,
     PgApplicationComponent,
     AboutComponent,
-    CommandantComponent
+    CommandantComponent,
+    ContactComponent
   ],
   imports: [
     CommonModule,
