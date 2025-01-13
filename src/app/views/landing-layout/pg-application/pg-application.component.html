@@ -5,6 +5,131 @@
   <div class="page-wrapper">
 
     <p-toast />
+<<<<<<< HEAD
+    <!-- [ Main Content ] start -->
+
+    <div class="flex items-center justify-center gap-5 mt-5 mb-5">
+      <div class="">
+        <div class="text-center max-h-[200px]">
+          <img src="/dic.png" class="img-fluid" alt="Logo" />
+        </div>
+      </div>
+      <div class="">
+        <div class="text-center max-h-[200px]">
+          <img
+            src="/assets/uploads/application-setting/042B696C_209A_449F_9B07_9F2AB1A3A24E_1721130710.png"
+            class="img-fluid"
+            alt="Logo"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col justify-center items-center">
+      <div class="min-w-[40vw]">
+      <div class="text-center mb-5">
+        <h2 class="text-5xl font-semibold">Application</h2>
+      </div>
+      <div class="flex items-center w-full">
+        
+        <button
+          (click)="toggleFormStage(1)"
+          [ngClass]="{
+                    'bg-gray-200 text-green-800':
+                      currentStage >= 1 && formStage >= 1,
+                  }"
+          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle transition-all duration-300"
+        >
+          1
+        </button>
+        
+     
+        <!-- Progress Line (Only if not last step) -->
+        <div class="flex-1 relative">
+          <div
+            class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
+          ></div>
+          <div
+            class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
+            [ngStyle]="{ width: currentStage > 1 ? '100%' : '0%' }"
+            [ngClass]="{
+              'bg-green-300': currentStage > 1,
+              'bg-gray-300': currentStage <= 1
+            }"
+          ></div>
+        </div>
+        
+        <button
+          (click)="toggleFormStage(2)"
+          [ngClass]="{
+            'bg-green-500': currentStage < 2 && formStage < 2,
+            'bg-gray-200 text-green-800': currentStage >= 2 && formStage >= 2,
+          }"
+          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
+        >
+          2
+        </button>
+        
+     
+        <!-- Progress Line (Only if not last step) -->
+        <div class="flex-1 relative">
+          <div
+            class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
+          ></div>
+          <div
+            class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
+            [ngStyle]="{ width: currentStage > 2 ? '100%' : '0%' }"
+            [ngClass]="{
+              'bg-green-300': currentStage > 2,
+              'bg-gray-300': currentStage <= 2
+            }"
+          ></div>
+        </div>
+        
+        <button
+          (click)="toggleFormStage(3)"
+          [ngClass]="{
+              'bg-green-500': currentStage < 3 && formStage < 3,
+              'bg-gray-300 text-green-800': currentStage >= 3 && formStage >= 3,
+          }"
+          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
+        >
+          3
+        </button>
+       
+      
+        </div>
+        <div class="flex justify-between gap-2 text-center text-xs">
+          <p>Download form</p>
+          <p>Basic Info</p>
+          <p>Document Upload</p>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <!-- [ Card ] start -->
+
+      <div class="flex justify-center">
+        <form [formGroup]="applicationForm" (ngSubmit)="save()">
+          <!-- <input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z"> -->
+
+          <ng-container *ngIf="formStage == 1">
+            <!-- Form Start -->
+             <div class="flex flex-col md:flex-row justify-between gap-10 my-5 w-[80vw] bg-[#F7F9FC] text-center text-black">
+            <div class="md:w-1/6"></div>
+            <div class="flex md:justify-center items-center">
+              <div class="">
+                <p class="text-3xl my-5 font-medium">Payment Information</p>
+                <div class="my-5 p-2">
+                  <br />
+                  <div
+                    class="border-b-[1px] border-gray-100 w-full flex justify-between my-2"
+                  >
+                    <p>Account Name</p>
+                    <b>DIC UNN</b>
+=======
       <!-- [ Main Content ] start -->
       <div class="card">
           <div class="card-block">
@@ -13,7 +138,10 @@
                       <div class="inner text-center">
                                                       <img src="/assets/uploads/application-setting/DIC200_1721131379.png" class="img-fluid" alt="Logo">
                                                   </div>
->>>>>>> parent of abd4e2a (Video and StudentPortal updated)
+<<<<<<< Updated upstream
+=======
+>>>>>>> parent of 2296940 (Video and StudentPortal updated)
+>>>>>>> Stashed changes
                   </div>
                   <div class="col-sm-8 text-center">
                       <h2>Application</h2>
@@ -215,6 +343,6 @@
       </div>
       <!-- [ Main Content ] end -->
   </div>
-
+</div>
 <!-- End Content-->
 
