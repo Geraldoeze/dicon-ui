@@ -1,60 +1,127 @@
 <app-header></app-header>
 
 <main>
-
-  <div class="m-auto flex justify-center items-center h-screen" style="background-image: url(/boxes.png); background-size: cover;">
+  <div
+    class="m-auto flex justify-center items-center h-screen"
+    style="background-image: url(/boxes.png); background-size: cover"
+  >
     <h1 class="text-5xl font-medium">PG Program</h1>
   </div>
-
 
   <div class="container my-5">
     <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
       <div class="lg:w-[15%]">
-      <span class="text-xs font-normal text-black">CENTERS & DEPARTMENTS </span>
+        <span class="text-base font-normal text-black"
+          >CSS
+        </span>
       </div>
       <div class="border-[1px] border-gray-500 w-full"></div>
     </div>
-
-</div>
+  </div>
 
   <div class="container my-5">
     <div class="text-center">
-      <h1 class="text-4xl my-2">Centers & Departments</h1>
+      <h1 class="text-4xl my-2">Center for Strategic Studies</h1>
       <div class="w-full my-2">
         <div class="flex flex-col items-center justify-center">
-        <h1 class="text-xl font-medium text-black my-2"> Center for Strategic Studies </h1>
-        <p class="text-gray-600 max-w-2xl my-3">
-          AVM MS Usman Centre for Strategic Studies (CSS) is a multi-disciplinary academic and research centre designed to initiate programmes in strategic studies and undertake security related research. The CSS anchors the Advanced Defence Intelligence Officers' Course (ADIOC) which is designed to broaden officers' knowledge in determination of intelligence in policy and conflict situations.  Also the Center anchors the Intelligence Analysis Officers' Course (IAOC) aimed at raising the quality of analytic tradecraft in the Agency and the intelligence community, It facilitates training programmes with external academic and security organizations through collaboration with relevant institutions. Furthermore, the CSS writes strategic and poilcy papers for the College and the Agency as directed
-        </p>
-        <button target="_blank" class="px-7 py-2 border-2 text-white font-medium rounded-md active:scale-95 cursor-pointer" style="background: linear-gradient(#1B1B4C, #AFADFF);" routerLink="/pg-application" >Apply</button>
-      </div>
+          <h1 class="text-xl font-medium text-black my-2">
+            Center for Strategic Studies
+          </h1>
+          <p class="text-gray-600 max-w-2xl my-3">
+            AVM MS Usman Centre for Strategic Studies (CSS) is a
+            multi-disciplinary academic and research centre designed to initiate
+            programmes in strategic studies and undertake security related
+            research. The CSS anchors the Advanced Defence Intelligence
+            Officers' Course (ADIOC) which is designed to broaden officers'
+            knowledge in determination of intelligence in policy and conflict
+            situations.  Also the Center anchors the Intelligence Analysis
+            Officers' Course (IAOC) aimed at raising the quality of analytic
+            tradecraft in the Agency and the intelligence community, It
+            facilitates training programmes with external academic and security
+            organizations through collaboration with relevant institutions.
+            Furthermore, the CSS writes strategic and poilcy papers for the
+            College and the Agency as directed
+          </p>
+          <button
+            target="_blank"
+            class="px-7 py-2 border-2 text-white font-medium rounded-md active:scale-95 cursor-pointer"
+            style="background: linear-gradient(#1b1b4c, #afadff)"
+            routerLink="/pg-application"
+          >
+            Apply
+          </button>
+        </div>
       </div>
     </div>
-
   </div>
 
-
-  <div class="container my-5">
-  <div class="text-center my-2">
-    <h1 class="text-xl">Departments</h1>
-  </div>
-
-  <div class="max-w-3xl mx-auto">
-    <div *ngFor="let department of departments; let i = index">
-      <div class="flex justify-between items-center p-4 my-2 bg-[#F7F9FC] cursor-pointer rounded-md shadow-md" (click)="toggle(i)">
-        <span class="text-gray-800 font-medium">{{ department.name }}</span>
-        <span class="text-black font-medium">View requirements ↓</span>
-      </div>
-      <div *ngIf="department.isOpen" class="p-4 bg-gray-200 text-gray-700">
-        <p>The Defence Intelligence College (DIC) hitherto known as the Defence Intelligence School (DIS) was established in 2001. At inception it was located at a temporary site within the Headquarters of the Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due to the need for a large space and conducive environment, the school was relocated to its present location in Karu a suburb of Federal Capital Territory Abuja in October 2005. .</p>
-        <button target="_blank" class="px-5 py-2 border-[1px] text-black border-gray-200 rounded-md bg-white active:scale-95 cursor-pointer" routerLink="/pg-application">Apply</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
   
 
+
+  <div class="container my-5 w-full flex items-center justify-center flex-col">
+    <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
+      <div class="lg:w-[15%]">
+        <span class="text-base font-normal text-black"
+          >Programs
+        </span>
+      </div>
+      <div class="border-[1px] border-gray-500 w-full"></div>
+    </div>
+    <div class="flex items-center justify-center flex-col">
+      
+    <div class="max-w-3xl my-3" *ngFor="let department of departments">
+      <h5 class="text-2xl text-gray-800 font-semibold my-2">{{department.name}}</h5>
+
+      <div class="">
+      <p class="text-xl text-gray-800 font-semibold my-2">Course(s)</p>
+
+      <ul class="px-0 mx-0 list-item">
+        <li *ngFor="let course of department.courses | keyvalue" class="flex items-center gap-2">
+          <span  class="text-icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+              <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
+              <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
+            </svg>
+          </span>
+          {{course.value}}
+        </li>
+      </ul>
+    </div>
+
+      
+      <p class="text-2xl text-gray-800 font-bold my-2">Requirements</p>
+      <div class="text-base text-black my-1" [innerHtml]="department.requirements" ></div>
+  
+
+      <button
+      target="_blank"
+      class="px-5 py-2 my-3 border-[1px] text-black border-gray-200 rounded-md bg-slate-100 active:scale-95 cursor-pointer"
+      routerLink="/pg-application"
+    >
+      Apply Now
+    </button>
+    </div>
+
+    <div class="text-gray-800 max-w-3xl my-3">
+      <h1>Tuition</h1>
+      <p>Generally, candidates can pay fully for their choice programme at once before academic activities. </p>
+      <p>PGD: Full payment required.</p>
+       <p>M.Sc.: First Semester requires 75 per cent tuition payment, and to be completed in Second Semester.</p>
+       Generally, candidates can pay fully for their choice programme at once before academic activities.
+       <p>PhD Tuition is to be made completely within 4 Semesters starting with 50 percent before commencement of first semester.</p>
+       <ul>
+        <li> M.Sc. (3 Semesters) ₦2,100,000 </li>
+        <li> PGD (2 Semesters) ₦1,200,000 </li>
+        <li> PhD (6 semesters) ₦5,400,000 </li>
+       </ul>
+
+       <button class="uppercase px-4 py-2 rounded-md text-white transition duration-300 ease-in-out"
+          style="background: linear-gradient(#1B1B4C, #AFADFF);" (click) = "route('/pg-application')">
+            Apply Now           
+          </button>
+    </div>
+    </div>
+    </div>
 </main>
 
 <app-footer></app-footer>

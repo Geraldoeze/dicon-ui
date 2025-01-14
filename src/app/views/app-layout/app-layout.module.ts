@@ -26,6 +26,10 @@ import { StaffProfileComponent } from './staff-profile/staff-profile.component';
 import { StaffGeneralInfoComponent } from './staff-profile/staff-general-info/staff-general-info.component';
 import { SupportComponent } from './support/support.component';
 import { ProgramsComponent } from './programs/programs.component';
+import { StudentCAComponent } from './student-profile/student-c-a/student-c-a.component';
+import { StudentFeesComponent } from './student-profile/student-fees/student-fees.component';
+import { StudentExamsComponent } from './student-profile/student-exams/student-exams.component';
+import { StudentCoursesComponent } from './student-profile/student-courses/student-courses.component';
 
 
 
@@ -52,8 +56,10 @@ import { ProgramsComponent } from './programs/programs.component';
     StaffGeneralInfoComponent,
     SupportComponent,
     ProgramsComponent,
-  
-
+    StudentCAComponent,
+    StudentFeesComponent,
+    StudentExamsComponent,
+    StudentCoursesComponent
   ],
   imports: [
     CommonModule,

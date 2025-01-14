@@ -88,31 +88,31 @@
             </li>
 
             <li *ngIf="userAccountType==='student'">
-              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="toggleTab('general')" [ngClass]="{'bg-white text-black': currentMenu=='general'}">
+              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="route('/app/student-profile/1')" >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
               </svg>
                 Student Profile
               </a>
-              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="toggleTab('courses')" [ngClass]="{'bg-white text-black': currentMenu=='courses'}">
+              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="route('/app/student-profile/courses')">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2.5zm0 5A.5.5 0 0 1 1.5 7h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 7.5zm0 5A.5.5 0 0 1 1.5 12h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 12.5z"/>
               </svg>
                 Courses
               </a>
-              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="toggleTab('classes')" [ngClass]="{'bg-white text-black': currentMenu=='classes'}">
+              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="route('/app/student-profile/c-a')" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2.5zm0 5A.5.5 0 0 1 1.5 7h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 7.5zm0 5A.5.5 0 0 1 1.5 12h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 12.5z"/>
                 </svg>
                 Classes & Assignments
               </a>
-              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="toggleTab('fees')" [ngClass]="{'bg-white text-black': currentMenu=='fees'}">
+              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="route('/app/student-profile/fees')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2.5zm0 5A.5.5 0 0 1 1.5 7h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 7.5zm0 5A.5.5 0 0 1 1.5 12h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 12.5z"/>
                 </svg>
                 Fees
               </a>
-              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="toggleTab('exams')" [ngClass]="{'bg-white text-black': currentMenu=='exams'}">
+              <a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-seccolor" (click)="route('/app/student-profile/exams')" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2.5zm0 5A.5.5 0 0 1 1.5 7h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 7.5zm0 5A.5.5 0 0 1 1.5 12h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 12.5z"/>
                 </svg>

@@ -1,45 +1,38 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpServiceService } from '../../../services/http-service.service';
-import { StorageService } from '../../../services/storage.service';
-
+import { HttpServiceService } from '../../../../services/http-service.service';
+import { StorageService } from '../../../../services/storage.service';
 
 
 @Component({
-  selector: 'app-student-courses',
-  templateUrl: './student-courses.component.html',
-  styleUrls: ['./student-courses.component.scss']
-
+  selector: 'app-student-exams',
+  templateUrl: './student-exams.component.html',
+  styleUrl: './student-exams.component.scss'
 })
-export class StudentCoursesComponent {
-
-  StudentCourses:any;
+export class StudentExamsComponent {
+  StudentExams:any;
   student_id:any;
-  calender: boolean = false;
-
-  
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router){}
 
   ngOnInit(){
-    
-    this.getStudentCourses();
-   
+    this.getStudentExams()
   }
 
-  getStudentCourses(){
+  getStudentExams(){
     let uri:any;
     let userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
-      uri='students/courses'
+      uri='students/exams'
     } else{
-      uri='students/courses?student_id=' + this.getParamsId()
+      uri='students/exams?student_id=' + this.getParamsId()
     }
+
 
     this.api.get(uri).subscribe(
       res=>{
-        this.StudentCourses = res;
-        console.log('student courses', this.StudentCourses)
+        this.StudentExams = res;
+        console.log('exams data', this.StudentExams)
 
       }, err=>{
         console.log(err)
@@ -47,7 +40,6 @@ export class StudentCoursesComponent {
     )
   }
 
-  
   getParamsId(){
     const url = window.location.href;
     console.log('url', url);
@@ -60,9 +52,4 @@ export class StudentCoursesComponent {
   route(page:string){
     this.router.navigate([page]);
   }
-
-  toggleCalender(){
-    this.calender = !this.calender;
-  }
-
 }

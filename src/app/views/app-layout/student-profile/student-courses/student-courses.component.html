@@ -1,0 +1,9 @@
+<div *ngIf="StudentCourses?.length > 0; else noCourse">
+  <app-courses-card [courses]="StudentCourses"></app-courses-card>
+</div>
+
+<ng-template #noCourse>
+  <p class="text-center text-gray-500">No course available</p>
+</ng-template>
+
+

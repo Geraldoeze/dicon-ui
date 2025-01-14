@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { MessageService } from 'primeng/api';
@@ -17,8 +18,12 @@ export class PgApplicationComponent {
   programes:any;
   photo: any;
   applyForm: any;
+  imageUploaded = false;
+  documentUploaded = false;
 
-  constructor(private fb: FormBuilder, private api: HttpServiceService, private messageService: MessageService){}
+  @Output() completed = new EventEmitter<void>();
+
+  constructor(private fb: FormBuilder, private api: HttpServiceService, private messageService: MessageService, private http: HttpClient){}
 
   ngOnInit(){
     this.formStage =1;
@@ -124,6 +129,43 @@ export class PgApplicationComponent {
   showError(message: string) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
+
+
+    
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      
+      this.http.post('', formData).subscribe(() => {
+        this.imageUploaded = true;
+      });
+    }
+  }
+
+  onDocumentSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('document', file);
+      
+      this.http.post('', formData).subscribe(() => {
+        this.documentUploaded = true;
+      });
+    }
+  }
+
+  onFinish() {
+    if (this.imageUploaded && this.documentUploaded) {
+      this.completed.emit();
+    }
+  }
+
+
+
+
+ 
 
 
 }
