@@ -23,13 +23,19 @@
           <h1 class="text-white font-semibold text-4xl md:text-6xl lg:text-7xl leading-tight md:leading-loose tracking-wider max-w-[1000px]">
             Shaping Future Leaders in Defence and Intelligence
           </h1>
-          <p class="text-white text-xs md:text-lg leading-relaxed md:leading-loose tracking-wide max-w-[650px]">
+          <p class="text-white text-base md:text-lg leading-relaxed md:leading-loose tracking-wide max-w-[650px]">
            A unique environment that combines academic excellence with the character building discipline of military training.
           </p>
-          <button class="uppercase px-4 py-2 rounded-lg flex space-x-2 items-center text-white transition duration-300 ease-in-out"
-          style="background: linear-gradient(#AFADFF,#1B1B4C);" (click) = "route('/contact')">
+          <div class = "flex items-center justify-center gap-3">
+          <button class="uppercase px-4 py-2 rounded-md text-white transition duration-300 ease-in-out"
+          style="background: linear-gradient(#1B1B4C, #AFADFF);" (click) = "route('/contact')">
             Contact Us           
           </button>
+          <button class="uppercase px-4 py-2 rounded-md bg-white text-[#1B1B4c] transition duration-300 ease-in-out"
+             (click) = "route('/auth/login')">
+            Log In           
+          </button>
+        </div>
         </div>
         
       </div>
@@ -37,7 +43,7 @@
     </section>
 
           <!-- about-area -->
-  <section class="relative my-5" style="background: #fff;">
+  <section class="relative mt-10" style="background: #fff;">
 
     <img src="/lines.png" alt="" class="absolute left-0">
 
@@ -47,12 +53,12 @@
 
                 <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
                   <div class="lg:w-[7%]">
-                  <span class="text-xs font-normal text-black">ABOUT US</span>
+                  <span class="text-base font-normal text-black">ABOUT US</span>
                   </div>
                   <div class="border-[1px] border-gray-500 w-full"></div>
                 </div>
          
-                <div class="w-full my-5 text-center">
+                <div class="w-full mt-5 text-center">
                   <div class="flex flex-col items-center justify-center">
                   <h1 class="text-3xl font-medium text-black my-2"> About DIC </h1>
                   <p class="text-gray-600 max-w-2xl my-3">The Defence Intelligence College (DIC) hitherto known as the Defence Intelligence School (DIS) was established in 2001. At inception it was located at a temporary site within the Headquarters of the Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due to the need for a large space and conducive environment, the school was relocated to its present location in Karu a suburb of Federal Capital Territory Abuja in October 2005. The objective of the relocation was to reposition the school with a focus on capacity building in support of DIA and the Armed Forces of Nigeria (AFN) through the provision of real-time defence intelligence to enhan...</p>
@@ -96,8 +102,8 @@
 
 
   <!-- commandant section -->
-    <section class="mt-5">
-      <div class="m-10 bg-[#F9FAFB] text-[#344054] lg:p-10 rounded-md">
+    <section class="mt-10">
+      <div class="m-10 mt-14 bg-[#F9FAFB] text-[#344054] lg:p-10 rounded-md">
         <div class="text-center">
         <h1 class="md:text-5xl lg:my-10 text-3xl"> The Commandant </h1>
         </div>
@@ -151,13 +157,12 @@
 
     <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
       <div class="lg:w-[12%]">
-      <span class="text-xs font-medium text-black">DOCUMENTARY VIDEO</span>
+      <span class="text-base font-medium text-black">DOCUMENTARY VIDEO</span>
       </div>
       <div class="border-[1px] border-gray-500 w-full"></div>
     </div>
 
     <div class="w-full px-10">
-<<<<<<< HEAD
       <!-- <div
         class="flex flex-col items-center justify-center min-h-[500px] rounded-2xl my-5 mx-auto"
        
@@ -169,18 +174,10 @@
           </video>
         </div>
         <!-- <div class="mt-2"><p class="text-2xl">Documentary of DIC</p></div> -->
-=======
-    <div class="flex flex-col items-center justify-center min-h-[500px] rounded-2xl my-5 mx-auto" style="background-image: url('/video.png'); background-size: cover;">
-      <div class="bg-white rounded-full p-2">
-        <img src="/play.svg" alt="">
->>>>>>> parent of 2296940 (Video and StudentPortal updated)
       </div>
       <div class="mt-2"><p class="text-2xl">Documentary of  DIC</p></div> 
     </div>
-    </div>
-
-  
-  </div>
+    
 
 
   <!-- news section -->
@@ -188,7 +185,7 @@
   <section class="lg:p-10">
     <div class="flex items-center w-full gap-2 mt-16 md:mt-16">
       <div class="lg:w-[10%]">
-      <span class="uppercase text-xs font-medium text-black">News & Blog</span>
+      <span class="uppercase text-base font-medium text-black">News & Blog</span>
       </div>
       <div class="border-[1px] border-gray-500 w-full"></div>
     </div>
@@ -242,7 +239,7 @@
   <section class="lg:pt-10 lg:px-10">
   <div class="flex items-center w-full gap-2 mt-16 md:mt-16">
     <div class="lg:w-[10%]">
-    <span class="uppercase text-xs font-medium text-black">Gallery</span>
+    <span class="uppercase text-base font-medium text-black">Gallery</span>
     </div>
     <div class="border-[1px] border-gray-500 w-full"></div>
   </div>

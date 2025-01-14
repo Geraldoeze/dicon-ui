@@ -46,25 +46,19 @@
 
 <div class="mt-6">
 
-  <div *ngIf="currentMenu=='courses'">
-    <app-courses-card [courses]="StudentCourses"></app-courses-card>
+  <app-general-info (viewExams)="toggleTab('exams')" [profileData]="profileData"></app-general-info>
 
-</div>
+  <app-exams [exams]="StudentExams" [studentId]="student_id"></app-exams>
 
-<div *ngIf="currentMenu=='general'">
-
-    <app-general-info (viewExams)="toggleTab('exams')" [profileData]="profileData"></app-general-info>
-</div>
-
-<div *ngIf="currentMenu=='exams'">
+<!-- <div *ngIf="currentMenu=='exams'">
   <div class="">
     <app-exams [exams]="StudentExams" [studentId]="student_id"></app-exams>
   </div>
-</div>
+</div> -->
 
-<div *ngIf="currentMenu=='assignment'">
-    <app-assignment [assignments]="StudentAssignment" viewer="student"></app-assignment>
-</div>
+<!-- <div *ngIf="currentMenu=='assignment'">
+  <app-assignment [assignments]="StudentAssignment" viewer="student"></app-assignment>
+</div> -->
 
 <div *ngIf="currentMenu=='fees'">
     <app-fees></app-fees>

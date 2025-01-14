@@ -18,7 +18,10 @@ import { StudentProfileComponent } from './student-profile/student-profile.compo
 import { StaffProfileComponent } from './staff-profile/staff-profile.component';
 import { SupportComponent } from './support/support.component';
 import { ProgramsComponent } from './programs/programs.component';
-import { StudentCoursesComponent } from './student-courses/student-courses.component';
+import { StudentCoursesComponent } from './student-profile/student-courses/student-courses.component';
+import { StudentCAComponent } from './student-profile/student-c-a/student-c-a.component';
+import { StudentFeesComponent } from './student-profile/student-fees/student-fees.component';
+import { StudentExamsComponent } from './student-profile/student-exams/student-exams.component';
 
 
 
@@ -39,8 +42,11 @@ const routes: Routes = [
       {path: 'staff-profile/:id', component: StaffProfileComponent},
       {path: 'students', component: StudentsComponent},
       {path: 'students/:id', component: StudentDetailComponent},
-      {path: 'student-profile/:id', component: StudentProfileComponent},
+      {path: 'student-profile/exams', component:StudentExamsComponent},
+      {path: 'student-profile/fees', component:StudentFeesComponent},
+      {path: 'student-profile/c-a', component:StudentCAComponent},
       {path: 'student-profile/courses', component:StudentCoursesComponent},
+      {path: 'student-profile/:id', component: StudentProfileComponent},
       {path: 'reports', component: ReportsComponent},
       {path: 'batches', component: BatchesComponent},
       {path: 'batches/:id', component: BatchDetailComponent},

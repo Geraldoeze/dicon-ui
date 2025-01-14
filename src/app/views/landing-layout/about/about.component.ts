@@ -7,32 +7,29 @@ import { Component } from '@angular/core';
 })
 export class AboutComponent {
 
-  departments:any = [
-    {
-      "name": "Department of Professional Studies (PS).",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
-    {
-      "name": "Department of Counter Intelligence (CI).",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
-    {
-      "name": "Department of Technical Studies (TS). ",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
-    {
-      "name": "Department of General Studies (GS).",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
-    {
-      "name": "Joint Military Attaché/Adviser Programme (JMAP). ",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
-    {
-      "name": "Department of Languages (Lang).",
-      "snippet": "Department description that’s pretty much 2 sentences long"
-    },
 
-  ]
+  departments = [
+    { name: 'Department of Professional Studies', isOpen: open },
+    { name: 'Department of Counter Intelligence', isOpen: false },
+    { name: 'Department of Technical Studies', isOpen: false },
+    { name: 'Department of General Studies', isOpen: false },
+    { name: 'Joint Military Attache/Adviser Programme', isOpen: false },
+    { name: 'Department of Languages', isOpen: false }
+  ];
+  courses = [
+    { name: 'Generic Courses', isOpen: open },
+    { name: 'Specialized Courses', isOpen: false },
+    { name: 'Language Courses', isOpen: false },
+    { name: 'Strategic Courses', isOpen: false },
+  ];
+
+  toggleDepartment(index: number) {
+    this.departments[index].isOpen = !this.departments[index].isOpen;
+  }
+
+  toggleCourse(index: number) {
+    this.courses[index].isOpen = !this.courses[index].isOpen;
+  }
+ 
 
 }

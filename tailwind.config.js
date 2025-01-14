@@ -9,9 +9,11 @@ module.exports = {
         pricolor: '#EE1B24',
         seccolor: '#01426A',
         accent: '#FFD4D4',
-        background: '#FAFAFA',
+        background: '#F9FAFB',
         icons: '#FF7350',
-        accentBlue: '#038FCF'
+        accentBlue: '#038FCF',
+        aiqdark: '#1B1B4c',
+
       }
     },
   },

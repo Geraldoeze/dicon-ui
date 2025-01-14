@@ -126,6 +126,116 @@
         </div>
       </section>
 
+
+
+      <div class="container my-5">
+        <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
+          <div class="lg:w-[15%]">
+            <span class="text-xs font-normal text-black"
+              >DEPARTMENTS
+            </span>
+          </div>
+          <div class="border-[1px] border-gray-500 w-full"></div>
+        </div>
+      </div>
+    
+      <section class="container my-5">
+        <div class="text-center my-2">
+          <h1 class="text-5xl">Departments</h1>
+        </div>
+    
+        <div class="max-w-3xl mx-auto">
+          <div *ngFor="let department of departments; let i = index">
+            <div
+              class="flex justify-between items-center w-full p-4 my-2 bg-[#F7F9FC] cursor-pointer rounded-md shadow-md"
+              (click)="toggleDepartment(i)"
+            >
+              <span class="text-gray-800 font-medium">{{ department.name }}</span>
+                <span class="text-black font-medium flex items-center" *ngIf="!department.isOpen">
+                  View requirements 
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down w-3 h-3">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                  </svg>
+                </span>
+              
+                <span class="text-black font-medium flex items-center" *ngIf="department.isOpen">
+                  Collapse requirements 
+                  <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up w-3 h-3">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                  </svg>
+                </span>
+            </div>
+            <div *ngIf="department.isOpen" class="p-4 bg-gray-200 text-gray-700">
+              <p>
+                The Defence Intelligence College (DIC) hitherto known as the Defence
+                Intelligence School (DIS) was established in 2001. At inception it
+                was located at a temporary site within the Headquarters of the
+                Defence Intelligence Agency (DIA) in Bonny Camp Lagos. However, due
+                to the need for a large space and conducive environment, the school
+                was relocated to its present location in Karu a suburb of Federal
+                Capital Territory Abuja in October 2005. .
+              </p>
+              <button
+                target="_blank"
+                class="px-5 py-2 border-[1px] text-black border-gray-200 rounded-md bg-white active:scale-95 cursor-pointer"
+                routerLink="/pg-application"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        <div class="container my-5">
+          <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
+            <div class="lg:w-[15%]">
+              <span class="text-xs font-normal text-black"
+                >COURSES
+              </span>
+            </div>
+            <div class="border-[1px] border-gray-500 w-full"></div>
+          </div>
+        </div>
+      
+        <section class="container my-5">
+          <div class="text-center my-2">
+            <h1 class="text-5xl">Courses</h1>
+          </div>
+      
+          <div class="max-w-3xl mx-auto">
+            <div *ngFor="let course of courses; let i = index">
+              <div
+                class="flex justify-between items-center p-4 my-2 bg-[#F7F9FC] cursor-pointer rounded-md shadow-md"
+                (click)="toggleCourse(i)"
+              >
+                <span class="text-gray-800 font-medium">{{ course.name }}</span>
+                  <span class="text-black font-medium flex items-center" *ngIf="!course.isOpen">
+                     +
+                  </span>
+                
+                  <span class="text-black font-medium flex items-center" *ngIf="course.isOpen">
+                     -
+                  </span>
+              </div>
+              <div *ngIf="course.isOpen" class="p-4 bg-gray-200 text-gray-700">
+                <div>
+                <ul class="list-decimal">
+                  <li>Basic Intelligence Officers' Course</li>
+                  <li>Defence Intelligence Officers' Course</li>
+                  <li>Advanced Defence Intelligence Officers' Course</li>
+                  <li>Junior Defence Intelligence Basic Course</li>
+                  <li>Junior Defence Intelligence Intermediate Course</li>
+                  <li>Junior Defence Intelligence Advanced Course</li>
+                </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+          </section>
+
       <section class="container">
         <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
           <div class="lg:w-[15%]">

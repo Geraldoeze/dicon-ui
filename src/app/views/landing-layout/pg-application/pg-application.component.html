@@ -1,9 +1,6 @@
-
-
 <!-- Start Content-->
 <div class="main-body">
   <div class="page-wrapper">
-
     <p-toast />
 
     <!-- [ Main Content ] start -->
@@ -27,77 +24,72 @@
 
     <div class="flex flex-col justify-center items-center">
       <div class="min-w-[40vw]">
-      <div class="text-center mb-5">
-        <h2 class="text-5xl font-semibold">Application</h2>
-      </div>
-      <div class="flex items-center w-full">
-        
-        <button
-          (click)="toggleFormStage(1)"
-          [ngClass]="{
+        <div class="text-center mb-5">
+          <h2 class="text-5xl font-semibold">Application</h2>
+        </div>
+        <div class="flex items-center w-full">
+          <button
+            (click)="toggleFormStage(1)"
+            [ngClass]="{
                     'bg-gray-200 text-green-800':
                       currentStage >= 1 && formStage >= 1,
                   }"
-          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle transition-all duration-300"
-        >
-          1
-        </button>
-        
-     
-        <!-- Progress Line (Only if not last step) -->
-        <div class="flex-1 relative">
-          <div
-            class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
-          ></div>
-          <div
-            class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
-            [ngStyle]="{ width: currentStage > 1 ? '100%' : '0%' }"
+            class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle transition-all duration-300"
+          >
+            1
+          </button>
+
+          <!-- Progress Line (Only if not last step) -->
+          <div class="flex-1 relative">
+            <div
+              class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
+            ></div>
+            <div
+              class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
+              [ngStyle]="{ width: currentStage > 1 ? '100%' : '0%' }"
+              [ngClass]="{
+                'bg-green-300': currentStage > 1,
+                'bg-gray-300': currentStage <= 1
+              }"
+            ></div>
+          </div>
+
+          <button
+            (click)="toggleFormStage(2)"
             [ngClass]="{
-              'bg-green-300': currentStage > 1,
-              'bg-gray-300': currentStage <= 1
-            }"
-          ></div>
-        </div>
-        
-        <button
-          (click)="toggleFormStage(2)"
-          [ngClass]="{
             'bg-green-500': currentStage < 2 && formStage < 2,
             'bg-gray-200 text-green-800': currentStage >= 2 && formStage >= 2,
           }"
-          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
-        >
-          2
-        </button>
-        
-     
-        <!-- Progress Line (Only if not last step) -->
-        <div class="flex-1 relative">
-          <div
-            class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
-          ></div>
-          <div
-            class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
-            [ngStyle]="{ width: currentStage > 2 ? '100%' : '0%' }"
+            class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
+          >
+            2
+          </button>
+
+          <!-- Progress Line (Only if not last step) -->
+          <div class="flex-1 relative">
+            <div
+              class="absolute top-1/2 -translate-y-1/2 w-full h-1 bg-gray-300"
+            ></div>
+            <div
+              class="absolute top-1/2 -translate-y-1/2 h-1 transition-all duration-300"
+              [ngStyle]="{ width: currentStage > 2 ? '100%' : '0%' }"
+              [ngClass]="{
+                'bg-green-300': currentStage > 2,
+                'bg-gray-300': currentStage <= 2
+              }"
+            ></div>
+          </div>
+
+          <button
+            (click)="toggleFormStage(3)"
             [ngClass]="{
-              'bg-green-300': currentStage > 2,
-              'bg-gray-300': currentStage <= 2
-            }"
-          ></div>
-        </div>
-        
-        <button
-          (click)="toggleFormStage(3)"
-          [ngClass]="{
               'bg-green-500': currentStage < 3 && formStage < 3,
               'bg-gray-300 text-green-800': currentStage >= 3 && formStage >= 3,
           }"
-          class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
-        >
-          3
-        </button>
-       
-      
+            class="p-1 w-8 h-8 bg-gray-300 text-green shadow-md text-base border rounded-circle"
+          >
+            3
+          </button>
         </div>
         <div class="flex justify-between gap-2 text-center text-xs">
           <p>Download form</p>
@@ -108,237 +100,296 @@
     </div>
     <div class="clearfix"></div>
 
-    <div class="row">
-      <!-- [ Card ] start -->
-
-      <div class="flex justify-center">
+    <div class="w-full my-5">
+      <div class="mx-auto max-w-7xl bg-[#F9FAFB] p-8 rounded-lg">
         <form [formGroup]="applicationForm" (ngSubmit)="save()">
           <!-- <input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z"> -->
 
           <ng-container *ngIf="formStage == 1">
             <!-- Form Start -->
-             <div class="flex flex-col md:flex-row justify-between gap-10 my-5 w-[80vw] bg-[#F7F9FC] text-center text-black">
-            <div class="md:w-1/6"></div>
-            <div class="flex md:justify-center items-center">
-              <div class="">
-                <p class="text-3xl my-5 font-medium">Payment Information</p>
-                <div class="my-5 p-2">
-                  <br />
-                  <div
-                    class="border-b-[1px] border-gray-100 w-full flex justify-between my-2"
+             <div class="flex flex-col md:flex-row">
+              <div class="w-1/6"></div>
+            <div class="p-6 w-full">
+              <h2 class="text-3xl font-semibold my-5 text-center">Payment Information</h2>
+              
+              <div class="space-y-2 max-w-3xl mx-auto">
+                <div class="flex justify-between border-b-2 border-gray-2 p-2 gap-x-4">
+                  <div class="text-sm text-gray-500">Account Name</div>
+                  <div class="font-semibold text-black">DIC UNN</div>
+                </div>
+                <div class="flex justify-between border-b-2 border-gray-2 p-2 gap-x-4"> 
+                  <div class="text-sm text-gray-500">Account Number</div>
+                  <div class="font-semibold text-black">1027305293</div>
+                </div>
+                <div class="flex justify-between border-b-2 border-gray-2 p-2 gap-x-4">
+                  <div class="text-sm text-gray-500">Bank</div>
+                  <div class="font-semibold text-black">UBA</div>
+                </div>
+        
+                <div class="bg-gray-50 p-4 rounded-md flex gap-2">
+               
+                  <p class="text-sm text-gray-600">Fill the form accordingly and upload as part of the required documents</p>
+                </div>
+        
+                <div class="flex justify-center">
+                  <button
+                    class="px-4 py-2 bg-seccolor text-white rounded-md hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
                   >
-                    <p>Account Name</p>
-                    <b>DIC UNN</b>
-
-      <!-- [ Main Content ] start -->
-      <div class="card">
-          <div class="card-block">
-              <div class="row mt-5 mb-5">
-                  <div class="col-sm-2">
-                      <div class="inner text-center">
-                                                      <img src="/assets/uploads/application-setting/DIC200_1721131379.png" class="img-fluid" alt="Logo">
-                                                  </div>
-                  </div>
-                  <div class="col-sm-8 text-center">
-                      <h2>Application</h2>
-                      <p>Apply now</p>
-                  </div>
-                  <div class="col-sm-2">
-                      <div class="inner text-center">
-                                                      <img src="/assets/uploads/application-setting/042B696C_209A_449F_9B07_9F2AB1A3A24E_1721130710.png" class="img-fluid" alt="Logo">
-                                                  </div>
-                  </div>
+                    Download PG Form
+                  </button>
+                </div>
               </div>
+            </div>
+            <div class="md:justify-end p-2">
+              <button 
+              (click)="toggleFormStage(2)"
+              class="w-full flex justify-center items-center py-2 px-4 border border-transparent  rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+            >
+              Next
+              <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            </div>
+            </div>
+              </ng-container>
 
 
+              <ng-container *ngIf="formStage == 2">
+               
+                <content class="form-step bg-background text-black">
+                  <!-- Form Start -->
+                  <div class="row">
+                    <div class="flex flex-col md:flex-row gap-3">
+                      <div class="md:w-1/2">
+                        <div class="flex gap-3 my-2">
+                        <div class="w-full">
+                          <label for="first_name" class="text-black"
+                            >First Name <span>*</span></label
+                          >
+                          <input
+                            formControlName="first_name"
+                            type="text"
+                            class="bg-white w-full block border-[1px] border-gray-300 p-2 rounded-md"
+                            placeholder="First Name"
+                            name="first_name"
+                            id="first_name"
+                            value=""
+                            required
+                          />
 
-          </div>
-      </div>
-      <div class="clearfix"></div>
+                          <div class="invalid-feedback">
+                            Please Enter First Name
+                          </div>
+                        </div>
 
-      <div class="row">
-          <!-- [ Card ] start -->
-          <div class="col-sm-12">
-              <div class="card px-8">
-                <div class="">
-                  <form [formGroup]="applicationForm" (ngSubmit)="save()" >
-                      <!-- <input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z"> -->
+                        <div class="w-full">
+                          <label for="last_name" class="text-black"
+                            >Last Name <span>*</span></label
+                          >
+                          <input
+                            formControlName="last_name"
+                            type="text"
+                            class="bg-white w-full block border-[1px] border-gray-300 p-2 rounded-md"
+                            name="last_name"
+                            placeholder="Last Name"
+                            id="last_name"
+                            value=""
+                            required
+                          />
 
-                      <div class="flex gap-2 bg-white shadow-md  h-[64px]">
-                        <h3 (click)="toggleFormStage(1)" [ngClass]="{'bg-seccolor text-white': currentStage==1 && formStage==1}" class="py-1 px-4 bg-gray-300 text-gray-400 shadow-md h-[35px] text-base border w-[220px] rounded-md">Download Form</h3>
-                        <h3 (click)="toggleFormStage(2)" [ngClass]="{'bg-seccolor text-white': currentStage==2 && formStage==2}" class="py-1 px-4 bg-gray-300 text-gray-400 shadow-md h-[35px] text-base border w-[220px] rounded-md">Basic Info</h3>
-                        <h3 (click)="toggleFormStage(3)" [ngClass]="{'bg-seccolor text-white': currentStage==3 && formStage==3}" class="py-1 px-4 bg-gray-300 text-gray-400 shadow-md h-[35px] text-base border w-[220px] rounded-md">Document</h3>
+                          <div class="invalid-feedback">
+                            Please Enter Last Name
+                          </div>
+                        </div>
+                      </div>
+ 
+                      <div class="w-full my-2">
+                        <label for="email" class="text-black">Email <span>*</span></label>
+                        <input
+                          formControlName="email"
+                          type="email"
+                          class="bg-white block w-full border-[1px] border-gray-300 p-2 rounded-md"
+                          placeholder="you@company.com"
+                          name="email"
+                          id="email"
+                          value=""
+                          required
+                        />
+
+                        <div class="invalid-feedback">Please Enter Email</div>
                       </div>
 
-                      <ng-container *ngIf="formStage==1">
-                      <content class="form-step">
-                          <!-- Form Start -->
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <fieldset class="row scheduler-border">
-                                      <div class="form-group col-md-12">
-                                          <p><a style="color: blue" href="/assets/uploads/about-us/APPLICATION_FORM.pdf" target="_blank" style="text-decoration: underline !important; color:blue">Click here to Download PG Programme Form</a> - Fill the form accordingly and upload as part of the required documents</p>
-                                      </div>
-                                      <div>
-                                          <p>PAYMENT INFORMATION</p><br>
-                                          <p>Account Name: <b>DIC UNN</b></p>
-                                          <p>Account Number: <b>1027305293</b></p>
-                                          <p>Bank: <b>UBA</b></p>
-                                      </div>
-                                  </fieldset>
-                              </div>
+                        <div class="w-full my-2">
+                          <label for="phone" class="text-black">Phone <span>*</span></label>
+                          <div class="flex text-black">
+                          <select name="" id="" class="px-2 rounded-s-md border-s-[1px] border-y-[1px]">
+                            <option value="NG">NGN</option>
+                            <option value="UK">UK</option>
+                            <option value="US">US</option>
+                            <option value="AUS">AUS</option>
+                          </select>
+                          <input
+                            formControlName="phone"
+                            type="text"
+                            class="bg-white border-e-[1px] border-y-[1px] block w-full rounded-e-md border-gray-30 p-2 px-3"
+                            placeholder="+234-123-4567-890"
+                            name="phone"
+                            id="phone"
+                            value=""
+                            required
+                          />
+                        </div>
+
+                          <div class="invalid-feedback">Please Enter Phone</div>
+                        </div>
+
+                      
+
+                        <div class="w-full">
+                          <label for="dob" class="text-black">Date Of Birth <span>*</span></label>
+                          <input
+                            formControlName="dob"
+                            type="date"
+                            class="bg-white block w-full rounded-md border-[1px] border-gray-300 date p-2"
+                            placeholder="Date of Birth"
+                            name="dob"
+                            id="dob"
+                            value=""
+                            required
+                          />
+
+                          <div class="invalid-feedback">
+                            Please Enter Date Of Birth
                           </div>
-                      </content>
-                      </ng-container>
-
-
-                      <ng-container *ngIf="formStage==2">
-                        <h3>Basic Info</h3>
-                      <content class="form-step">
-                          <!-- Form Start -->
-                          <div class="row">
-                          <div class="col-md-12">
-                          <fieldset class="row scheduler-border">
-                          <div class="form-group col-md-6">
-                              <label for="first_name">First Name <span>*</span></label>
-                              <input formControlName="first_name" type="text" class="form-control" name="first_name" id="first_name" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter First Name
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                              <label for="last_name">Last Name <span>*</span></label>
-                              <input formControlName="last_name" type="text" class="form-control" name="last_name" id="last_name" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Last Name
-                              </div>
-                          </div>
-
-
-
-
-
-                          <div class="form-group col-md-6">
-                              <label for="phone">Phone <span>*</span></label>
-                              <input formControlName="phone" type="text" class="form-control" name="phone" id="phone" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Phone
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                              <label for="email">Email <span>*</span></label>
-                              <input formControlName="email" type="email" class="form-control" name="email" id="email" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Email
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                              <label for="gender">Gender <span>*</span></label>
-                              <select formControlName="gender" class="form-control" name="gender" id="gender" required>
-                                  <option value="">Select</option>
-                                  <option value="male" >Male</option>
-                                  <option value="feamale" >Female</option>
-                              </select>
-
-                              <div class="invalid-feedback">
-                                Please Enter Gender
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                              <label for="dob">Date Of Birth <span>*</span></label>
-                              <input formControlName="dob" type="date" class="form-control date" name="dob" id="dob" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Date Of Birth
-                              </div>
-                          </div>
-
-
-
-
-
-
-
-
-
-                          </fieldset>
-                          </div>
-                          </div>
-
-
-                          <fieldset class="row scheduler-border">
-                          <legend>Academic Information</legend>
-                          <div class="form-group col-md-6">
-                          <label for="program">Program <span>*</span></label>
-                              <select formControlName="programe_id" class="form-control program" name="program" id="program" required>
-                                <option value="">Select</option>
-                                 <ng-container *ngFor="let program of programes">
-                                  <option value={{program.id}}>{{program.program}}</option>
-                                 </ng-container>
-                              </select>
-
-                            <div class="invalid-feedback">
-                              Please Enter Program
-                            </div>
-                          </div>
-                          </fieldset>
-                          <!-- Form End -->
-                      </content>
-                      </ng-container>
-
-
-                      <ng-container *ngIf="formStage==3">
-                        <h3>Documents</h3>
-                      <content class="form-step">
-                          <!-- Form Start--->
-                          <fieldset class="row scheduler-border">
-                                                      <div class="form-group col-md-6">
-                              <label for="photo">Photo: <span>Best Resolution Height- 300 PX, Width- 300 PX</span> <span>*</span></label>
-                              <input (change)="onPhotoSelected($event)" type="file" class="form-control" name="photo" id="photo" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Photo
-                              </div>
-                          </div>
-
-                          <div class="form-group col-md-6">
-                              <label for="document">Upload Document: <span>Application Form</span> <span>*</span></label>
-                              <input (change)="onApplyFormSelected($event)" type="file" class="form-control" name="document" id="document" value="" required>
-
-                              <div class="invalid-feedback">
-                                Please Enter Document
-                              </div>
-                          </div>
-
-                                                      <div class="form-group col-md-12">
-                              <p>Note: Academic Credentials should be forwarded to <a style="color:#3ea1e4" href="mailto:dicunn.pgs@gmail.com">dicunn.pgs&#64;gmail.com</a></p>
-                          </div>
-                          </fieldset>
-                          <!-- Form End--->
-                      </content>
-                      </ng-container>
-
-
-                      <div class="w-full flex justify-end items-center">
-                        <button class="px-4 py-2 w-full max-w-[150px] bg-seccolor text-white rounded-md">Save</button>
+                        </div>
                       </div>
-                  </form>
+
+                      <div class="md:w-1/3">
+                        <div class="my-2">
+                          <label for="program" class="text-black">Academic Program <span>*</span></label>
+                          <select
+                            formControlName="programe_id"
+                            class="bg-white border-[1px] border-gray-300 program block w-full rounded-md p-2"
+                            name="program"
+                            id="program"
+                            required
+                          >
+                            <option value="">Select</option>
+                            <ng-container *ngFor="let program of programes">
+                              <option value="{{ program.id }}">
+                                {{ program.program }}
+                              </option>
+                            </ng-container>
+                          </select>
+    
+                          <div class="invalid-feedback">Please Enter Program</div>
+                        </div>
+                      </div>
+                      <div class="last:items-end mb-0 md:w-1/6 my-2 mt-auto">
+                        <button 
+                        (click)="toggleFormStage(3)"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent  rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                      >
+                        Save and Continue
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                      </div>
+                    </div>
                   </div>
 
+                  
+                  <!-- Form End -->
+                </content>
+              </ng-container>
+
+              <ng-container *ngIf="formStage == 3">
+                <div class="bg-background rounded-lg p-6">
+                  <h2 class="text-3xl font-semibold mb-6 text-center">Document Upload</h2>
+                  
+                  <div class="space-y-6">
+                    <div class="relative max-w-2xl mx-auto rounded-md">
+                      <div class="flex items-center justify-between flex-col md:flex-row  mx-auto gap-5 p-4 rounded-lg" [class.bg-green-50]="imageUploaded">
+                        <div class="flex items-center space-x-3">
+                          <div class="p-2 bg-gray-100 rounded-full">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="24" cy="24" r="24" fill="#F0F2F5"/>
+                              <path d="M18 21.5C18 18.4624 20.4624 16 23.5 16C26.1907 16 28.432 17.9332 28.907 20.4867C28.9736 20.8448 29.2297 21.1383 29.5754 21.2529C31.5661 21.9132 33 23.7905 33 26C33 28.7614 30.7614 31 28 31C27.4477 31 27 31.4477 27 32C27 32.5523 27.4477 33 28 33C31.866 33 35 29.866 35 26C35 23.1075 33.2462 20.627 30.7463 19.5596C29.8909 16.358 26.9717 14 23.5 14C19.3579 14 16 17.3579 16 21.5C16 21.6003 16.002 21.7001 16.0059 21.7996C14.2105 22.8354 13 24.7754 13 27C13 30.3137 15.6863 33 19 33C19.5523 33 20 32.5523 20 32C20 31.4477 19.5523 31 19 31C16.7909 31 15 29.2091 15 27C15 25.3427 16.0082 23.9185 17.4487 23.3117C17.8655 23.1361 18.1126 22.7026 18.0512 22.2544C18.0175 22.0083 18 21.7564 18 21.5Z" fill="#475367"/>
+                              <path d="M23.3356 26.2526C23.7145 25.9158 24.2855 25.9158 24.6644 26.2526L26.1644 27.5859C26.5771 27.9528 26.6143 28.5849 26.2474 28.9977C25.9264 29.3588 25.4025 29.4325 25 29.1996V34C25 34.5523 24.5523 35 24 35C23.4477 35 23 34.5523 23 34V29.1996C22.5975 29.4325 22.0736 29.3588 21.7526 28.9977C21.3857 28.5849 21.4229 27.9528 21.8356 27.5859L23.3356 26.2526Z" fill="#475367"/>
+                              </svg>
+                          </div>
+                          <div>
+                            <p class="font-semibold text-black text-xl">Upload your Image</p>
+                            <p class="text-sm text-gray-800">jpg format • Max. 2MB</p>
+                          </div>
+                        </div>
+                        <input type="file" 
+                          (change)="onImageSelect($event)"
+                          accept="image/jpeg"
+                          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        >
+                        <button class="px-4 py-2 bg-aiqdark text-white rounded-md">Upload</button>
+                      </div>
+                    </div>
+            
+                    <div class="relative mx-auto max-w-2xl rounded-md">
+                      <div class="flex items-center justify-between flex-col md:flex-row mx-auto gap-5 p-4 rounded-lg" [class.bg-green-50]="documentUploaded">
+                        <div class="flex items-center space-x-3">
+                          <div class="p-2 bg-gray-100 rounded-full">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="24" cy="24" r="24" fill="#F0F2F5"/>
+                              <path d="M18 21.5C18 18.4624 20.4624 16 23.5 16C26.1907 16 28.432 17.9332 28.907 20.4867C28.9736 20.8448 29.2297 21.1383 29.5754 21.2529C31.5661 21.9132 33 23.7905 33 26C33 28.7614 30.7614 31 28 31C27.4477 31 27 31.4477 27 32C27 32.5523 27.4477 33 28 33C31.866 33 35 29.866 35 26C35 23.1075 33.2462 20.627 30.7463 19.5596C29.8909 16.358 26.9717 14 23.5 14C19.3579 14 16 17.3579 16 21.5C16 21.6003 16.002 21.7001 16.0059 21.7996C14.2105 22.8354 13 24.7754 13 27C13 30.3137 15.6863 33 19 33C19.5523 33 20 32.5523 20 32C20 31.4477 19.5523 31 19 31C16.7909 31 15 29.2091 15 27C15 25.3427 16.0082 23.9185 17.4487 23.3117C17.8655 23.1361 18.1126 22.7026 18.0512 22.2544C18.0175 22.0083 18 21.7564 18 21.5Z" fill="#475367"/>
+                              <path d="M23.3356 26.2526C23.7145 25.9158 24.2855 25.9158 24.6644 26.2526L26.1644 27.5859C26.5771 27.9528 26.6143 28.5849 26.2474 28.9977C25.9264 29.3588 25.4025 29.4325 25 29.1996V34C25 34.5523 24.5523 35 24 35C23.4477 35 23 34.5523 23 34V29.1996C22.5975 29.4325 22.0736 29.3588 21.7526 28.9977C21.3857 28.5849 21.4229 27.9528 21.8356 27.5859L23.3356 26.2526Z" fill="#475367"/>
+                            </svg>
+                          </div>
+                          <div>
+                            <p class="font-semibold text-black text-xl">Upload your document</p>
+                            <p class="text-sm text-gray-800">PDF format • Max. 5MB</p>
+                          </div>
+                        </div>
+                        <input type="file" 
+                          (change)="onDocumentSelect($event)"
+                          accept="application/pdf"
+                          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        >
+                        <button class="px-4 py-2 bg-aiqdark text-white rounded-md">Upload</button>
+                      </div>
+                    </div>
+            
+                    <div class="flex flex-col  gap-2 items-center justify-center mt-4">
+                    <p class="text-base text-black text-center flex flex-row md:flex-col gap-2  items-center justify-center">  
+                      <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="min-w-[24px] min-h-[24px]">
+                        <path d="M8.0026 4.00016C8.37079 4.00016 8.66927 4.29864 8.66927 4.66683V9.3335C8.66927 9.70169 8.37079 10.0002 8.0026 10.0002C7.63441 10.0002 7.33594 9.70169 7.33594 9.3335V4.66683C7.33594 4.29864 7.63441 4.00016 8.0026 4.00016Z" fill="#667185"/>
+                        <path d="M7.16927 11.1668C7.16927 11.6271 7.54237 12.0002 8.0026 12.0002C8.46284 12.0002 8.83594 11.6271 8.83594 11.1668C8.83594 10.7066 8.46284 10.3335 8.0026 10.3335C7.54237 10.3335 7.16927 10.7066 7.16927 11.1668Z" fill="#667185"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.33594 8.00016C1.33594 4.31826 4.32071 1.3335 8.0026 1.3335C11.6845 1.3335 14.6693 4.31826 14.6693 8.00016C14.6693 11.6821 11.6845 14.6668 8.0026 14.6668C4.32071 14.6668 1.33594 11.6821 1.33594 8.00016ZM8.0026 2.66683C5.05709 2.66683 2.66927 5.05464 2.66927 8.00016C2.66927 10.9457 5.05709 13.3335 8.0026 13.3335C10.9481 13.3335 13.3359 10.9457 13.3359 8.00016C13.3359 5.05464 10.9481 2.66683 8.0026 2.66683Z" fill="#667185"/>
+                        </svg>  
+                        <span class="text-base">                 
+                      Academic Credentials should be forwarded to 
+                      <a href="mailto:dicunn.pgs@gmail.com" class="text-indigo-600">dicunn.pgs&#64;gmail.com</a>
+                      </span> 
+                    </p>
+                    <button 
+                    (click)="onFinish()"
+                    [disabled]="!imageUploaded || !documentUploaded"
+                    class=" px-7 py-2 border shadow bg-white text-black rounded-md disabled:bg-gray-300"
+                  >
+                    Finish
+                  </button>
+                    </div>
+            
+                   
+                  </div>
+                </div>
+              </ng-container>
+
+              </form>
               </div>
-          </div>
-          <!-- [ Card ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
-  </div>
-</div>
-<!-- End Content-->
+
+             
+            </div>
+
+            
+     
 
