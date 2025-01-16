@@ -38,7 +38,7 @@ export class PgApplicationComponent {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       dob: ['', Validators.required],
-      gender: ['', Validators.required],
+      // gender: ['', Validators.required],
       programe_id: ['', Validators.required],
     });
 
@@ -79,7 +79,7 @@ export class PgApplicationComponent {
     formData.append('email', this.applicationForm.get('email').value);
     formData.append('phone', this.applicationForm.get('phone').value);
     formData.append('dob', this.applicationForm.get('dob').value);
-    formData.append('gender', this.applicationForm.get('gender').value);
+    // formData.append('gender', this.applicationForm.get('gender').value);
     formData.append('phone', this.applicationForm.get('phone').value);
     formData.append('programe_id', this.applicationForm.get('programe_id').value);
     formData.append('photo', this.photo);

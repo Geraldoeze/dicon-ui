@@ -102,7 +102,7 @@
 
     <div class="w-full my-5">
       <div class="mx-auto max-w-7xl bg-[#F9FAFB] p-8 rounded-lg">
-        <form [formGroup]="applicationForm" (ngSubmit)="save()">
+
           <!-- <input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z"> -->
 
           <ng-container *ngIf="formStage == 1">
@@ -127,7 +127,7 @@
                 </div>
         
                 <div class="bg-gray-50 p-4 rounded-md flex gap-2">
-               
+                  <img src="/info-circle-red.svg" alt="">
                   <p class="text-sm text-gray-600">Fill the form accordingly and upload as part of the required documents</p>
                 </div>
         
@@ -154,9 +154,8 @@
             </div>
               </ng-container>
 
-
+              <form [formGroup]="applicationForm" (ngSubmit)="save()">
               <ng-container *ngIf="formStage == 2">
-               
                 <content class="form-step bg-background text-black">
                   <!-- Form Start -->
                   <div class="row">
@@ -382,9 +381,11 @@
                    
                   </div>
                 </div>
+              
               </ng-container>
+            </form>
 
-              </form>
+         
               </div>
 
              
