@@ -1,7 +1,7 @@
 <div class="section">
     <div class=" flex gap-4">
         <div class="">
-            <img src="/assets/uploads/about-us/DIC200_1723031419.png"  class="w-24 h-24 object-cover" alt="">
+            <img src="/dic.png"  class="w-24 h-24 object-cover" alt="">
         </div>
         <div class="detail">
             <h4 class="w-full max-w-[450px]">
@@ -18,7 +18,7 @@
     </div>
 
 </div>
-
+<!-- 
 <div class="mt-8 flex gap-8 border-b border-gray-200 cursor-pointer">
     <nav (click)="toggleTab('general')" [ngClass]="{'border-seccolor': currentMenu=='general'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
         General
@@ -34,13 +34,13 @@
 
 
 
-</div>
+</div> -->
 
 
-<div *ngIf="currentMenu=='courses'">
-    <div class="mt-6  w-full grid grid-cols-3  gap-4">
+<!-- <div *ngIf="currentMenu=='courses'">
+    <div class="mt-6  w-full grid grid-cols-3  gap-4"> -->
         <!-- start card -->
-        <div (click)="route('/app/course-content/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+        <!-- <div (click)="route('/app/course-content/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
             <div class="p-4 md:p-5">
               <div class="flex items-center gap-x-2">
                 <h6 class=" uppercase tracking-wide text-gray-500 dark:text-neutral-500">
@@ -68,24 +68,24 @@
               </div>
 
             </div>
-        </div>
+        </div> -->
         <!-- end card -->
 
-    </div>
+    <!-- </div> --> 
 
 </div>
 
-<div *ngIf="currentMenu=='general'">
-<div class="mt-8">
-  <app-staff-general-info></app-staff-general-info>
-</div>
-</div>
+<!-- <div *ngIf="currentMenu=='general'">
+<div class="mt-8"> -->
+  <app-staff-general-info [profileData]="profileData"></app-staff-general-info>
+<!-- </div>
+</div> -->
 
-<div *ngIf="currentMenu=='assignment'">
+<!-- <div *ngIf="currentMenu=='assignment'">
   <div class="mt-8">
     <app-assignment [assignments]="assignments" viewer="staff"></app-assignment>
   </div>
-</div>
+</div> -->
 
 
-</div>
+<!-- </div> -->

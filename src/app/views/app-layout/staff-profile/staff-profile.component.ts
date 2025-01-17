@@ -10,8 +10,8 @@ import { HttpServiceService } from '../../../services/http-service.service';
 })
 export class StaffProfileComponent {
   items: MenuItem[] | undefined;
-  currentMenu:any = 'general';
-  staff_id:any;
+   staff_id:any; currentMenu:any = 'general';
+
   profileData:any;
   staffCourses:any;
   assignments:any;

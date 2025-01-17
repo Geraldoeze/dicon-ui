@@ -1,0 +1,8 @@
+Reduce height of about hero
+homepage not responsive {alignment}
+increase font-size 
+new-logo
+Put overlay on video with a play button
+Ask Nath for Proper logo and review 
+
+No next of kin, address or course, gender assigned in staff profile endpoint

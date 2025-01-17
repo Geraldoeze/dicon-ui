@@ -1,8 +1,25 @@
 <app-header></app-header>
 
 <main>
-  <div
-    class="m-auto flex flex-col justify-center items-center h-screen"
+  
+  <div class="relative">
+    <div class="opacity-[30%] bg-opacity-[30%] h-[50vh]">
+      <img src="/boxes2.png" alt="" class="w-full h-full object-cover">
+    </div>
+    <div class="absolute z-50 top-1/4 w-full">
+      <div class="flex flex-col items-center justify-center">
+        <img
+          src="/assets/uploads/application-setting/042B696C_209A_449F_9B07_9F2AB1A3A24E_1721130710.png"
+          class="img-fluid max-h-[100px]"
+          alt="Logo"
+        />
+        <h1 class="text-5xl text-[#001633] font-medium m-auto">PG Program</h1>
+      </div>
+      
+    </div>
+  </div>
+  <!-- <div
+    class="m-auto flex flex-col justify-center items-center h-[50vh]"
     style="background-image: url(/boxes.png); background-size: cover"
   >
   <div class="max-h-[200px]">
@@ -13,7 +30,7 @@
     />
   </div>
   <h1 class="text-5xl font-medium">PG Program</h1>
-  </div>
+  </div> -->
 
   <div class="container my-5">
     <div class="flex items-center w-full gap-5 mt-16 md:mt-16">
@@ -51,8 +68,7 @@
           </p>
           <button
             target="_blank"
-            class="px-7 py-2 border-2 text-white font-medium rounded-md active:scale-95 cursor-pointer"
-            style="background: linear-gradient(#1b1b4c, #afadff)"
+            class="px-7 py-2 border-2 text-white bg-[#2D2F93] font-medium rounded-md active:scale-95 cursor-pointer"
             routerLink="/pg-application"
           >
             Apply

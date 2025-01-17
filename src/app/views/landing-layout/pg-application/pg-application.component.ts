@@ -4,6 +4,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { MessageService } from 'primeng/api';
 
+interface UploadedFile {
+  name: string;
+  file: File;
+}
+
 @Component({
   selector: 'app-pg-application',
   templateUrl: './pg-application.component.html',
@@ -11,6 +16,9 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]  // Import MessageService to use it in the component
 })
 export class PgApplicationComponent {
+
+  imageFile: UploadedFile | null = null;
+  documentFile: UploadedFile | null = null;
   formStage:any;
   currentStage:any;
   applicationForm:any;
@@ -132,34 +140,82 @@ export class PgApplicationComponent {
 
 
     
-  onImageSelect(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('image', file);
+
+  onImageSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      const file = input.files[0];
+      if (file.size <= 2 * 1024 * 1024 && file.type === 'image/jpeg') { // 2MB limit
+        this.imageFile = { name: file.name, file };
+      } else {
+        alert('Please upload a JPG image under 2MB');
+      }
+    }
+  }
+  // onImageSelect(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('image', file);
       
-      this.http.post('', formData).subscribe(() => {
-        this.imageUploaded = true;
-      });
+  //     this.http.post('', formData).subscribe(() => {
+  //       this.imageUploaded = true;
+  //     });
+  //   }
+  // }
+
+  onDocumentSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      const file = input.files[0];
+      if (file.size <= 5 * 1024 * 1024 && file.type === 'application/pdf') { // 5MB limit
+        this.documentFile = { name: file.name, file };
+      } else {
+        alert('Please upload a PDF document under 5MB');
+      }
     }
   }
 
-  onDocumentSelect(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('document', file);
-      
-      this.http.post('', formData).subscribe(() => {
-        this.documentUploaded = true;
-      });
-    }
+  downloadFile(file: UploadedFile): void {
+    const url = URL.createObjectURL(file.file);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = file.name;
+    link.click();
+    URL.revokeObjectURL(url);
   }
+
+  deleteImage(): void {
+    this.imageFile = null;
+  }
+
+  deleteDocument(): void {
+    this.documentFile = null;
+  }
+
+  // onFinish(): void {
+  //   if (!this.imageFile || !this.documentFile) {
+  //     return;
+  //   }
+
+  // onDocumentSelect(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('document', file);
+      
+  //     this.http.post('', formData).subscribe(() => {
+  //       this.documentUploaded = true;
+  //     });
+  //   }
+  // }
 
   onFinish() {
     if (this.imageUploaded && this.documentUploaded) {
       this.completed.emit();
     }
+
+    
   }
 
 

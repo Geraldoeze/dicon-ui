@@ -1,5 +1,0 @@
-Reduce height of about hero
-homepage not responsive {alignment}
-increase font-size 
-new-logo
-
