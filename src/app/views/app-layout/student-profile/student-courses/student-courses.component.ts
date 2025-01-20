@@ -13,9 +13,60 @@ import { StorageService } from '../../../../services/storage.service';
 })
 export class StudentCoursesComponent {
 
+  
+  requiredCourses = [{
+    code: 'CS101',
+    title: 'Introduction to Computer Science',
+    unit: '3'
+  },
+  {
+    code: 'CS102',
+    title: 'Introduction to Computer Science',
+    unit: '3'
+  },
+  {
+    code: 'CS103',
+    title: 'Introduction to Computer Science',
+    unit: '3'
+  },
+  {
+    code: 'CS104',
+    title: 'Introduction to Computer Science',
+    unit: '3'
+  },
+  {
+    code: 'CS105',
+    title: 'Introduction to Computer Science',
+    unit: '3'
+  },
+]
+
+electiveCourses = [
+  
+    {
+      code: 'CS105',
+      title: 'Introduction to Computer Science',
+      unit: '3'
+    },  {
+      code: 'CS105',
+      title: 'Introduction to Computer Science',
+      unit: '3'
+    }, {
+      code: 'CS105',
+      title: 'Introduction to Computer Science',
+      unit: '3'
+    }, {
+      code: 'CS105',
+      title: 'Introduction to Computer Science',
+      unit: '3'
+    },
+  
+]
+
   StudentCourses:any;
   student_id:any;
   calender: boolean = false;
+  currentMenu: any = 'registerCourses';
 
   
 
@@ -63,6 +114,10 @@ export class StudentCoursesComponent {
 
   toggleCalender(){
     this.calender = !this.calender;
+  }
+
+  toggleTab(menu:string){
+    this.currentMenu = menu;
   }
 
 }

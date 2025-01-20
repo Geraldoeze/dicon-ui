@@ -6,3 +6,4 @@ Put overlay on video with a play button
 Ask Nath for Proper logo and review 
 
 No next of kin, address or course, gender assigned in staff profile endpoint
+no next of kin and matric number on student endpoint

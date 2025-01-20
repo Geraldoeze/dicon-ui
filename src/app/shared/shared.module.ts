@@ -24,6 +24,7 @@ import { ExamsDetailComponent } from './exams-detail/exams-detail.component';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { ApplicantsProfileComponent } from './applicants-profile/applicants-profile.component';
 import { ApplyButtonComponent } from './apply-button/apply-button.component';
+import { RegisterCourseComponent } from './register-course/register-course.component';
 
 
 
@@ -50,6 +51,7 @@ import { ApplyButtonComponent } from './apply-button/apply-button.component';
     AssignmentDetailComponent,
     ApplicantsProfileComponent,
     ApplyButtonComponent,
+    RegisterCourseComponent,
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,7 @@ import { ApplyButtonComponent } from './apply-button/apply-button.component';
     AssignmentDetailComponent,
     ApplicantsProfileComponent,
     ApplyButtonComponent,
-
+    RegisterCourseComponent
 
   ]
 })

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent {
 
+  @ViewChild('carousel', { static: false }) carousel!: ElementRef<HTMLDivElement>;
+
   constructor(private router:Router){}
 
   routeBlank(page:string){
@@ -28,6 +30,17 @@ export class HomePageComponent {
     if (element) {
       this.videoElement = element.nativeElement;
       this.setupVideoEvents();
+    }
+  }
+
+  scroll(direction: 'next' | 'previous'): void {
+    const carouselEl = this.carousel.nativeElement;
+    const scrollAmount = carouselEl.clientWidth;
+
+    if (direction === 'next') {
+      carouselEl.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+      carouselEl.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
   }
 
@@ -67,6 +80,34 @@ export class HomePageComponent {
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   }
+
+
+  slides = [
+    {
+      img: '/greeting.png',
+      title: 'News Headline 1',
+      description:
+        'Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...',
+      date: '24th March, 2024',
+      time: '20:00',
+    },
+    {
+      img: '/greeting.png',
+      title: 'News Headline 2',
+      description:
+        'Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...',
+      date: '25th March, 2024',
+      time: '18:00',
+    },
+    {
+      img: '/greeting.png',
+      title: 'News Headline 3',
+      description:
+        'Well trained, patriotic and highly motivated manpower working with cutting edge technology under an effective leadership in collaboration with frie...',
+      date: '26th March, 2024',
+      time: '15:00',
+    },
+  ];
 
 
 

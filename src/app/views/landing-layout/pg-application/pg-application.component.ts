@@ -151,6 +151,14 @@ export class PgApplicationComponent {
         alert('Please upload a JPG image under 2MB');
       }
     }
+
+    if (this.imageFile?.file) {
+      const formData = new FormData();
+      formData.append('image', this.imageFile.file);
+      this.http.post('', formData).subscribe(() => {
+        this.imageUploaded = true;
+      });
+    }
   }
   // onImageSelect(event: any) {
   //   const file = event.target.files[0];
@@ -174,7 +182,27 @@ export class PgApplicationComponent {
         alert('Please upload a PDF document under 5MB');
       }
     }
+
+    if (this.documentFile?.file) {
+      const formData = new FormData();
+      formData.append('document', this.documentFile.file);
+      this.http.post('', formData).subscribe(() => {
+        this.documentUploaded = true;
+      });
+    }
   }
+
+   // onDocumentSelect(event: any) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('document', file);
+      
+  //     this.http.post('', formData).subscribe(() => {
+  //       this.documentUploaded = true;
+  //     });
+  //   }
+  // }
 
   downloadFile(file: UploadedFile): void {
     const url = URL.createObjectURL(file.file);
@@ -198,17 +226,7 @@ export class PgApplicationComponent {
   //     return;
   //   }
 
-  // onDocumentSelect(event: any) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const formData = new FormData();
-  //     formData.append('document', file);
-      
-  //     this.http.post('', formData).subscribe(() => {
-  //       this.documentUploaded = true;
-  //     });
-  //   }
-  // }
+ 
 
   onFinish() {
     if (this.imageUploaded && this.documentUploaded) {
