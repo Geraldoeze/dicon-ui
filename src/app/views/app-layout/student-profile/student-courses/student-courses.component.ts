@@ -15,26 +15,31 @@ export class StudentCoursesComponent {
 
   
   requiredCourses = [{
+    id: 1,
     code: 'CS101',
     title: 'Introduction to Computer Science',
     unit: '3'
   },
   {
+    id: 2,
     code: 'CS102',
     title: 'Introduction to Computer Science',
     unit: '3'
   },
-  {
+  { 
+    id: 3,
     code: 'CS103',
     title: 'Introduction to Computer Science',
     unit: '3'
   },
-  {
+  { 
+    id: 4,
     code: 'CS104',
     title: 'Introduction to Computer Science',
     unit: '3'
   },
   {
+    id: 5,
     code: 'CS105',
     title: 'Introduction to Computer Science',
     unit: '3'
@@ -44,18 +49,22 @@ export class StudentCoursesComponent {
 electiveCourses = [
   
     {
+      id: 6,
       code: 'CS105',
       title: 'Introduction to Computer Science',
       unit: '3'
     },  {
+      id: 7,
       code: 'CS105',
       title: 'Introduction to Computer Science',
       unit: '3'
     }, {
+      id: 8,
       code: 'CS105',
       title: 'Introduction to Computer Science',
       unit: '3'
     }, {
+      id: 9,
       code: 'CS105',
       title: 'Introduction to Computer Science',
       unit: '3'
@@ -67,6 +76,7 @@ electiveCourses = [
   student_id:any;
   calender: boolean = false;
   currentMenu: any = 'registerCourses';
+  studentcourses:any;
 
   
 
@@ -88,9 +98,10 @@ electiveCourses = [
     }
 
     this.api.get(uri).subscribe(
-      res=>{
+      (res)=>{
         this.StudentCourses = res;
-        console.log('student courses', this.StudentCourses)
+        console.log('student courses', this.StudentCourses);
+        this.studentcourses = this.StudentCourses.data;
 
       }, err=>{
         console.log(err)

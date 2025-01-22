@@ -16,8 +16,8 @@ export class AppLayoutComponent {
   constructor(private router: Router, private storage: StorageService){}
 
   ngOnInit(){
-    this.user = this.storage.getJson('user');
-    console.log('layout check', this.user.email);
+    // this.user = this.storage.getJson('user');
+    // console.log('layout check', this.user.email);
   }
 
   toggleSignout(){

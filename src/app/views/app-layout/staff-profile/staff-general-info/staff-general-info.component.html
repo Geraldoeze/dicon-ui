@@ -8,7 +8,7 @@
           </span>
           <span>
             <span class="me-1 after:content-[''] inline-flex items-center text-base font-semibold text-gray-900">
-            <!-- International Relations and Diplomacy --> {{profileData[0].course_name}}
+            <!-- International Relations and Diplomacy --> {{profileData[0]?.course_name}}
             </span>
     
           </span>
@@ -20,7 +20,7 @@
             </span>
             <span>
               <span class="me-1 after:content-[''] inline-flex items-center text-base font-semibold text-gray-900">
-              {{profileData[0].first_name}} {{profileData[0].last_name}}
+              {{profileData[0]?.first_name}} {{profileData[0]?.last_name}}
               </span>
       
             </span>
@@ -40,12 +40,12 @@
 
           <p class="mt-1">
             <span class="block text-base text-gray-600">State </span>
-            <span class="text-base font-semibold text-gray-900 ">{{profileData[0].state}}</span>
+            <span class="text-base font-semibold text-gray-900 ">{{profileData[0]?.state}}</span>
           </p>
     
           <p class="mt-1 ">
             <span class="block text-base text-gray-600">LGA </span>
-            <span class="text-base font-semibold text-gray-900">{{profileData[0].local_government}}</span>
+            <span class="text-base font-semibold text-gray-900">{{profileData[0]?.local_government}}</span>
           </p>
 
           <!-- <div class="flex flex-col sm:flex-row gap-1">
@@ -94,14 +94,14 @@
         <span class="block text-base text-gray-600">
             Phone number
         </span>
-        <span class="text-base text-gray-900 font-semibold ">{{profileData[0].phone_number}}</span>
+        <span class="text-base text-gray-900 font-semibold ">{{profileData[0]?.phone_number}}</span>
       </p>
 
       <p class="mt-1 p-2 ">
         <span class="block text-base text-gray-600">
             Email Address
         </span>
-        <span class="text-base text-gray-900 font-semibold">{{profileData[0].email}}</span>
+        <span class="text-base text-gray-900 font-semibold">{{profileData[0]?.email}}</span>
       </p>
 
 
@@ -126,7 +126,7 @@
 
     <!-- stats section -->
 
-<div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   
     <div class="p-4 border border-gray-200 rounded-lg">
 
@@ -150,7 +150,7 @@
             <span class="text-sm text-gray-800 font-semibold">12</span>
           </p>
 
-          <!-- <div class="flex justify-between">
+          <div class="flex justify-between">
             <p class="mt-1 flex gap-2 text-sm text-gray-600">
                 <span class="text-sm text-green-600 font-semibold min-w-12">
                   Passed
@@ -164,15 +164,15 @@
                 </span>
                 <span class="text-sm text-gray-800 font-semibold">5</span>
               </p>
-          </div> -->
+          </div> X
 
           <div class="w-full flex justify-center">
             <button class="bg-seccolor text-white flex justify-center w-full py-2 rounded-md">View Details</button>
           </div>
 
-    </div>
+    </div> -->
 
-    <div class="p-4 border border-gray-200 rounded-lg">
+    <!-- <div class="p-4 border border-gray-200 rounded-lg">
 
         <h5 class="font-semibold text-gray-800 ">
             Assignment
@@ -199,14 +199,14 @@
             <button class="bg-seccolor text-white flex justify-center w-full py-2 rounded-md">View Details</button>
           </div>
 
-    </div>
+    </div> 
 
 
     
 
     
 
-  </div>
+  </div> -->
 
   
 <div class="mt-12 bg-white rounded-lg p-4">

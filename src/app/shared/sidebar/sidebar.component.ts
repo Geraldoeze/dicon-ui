@@ -20,18 +20,31 @@ export class SidebarComponent {
 
   dropdown:boolean = false;
   userAccountType: any;
+  random: any;
   studentPortal:any;
   staffPortal:any;
   userAcccountId:any;
   currentMenu:any = 'general';
 
+
   constructor(private router: Router, private storage: StorageService, private auth: AuthService){}
 
   ngOnInit(){
+   
+    this.initializeStorage();
     this.userAccountType = this.storage.getdata('userAccountType')?.toLocaleLowerCase();
     this.studentPortal = '/app/student-profile/' + this.storage.getdata('userAccountId')
     this.studentPortal = '/app/staff-profile/' + this.storage.getdata('userAccountId')
+
   }
+
+  initializeStorage(){
+    this.storage.getdata('userAccountType');
+  }
+
+   
+
+
 
   toggleDropdown(){
     this.dropdown =!this.dropdown;

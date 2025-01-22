@@ -1,0 +1,49 @@
+<div class="" *ngIf="viewer == 'class'">
+    <!-- <h1 class="text-3xl">Schedule Class</h1> -->
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Course</label>
+        <select name="" id="" class="block border py-2 px-3 w-full">
+            <option value="">ELE 321</option>
+            <option value="">TSC 104</option>
+            <option value="">MAT 111</option>
+        </select>
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Class Link</label>
+        <input type="text" class="block border py-2 px-3 w-full" placeholder="Enter Class Link">
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Date</label>
+        <input type="date" class="block border py-2 px-3 w-full">
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Time</label>
+        <input type="datetime" class="block border py-2 px-3 w-full">
+    </div>
+    <button type="submit" class="bg-seccolor text-white p-2 w-full">Done</button>
+</div>
+
+<div class="" *ngIf="viewer == 'assignment'">
+    <!-- <h1 class="text-3xl">Assignment</h1> -->
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Course</label>
+        <select name="" id="" class="block border py-2 px-3 w-full">
+            <option value="">ELE 321</option>
+            <option value="">TSC 104</option>
+            <option value="">MAT 111</option>
+        </select>
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Due Date</label>
+        <input type="date" class="block border py-2 px-3 w-full">
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Choose Due Time</label>
+        <input type="datetime" class="block border py-2 px-3 w-full">
+    </div>
+    <div class="my-4">
+        <label for="" class="text-xl text-black my-2">Assignment Description</label>
+        <textarea type="text" class="block border py-2 px-3 w-full" cols="10" rows="10" placeholder="Assignment Description"></textarea>
+    </div>
+    <button type="submit" class="bg-seccolor text-white p-2 w-full">Done</button>
+</div>

@@ -10,13 +10,13 @@
 
 
 <div class="p-5" *ngIf="currentMenu === 'myCourse'">                                                                                                                                                         
-<div *ngIf="StudentCourses?.length > 0; else noCourse">
-  <app-courses-card [courses]="StudentCourses"></app-courses-card>
-</div>
+<!-- <div *ngIf="StudentCourses?.length > 0;"> -->
+  <app-courses-card [courses]="studentcourses"></app-courses-card>
+<!-- </div> -->
 
-<ng-template #noCourse>
+<!-- <ng-template #noCourse>
   <p class="text-center text-gray-500">No course available</p>
-</ng-template>
+</ng-template> -->
 </div>
 
 

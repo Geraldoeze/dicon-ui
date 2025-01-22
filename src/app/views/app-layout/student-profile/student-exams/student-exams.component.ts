@@ -10,13 +10,106 @@ import { StorageService } from '../../../../services/storage.service';
   styleUrl: './student-exams.component.scss'
 })
 export class StudentExamsComponent {
-  StudentExams:any;
+  studentExams:any;
   student_id:any;
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router){}
 
   ngOnInit(){
-    this.getStudentExams()
+    this.getStudentExams();
+    // this.studentExam = [
+    //   {
+    //     code: 'ELE 321',
+    //     course: 'Algebra',
+    //     unit: '4 Units',
+    //     department: 'Mathematics',
+    //     exam_date: '2024-03-24',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 40,
+    //     scored_percentage: 85,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Physics',
+    //     course: 'Quantum Mechanics',
+    //     exam_date: '2024-03-25',
+    //     time_range: '14:00 - 16:00',
+    //     passing_percentage: 50,
+    //     scored_percentage: 72,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Chemistry',
+    //     course: 'Organic Chemistry',
+    //     exam_date: '2024-03-26',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 60,
+    //     scored_percentage: 65,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Biology',
+    //     course: 'Genetics',
+    //     exam_date: '2024-03-27',
+    //     time_range: '14:00 - 16:00',
+    //     passing_percentage: 70,
+    //     scored_percentage: 'pending',
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Computer Science',
+    //     course: 'Data Structures',
+    //     exam_date: '2024-03-28',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 80,
+    //     scored_percentage: 75,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Computer Science',
+    //     course: 'Data Structures',
+    //     exam_date: '2024-03-28',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 80,
+    //     scored_percentage: 'pending',
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Computer Science',
+    //     course: 'Data Structures',
+    //     exam_date: '2024-03-28',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 80,
+    //     scored_percentage: 75,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Computer Science',
+    //     course: 'Data Structures',
+    //     exam_date: '2024-03-28',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 80,
+    //     scored_percentage: 75,
+    //   },
+    //   {
+    //     code: 'ELE 321',
+    //     unit: '4 Units',
+    //     department: 'Computer Science',
+    //     course: 'Data Structures',
+    //     exam_date: '2024-03-28',
+    //     time_range: '10:00 - 12:00',
+    //     passing_percentage: 80,
+    //     scored_percentage: 'pending',
+    //   },
+    // ];
+
   }
 
   getStudentExams(){
@@ -31,8 +124,9 @@ export class StudentExamsComponent {
 
     this.api.get(uri).subscribe(
       res=>{
-        this.StudentExams = res;
-        console.log('exams data', this.StudentExams)
+        console.log('exams data', res)
+        this.studentExams = res;
+        console.log('exams data', this.studentExams)
 
       }, err=>{
         console.log(err)

@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { StorageService } from '../../../services/storage.service';
 
+
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -24,18 +25,19 @@ export class StudentProfileComponent {
 
   ngOnInit(){
     this.getProfile();
-    this.getStudentCourses();
-    this.getStudentExams()
-    this.getStudentAssignment()
+    // this.getStudentCourses();
+    // this.getStudentExams()
+    // this.getStudentAssignment()
   }
 
   getProfile(){
     let uri:any;
     let userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
-      uri='students/profile'
-    } else{
-      uri='students/profile?student_id=' + this.getParamsId()
+     uri='students/profile?student_id=' + this.getParamsId()
+    } 
+    else{
+      //uri='students/profile?student_id=' + this.getParamsId()
     }
 
     this.api.get(uri).subscribe(

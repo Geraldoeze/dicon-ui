@@ -1,30 +1,30 @@
-<div class="section">
+<!-- <div class="section">
     <div class=" flex gap-4">
         <div class="">
             <img src="/assets/uploads/about-us/DIC200_1723031419.png"  class="w-24 h-24 object-cover" alt="">
         </div>
         <div class="detail">
             <h4 class="w-full max-w-[450px]">
-                {{profileData[0].department}}
+                {{profileData[0]?.department}}
             </h4>
             <p>
                 <span class="text-base text-gray-800">HOD:</span>
-                <span class="text-sm text-gray-500"> {{profileData[0].head_of_department}}</span>
+                <span class="text-sm text-gray-500"> {{profileData[0]?.head_of_department}}</span>
             </p>
             <p class="text-green-700">
                 <span class="text-sm text-gray-800">programe:</span>
-                <span class="text-sm text-green-700"> {{profileData[0].degree}}</span>
+                <span class="text-sm text-green-700"> {{profileData[0]?.degree}}</span>
             </p>
     </div>
 
-</div>
+</div> -->
 
 <!-- <div class="mt-8 flex gap-8 border-b border-gray-200 cursor-pointer">
-    <nav (click)="toggleTab('general')" [ngClass]="{'border-seccolor': currentMenu=='general'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
+    <nav (click)="toggleTab('general')" [ngClass]?="{'border-seccolor': currentMenu=='general'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
         General
       </nav>
 
-      <nav (click)="toggleTab('courses')" [ngClass]="{'border-seccolor': currentMenu=='courses'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
+      <nav (click)="toggleTab('courses')" [ngClass]?="{'border-seccolor': currentMenu=='courses'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
         Courses
       </nav>
 
@@ -47,6 +47,7 @@
 <div class="mt-6">
 
   <app-general-info (viewExams)="toggleTab('exams')" [profileData]="profileData"></app-general-info>
+</div>
 <!-- 
   <app-exams [exams]="StudentExams" [studentId]="student_id"></app-exams> -->
 
@@ -63,6 +64,6 @@
 <!-- <div *ngIf="currentMenu=='fees'">
     <app-fees></app-fees>
 </div> -->
-</div>
+<!-- </div> -->
 
-</div>
+

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClassesComponent } from './classes.component';
+import { ScheduleModalComponent } from './schedule-modal.component';
 
-describe('ClassesComponent', () => {
-  let component: ClassesComponent;
-  let fixture: ComponentFixture<ClassesComponent>;
+describe('ScheduleModalComponent', () => {
+  let component: ScheduleModalComponent;
+  let fixture: ComponentFixture<ScheduleModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ClassesComponent]
+      declarations: [ScheduleModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ClassesComponent);
+    fixture = TestBed.createComponent(ScheduleModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,3 +7,14 @@ Ask Nath for Proper logo and review
 
 No next of kin, address or course, gender assigned in staff profile endpoint
 no next of kin and matric number on student endpoint
+
+
+Review 
+
+Remove the hover underline, scaling 
+
+
+Switch the system from storing with local storage to something that will be faster, safer 
+
+1. Store as a cookie
+2. 

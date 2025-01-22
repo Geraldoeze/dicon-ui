@@ -1,6 +1,12 @@
-<div class="mt-6  w-full grid grid-cols-3  gap-4">
+<div class="mt-6  w-full grid grid-cols-3 gap-4">
     <!-- start card -->
-    <div (click)="route('/app/course-content/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+    <div class="">
+      <h1 class="text-3xl font-medium">My Courses</h1>
+      <p class="text-lg font-normal">These are courses you are teaching </p>
+    </div>
+
+    <app-courses-card [courses]="staffCourses"></app-courses-card>
+    <!-- <div (click)="route('/app/course-content/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
         <div class="p-4 md:p-5">
           <div class="flex items-center gap-x-2">
             <h6 class=" uppercase tracking-wide text-gray-500 dark:text-neutral-500">
@@ -28,7 +34,7 @@
           </div>
 
         </div>
-    </div>
+    </div> -->
     <!-- end card -->
 
 </div>

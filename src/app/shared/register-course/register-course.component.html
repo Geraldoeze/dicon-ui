@@ -47,7 +47,8 @@
                     <p class="w-full md:w-auto text-sm">{{course.unit}} units</p>
                 </div>
                 
-                <button class="text-gray-700 font-medium py-1 px-4 border rounded">Register</button>
+                <button class="text-gray-700 font-medium py-1 px-4 border rounded" (click)="registerCourse(course.id)"
+                id="register">Register</button>
             </div>
         </ng-container>
     </div>
@@ -66,7 +67,9 @@
                 </div>
                   <p class="w-full md:w-auto text-sm">{{course.unit}} units</p>
               </div>
-                <button class="text-gray-700 font-medium py-1 px-4 border rounded">Register</button>
+                <button class="text-gray-700 font-medium py-1 px-4 border rounded" (click)="registerCourse(course.id)"
+                id="register"
+                >Register</button>
             </div>
         </ng-container>
     </div>
@@ -85,7 +88,8 @@
                   </div>
                     <p class="w-full md:w-auto text-sm">{{course.unit}} units</p>
                 </div>
-                <button class="text-gray-700 font-medium p-2 border">Register</button>
+                <button class="text-gray-700 font-medium p-2 border" (click)="registerCourse(course.id)"
+                id="register">Register</button>
             </div>
         </ng-container>
     </div>

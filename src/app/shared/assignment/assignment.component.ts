@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assignment',
@@ -12,9 +13,10 @@ export class AssignmentComponent {
   assignmentDetail = []
   @Input() viewer!:string;
   @Input() assignments:any;
+  @Input() classes: any;
 
 
-  constructor(private storage: StorageService){}
+  constructor(private storage: StorageService, private router: Router){}
 
   ngOnInit(){
     let data = this.storage.getJson('user')
@@ -28,6 +30,16 @@ export class AssignmentComponent {
     return this.assignments.find((assignment:any) => assignment.assignment_id === id) || null;
   }
 
+  visibleClass: boolean = false;
+  visibleAssignment: boolean = false;
+
+  showClassModal() {
+      this.visibleClass = true;
+  }
+
+  showAssignmentModal() {
+    this.visibleAssignment = true;
+}
 
   toggleViewAssignmentDetail(viewer:string, id:any) {
     console.log('viewer', viewer, 'id', id, 'assignments', this.assignments)
@@ -43,4 +55,8 @@ export class AssignmentComponent {
 
     }
   }
+
+  route(page:string){
+    this.router.navigate([page]);
+}
 }

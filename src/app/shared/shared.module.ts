@@ -12,7 +12,6 @@ import { SubMenuComponent } from './sub-menu/sub-menu.component';
 import { VideoCardComponent } from './video-card/video-card.component';
 import { ExamsComponent } from './exams/exams.component';
 import { AssignmentComponent } from './assignment/assignment.component';
-import { ClassesComponent } from './classes/classes.component';
 import { FeesComponent } from './fees/fees.component';
 import { CoursesCardComponent } from './courses-card/courses-card.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
@@ -25,6 +24,7 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import { ApplicantsProfileComponent } from './applicants-profile/applicants-profile.component';
 import { ApplyButtonComponent } from './apply-button/apply-button.component';
 import { RegisterCourseComponent } from './register-course/register-course.component';
+import { ScheduleModalComponent } from './schedule-modal/schedule-modal.component';
 
 
 
@@ -39,7 +39,6 @@ import { RegisterCourseComponent } from './register-course/register-course.compo
     VideoCardComponent,
     ExamsComponent,
     AssignmentComponent,
-    ClassesComponent,
     FeesComponent,
     CoursesCardComponent,
     AppHeaderComponent,
@@ -52,6 +51,7 @@ import { RegisterCourseComponent } from './register-course/register-course.compo
     ApplicantsProfileComponent,
     ApplyButtonComponent,
     RegisterCourseComponent,
+    ScheduleModalComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +69,6 @@ import { RegisterCourseComponent } from './register-course/register-course.compo
     VideoCardComponent,
     ExamsComponent,
     AssignmentComponent,
-    ClassesComponent,
     FeesComponent,
     CoursesCardComponent,
     AddStudentFormComponent,
@@ -80,7 +79,8 @@ import { RegisterCourseComponent } from './register-course/register-course.compo
     AssignmentDetailComponent,
     ApplicantsProfileComponent,
     ApplyButtonComponent,
-    RegisterCourseComponent
+    RegisterCourseComponent,
+    ScheduleModalComponent
 
   ]
 })

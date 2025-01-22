@@ -25,6 +25,7 @@ import { StudentExamsComponent } from './student-profile/student-exams/student-e
 import { StaffCoursesComponent } from './staff-profile/staff-courses/staff-courses.component';
 import { StaffCAComponent } from './staff-profile/staff-c-a/staff-c-a.component';
 import { StaffExamsComponent } from './staff-profile/staff-exams/staff-exams.component';
+import { ExamsDetailComponent } from '../../shared/exams-detail/exams-detail.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
       {path: 'applications', component: ApplicationsComponent},
       {path: 'applications/:id', component: ApplicationDetailComponent},
       {path: 'staff', component: StaffsComponent},
+      {path: 'staff-profile/exams/details', component:ExamsDetailComponent},
       {path: 'staff-profile/exams', component: StaffExamsComponent},
       {path: 'staff-profile/c-a', component: StaffCAComponent},
       {path: 'staff-profile/courses', component: StaffCoursesComponent},

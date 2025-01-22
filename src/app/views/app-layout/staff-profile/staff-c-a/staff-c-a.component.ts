@@ -8,6 +8,28 @@ import { HttpServiceService } from '../../../../services/http-service.service';
   styleUrl: './staff-c-a.component.scss'
 })
 export class StaffCAComponent {
+
+
+  classes = [
+    {
+    code : 'ELE 321',
+    name : 'Electrical Engineering',
+    time : 12,
+    lecturer: 'Prof Aiyede'
+    },
+    {
+      code : 'CSC 321',
+      name : 'Computer Science',
+      time : 1,
+      lecturer: 'Prof Aiyede'
+    },
+    {
+      code : 'MAT 321',
+      name : 'Mathematics',
+      time : 4,
+      lecturer: 'Prof Aiyede'
+    },
+  ]
   assignments:any;
   staff_id:any;
 
