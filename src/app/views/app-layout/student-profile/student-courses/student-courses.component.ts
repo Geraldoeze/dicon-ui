@@ -14,76 +14,29 @@ import { StorageService } from '../../../../services/storage.service';
 export class StudentCoursesComponent {
 
   
-  requiredCourses = [{
-    id: 1,
-    code: 'CS101',
-    title: 'Introduction to Computer Science',
-    unit: '3'
-  },
-  {
-    id: 2,
-    code: 'CS102',
-    title: 'Introduction to Computer Science',
-    unit: '3'
-  },
-  { 
-    id: 3,
-    code: 'CS103',
-    title: 'Introduction to Computer Science',
-    unit: '3'
-  },
-  { 
-    id: 4,
-    code: 'CS104',
-    title: 'Introduction to Computer Science',
-    unit: '3'
-  },
-  {
-    id: 5,
-    code: 'CS105',
-    title: 'Introduction to Computer Science',
-    unit: '3'
-  },
-]
-
-electiveCourses = [
-  
-    {
-      id: 6,
-      code: 'CS105',
-      title: 'Introduction to Computer Science',
-      unit: '3'
-    },  {
-      id: 7,
-      code: 'CS105',
-      title: 'Introduction to Computer Science',
-      unit: '3'
-    }, {
-      id: 8,
-      code: 'CS105',
-      title: 'Introduction to Computer Science',
-      unit: '3'
-    }, {
-      id: 9,
-      code: 'CS105',
-      title: 'Introduction to Computer Science',
-      unit: '3'
-    },
-  
-]
 
   StudentCourses:any;
+  studentcourses:any;
+
+  coursescategory:any;
+  coursesCategory:any;
+
+  requiredcourses:any[] = [];
+  electivecourses:any[] = [];
+
+  coursesSession:any;
   student_id:any;
   calender: boolean = false;
   currentMenu: any = 'registerCourses';
-  studentcourses:any;
+  
 
   
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router){}
 
   ngOnInit(){
-    
+    // this.getStudentCoursesByCategory();
+    this.fetchCoursesBySession(1, '2024/2025');
     this.getStudentCourses();
    
   }
@@ -108,6 +61,61 @@ electiveCourses = [
       }
     )
   }
+
+  // getStudentCoursesByCategory(){
+  //   let uri:any;
+  //   let userAccountType = this.storage.getdata('userAccountType')
+  //   if(userAccountType?.toLowerCase() === 'student'){
+  //     uri='courses/?program_id=1&category='
+  //   }
+
+  //   this.api.get(uri).subscribe(
+  //     (res)=>{
+  //       this.coursescategory = res;
+  //       console.log('student courses', this.coursescategory);
+  //       this.coursesCategory = this.coursescategory.data;
+  //       this.filterRequiredCourses();
+  //       this.filterElectiveCourses();
+
+  //     }, err=>{
+  //       console.log(err)
+  //     }
+  //   )
+  // }
+
+  fetchCoursesBySession(programId: number, session: string) {
+    const url = `courses/?program_id=${programId}&session=${session}&category=`;
+    this.api.get(url).subscribe(
+      (res: any) => {
+        this.coursesSession = res.data;
+        this.filterRequiredCourses();
+        this.filterElectiveCourses();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+
+filterRequiredCourses() {
+  if (this.coursesSession) {
+    this.requiredcourses = this.coursesSession.filter((course: { category: string; }) => course.category === "Required");
+    console.log('required courses', this.requiredcourses);
+    
+  }
+}
+
+
+filterElectiveCourses() {
+  if (this.coursesSession) {
+    this.electivecourses = this.coursesSession.filter((course: { category: string; }) => course.category === "Elective");
+    console.log('elective courses', this.electivecourses);
+    
+  }
+}
+
+
 
   
   getParamsId(){

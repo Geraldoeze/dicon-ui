@@ -41,7 +41,7 @@ export class StaffProfileComponent {
   getStudentAssignment(){
 
 
-    this.api.get('students/assignments?student_id=' + 1).subscribe(
+    this.api.get('assignments?course_id=' + this.getParamsId()).subscribe(
       res=>{
         this.assignments = res;
         console.log('Student Exams data', this.assignments)

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CoursesCardComponent {
   calender:boolean = false;
+  @Input() viewer!:string;
   @Input() courses:any;
 
   constructor(private router:Router){}

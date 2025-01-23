@@ -14,6 +14,7 @@ export class RegisterCourseComponent {
   @Input() requiredCourses:any;
   @Input() electiveCourses:any;
   @Input() carryOverCourses:any;
+  @Input() fetchCoursesBySession!: (programId: number, session: string) => void;
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router){}
   route(page:string){

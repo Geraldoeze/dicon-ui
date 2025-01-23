@@ -29,15 +29,13 @@ isDragging = false; // State for drag-and-drop
   // assignment-detail.component.ts
     ngOnInit(){
       console.log('assignmentDetail:', this.assignmentDetail);
+      
         this.assignmentForm = this.fb.group({
           submission_url: ['', Validators.required],
-          assignment_id: ['']
+          assignment_id: [this.assignmentDetail.assignment_id, Validators.required]
         })
-        if (this.assignmentDetail) {
-          this.assignmentForm.patchValue({
-            assignment_id: this.assignmentDetail.assignment_id
-          })
-        }
+      
+      
       }
   students = [
     {
@@ -62,7 +60,7 @@ isDragging = false; // State for drag-and-drop
         
       },
       (error) => {
-        console.error('Error registering course:', error);
+        console.error('Error submitting assignment:', error);
       }
   
       

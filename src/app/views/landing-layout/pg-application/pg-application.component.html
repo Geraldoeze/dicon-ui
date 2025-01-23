@@ -166,7 +166,7 @@
             </div>
               </ng-container>
 
-              <form [formGroup]="applicationForm" (ngSubmit)="save()">
+              <form [formGroup]="applicationForm">
               <ng-container *ngIf="formStage == 2">
                 <content class="form-step bg-background text-black">
                   <!-- Form Start -->
@@ -299,7 +299,7 @@
                               required
                             >
                               <option value="">Select</option>
-                              <ng-container *ngFor="let program of programes">
+                              <ng-container *ngFor="let program of programmes">
                                 <option value="{{ program.id }}">
                                   {{ program.program }}
                                 </option>
@@ -497,7 +497,7 @@
       </span>
     </p>
     <button 
-      (click)="onFinish()"
+      (click)="save()"
       [disabled]="!imageFile || !documentFile"
       class="px-7 py-2 border shadow bg-white text-black rounded-md disabled:bg-gray-300 hover:bg-gray-50"
     >
@@ -583,7 +583,8 @@
                 <div class="md:justify-end p-2">
                   <button 
                   (click)="toggleFormStage(1)"
-                  class="w-full flex justify-center py-2 px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+                  disabled
+                  class="w-full flex justify-center py-2 px-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
                 >
                   Next
                   <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">

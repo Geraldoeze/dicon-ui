@@ -13,61 +13,36 @@ import { StorageService } from '../../../../services/storage.service';
 export class StudentCAComponent {
   student_id:any;
   StudentAssignment:any;
+  classes:any = [];
 
-  classes = [
-    {
-    code : 'ELE 321',
-    name : 'Electrical Engineering',
-    time : 12,
-    lecturer: 'Prof Aiyede'
-    },
-    {
-      code : 'CSC 321',
-      name : 'Computer Science',
-      time : 1,
-      lecturer: 'Prof Aiyede'
-    },
-    {
-      code : 'MAT 321',
-      name : 'Mathematics',
-      time : 4,
-      lecturer: 'Prof Aiyede'
-    },
-  ]
+  // classes = [
+  //   {
+  //   code : 'ELE 321',
+  //   name : 'Electrical Engineering',
+  //   time : 12,
+  //   lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'CSC 321',
+  //     name : 'Computer Science',
+  //     time : 1,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'MAT 321',
+  //     name : 'Mathematics',
+  //     time : 4,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  // ]
 
-  assignments = [
-    {
-      assignment_id: 1,
-      class: 'ELE 321',
-      title: 'Assignment 1',
-      due_date: '2021-09-30',
-      due_time: '4:00',
-      
-    },
-    {
-      assignment_id: 2,
-      class: 'CSC 321',
-      title: 'Assignment 2',
-      due_date: '2021-09-30',
-      due_time: '12:00',
-      
-    },
-    {
-      assignment_id: 3,
-      class: 'MAT 321',
-      title: 'Assignment 3',
-      due_date: '2021-09-30',
-      due_time: 'Turned in',
-      
-    }
-  ]
 
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router) {}
 
   ngOnInit(){
-  
-    this.getStudentAssignment()
+    this.getStudentAssignment();
+    this. getStudentClasses();
   }
 
   getStudentAssignment(){
@@ -83,6 +58,24 @@ export class StudentCAComponent {
       res=>{
         this.StudentAssignment = res;
         console.log('Student assignment data', this.StudentAssignment)
+
+      }, err=>{
+        console.log(err)
+      }
+    )
+  }
+  
+  getStudentClasses(){
+    let uri:any;
+    let userAccountType = this.storage.getdata('userAccountType')
+    if(userAccountType?.toLowerCase() === 'student'){
+      uri='classes/1?period='
+    }
+
+    this.api.get(uri).subscribe(
+      (res: any)=>{
+        this.classes = res.data;
+        console.log('', this.classes);
 
       }, err=>{
         console.log(err)

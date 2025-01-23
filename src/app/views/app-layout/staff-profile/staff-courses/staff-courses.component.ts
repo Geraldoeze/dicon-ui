@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
+import { StorageService } from '../../../../services/storage.service';
 
 
 @Component({
@@ -12,13 +13,20 @@ export class StaffCoursesComponent {
   staffCourses:any;
   staff_id:any;
 
-  constructor(private router:Router, private api:HttpServiceService) {}
+  constructor(private router:Router, private api:HttpServiceService, private storage:StorageService) {}
   ngOnInit(){
     this.getStaffCourses()
   }
 
   getStaffCourses(){
-    this.api.get('staffs/courses?staff_id=' + this.getParamsId()).subscribe(
+    let uri:any;
+    let userAccountType = this.storage.getdata('userAccountType')
+    if(userAccountType?.toLowerCase() === 'staff'){
+      uri='staffs/courses'
+    } else{
+      uri='staffs/courses?staff_id=' + this.getParamsId()
+    }
+    this.api.get(uri).subscribe(
       res=>{
         this.staffCourses = res;
         console.log('staff courses', this.staffCourses)

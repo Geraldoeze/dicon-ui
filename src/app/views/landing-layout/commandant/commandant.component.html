@@ -1,22 +1,23 @@
 <app-header></app-header>
 
-<div class="relative my-5">
-  <div class="opacity-[30%] bg-opacity-[30%]">
-    <img src="/boxes2.png" alt="" class="w-full h-[50vh] object-cover">
+<div class="relative my-5 flex items-center justify-center h-[50vh]">
+  <div class="absolute inset-0 opacity-30">
+    <img src="/boxes2.png" alt="" class="w-full h-full object-cover">
   </div>
-  <div class="absolute z-50 top-1/2 w-full flex items-center justify-center">
-    <h1 class="text-5xl text-[#001633] font-medium m-auto">Our Past Commandants</h1>
-  </div>
+  <h1 class="relative z-50 text-center text-5xl md:text-6xl lg:text-7xl text-[#001633] font-medium px-4 md:px-10 lg:px-20">
+    Our Past Commandants
+  </h1>
 </div>
 
-
-  <div class="container lg:px-10 my-10 h-screen">
-    <div class="w-full max-w-7xl flex flex-wrap flex-col md:flex-row gap-5 justify-center items-center">
-      <div *ngFor="let commandant of commandants" class="max-w-[250px] max-h-[250px] object-cover rounded-lg">
-        <img [src]="commandant.image" alt="Commandant" class="w-full h-full">
+  <section class="container lg:px-10 my-10 min-h-screen">
+  <div class="w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
+      <div *ngFor="let commandant of commandants" class="rounded-lg">
+        <img [src]="commandant.image" alt="Commandant" class="w-full max-h-[450px] object-cover">
       </div>
     </div>
   </div>
+</section>
 
 <!-- <main>
   <div class="min-h-screen bg-gray-100"> -->
