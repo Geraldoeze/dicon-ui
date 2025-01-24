@@ -44,8 +44,8 @@ export class CourseContentDetailComponent {
     this.getParamsId()
     this.api.get('courses/' + courseId + '/videos' ).subscribe(
       (res:any)=>{
-        this.videos = res.data
-        console.log(this.videos)
+        this.videos = res
+        console.log('videos', this.videos)
       }, err=>{
         console.log(err);
       }
@@ -67,7 +67,7 @@ export class CourseContentDetailComponent {
   getCourse(){
     this.api.get('courses/1').subscribe(
       (res: any)=>{
-        this.course = res.data
+        this.course = res
         console.log('course', this.course)
       }, err=>{
         console.log(err);
