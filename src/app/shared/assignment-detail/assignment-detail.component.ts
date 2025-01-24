@@ -29,13 +29,13 @@ isDragging = false; // State for drag-and-drop
   // assignment-detail.component.ts
     ngOnInit(){
       console.log('assignmentDetail:', this.assignmentDetail);
-      
+
         this.assignmentForm = this.fb.group({
           submission_url: ['', Validators.required],
-          assignment_id: [this.assignmentDetail.assignment_id, Validators.required]
+          assignment_id: ['', Validators.required]
         })
-      
-      
+
+
       }
   students = [
     {
@@ -48,23 +48,25 @@ isDragging = false; // State for drag-and-drop
 
   tableHeader = ['Name', 'Department', 'Matric Number', 'Submisssions']
 
-  
+
 
   save () {
+    this.assignmentForm.patchValue({assignment_id: this.assignmentDetail.assignment_id})
+    console.log('assignment id', this.assignmentForm.get('assignment_id').value);
     console.log(this.assignmentForm.value)
-    this.api.post(`students/assignments/submit`, this.assignmentForm.value).subscribe(
-      (response) => {
-        this.result = response;
-        console.log('Submitted successfully:', this.result);
-        this.loading = true;
-        
-      },
-      (error) => {
-        console.error('Error submitting assignment:', error);
-      }
-  
-      
-    );
+    // this.api.post(`students/assignments/submit`, this.assignmentForm.value).subscribe(
+    //   (response) => {
+    //     this.result = response;
+    //     console.log('Submitted successfully:', this.result);
+    //     this.loading = true;
+
+    //   },
+    //   (error) => {
+    //     console.error('Error submitting assignment:', error);
+    //   }
+
+
+    // );
   }
 
 
@@ -107,7 +109,7 @@ isDragging = false; // State for drag-and-drop
   currentState = UploadState.INITIAL;
   dragOver = false;
   errorMessage = '';
-  
+
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -124,7 +126,7 @@ isDragging = false; // State for drag-and-drop
     event.preventDefault();
     event.stopPropagation();
     this.dragOver = false;
-    
+
     const files = event.dataTransfer?.files;
     if (files) {
       this.handleFiles(files);
