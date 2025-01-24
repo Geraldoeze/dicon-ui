@@ -12,10 +12,35 @@ import { StorageService } from '../../../../services/storage.service';
 export class StaffCoursesComponent {
   staffCourses:any;
   staff_id:any;
+  democourses: any;
 
   constructor(private router:Router, private api:HttpServiceService, private storage:StorageService) {}
   ngOnInit(){
     this.getStaffCourses()
+
+    this.democourses = [
+      {
+        course_code: 'CSC 101',
+        course_name: 'Introduction to Computer Science',
+        course_units: 4,
+        total_videos: 10,
+        students_no: 20
+      },
+      {
+        course_code: 'CSC 102',
+        course_name: 'Introduction to Programming',
+        course_units: 4,
+        total_videos: 10,
+        students_no: 20
+      },
+      {
+        course_code: 'CSC 103',
+        course_name: 'Introduction to Web Development',
+        course_units: 4,
+        total_videos: 10,
+        students_no: 20
+      }
+    ]
   }
 
   getStaffCourses(){

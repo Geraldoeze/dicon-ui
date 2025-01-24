@@ -18,3 +18,20 @@ Switch the system from storing with local storage to something that will be fast
 
 1. Store as a cookie
 2. 
+
+Endpoint issues 
+Pg-application post 
+assignment submit post
+empty array for staff courses
+
+functions for the staff portal 
+display staff profile done
+change staff password done
+display staff courses
+upload staff course videos
+display course details: students and videos
+display upcoming classes and schedule classes
+display current assignment, add assignment, close submissions and view assignment details
+display courses exams, 
+upload exam question paper
+set passing criteria

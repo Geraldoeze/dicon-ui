@@ -33,6 +33,7 @@ import { StudentCoursesComponent } from './student-profile/student-courses/stude
 import { StaffCoursesComponent } from './staff-profile/staff-courses/staff-courses.component';
 import { StaffCAComponent } from './staff-profile/staff-c-a/staff-c-a.component';
 import { StaffExamsComponent } from './staff-profile/staff-exams/staff-exams.component';
+import { StaffCourseDetailsComponent } from './staff-profile/staff-course-details/staff-course-details.component';
 
 
 
@@ -65,7 +66,8 @@ import { StaffExamsComponent } from './staff-profile/staff-exams/staff-exams.com
     StudentCoursesComponent,
     StaffCoursesComponent,
     StaffCAComponent,
-    StaffExamsComponent
+    StaffExamsComponent,
+    StaffCourseDetailsComponent
   ],
   imports: [
     CommonModule,

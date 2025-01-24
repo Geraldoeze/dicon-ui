@@ -49,7 +49,7 @@ export class PgApplicationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       dob: ['', Validators.required],
-      programe_id: ['', Validators.required]
+      program_id: ['', Validators.required]
     });
   }
 
@@ -122,10 +122,10 @@ export class PgApplicationComponent implements OnInit {
     });
 
     if (this.imageFile) {
-      formData.append('image', this.imageFile.file, this.imageFile.name);
+      formData.append('photo', this.imageFile.file, this.imageFile.name);
     }
     if (this.documentFile) {
-      formData.append('document', this.documentFile.file, this.documentFile.name);
+      formData.append('application_form', this.documentFile.file, this.documentFile.name);
     }
 
     console.log(formData);

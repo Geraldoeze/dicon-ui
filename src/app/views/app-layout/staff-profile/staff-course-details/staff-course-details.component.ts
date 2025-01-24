@@ -1,20 +1,23 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
 
+
 @Component({
-  selector: 'app-course-content-detail',
-  templateUrl: './course-content-detail.component.html',
-  styleUrl: './course-content-detail.component.scss'
+  selector: 'app-staff-course-details',
+  templateUrl: './staff-course-details.component.html',
+  styleUrl: './staff-course-details.component.scss'
 })
-export class CourseContentDetailComponent {
+export class StaffCourseDetailsComponent {
+
+
   videos:any;
   open = false
   currentId=0
   courseId:any;
   assignments:any
-  view:any = ''
+  view:any = 'students'
   viewer:any;
   course:any;
   visibleModal: boolean = false;
@@ -23,7 +26,7 @@ export class CourseContentDetailComponent {
 
 
 
-
+  tableHeader = ['Name', 'Department', 'Matric No', 'Email', 'Phone Number']
   ngOnInit(){
     this.view = 'videos';
     this.getVideos(this.getParamsId());
@@ -44,12 +47,12 @@ export class CourseContentDetailComponent {
     this.getParamsId()
     this.api.get('courses/' + courseId + '/videos' ).subscribe(
       (res:any)=>{
-        this.videos = res.data
-        console.log(this.videos)
+        this.videos = res.data;
+        console.log(this.videos);
       }, err=>{
         console.log(err);
       }
-    )
+    );
   }
 
   getAssignments(courseId:any){
@@ -97,6 +100,5 @@ export class CourseContentDetailComponent {
   goBack(): void {
     this.location.back();
   }
-
 
 }

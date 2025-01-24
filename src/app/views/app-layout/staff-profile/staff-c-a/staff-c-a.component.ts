@@ -10,26 +10,27 @@ import { HttpServiceService } from '../../../../services/http-service.service';
 export class StaffCAComponent {
 
 
-  classes = [
-    {
-    code : 'ELE 321',
-    name : 'Electrical Engineering',
-    time : 12,
-    lecturer: 'Prof Aiyede'
-    },
-    {
-      code : 'CSC 321',
-      name : 'Computer Science',
-      time : 1,
-      lecturer: 'Prof Aiyede'
-    },
-    {
-      code : 'MAT 321',
-      name : 'Mathematics',
-      time : 4,
-      lecturer: 'Prof Aiyede'
-    },
-  ]
+  // classes = [
+  //   {
+  //   code : 'ELE 321',
+  //   name : 'Electrical Engineering',
+  //   time : 12,
+  //   lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'CSC 321',
+  //     name : 'Computer Science',
+  //     time : 1,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'MAT 321',
+  //     name : 'Mathematics',
+  //     time : 4,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  // ]
+  classes:any;
   assignments:any;
   staff_id:any;
 
@@ -37,16 +38,27 @@ export class StaffCAComponent {
   constructor(private router:Router, private api:HttpServiceService) {}
   ngOnInit(){
     
-    this.getStudentAssignment()
+    this.getStudentAssignment();
+    this.getStudentClasses();
   }
 
   getStudentAssignment(){
-
-
     this.api.get('students/assignments?student_id=' + 1).subscribe(
       res=>{
         this.assignments = res;
         console.log('Student Exams data', this.assignments)
+
+      }, err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  getStudentClasses(){
+    this.api.get('classes/1?page=1&page_size=10&period=').subscribe(
+      (res:any)=>{
+        this.classes = res.data;
+        console.log('Student Classes data', this.classes)
 
       }, err=>{
         console.log(err)
