@@ -1,9 +1,21 @@
-
 <div class="flex justify-between items-center">
-  <button (click)="goBack()" class="back flex gap-2 cursor-pointer items-center">
+  <button
+    (click)="goBack()"
+    class="back flex gap-2 cursor-pointer items-center"
+  >
     <span>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="currentColor"
+        class="bi bi-arrow-left"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+        />
       </svg>
     </span>
     <span class="">Back</span>
@@ -15,28 +27,50 @@
   </div> -->
 </div>
 
-<div class="section ">
-    <!-- <app-menu></app-menu> -->
+<div class="section" *ngIf = "viewer == 'student'">
+  <!-- <app-menu></app-menu> -->
 
-    <div *ngIf="view=='videos'" class="bg-white w-full mx-auto px-6 lg:px-12 py-8 mt-8  h-full rounded-md">
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 justify-start mt-8">
-        <div  class=" flex-grow flex-basis-1 rounded-md" *ngFor="let row of videos">
-
-          <div (click)="openVideo('https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ Passcode: 4!^heN!^')">
-            <app-video-card [displayCount]="true" videoTitle={{row.title}} videoSrc='https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ
-            Passcode: 4!^heN!^'></app-video-card>
-          </div>
-        </div>
-      </div>
-
+  <div
+    *ngIf="view == 'videos'"
+    class="bg-white w-full mx-auto px-6 lg:px-12 py-8 mt-8 h-full rounded-md"
+  >
+    <div class="flex flex-col">
+      <h1 class="text-lg text-start font-semibold text-gray-900">ELE 321</h1>
+      <p class="tracking-wide text-gray-500">
+        International Relations and Diplomacy
+      </p>
     </div>
 
-    <!-- <div *ngIf="view=='assignment'">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 justify-start mt-8"
+    >
+      <div class="flex-grow flex-basis-1 rounded-md" *ngFor="let row of videos">
+        <div
+          (click)="
+            openVideo(
+              'https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ Passcode: 4!^heN!^'
+            )
+          "
+        >
+          <app-video-card
+            [displayCount]="true"
+            videoTitle="{{ row.title }}"
+            videoSrc="https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ
+            Passcode: 4!^heN!^"
+          ></app-video-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="view=='assignment'">
       <app-assignment [assignments]="assignments" viewer="staff"></app-assignment>
     </div> -->
 
-    <div class="mt-8">
-      <!-- <app-footer></app-footer> -->
-    </div>
+  <div class="mt-8">
+    <!-- <app-footer></app-footer> -->
   </div>
+</div>
+
+
+

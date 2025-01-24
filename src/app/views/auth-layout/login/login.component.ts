@@ -65,8 +65,10 @@ export class LoginComponent {
         this.loading = false;
         this.response = res;
         this.storage.savedata('access_token', this.response.access_token)
+        this.storage.saveJson('user', this.response.user)
         this.showSuccess('login successfull!')
         console.log('login successfull!')
+        console.log(this.response)
 
         this.RouteUser(this.getCurrentUsers())
 

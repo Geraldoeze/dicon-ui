@@ -1,51 +1,51 @@
-<div class="section">
-    <div class="flex flex-col md:flex-md lg:flex-row gap-8">
+<div class="section ">
+    <div class="flex container bg-white border rounded px-4 py-6 flex-col md:flex-md lg:flex-row gap-8">
         <!-- List -->
         <div class="flex flex-col gap-2 basis-1/2">
-        <div class="flex flex-col sm:flex-row gap-1">
-          <span class="min-w-28">
-            <span class="block  text-sm text-gray-500">Course assigned:</span>
+        <div class="">
+          <span class="">
+            <span class="block text-base text-gray-600">Course assigned</span>
           </span>
           <span>
-            <span class="me-1 after:content-[','] inline-flex items-center text-sm text-gray-800">
-            International Relations and Diplomacy
+            <span class="me-1 after:content-[''] inline-flex items-center text-base font-semibold text-gray-900">
+             International Relations and Diplomacy 
             </span>
     
           </span>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-1">
-            <span class="min-w-28">
-              <span class="block text-sm text-gray-500">Full name:</span>
+        <div class="">
+            <span class="">
+              <span class="block text-base text-gray-600">Full name</span>
             </span>
             <span>
-              <span class="me-1 after:content-[','] inline-flex items-center text-sm text-gray-800">
-              Bello Ahmed
+              <span class="me-1 after:content-[''] inline-flex items-center text-base font-semibold text-gray-900">
+              {{profileData?.full_name}} 
               </span>
       
             </span>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-1">
-            <span class="min-w-28">
-              <span class="block text-sm text-gray-500">Next of kin:</span>
+          <div class="">
+            <span class="">
+              <span class="block text-base text-gray-600">Next of kin</span>
             </span>
             <span>
-              <span class="me-1 after:content-[','] inline-flex items-center text-sm text-gray-800">
-              Jigawa
+              <span class="me-1 after:content-[''] inline-flex items-center text-base font-semibold text-gray-900">
+              {{profileData?.next_of_kin || 'N/A'}}
               </span>
       
             </span>
           </div>
 
-          <p class="mt-1 flex gap-2 text-sm text-gray-600">
-            <span class="text-sm text-gray-500  min-w-28">State: </span>
-            <span class="text-sm text-gray-800 ">Jigawa</span>
+          <p class="mt-1">
+            <span class="block text-base text-gray-600">State </span>
+            <span class="text-base font-semibold text-gray-900 ">{{profileData?.state}}</span>
           </p>
     
-          <p class="mt-1 flex gap-2 text-sm text-gray-600">
-            <span class="text-sm text-gray-500  min-w-28">LGA: </span>
-            <span class="text-sm text-gray-800 ">Dutse</span>
+          <p class="mt-1 ">
+            <span class="block text-base text-gray-600">LGA </span>
+            <span class="text-base font-semibold text-gray-900">{{profileData?.local_government}}</span>
           </p>
 
           <!-- <div class="flex flex-col sm:flex-row gap-1">
@@ -80,24 +80,28 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 basis-1/2">
     <div class="">
 
-
-      <p class="mt-1 flex gap-2 text-sm text-gray-600">
-        <span class="text-sm text-gray-500  min-w-28">Addres: </span>
-        <span class="text-sm text-gray-800 ">Plot no. 116 Lane number 4 Abuja Crescent</span>
+      <p class="mt-1 p-2 ">
+        <span class="block text-base text-gray-600">Gender </span>
+        <span class="text-base font-semibold text-gray-900">{{profileData?.gender}}</span>
       </p>
 
-      <p class="mt-1 flex gap-2 text-sm text-gray-600">
-        <span class="text-sm text-gray-500  min-w-28">
-            phone number
+      <p class="mt-1 p-2">
+        <span class="block text-base text-gray-600">Address </span>
+        <span class="text-base text-gray-900 font-semibold ">{{profileData?.address}}</span>
+      </p>
+
+      <p class="mt-1 p-2 text-sm text-gray-600">
+        <span class="block text-base text-gray-600">
+            Phone number
         </span>
-        <span class="text-sm text-gray-800 ">0814412345</span>
+        <span class="text-base text-gray-900 font-semibold ">{{profileData?.phone_number}}</span>
       </p>
 
-      <p class="mt-1 flex gap-2 text-sm text-gray-600">
-        <span class="text-sm text-gray-500  min-w-28">
+      <p class="mt-1 p-2 ">
+        <span class="block text-base text-gray-600">
             Email Address
         </span>
-        <span class="text-sm text-gray-800">student&#64;gmai.com</span>
+        <span class="text-base text-gray-900 font-semibold">{{profileData?.email}}</span>
       </p>
 
 
@@ -122,7 +126,7 @@
 
     <!-- stats section -->
 
-<div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   
     <div class="p-4 border border-gray-200 rounded-lg">
 
@@ -146,7 +150,7 @@
             <span class="text-sm text-gray-800 font-semibold">12</span>
           </p>
 
-          <!-- <div class="flex justify-between">
+          <div class="flex justify-between">
             <p class="mt-1 flex gap-2 text-sm text-gray-600">
                 <span class="text-sm text-green-600 font-semibold min-w-12">
                   Passed
@@ -160,15 +164,15 @@
                 </span>
                 <span class="text-sm text-gray-800 font-semibold">5</span>
               </p>
-          </div> -->
+          </div> X
 
           <div class="w-full flex justify-center">
             <button class="bg-seccolor text-white flex justify-center w-full py-2 rounded-md">View Details</button>
           </div>
 
-    </div>
+    </div> -->
 
-    <div class="p-4 border border-gray-200 rounded-lg">
+    <!-- <div class="p-4 border border-gray-200 rounded-lg">
 
         <h5 class="font-semibold text-gray-800 ">
             Assignment
@@ -195,14 +199,42 @@
             <button class="bg-seccolor text-white flex justify-center w-full py-2 rounded-md">View Details</button>
           </div>
 
+    </div> 
+
+
+    
+
+    
+
+  </div> -->
+
+  
+<div class="mt-12 bg-white rounded-lg p-4">
+  <form [formGroup]="changePasswordForm" (ngSubmit)="submitForm()" class="mt-6">
+  <div class="heading flex justify-between items-center h-full">
+    <p class="title font-bold  text-gray-800">Change password</p>
+    <button type="submit" class="px-4 py-2 text-white bg-seccolor rounded-md">Change</button>
+  </div>
+
+  <div action="" class="mt-6 flex flex-col gap-3 w-full max-w-[400px]">
+    <div class="flex flex-col gap-1">
+      <label class="font-semibold" for="password">Password</label>
+      <input type="password" formControlName="old_password" name="old_password" class="px-4 py-2 border rounded-md w-full " placeholder="Enter current password">
     </div>
 
+    <div class="flex flex-col gap-1">
+      <label class="font-semibold" for="New password">New Password</label>
+      <input type="password" formControlName="new_password" name="new_password" class="px-4 py-2 border rounded-md w-full " placeholder="Enter new password">
+    </div>
 
-    
+    <div class="flex flex-col gap-1">
+      <label class="font-semibold" for="Confirm new password">Confirm New Password</label>
+      <input type="password" formControlName="confirm_password" name="confirm_password" class="px-4 py-2 border rounded-md w-full " placeholder="Confirm new password">
+    </div>
+    </div>
+  </form>
+</div>
 
-    
-
-  </div>
 
     <!-- stats end -->
 </div>

@@ -1,7 +1,188 @@
-<div class="section">
+<section>
+
+  <div class="bg-background border rounded-lg p-2">
+    <div class="my-2">
+      <div class="flex justify-between items-center">
+        <h1 class="text-xl font-medium text-gray-900">Student Details</h1>
+        <div class="flex gap-3">
+          <span class="text-lg font-normal text-gray-500">Matric Number:</span><span class="text-lg font-medium text-gray-900">{{profileData[0]?.student_id}}</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="flex flex-col md:flex-row">
+      <div class="bg-white rounded-lg flex flex-col gap-y-2 md:basis-1/2 p-5">
+        <div class="flex justify-between md:flex-col gap-1">
+     
+            <span class="block text-base text-gray-500">Course:</span>
+       
+            <span class="after:content-[''] md:inline-flex items-center text-base text-gray-900">
+              {{profileData[0]?.program}}
+            </span>
+
+        </div>
+
+        <div class="flex justify-between md:flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Full name:</span>
+     
+          <span class="after:content-[''] md:inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.full_name}}
+          </span>
+
+        </div>
+        
+        
+        <div class="flex justify-between md:flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Next of kin:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.next_of_kin}}
+          </span>
+
+        </div>      
+
+        
+        <div class="flex justify-between md:flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">State of Origin:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.state}}
+          </span>
+
+        </div>
+
+         
+        <div class="flex justify-between md:flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Local Government Area:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.local_government}}
+          </span>
+
+        </div>
+
+         
+        <div class="flex justify-between md:flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Gender:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.gender}}
+          </span>
+
+        </div>
+
+      </div>
+      <div class="grid grid-col-1 md:basis-1/2 bg-white rounded-lg p-5 gap-y-5">
+
+        <!-- <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Faculty:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.faculty}}
+          </span>
+
+        </div> -->
+
+
+
+        <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Course Start:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.program_start}}
+          </span>
+
+        </div>
+
+        <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Course End:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.program_end}}
+          </span>
+
+        </div>
+
+        <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Address:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.address}}
+          </span>
+
+        </div>
+
+        <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Phone number:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.phone_number}}
+          </span>
+
+        </div>
+
+        <div class="flex flex-col gap-1">
+     
+          <span class="block text-base text-gray-500">Email:</span>
+     
+          <span class="after:content-[''] inline-flex items-center text-base text-gray-900">
+            {{profileData[0]?.email}}
+          </span>
+
+        </div>
+
+        
+      </div>
+    </div>
+
+
+    <div class="mt-2 bg-white rounded-lg p-4">
+      <form [formGroup]="changePasswordForm" (ngSubmit)="submitForm()" class="mt-6">
+        <div class="heading flex justify-between items-center h-full">
+          <p class="title font-bold  text-gray-800">Change password</p>
+          <button type="submit"  class="px-4 py-2 text-white bg-seccolor rounded-md">Change</button>
+        </div>
+        <div class="flex flex-col gap-3 w-full max-w-[400px]">
+        <div class="flex flex-col gap-1">
+          <label class="font-semibold" for="password">Password</label>
+          <input type="password" formControlName="old_password" name="old_password" class="px-4 py-2 border rounded-md w-full " placeholder="Enter current password" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-semibold" for="New password">New Password</label>
+          <input type="password" formControlName="new_password"  name="new_password" class="px-4 py-2 border rounded-md w-full " placeholder="Enter new password" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-semibold" for="Confirm new password">Confirm New Password</label>
+          <input type="password" formControlName="confirm_password" name="confirm_password" class="px-4 py-2 border rounded-md w-full " placeholder="Confirm new password" required>
+        </div>
+        </div>
+
+      </form>
+      </div>
+
+
+
+
+
+
+
+<!-- <div class="section">
     <div class="flex flex-col md:flex-md lg:flex-row gap-8">
-        <!-- List -->
-        <div class="flex flex-col gap-2 basis-1/2">
+        List -->
+        <!-- <div class="flex flex-col gap-2 basis-1/2">
         <div class="flex flex-col sm:flex-row gap-1">
           <span class="min-w-28">
             <span class="block  text-sm text-gray-500">Course:</span>
@@ -57,18 +238,18 @@
             </span>
             <span>
               <span class="me-1 after:content-[','] inline-flex items-center text-sm text-gray-800">
-                {{profileData[0].program_start}}
+                {{profileData[0].program_end}}
               </span>
 
             </span>
           </div>
 
-      </div>
+      </div> -->
       <!-- End List -->
 
-      <div>
+      <!-- <div> -->
         <!-- Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 basis-1/2">
+<!-- <div class="grid grid-cols-1 sm:grid-cols-2 basis-1/2">
     <div class="">
 
 
@@ -84,13 +265,13 @@
       </p>
 
       <p class="mt-1 flex gap-2 text-sm text-gray-600">
-        <span class="text-sm text-gray-500  min-w-28">Addres: </span>
+        <span class="text-sm text-gray-500  min-w-28">Address: </span>
         <span class="text-sm text-gray-800 ">{{profileData[0].address}}</span>
       </p>
 
       <p class="mt-1 flex gap-2 text-sm text-gray-600">
         <span class="text-sm text-gray-500  min-w-28">
-            phone number
+            Phone number
         </span>
         <span class="text-sm text-gray-800 ">{{profileData[0].phone_number}}</span>
       </p>
@@ -107,47 +288,20 @@
 
     <div class="">
 
-        <!-- <h5 class="font-semibold text-gray-800">
+         <h5 class="font-semibold text-gray-800">
             Contact
           </h5> -->
 
 
 
 
-    </div>
-  </div>
+    <!-- </div>
+  </div> --> 
   <!-- End Grid -->
-      </div>
-
-    </div>
+      
 
 
     <!-- stats section -->
 
-<div class="mt-12 bg-white rounded-lg p-4">
-  <div class="heading flex justify-between items-center h-full">
-    <p class="title font-bold  text-gray-800">Change password</p>
-    <button class="px-4 py-2 text-white bg-seccolor rounded-md">Change</button>
-  </div>
-
-  <form action="" class="mt-6 flex flex-col gap-3 w-full max-w-[400px]">
-    <div class="flex flex-col gap-1">
-      <label class="font-semibold" for="password">Password</label>
-      <input type="text" class="px-4 py-2 border rounded-md w-full " placeholder="Enter current password">
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <label class="font-semibold" for="New password">New Password</label>
-      <input type="text" class="px-4 py-2 border rounded-md w-full " placeholder="Enter new password">
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <label class="font-semibold" for="Confirm new password">Confirm New Password</label>
-      <input type="text" class="px-4 py-2 border rounded-md w-full " placeholder="Confirm new password">
-    </div>
-
-  </form>
-</div>
-
     <!-- stats end -->
-</div>
+<!-- </div> --> 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,12 +14,12 @@
       <h2 class="text-xl font-semibold">Exam Result Details</h2>
       <p class="text-xs text-gray-500">
         Result Declared on
-        <span class="text-blue-600">{{examDetail[0].result_date}}</span>
+        <span class="text-blue-600">{{examDetail[0]?.result_date}}</span>
       </p>
-    </div>
+    </div> -->
 
     <!-- Profile and Title -->
-    <div class="mt-6 flex items-center space-x-4">
+    <!-- <div class="mt-6 flex items-center space-x-4">
       <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -27,38 +27,38 @@
         </svg>
       </div>
       <div>
-        <h3 class="font-medium text-gray-900">{{examDetail[0].student_name}}</h3>
-        <p class="text-sm text-gray-500">Student ID: {{examDetail[0].student_id}}</p>
+        <h3 class="font-medium text-gray-900">{{examDetail[0]?.student_name}}</h3>
+        <p class="text-sm text-gray-500">Student ID: {{examDetail[0]?.student_id}}</p>
         <a  class="text-blue-600 text-sm underline">View Profile</a>
       </div>
-    </div>
+    </div> -->
 
     <!-- Exam Info -->
-    <div class="mt-6">
-      <p class="text-lg font-semibold">{{examDetail[0].exam_title}}</p>
-      <div class="flex items-center space-x-4 mt-3">
+    <!-- <div class="mt-6">
+      <p class="text-lg font-semibold">{{examDetail[0]?.exam_title}}</p>
+      <div class="flex items-center space-x-4 mt-3"> -->
         <!-- <p class="text-sm text-gray-500">Batch 3CO - JVY</p> -->
-        <p class="text-sm text-gray-500">{{examDetail[0].result_date}}</p>
+        <!-- <p class="text-sm text-gray-500">{{examDetail[0]?.result_date}}</p>
 
         <span class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded">Status: </span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Course Details -->
-    <div class="mt-6 space-y-2">
+    <!-- <div class="mt-6 space-y-2">
       <p class="text-sm">
-        <span class="font-semibold text-sm">Course:</span> {{examDetail[0].course_name}}
+        <span class="font-semibold text-sm">Course:</span> {{examDetail[0]?.course_name}}
       </p>
-      <p class="text-sm">
+      <p class="text-sm"> -->
         <!-- <span class="font-semibold text-sm">Subject:</span> Criminology -->
+      <!-- </p>
+      <p class="text-sm">
+        <span class="font-semibold text-sm">Total Marks:</span> {{examDetail[0]?.passing_mark}}
       </p>
       <p class="text-sm">
-        <span class="font-semibold text-sm">Total Marks:</span> {{examDetail[0].passing_mark}}
+        <span class="font-semibold text-sm">Passing Percentage:</span> {{examDetail[0]?.passing_percentage}}
       </p>
-      <p class="text-sm">
-        <span class="font-semibold text-sm">Passing Percentage:</span> {{examDetail[0].passing_percentage}}
-      </p>
-    </div>
+    </div> -->
 
     <!-- Question Paper -->
     <!-- <div class="mt-6">
@@ -67,7 +67,7 @@
     </div> -->
 
     <!-- Result -->
-    <div class="mt-6">
+    <!-- <div class="mt-6">
       <p class="font-semibold text-sm">Result</p>
       <div class="mt-2 space-y-1">
         <p class="text-sm">
@@ -75,14 +75,79 @@
           <a  class="text-blue-600 underline">International Relations and Diplomacy.pdf</a>
         </p>
         <p class="text-sm">
-          <span class="font-medium">Student's Score:</span> {{examDetail[0].student_score}}
+          <span class="font-medium">Student's Score:</span> {{examDetail[0]?.student_score}}
         </p>
         <p class="text-sm">
-          <span class="font-semibold text-sm">Student's Percentage:</span> {{examDetail[0].student_percentage}}%
+          <span class="font-semibold text-sm">Student's Percentage:</span> {{examDetail[0]?.student_percentage}}%
         </p>
       </div>
     </div>
   </div>
 </body>
 
-</html>
+</html> -->
+
+
+<div class="container">
+<button class="p-2 border text-black bg-white hover:bg-gray-500"  (click)="goBack()">Back</button>
+
+
+<div class="my-5">
+  <h1 class="text-3xl font-medium">ELE 321</h1>
+  <p class="text-base">Electricity & Power</p>
+</div>
+
+<div class="flex flex-col md:flex-row border">
+  <div class="lg:w-1/2 p-2">
+    <div class="my-2">
+      <h1 class="text-3xl font-medium">Upload your Exam Questions</h1>
+      <p class="text-base">This is entirely voluntary and will benefit your students.</p>
+    </div>
+    <div class="flex items-center justify-between flex-col md:flex-row gap-x-2">
+      <div class="flex items-center gap-2">
+    <div class="p-2 bg-gray-100 rounded-full">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="#F0F2F5"/>
+        <path d="M18 21.5C18 18.4624 20.4624 16 23.5 16C26.1907 16 28.432 17.9332 28.907 20.4867C28.9736 20.8448 29.2297 21.1383 29.5754 21.2529C31.5661 21.9132 33 23.7905 33 26C33 28.7614 30.7614 31 28 31C27.4477 31 27 31.4477 27 32C27 32.5523 27.4477 33 28 33C31.866 33 35 29.866 35 26C35 23.1075 33.2462 20.627 30.7463 19.5596C29.8909 16.358 26.9717 14 23.5 14C19.3579 14 16 17.3579 16 21.5C16 21.6003 16.002 21.7001 16.0059 21.7996C14.2105 22.8354 13 24.7754 13 27C13 30.3137 15.6863 33 19 33C19.5523 33 20 32.5523 20 32C20 31.4477 19.5523 31 19 31C16.7909 31 15 29.2091 15 27C15 25.3427 16.0082 23.9185 17.4487 23.3117C17.8655 23.1361 18.1126 22.7026 18.0512 22.2544C18.0175 22.0083 18 21.7564 18 21.5Z" fill="#475367"/>
+        <path d="M23.3356 26.2526C23.7145 25.9158 24.2855 25.9158 24.6644 26.2526L26.1644 27.5859C26.5771 27.9528 26.6143 28.5849 26.2474 28.9977C25.9264 29.3588 25.4025 29.4325 25 29.1996V34C25 34.5523 24.5523 35 24 35C23.4477 35 23 34.5523 23 34V29.1996C22.5975 29.4325 22.0736 29.3588 21.7526 28.9977C21.3857 28.5849 21.4229 27.9528 21.8356 27.5859L23.3356 26.2526Z" fill="#475367"/>
+      </svg>
+    </div>
+    <div>
+      <p class="font-semibold text-black text-xl">Upload your document</p>
+      <p class="text-sm text-gray-800">PDF format • Max. 5MB</p>
+    </div>
+    </div>
+    <div>
+      <button class="px-4 py-2 bg-aiqdark text-white rounded-md">Upload</button>
+    </div>
+    </div>
+  </div>
+  <div class="lg:w-1/2 p-2 border-s-2 border-gray-200">
+    <div class="my-2">
+      <h1 class="text-2xl font-medium">Set Passing Criteria</h1>
+      <p class="text-base">This determines If you Student fail or pass the course</p>
+    </div>
+    <div class="flex items-center justify-between flex-col md:flex-row gap-2">
+      <div class="flex items-center gap-2">
+    <div class="p-2 bg-gray-100 rounded-full">
+      <p class="text-base text-black">Pass Mark</p>
+    </div>
+    <div>
+     <input type="number" class="p-2 bg-white border rounded" placeholder="50">
+    </div>
+    </div>
+    <div>
+      <button class="px-4 py-2 bg-aiqdark text-white rounded-md">Set</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="p-2">
+  <div class="flex justify-between items-center my-2">
+    <p class="text-xl text-gray-600">Upload Results</p>
+    <input type="text" placeholder="Search" class="px-10 py-2 border">
+  </div>
+  <app-student-table [tableHeader] = "tableHeader" [students] = "students" ></app-student-table>
+</div>
+</div>

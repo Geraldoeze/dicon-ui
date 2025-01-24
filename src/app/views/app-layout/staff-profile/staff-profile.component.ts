@@ -10,8 +10,8 @@ import { HttpServiceService } from '../../../services/http-service.service';
 })
 export class StaffProfileComponent {
   items: MenuItem[] | undefined;
-  currentMenu:any = 'general';
-  staff_id:any;
+   staff_id:any; currentMenu:any = 'general';
+
   profileData:any;
   staffCourses:any;
   assignments:any;
@@ -41,7 +41,7 @@ export class StaffProfileComponent {
   getStudentAssignment(){
 
 
-    this.api.get('students/assignments?student_id=' + 1).subscribe(
+    this.api.get('assignments?course_id=' + this.getParamsId()).subscribe(
       res=>{
         this.assignments = res;
         console.log('Student Exams data', this.assignments)

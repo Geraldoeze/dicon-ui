@@ -15,6 +15,9 @@ export class CourseContentDetailComponent {
   courseId:any;
   assignments:any
   view:any = ''
+  viewer:any;
+  course:any;
+  visibleModal: boolean = false;
 
   constructor(private location: Location, private router:Router, private api:HttpServiceService){}
 
@@ -25,6 +28,7 @@ export class CourseContentDetailComponent {
     this.view = 'videos';
     this.getVideos(this.getParamsId());
     this.getAssignments(this.getParamsId());
+    this.getCourse();
   }
 
   getParamsId(){
@@ -39,8 +43,8 @@ export class CourseContentDetailComponent {
   getVideos(courseId:any){
     this.getParamsId()
     this.api.get('courses/' + courseId + '/videos' ).subscribe(
-      res=>{
-        this.videos = res
+      (res:any)=>{
+        this.videos = res.data
         console.log(this.videos)
       }, err=>{
         console.log(err);
@@ -58,6 +62,24 @@ export class CourseContentDetailComponent {
         console.log(err);
       }
     )
+  }
+
+  getCourse(){
+    this.api.get('courses/1').subscribe(
+      (res: any)=>{
+        this.course = res.data
+        console.log('course', this.course)
+      }, err=>{
+        console.log(err);
+      }
+    )
+  }
+
+ 
+
+
+  showUploadModal() {
+      this.visibleModal = true;
   }
 
   toggleView(view:string){

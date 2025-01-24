@@ -1,6 +1,211 @@
+<section *ngIf="viewer == 'student'">
+  <div class="p-5">
+    <h1 class="text-3xl">
+      Upcoming Classes
+    </h1>
+  <div class="flex flex-wrap gap-2" *ngIf="classes.length > 0">
+  <ng-container *ngFor="let class of classes">
+  <div (click)="route('app/course-content-detail/1')" class="min-w-[300px] flex bg-white border shadow-sm rounded-xl ">
+    <div class="p-4 md:p-5 w-full">
+    <div class="flex justify-between gap-y-4 my-2">
+      <div class="flex flex-col">
+        <h1 class="text-lg text-start font-semibold text-gray-900 ">
+            {{class.course_code || 'ELE 321'}}
+        </h1>
+        <p class="tracking-wide text-gray-500 ">
+            {{class.course_name || 'Introduction to Computer Science'}}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-x-2">
+        <div class="text-sm text-gray-700 bg-[#FEF6E7] rounded-full py-2 px-3">
+            {{ (class.start_date) | date:'hh:mm' }}
+        </div>
+      </div>
+      </div>
+
+      <div class="flex justify-between items-center gap-4 my-2">
+        <p class="text-gray-700">Lecturer-in-charge:</p>
+        <p class="text-gray-900 font-medium">{{class.lecturer || 'Prof Aiyede'}}</p>
+      </div>
+
+      <div class="w-full my-2">
+        <div class="flex px-4 py-2 border text-gray-700 gap-4 items-center justify-center text-center  cursor-pointer">
+            <span>Join Class</span>
+        </div>
+      </div>
+    </div>
+    </div>
+</ng-container>
+</div>
+  </div>
+</section>
+
+<section *ngIf="viewer == 'staff'">
+
+  <div class="p-5">
+    <div class="flex justify-between">
+    <h1 class="text-3xl">
+      Upcoming Classes
+    </h1>
+    <div class="">
+    <button (click)="showClassModal()" class="bg-seccolor text-white py-2 px-4"> Schedule Class </button>
+    <p-dialog header="Schedule Class" [modal]="true" [(visible)]="visibleClass" [style]="{ width: '50rem' }">
+      <app-schedule-modal viewer="class"></app-schedule-modal>
+    </p-dialog> 
+    </div>
+    </div>
+  <div class="flex flex-wrap gap-2" *ngIf="classes.length > 0">
+  <ng-container *ngFor="let class of classes">
+  <div  class="min-w-[300px] flex bg-white border shadow-sm rounded-xl ">
+    <div class="p-4 md:p-5 w-full">
+    <div class="flex justify-between gap-y-4 my-2">
+      <div class="flex flex-col">
+        <h1 class="text-lg text-start font-semibold text-gray-900 ">
+            {{class.course_code || 'ELE 321'}}
+        </h1>
+        <p class="tracking-wide text-gray-500 ">
+            {{class.course_name || 'Introduction to Computer Science'}}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-x-2">
+        <div  class="text-sm bg-[#FBEAE9] text-gray-700 rounded-full border-[bg-[#FEF6E7]] py-2 px-3">
+             {{ (class.start_date) | date:'hh:mm' }}
+        </div>
+      </div>
+      </div>
+
+      <div class="w-full my-2">
+        <div class="flex px-4 py-2 border text-gray-700 gap-4 items-center justify-center text-center  cursor-pointer">
+            <span>Start Class</span>
+        </div>
+      </div>
+    </div>
+    </div>
+</ng-container>
+</div>
+  </div>
+</section>
+
+<section *ngIf="viewer == 'student'">
+  <div class="p-5">
+    <h1 class="text-3xl">
+      Assignments
+    </h1>
+  
+  <div class="flex flex-wrap gap-2">
+  <ng-container *ngFor="let assignment of assignments">
+  <div class="min-w-[300px] flex bg-white border shadow-sm rounded-xl ">
+    <div class="p-4 md:p-5 w-full">
+    <div class="flex justify-between gap-y-4 my-2">
+      <div class="flex flex-col">
+        <h1 class="text-lg text-start font-semibold text-gray-900 ">
+            {{assignment.class || 'ELE 321'}}
+        </h1>
+        <p class="tracking-wide text-gray-500 ">
+            {{assignment.assignment_title || 'Introduction to Computer Science'}}
+        </p>
+      </div>
+      <div class="flex flex-col items-center gap-x-2">
+        <div class="text-sm bg-[#FBEAE9] border-[#FBEAE9] text-gray-900 rounded-full py-2 px-3">
+            {{assignment.due_time || "12:00"}}
+        </div>
+      </div>
+      </div>
+
+      <div class="flex justify-between items-center gap-4 my-2">
+        <p class="text-gray-700">Lecturer-in-charge:</p>
+        <p class="text-gray-900 font-medium">Prof Aiyede</p>
+      </div>
+
+      <div class="w-full my-2">
+        <div class="flex px-4 py-2 border text-gray-700 gap-4 items-center justify-center text-center  cursor-pointer">
+            <span *ngIf="assignment.due_time === 'turned in'">Update Submission</span>
+            <span *ngIf="assignment.due_time !== 'turned in'" (click)="toggleViewAssignmentDetail(viewer, assignment.assignment_id)">Assignment Details</span>
+        </div>
+      </div>
+    </div>
+    </div>
+</ng-container>
+</div>
+  </div>
+</section>
+
+<section *ngIf="viewer == 'staff'">
+  <div class="p-5">
+    <div class="flex justify-between">
+      <h1 class="text-3xl">
+        Assignments
+      </h1>
+      <div class="">
+      <button (click)="showAssignmentModal()" class="bg-seccolor text-white py-2 px-4"> Add Assignments </button>
+      <p-dialog header="Assignment" [modal]="true" [(visible)]="visibleAssignment" [style]="{ width: '50rem' }">
+        <app-schedule-modal viewer="assignment"></app-schedule-modal>
+      </p-dialog> 
+      </div>
+      </div>
+  
+  <div class="flex flex-wrap gap-2">
+  <ng-container *ngFor="let assignment of assignments">
+  <div class="min-w-[300px] flex bg-white border shadow-sm rounded-xl ">
+    <div class="p-4 md:p-5 w-full">
+    <div class="my-2">
+      <div class="flex flex-col">
+        <h1 class="text-lg text-start font-semibold text-gray-900 ">
+            {{assignment.class || 'ELE 321'}}
+        </h1>
+        <p class="tracking-wide text-gray-500 ">
+            {{assignment.assignment_title || 'Introduction to Computer Science'}}
+        </p>
+      </div>
+      </div>
+
+      <div class="flex flex-row justify-between items-center gap-x-2">
+        <p class="text-gray-700 text-sm">Deadline:</p>
+        <div [ngClass]="{
+          'bg-[#FEF6E7]': assignment.due_time === '4:00',
+          'bg-[#FBEAE9]': assignment.due_time === '12:00',
+          'bg-gray-200': assignment.due_time === 'turned in'
+        }" class="text-sm text-gray-900  rounded-full py-2 px-3">
+            {{assignment.due_time || "12:00"}}
+        </div>
+      </div>
+
+      <div class="w-full my-2">
+        <div class="flex px-4 py-2 border text-gray-700 gap-4 items-center justify-center text-center  cursor-pointer">
+            <span *ngIf="assignment.due_time === 'turned in'">Update Submission</span>
+            <span *ngIf="assignment.due_time !== 'turned in'" (click)="toggleViewAssignmentDetail(viewer, assignment.assignment_id)">Assignment Details</span>
+        </div>
+      </div>
+
+       <div class="w-full my-2">
+        <div class="flex px-4 py-2 border text-gray-700 gap-4 items-center justify-center text-center cursor-pointer">
+            <span *ngIf="assignment.due_time === 'turned in'">Open Submissions</span>
+            <span *ngIf="assignment.due_time !== 'turned in'" (click)="toggleViewAssignmentDetail(viewer, assignment.assignment_id)">Close Submissions</span>
+        </div>
+      </div>
+    </div>
+    </div>
+</ng-container>
+</div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <div class="mt-6  w-full grid grid-cols-2  gap-4">
+-->
+
   <!-- start card -->
-      <ng-container *ngFor="let assignment of assignments">
+
+      <!-- <ng-container *ngFor="let assignment of assignments">
 
         <div class="p-4 border w-full max-w-[500px] border-gray-200 rounded-lg">
 
@@ -62,13 +267,12 @@
 
       </div>
 
-      </ng-container>
+      </ng-container> -->
       <!-- end card -->
 
 
 
-</div>
-
+<!-- </div> -->
 
 
 
@@ -85,4 +289,4 @@
 
 <p-sidebar [(visible)]="viewStudentAssignment" position="right" styleClass="hidden-scrollbar" [style]="{'width':'50%'}">
   <app-assignment-detail [viewer]="viewer" [assignmentDetail]="assignmentDetail"></app-assignment-detail>
-</p-sidebar>
+</p-sidebar> 

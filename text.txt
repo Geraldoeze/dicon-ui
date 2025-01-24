@@ -1,0 +1,37 @@
+Reduce height of about hero
+homepage not responsive {alignment}
+increase font-size 
+new-logo
+Put overlay on video with a play button
+Ask Nath for Proper logo and review 
+
+No next of kin, address or course, gender assigned in staff profile endpoint
+no next of kin and matric number on student endpoint
+
+
+Review 
+
+Remove the hover underline, scaling 
+
+
+Switch the system from storing with local storage to something that will be faster, safer 
+
+1. Store as a cookie
+2. 
+
+Endpoint issues 
+Pg-application post 
+assignment submit post
+empty array for staff courses
+
+functions for the staff portal 
+display staff profile done
+change staff password done
+display staff courses
+upload staff course videos
+display course details: students and videos
+display upcoming classes and schedule classes
+display current assignment, add assignment, close submissions and view assignment details
+display courses exams, 
+upload exam question paper
+set passing criteria

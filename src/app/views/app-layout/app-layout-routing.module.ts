@@ -22,6 +22,11 @@ import { StudentCoursesComponent } from './student-profile/student-courses/stude
 import { StudentCAComponent } from './student-profile/student-c-a/student-c-a.component';
 import { StudentFeesComponent } from './student-profile/student-fees/student-fees.component';
 import { StudentExamsComponent } from './student-profile/student-exams/student-exams.component';
+import { StaffCoursesComponent } from './staff-profile/staff-courses/staff-courses.component';
+import { StaffCAComponent } from './staff-profile/staff-c-a/staff-c-a.component';
+import { StaffExamsComponent } from './staff-profile/staff-exams/staff-exams.component';
+import { ExamsDetailComponent } from '../../shared/exams-detail/exams-detail.component';
+import { StaffCourseDetailsComponent } from './staff-profile/staff-course-details/staff-course-details.component';
 
 
 
@@ -39,6 +44,11 @@ const routes: Routes = [
       {path: 'applications', component: ApplicationsComponent},
       {path: 'applications/:id', component: ApplicationDetailComponent},
       {path: 'staff', component: StaffsComponent},
+      {path: 'staff-profile/exams/details', component:ExamsDetailComponent},
+      {path: 'staff-profile/exams', component: StaffExamsComponent},
+      {path: 'staff-profile/c-a', component: StaffCAComponent},
+      {path: 'staff-profile/courses/details/:id', component: StaffCourseDetailsComponent},
+      {path: 'staff-profile/courses', component: StaffCoursesComponent},
       {path: 'staff-profile/:id', component: StaffProfileComponent},
       {path: 'students', component: StudentsComponent},
       {path: 'students/:id', component: StudentDetailComponent},

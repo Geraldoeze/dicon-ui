@@ -13,13 +13,36 @@ import { StorageService } from '../../../../services/storage.service';
 export class StudentCAComponent {
   student_id:any;
   StudentAssignment:any;
+  classes:any = [];
+
+  // classes = [
+  //   {
+  //   code : 'ELE 321',
+  //   name : 'Electrical Engineering',
+  //   time : 12,
+  //   lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'CSC 321',
+  //     name : 'Computer Science',
+  //     time : 1,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  //   {
+  //     code : 'MAT 321',
+  //     name : 'Mathematics',
+  //     time : 4,
+  //     lecturer: 'Prof Aiyede'
+  //   },
+  // ]
+
 
 
   constructor(private api:HttpServiceService, private storage:StorageService, private router:Router) {}
 
   ngOnInit(){
-  
-    this.getStudentAssignment()
+    this.getStudentAssignment();
+    this. getStudentClasses();
   }
 
   getStudentAssignment(){
@@ -34,7 +57,25 @@ export class StudentCAComponent {
     this.api.get(uri).subscribe(
       res=>{
         this.StudentAssignment = res;
-        console.log('Student Exams data', this.StudentAssignment)
+        console.log('Student assignment data', this.StudentAssignment)
+
+      }, err=>{
+        console.log(err)
+      }
+    )
+  }
+  
+  getStudentClasses(){
+    let uri:any;
+    let userAccountType = this.storage.getdata('userAccountType')
+    if(userAccountType?.toLowerCase() === 'student'){
+      uri='classes/1?period='
+    }
+
+    this.api.get(uri).subscribe(
+      (res: any)=>{
+        this.classes = res.data;
+        console.log('', this.classes);
 
       }, err=>{
         console.log(err)
