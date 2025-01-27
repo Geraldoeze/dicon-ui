@@ -1,5 +1,5 @@
 <section *ngIf="viewer == 'student'">
-  <div class="p-5">
+  <div class="md:p-5">
     <h1>
       Exam Results
     </h1>
@@ -115,7 +115,7 @@
 
 
 <section *ngIf="viewer == 'staff'">
-  <div class="p-5">
+  <div class="md:p-5">
     <div class="">
     <h1 class="text-3xl font-semibold">
       My Courses
@@ -134,28 +134,28 @@
     <div class="flex justify-between gap-y-4 my-2">
       <div class="flex flex-col">
         <h1 class="text-lg text-start font-semibold text-gray-900 ">
-            {{exam.code || 'ELE 321'}}
+            {{exam.code || 'ELE 321'}} 
         </h1>
         <p class="tracking-wide text-gray-500 ">
-            {{exam.course || 'Introduction to Computer Science'}}
+            {{exam.name|| 'Introduction to Computer Science'}}
         </p>
       </div>
       <div class="flex flex-col items-center gap-x-2">
         <div class="text-sm text-gray-700 rounded-full py-2 px-3">
-            {{exam.unit}}
+            {{exam.credit_unit}} units
         </div>
       </div>
       </div>
 
       <div class="flex justify-between items-center gap-4 my-2">
         <p class="text-gray-700">Videos:</p>
-        <p class="text-gray-900 font-medium">{{exam.video || '22 videos'}}</p>
+        <p class="text-gray-900 font-medium">{{exam.videos || '22 videos'}}</p>
       </div>
       <p class="mt-1 flex justify-between text-sm text-gray-600">
         <span class="text-sm text-gray-500 font-semibold min-w-12">
             Students:
         </span>
-        <span class="text-sm text-gray-800 font-semibold">{{exam.students_no || '100'}}</span>
+        <span class="text-sm text-gray-800 font-semibold">{{exam.students || '100'}}</span>
       </p>
 
       <!-- <p class="mt-1 flex justify-between text-sm text-gray-600">

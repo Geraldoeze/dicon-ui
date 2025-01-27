@@ -1,13 +1,13 @@
-
-<div class="flex flex-col md:flex-row justify-between">
-    <div class="">
-        <h1 class="text-gray-500 text-3xl font-medium">Register Courses</h1>
+<section class="py-5">
+<div class="flex items-center justify-between w-full">
+    <div class="mt-2">
+        <h3 class="text-gray-500 text-[1.5rem] sm:text-[2rem]  font-medium">Register Courses</h3>
     </div>
 
-<div class="heading flex md:justify-end ">
+<div class="heading flex">
     <div class="hs-dropdown [--strategy:absolute] [--flip:false] hs-dropdown-example relative inline-flex">
-      <button (click)="toggleCalender()" id="hs-dropdown-example" type="button" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-        2024/2025 Session
+      <button (click)="toggleCalender()" id="hs-dropdown-example" type="button" class="flex items-center min-w-fit gap-x-2 font-medium rounded-lg text-gray-800 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+        <span class="text-[.8rem] sm:text-[1rem]">2024/2025 Session</span>
         <svg class="hs-dropdown-open:rotate-180 size-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m6 9 6 6 6-6"></path>
         </svg>
@@ -32,26 +32,25 @@
       </div>
     </div>
   </div>
-
-
 </div>
+</section>
 
 
-<div class="mt-6">
+<div class="">
     <h3 class="text-xl font-normal my-3">Required Courses</h3>
     <div class="bg-white" *ngIf="requiredCourses.length > 0">
         <ng-container *ngFor="let course of requiredCourses">
-            <div class="flex flex-col md:flex-row justify-between items-center px-3 py-2 my-1 border">
-                <div class="md:w-3/4 flex justify-between md:items-center flex-col md:flex-row">
+            <div class="flex flex-col md:flex-row md:justify-between items-center px-3 py-2 my-1 border">
+              <div class="md:w-3/4 flex justify-between md:items-center">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full">
                   <div class="">
                     <h1 class="text-lg text-gray-700">{{course.course_code}}</h1>
-                    <p class="text-sm text-gray-400 w-full">{{course.name}}</p>
+                    <p class="text-sm text-gray-400 w-fit">{{course.name}}</p>
                   </div>
-                    <p class="w-full md:w-auto text-sm">{{course.units}} units</p>
+                  <p class="min-w-fit md:w-auto text-sm">{{course.units}} units</p>
                 </div>
-                
-                <button class="text-gray-700 font-medium py-1 px-4 border rounded" (click)="registerCourse(course.id)"
-                id="register">Register</button>
+              </div>
+              <button class="text-gray-700 font-medium py-1 px-4 border rounded mt-2 md:mt-0" (click)="registerCourse(course.id)" id="register">Register</button>
             </div>
         </ng-container>
     </div>
@@ -63,12 +62,12 @@
     <div class="bg-white" *ngIf="electiveCourses.length > 0">
         <ng-container *ngFor="let course of electiveCourses">
             <div class="flex justify-between flex-col md:flex-row items-center px-3 py-2 my-1 border">
-              <div class="md:w-3/4 flex justify-between md:items-center flex-col md:flex-row">
+              <div class="md:w-3/4 flex justify-between md:items-center">
                 <div class="">
                   <h1 class="text-lg text-gray-700">{{course.course_code}}</h1>
-                  <p class="text-sm text-gray-400 w-full">{{course.name}}</p>
+                  <p class="text-sm text-gray-400 min-w-fit">{{course.name}}</p>
                 </div>
-                  <p class="w-full md:w-auto text-sm">{{course.units}} units</p>
+                  <p class="min-w-fit md:w-auto text-sm">{{course.units}} units</p>
               </div>
                 <button class="text-gray-700 font-medium py-1 px-4 border rounded" (click)="registerCourse(course.id)"
                 id="register"

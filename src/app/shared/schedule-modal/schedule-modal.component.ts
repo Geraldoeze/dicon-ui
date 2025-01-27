@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HttpServiceService } from '../../services/http-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { StorageService } from '../../services/storage.service';
 
 
 enum UploadState {
@@ -20,13 +20,57 @@ export class ScheduleModalComponent {
   isDragging = false; // State for drag-and-drop
   file: File | null = null; // Selected file
   assignmentForm:any;
+  scheduleForm:any;
+  staff_id:any;
   loading:boolean = false;
   result: any;
   @Input() viewer!:string;
   @Input() course!:any;
 
-  constructor(private api:HttpServiceService, private fb:FormBuilder){}
+  constructor(private api:HttpServiceService, private fb:FormBuilder, private storage: StorageService){}
 
+  ngOnInit(){
+    this.scheduleForm = this.fb.group({
+      class_link: ['', Validators.required],
+      start_date: ['', Validators.required],
+      start_time: ['', Validators.required],
+    })
+  }
+
+
+  save() {
+    console.log(this.scheduleForm.value)
+    let uri:any;
+    let userAccountType = this.storage.getdata('userAccountType')
+    if(userAccountType?.toLowerCase() === 'staff'){
+      uri='classes'
+    } else{
+      uri='classes/staff_id=' + this.getParamsId()
+    }
+
+
+    this.api.post(uri, this.scheduleForm.value).subscribe(
+      (response) => {
+        this.result = response;
+        console.log('Submitted successfully:', this.result);
+        this.loading = true;
+
+      },
+      (error) => {
+        console.error('Error submitting assignment:', error);
+      }
+    );
+  }
+
+   
+  getParamsId(){
+    const url = window.location.href;
+    console.log('url', url);
+    const segments = url.split('/');
+    this.staff_id = segments[segments.length - 1];
+
+    return this.staff_id;
+  }
 
   UploadState = UploadState; // Make enum available to template
   currentState = UploadState.INITIAL;

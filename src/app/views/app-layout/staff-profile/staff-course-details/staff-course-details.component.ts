@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
+import { StorageService } from '../../../../services/storage.service';
 
 
 @Component({
@@ -21,8 +22,9 @@ export class StaffCourseDetailsComponent {
   viewer:any;
   course:any;
   visibleModal: boolean = false;
+  courseStudents:any;
 
-  constructor(private location: Location, private router:Router, private api:HttpServiceService){}
+  constructor(private location: Location, private router:Router, private api:HttpServiceService, private storage:StorageService){}
 
 
 
@@ -32,6 +34,7 @@ export class StaffCourseDetailsComponent {
     this.getVideos(this.getParamsId());
     this.getAssignments(this.getParamsId());
     this.getCourse();
+    this.getCourseStudents();
   }
 
   getParamsId(){
@@ -47,7 +50,7 @@ export class StaffCourseDetailsComponent {
     this.getParamsId()
     this.api.get('courses/' + courseId + '/videos' ).subscribe(
       (res:any)=>{
-        this.videos = res.data;
+        this.videos = res;
         console.log(this.videos);
       }, err=>{
         console.log(err);
@@ -70,7 +73,7 @@ export class StaffCourseDetailsComponent {
   getCourse(){
     this.api.get('courses/1').subscribe(
       (res: any)=>{
-        this.course = res.data
+        this.course = res
         console.log('course', this.course)
       }, err=>{
         console.log(err);
@@ -78,6 +81,23 @@ export class StaffCourseDetailsComponent {
     )
   }
 
+
+  getCourseStudents(){
+    let uri:any;
+    let userAccountType = this.storage.getdata('userAccountType')
+    if(userAccountType?.toLowerCase() === 'staff'){
+      uri='courses/students?course_id=' + this.getParamsId()
+    }
+    this.api.get(uri).subscribe(
+      res=>{
+        this.courseStudents = res;
+        console.log('no of students offering courses', this.courseStudents)
+
+      }, err=>{
+        console.log(err)
+      }
+    )
+  }
  
 
 

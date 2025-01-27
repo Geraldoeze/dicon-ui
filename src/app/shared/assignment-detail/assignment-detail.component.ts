@@ -54,19 +54,17 @@ isDragging = false; // State for drag-and-drop
     this.assignmentForm.patchValue({assignment_id: this.assignmentDetail.assignment_id})
     console.log('assignment id', this.assignmentForm.get('assignment_id').value);
     console.log(this.assignmentForm.value)
-    // this.api.post(`students/assignments/submit`, this.assignmentForm.value).subscribe(
-    //   (response) => {
-    //     this.result = response;
-    //     console.log('Submitted successfully:', this.result);
-    //     this.loading = true;
+    this.api.post(`students/assignments/submit`, this.assignmentForm.value).subscribe(
+      (response) => {
+        this.result = response;
+        console.log('Submitted successfully:', this.result);
+        this.loading = true;
 
-    //   },
-    //   (error) => {
-    //     console.error('Error submitting assignment:', error);
-    //   }
-
-
-    // );
+      },
+      (error) => {
+        console.error('Error submitting assignment:', error);
+      }
+    );
   }
 
 

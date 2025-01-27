@@ -1,5 +1,6 @@
-<div class="" *ngIf="viewer == 'class'">
+<div class="" *ngIf="viewer == 'class'" >
     <!-- <h1 class="text-3xl">Schedule Class</h1> -->
+     <form action="" [formGroup]="scheduleForm" (ngSubmit)="save()">
     <div class="my-4">
         <label for="" class="text-xl text-black my-2">Choose Course</label>
         <select name="" id="" class="block border py-2 px-3 w-full">
@@ -10,17 +11,18 @@
     </div>
     <div class="my-4">
         <label for="" class="text-xl text-black my-2">Class Link</label>
-        <input type="text" class="block border py-2 px-3 w-full" placeholder="Enter Class Link">
+        <input type="text" class="block border py-2 px-3 w-full" placeholder="Enter Class Link" formControlName="class_link">
     </div>
     <div class="my-4">
         <label for="" class="text-xl text-black my-2">Choose Date</label>
-        <input type="date" class="block border py-2 px-3 w-full">
+        <input type="date" class="block border py-2 px-3 w-full" formControlName="start_date">
     </div>
     <div class="my-4">
         <label for="" class="text-xl text-black my-2">Choose Time</label>
-        <input type="datetime" class="block border py-2 px-3 w-full">
+        <input type="datetime" class="block border py-2 px-3 w-full" formControlName="start_time">
     </div>
-    <button type="submit" class="bg-seccolor text-white p-2 w-full">Done</button>
+    <button  type="submit" class="bg-seccolor text-white p-2 w-full">Done</button>
+  </form>
 </div>
 
 <div class="" *ngIf="viewer == 'assignment'">

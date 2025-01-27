@@ -31,8 +31,8 @@
 <section class="p-5">
     <div class="flex justify-between">
       <div class="">
-        <!-- <h1 class="text-3xl font-medium">{{videos.course_code}}</h1>
-        <p>{{videos.course_name}}</p> -->
+        <h1 class="text-3xl font-medium">{{course.course_code}}</h1>
+        <p>{{course.course_name}}</p>
       </div>
       <div class="">
         <button (click)="showUploadModal()" class="bg-seccolor text-white py-2 px-4"> Upload Video </button>
@@ -50,11 +50,35 @@
     </div>
 
     <div class="my-4 flex gap-4">
-      <div class="text-xl text-gray-700" [ngClass]="{'text-black': view === 'students'}" (click)="toggleView('students')">Students</div>
-      <div class="text-xl text-gray-700" [ngClass]="{'text-black': view === 'videos'}" (click)="toggleView('videos')">Videos</div>
+      <div class="text-xl text-gray-700 cursor-pointer" [ngClass]="{'text-black': view === 'students'}" (click)="toggleView('students')">Students</div>
+      <div class="text-xl text-gray-700 cursor-pointer" [ngClass]="{'text-black': view === 'videos'}" (click)="toggleView('videos')">Videos</div>
     </div>
 
     <div *ngIf="view === 'students'">
-      <!-- <app-student-table tableHeader="tableHeader"></app-student-table> -->
+      <app-student-table [tableHeader]= tableHeader [studentCourses]=courseStudents></app-student-table>
+    </div>
+
+    <div *ngIf="view === 'videos'">
+        <div class="bg-background">
+          <div class="">
+            <h1 class="text-3xl font-medium">
+              Topic: <span class="">{{videos.topic_name}}</span> 
+              <span class="bg-gray-200 rounded-full p-2 text-base text-gray-700">{{videos.length}}</span>
+            </h1>
+            <div class="flex gap-2" *ngFor="let video of videos"
+            (click)="
+            openVideo(
+              'https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ Passcode: 4!^heN!^'
+            )
+          ">
+              <app-video-card
+              [displayCount]="true"
+              videoTitle="{{ video.title }}"
+              videoSrc="https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ
+              Passcode: 4!^heN!^"
+            ></app-video-card>
+            </div>
+          </div>
+        </div>
     </div>
 </section>

@@ -33,7 +33,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="ps-6 py-3 text-start">
+                <th scope="col" class="ps-6 py-3 text-start" *ngIf="checkbox">
                   <label for="hs-at-with-checkboxes-main" class="flex items-center">
                     <input
                       type="checkbox"
@@ -55,15 +55,15 @@
                       </span>
                     </div>
                   </th>
-                </ng-container>
+                </ng-container> 
                 <th scope="col" class="ps-6 py-3 text-start"></th>
               </tr>
             </thead>
 
-            <tbody class="divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-200" *ngIf="viewer == 'viewer'">
               <ng-container *ngFor="let student of students">
                 <tr (click)="route('/app/student-profile/' + student.id)">
-                  <td class="ps-6 py-3">
+                  <td class="ps-6 py-3" *ngIf="checkbox">
                     <label for="hs-at-with-checkboxes" class="flex items-center">
                       <input
                         type="checkbox"
@@ -75,14 +75,14 @@
                   </td>
                   <td class="ps-6 py-3">
                     <div class="flex min-w-[150px] items-center gap-x-3">
-                      <img
+                      <!-- <img
                         class="inline-block w-10 h-10 rounded-full"
                         src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Avatar"
-                      />
+                      /> -->
                       <div class="grow ">
                         <span class="block text-sm font-semibold text-gray-800">
-                          {{ student.name }}
+                          {{ student.first_name }} {{student.last_name}}
                         </span>
                       </div>
                     </div>
@@ -117,6 +117,39 @@
                   </td>
                 </tr>
               </ng-container>
+
+              <div class="" *ngIf="viewer == 'staff'">
+              <ng-container *ngFor="let student of studentCourses" >
+                <tr (click)="route('/app/student-profile/' + student.id)">
+                  <td class="ps-6 py-3">
+                    <div class="flex min-w-[150px] items-center gap-x-3">
+                      <!-- <img
+                        class="inline-block w-10 h-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Avatar"
+                      /> -->
+                      <div class="grow ">
+                        <span class="block text-sm font-semibold text-gray-800">
+                          {{ student.first_name }} {{student.last_name}}
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-3">
+                    <span class="block text-sm font-semibold text-gray-800">{{ student.department }}</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="block text-sm font-semibold text-gray-800">{{ student.matric_no }}</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="block text-sm font-semibold text-gray-800">{{ student.email }}</span>
+                  </td>
+                  <td class="py-3">
+                    <span class="text-xs text-gray-500">{{ student.phone_number }}</span>
+                  </td>
+                </tr>
+              </ng-container>
+            </div>
             </tbody>
           </table>
 

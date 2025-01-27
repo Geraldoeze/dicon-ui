@@ -1,13 +1,13 @@
 <section *ngIf="viewer == 'student'">
 <div  class="flex justify-between">
   <div class="">
-      <h1 class="text-gray-500 text-3xl font-medium">My Courses</h1>
+      <h1 class="text-gray-500 text-[1.2rem] md:text-[2rem] font-medium">My Courses</h1>
   </div>
 
 
-<div class="heading flex justify-end ">
+<div class="heading flex justify-end">
   <div class="hs-dropdown [--strategy:absolute] [--flip:false] hs-dropdown-example relative inline-flex">
-    <button (click)="toggleCalender()" id="hs-dropdown-example" type="button" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+    <button (click)="toggleCalender()" id="hs-dropdown-example" type="button" class="flex items-center gap-x-2 text-sm font-medium rounded-lg text-gray-800 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
       Select session
       <svg class="hs-dropdown-open:rotate-180 size-4 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="m6 9 6 6 6-6"></path>
@@ -33,10 +33,10 @@
 </div>
 
 
-<div class="mt-6  w-full grid grid-cols-1 md:grid-cols-4  gap-4">
+<div class="mt-6  w-full grid grid-cols-1 md:grid-cols-3 gap-4">
     <!-- start card -->
         <ng-container *ngFor="let course of courses">
-            <div (click)="route('app/course-content-detail/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl  ">
+            <div (click)="route('app/course-content-detail/1')" class="w-full mx-auto flex flex-col bg-white border shadow-sm rounded-xl">
               <div class="p-4 md:p-5">
               <div class="flex justify-between gap-y-4 my-2">
                 <div class="flex flex-col">
@@ -164,24 +164,24 @@
   <p class="text-base font-normal">These are courses you are teaching </p>
 
 
-<div class="mt-6 flex flex-col md:flex-row basis-4/5 gap-4">
+<div class="mt-6 grid grid-cols-1 lg:grid-cols-3 md:w-4/5 gap-4">
   <!-- start card -->
       <ng-container *ngFor="let course of courses">
         
-          <div class="md:max-w-3xl p-4 md:p-5 flex flex-col bg-white border  shadow-sm rounded-xl ">
+          <div class="md:max-w-5xl p-4 md:p-5 flex flex-col bg-white border  shadow-sm rounded-xl ">
           
             <div class="flex justify-between gap-y-4 my-2">
               <div class="flex flex-col">
-                <h1 class="text-lg text-start font-semibold text-gray-900 ">
-                    {{course.course_code || 'ELE 321'}}
+                <h1 class="text-base text-start font-semibold text-gray-900 ">
+                    {{course.code || 'ELE 321'}}
                 </h1>
                 <p class="tracking-wide text-gray-500 ">
-                    {{course.course_name}}
+                    {{course.name}}
                 </p>
               </div>
               <div class="flex flex-col items-center gap-x-2">
-                <h2 class="text-lg text-gray-700">
-                    {{course.course_units + ' units' || '4 Units'}}
+                <h2 class="text-base min-w-fit text-gray-700">
+                    {{course.credit_unit + ' units' || '4 Units'}}
                 </h2>
               </div>
               </div>
@@ -190,14 +190,14 @@
                 <p class="font-medium text-gray-500 ">
                   Total No. of videos
                 </p>
-                <span class="text-base font-semibold">{{course.total_videos}}</span>
+                <span class="text-base font-semibold">{{course.videos}}</span>
               </div>
 
               <div class=" flex items-center justify-between gap-x-2">
                 <p class="font-medium text-gray-500 ">
                   Students
                 </p>
-                <span class="text-base font-semibold">{{course.students_no}}</span>
+                <span class="text-base font-semibold">{{course.students}}</span>
               </div>
 
               <div class="w-full my-2">

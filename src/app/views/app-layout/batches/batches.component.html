@@ -3,7 +3,7 @@
     <app-sub-menu pageTitle="All Batches" actionName1="Delete (2)" addButton="Add Batch" (action1)="toggleConfirmDelete()" (addAction)="toggleAddBatch()"></app-sub-menu>
 
 
-    <div class="mt-6 w-full grid grid-cols-3 gap-4">
+    <div class="mt-6 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <ng-container *ngFor="let batch of batches">
           <!-- start card -->
         <div class=" w-full flex flex-col bg-white border shadow-sm rounded-xl  ">

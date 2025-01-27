@@ -27,7 +27,7 @@ export class StaffProfileComponent {
 
 
   getProfile(){
-    this.api.get('staffs/profile?staff_id=' + this.getParamsId()).subscribe(
+    this.api.get('staffs/profile').subscribe(
       res=>{
         this.profileData = res;
         console.log('profile data', this.profileData)

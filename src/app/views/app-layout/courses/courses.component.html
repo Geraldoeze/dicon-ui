@@ -3,7 +3,7 @@
   <app-sub-menu pageTitle="All Departments" actionName1="Delete (2)" addButton="Add Department" (action1)="toggleConfirmDelete()" (addAction)="toggleAddCourse()"></app-sub-menu>
 
 
-    <div class="mt-6 w-full grid grid-cols-3 gap-4">
+    <div class="mt-6 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <ng-container *ngFor="let department of departments">
           <!-- start card -->
         <div (click)="route('/app/programes/' + department.id)" class=" w-full flex flex-col bg-white border shadow-sm rounded-xl ">

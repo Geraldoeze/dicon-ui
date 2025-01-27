@@ -10,7 +10,10 @@ export class StudentTableComponent {
   @Input() showHeader: boolean = false;
   @Input() tableTitle!: string;
   @Input() students: any[] = [];
+  @Input() studentCourses: any[] = [];
   @Input() tableHeader: any[] = [];
+  @Input() checkbox: any
+  @Input() viewer:any;
   @Output() selectedStudent: EventEmitter<any> = new EventEmitter();
 
   constructor(private router:Router){}

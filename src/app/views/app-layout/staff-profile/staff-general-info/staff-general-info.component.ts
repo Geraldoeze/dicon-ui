@@ -39,16 +39,15 @@ export class StaffGeneralInfoComponent {
       return;
     }
 
-    // Call the API endpoint to change the password
     this.api.post('staffs/change-password', this.changePasswordForm.value).subscribe(
       (res) => {
-        // Handle the success response
+       
         console.log('Password changed successfully');
         this.showSuccess('Password changed successfully')
         this.changePasswordForm.reset();
       },
       (err) => {
-        // Handle the error response
+       
         console.log('Error changing password:', err);
         this.showError('Password change failed.')
       }

@@ -4,12 +4,12 @@
   <button class="px-2 py-1 bg-white border rounded-xl" [class.bg-gray-800]="currentMenu === 'myCourse'" (click)="toggleTab('myCourse')" >My Courses</button>
 </div>
 
-<div class="p-5" *ngIf="currentMenu === 'registerCourses'">
+<div class="md:p-5" *ngIf="currentMenu === 'registerCourses'">
     <app-register-course [requiredCourses]="requiredcourses" [electiveCourses]="electivecourses" [fetchCoursesBySession]="fetchCoursesBySession.bind(this)"></app-register-course>
 </div>
 
 
-<div class="p-5" *ngIf="currentMenu === 'myCourse'">                                                                                                                                                         
+<div class="md:p-5" *ngIf="currentMenu === 'myCourse'">                                                                                                                                                         
 <!-- <div *ngIf="StudentCourses?.length > 0;"> -->
   <app-courses-card [courses]="studentcourses" viewer="student"></app-courses-card>
 <!-- </div> -->
