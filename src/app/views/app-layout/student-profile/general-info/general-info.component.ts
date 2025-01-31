@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../../../services/http-service.service';
 import { StorageService } from '../../../../services/storage.service';
 import { MessageService } from 'primeng/api';
@@ -9,16 +9,16 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrl: './general-info.component.scss',
   providers: [MessageService]
 })
-export class GeneralInfoComponent {
+export class GeneralInfoComponent implements OnInit {
   @Output() viewExams = new EventEmitter();
   @Input() name!:string;
   @Input() profileData:any;
   changePasswordForm: any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
-  old_password: string = '';
-  new_password: string = '';
-  confirm_password: string = '';
+  isSubmitted = false;
+  loading = false;
+  old_password = '';
+  new_password = '';
+  confirm_password = '';
   profileForm: any;
 
   constructor(private api:HttpServiceService, private storage: StorageService, private fb:FormBuilder, private messageService: MessageService,){

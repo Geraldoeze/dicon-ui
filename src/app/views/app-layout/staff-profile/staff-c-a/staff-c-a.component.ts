@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
 
@@ -7,7 +7,7 @@ import { HttpServiceService } from '../../../../services/http-service.service';
   templateUrl: './staff-c-a.component.html',
   styleUrl: './staff-c-a.component.scss'
 })
-export class StaffCAComponent {
+export class StaffCAComponent implements OnInit {
 
 
   // classes = [

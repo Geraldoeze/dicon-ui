@@ -13,8 +13,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class StaffGeneralInfoComponent {
   @Input() profileData:any;
   changePasswordForm: any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
+  isSubmitted = false;
+  loading = false;
 
 
   constructor(private api:HttpServiceService, private storage: StorageService, private fb:FormBuilder, private messageService: MessageService,){

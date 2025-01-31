@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrl: './courses-card.component.scss'
 })
 export class CoursesCardComponent {
-  calender:boolean = false;
+  calender = false;
   @Input() viewer!:string;
   @Input() courses:any;
 

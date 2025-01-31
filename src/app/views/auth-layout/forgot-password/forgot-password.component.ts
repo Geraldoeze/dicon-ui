@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm:any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
+  isSubmitted = false;
+  loading = false;
 
   constructor(private fb:FormBuilder, private messageService: MessageService, private router: Router){
     this.forgotPasswordForm = this.fb.group({

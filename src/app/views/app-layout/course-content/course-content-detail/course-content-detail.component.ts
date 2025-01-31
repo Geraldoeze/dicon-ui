@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
 
@@ -8,7 +8,7 @@ import { HttpServiceService } from '../../../../services/http-service.service';
   templateUrl: './course-content-detail.component.html',
   styleUrl: './course-content-detail.component.scss'
 })
-export class CourseContentDetailComponent {
+export class CourseContentDetailComponent implements OnInit {
   videos:any;
   open = false
   currentId=0
@@ -17,7 +17,7 @@ export class CourseContentDetailComponent {
   view:any = ''
   viewer:any;
   course:any;
-  visibleModal: boolean = false;
+  visibleModal = false;
 
   constructor(private location: Location, private router:Router, private api:HttpServiceService){}
 

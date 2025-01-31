@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { HttpServiceService } from '../../../services/http-service.service';
@@ -8,7 +8,7 @@ import { HttpServiceService } from '../../../services/http-service.service';
   templateUrl: './staff-profile.component.html',
   styleUrl: './staff-profile.component.scss'
 })
-export class StaffProfileComponent {
+export class StaffProfileComponent implements OnInit {
   items: MenuItem[] | undefined;
    staff_id:any; currentMenu:any = 'general';
 

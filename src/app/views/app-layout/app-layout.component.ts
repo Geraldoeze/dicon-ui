@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 
@@ -7,15 +7,15 @@ import { StorageService } from '../../services/storage.service';
   templateUrl: './app-layout.component.html',
   styleUrl: './app-layout.component.scss'
 })
-export class AppLayoutComponent {
-  signout:boolean = false;
-  loading:boolean = false;
-  visible:boolean = false;
-  showMobileMenu:boolean = false;
-  is_mobileMenu:boolean = false;
+export class AppLayoutComponent implements OnInit {
+  signout = false;
+  loading = false;
+  visible = false;
+  showMobileMenu = false;
+  is_mobileMenu = false;
   user:any;
   currentMenu:any = 'general';
-  dropdown:boolean = false;
+  dropdown = false;
   userAccountType: any;
   random: any;
   studentPortal:any;

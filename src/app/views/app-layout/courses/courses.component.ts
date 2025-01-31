@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../services/http-service.service';
@@ -8,12 +8,12 @@ import { HttpServiceService } from '../../../services/http-service.service';
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
-export class CoursesComponent {
-  addCourse:boolean = false;
+export class CoursesComponent implements OnInit {
+  addCourse = false;
   departments:any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
-  confirmDelete:boolean = false;
+  isSubmitted = false;
+  loading = false;
+  confirmDelete = false;
   createCourseForm:any;
   programes:any;
 

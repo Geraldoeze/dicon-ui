@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrl: './fees.component.scss'
 })
 export class FeesComponent {
-  calender:boolean = false;
+  calender = false;
   tableHeader:any = ['Name', 'Fee', 'session', 'amount', 'Status'];
   fees: any[] = [
     { name: 'John Doe', fee: 'Tuition', session: '2023-2024', amount: 5000, status: 'Paid' },

@@ -9,7 +9,7 @@ import { StorageService } from './storage.service';
 })
 export class HttpServiceService {
 
-  baseUrl: string = 'https://dic.0ps.tech/api/'
+  baseUrl = 'https://dic.0ps.tech/api/'
   constructor(private http: HttpClient, private storage: StorageService) { }
 
   private getHttpOptions() {

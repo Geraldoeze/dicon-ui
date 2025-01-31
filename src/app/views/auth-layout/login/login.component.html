@@ -26,8 +26,9 @@
 
 <!-- Form Start -->
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-<input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z">            <div class="input-group mb-3">
-<input [ngClass]="{'border-pricolor': isSubmitted && f.email.errors}" formControlName="email" id="email" type="email" class="form-control " name="email" value="" required autocomplete="email" placeholder="Email" autofocus>
+<input type="hidden" name="_token" value="JjdTj7but7Au6GvK1kkJMVCcse3gu8bAjYq9GJ4Z">            
+<div class="input-group mb-3">
+<input [ngClass]="{'border-pricolor': isSubmitted && f.email.errors}" formControlName="email" id="email" type="email" class="form-control " name="email" value="" required autocomplete="email" placeholder="Email">
 
 </div>
 <div class="input-group mb-4">
@@ -43,8 +44,8 @@ Remember Me
 </label>
 </div>
 </div>
-  <button type="submit" >
-    <button  class="btn btn-primary shadow-2 mb-4" name="submit" >Login</button>
+  <button type="submit">
+    <button  class="btn btn-primary shadow-2 px-5 my-2" name="submit" >Login</button>
   </button>
 
   <span *ngIf="loading">

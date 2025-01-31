@@ -12,8 +12,8 @@ import { MessageService } from 'primeng/api';
 export class ResetPasswordComponent {
 
   resetPasswordForm:any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
+  isSubmitted = false;
+  loading = false;
 
   constructor(private fb:FormBuilder, private messageService: MessageService, private router: Router){
     this.resetPasswordForm = this.fb.group({

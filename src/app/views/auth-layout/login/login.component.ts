@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,11 +14,11 @@ import { HttpServiceService } from '../../../services/http-service.service';
   providers: [MessageService]
 
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm!: any;
-  isSubmitted: boolean = false;
-  loading: boolean = false;
-  hidePassword: boolean = true;
+  isSubmitted = false;
+  loading = false;
+  hidePassword = true;
   toastType!:string;
   response:any;
   user: any;
@@ -55,6 +55,8 @@ export class LoginComponent {
   }
 
   login(){
+    this.loading = true;
+
     const formData = new FormData();
     formData.set('username', this.loginForm.get('email')?.value);
     formData.set('password', this.loginForm.get('password')?.value);
@@ -83,6 +85,8 @@ export class LoginComponent {
   }
 
   getCurrentUsers(){
+    this.loading = true;
+
     let currentUser:any;
     this.api.get('auth/user').subscribe(
       res=>{
@@ -91,8 +95,10 @@ export class LoginComponent {
         this.storage.savedata('userAccountType', currentUser[0].account_type);
         this.storage.savedata('userAccountId', currentUser[0].id);
         this.RouteUser(currentUser);
+        this.loading = false;
       }, err=>{
         console.log(err)
+        this.loading = false;
       }
     )
 

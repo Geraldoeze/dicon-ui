@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../services/http-service.service';
 import { MessageService } from 'primeng/api';
@@ -18,20 +18,20 @@ interface Warehouse {
   styleUrl: './create-student-form.component.scss',
   providers: [MessageService]  // for PrimeNG messages
 })
-export class CreateStudentFormComponent {
+export class CreateStudentFormComponent implements OnInit {
   @Input() wareHouses!: any;
   @Input() vendors!: any;
   @Input() units!: any;
-  @Input() loading:boolean = false;
+  @Input() loading = false;
   @Output() togleModal = new EventEmitter<string>();
   @Output() saveProduct = new EventEmitter<string>();
 
   createProductForm:any;
-  isSubmitted: boolean = false;
+  isSubmitted = false;
   files:any;
   imageSrc:any;
   accommodationImageSrc:any;
-  viewImages:boolean=false;
+  viewImages=false;
   genders: any = ['Male', 'Female'];
   courses: any = ['Mathematics', 'Science', 'English', 'Social Studies', 'History', 'Geography'];
   batches: any = ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4', 'Batch 5'];
@@ -112,7 +112,7 @@ export class CreateStudentFormComponent {
 
     console.log(this.createProductForm.value);
 
-    let formData:any = new FormData();
+    const formData:any = new FormData();
     this.showSuccess('Student created successfully')
 
     // Append each file in the files array to FormData

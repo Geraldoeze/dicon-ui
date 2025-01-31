@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../services/http-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -14,13 +14,13 @@ enum UploadState {
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.scss'
 })
-export class AssignmentDetailComponent {
+export class AssignmentDetailComponent implements OnInit {
 @Input() viewer!:string;
 @Input() assignmentDetail:any = {};
 isDragging = false; // State for drag-and-drop
   file: File | null = null; // Selected file
   assignmentForm:any;
-  loading:boolean = false;
+  loading = false;
   result: any;
 
   constructor(private api:HttpServiceService, private fb:FormBuilder){}

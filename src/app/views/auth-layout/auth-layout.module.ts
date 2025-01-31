@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../../primeng/primeng.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PrimengModule } from '../../primeng/primeng.module';
     SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PrimengModule
+    PrimengModule,
+    NgxSpinnerModule
   ]
 })
 export class AuthLayoutModule { }

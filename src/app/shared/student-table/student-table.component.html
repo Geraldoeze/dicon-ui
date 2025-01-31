@@ -60,7 +60,7 @@
               </tr>
             </thead>
 
-            <tbody class="divide-y divide-gray-200" *ngIf="viewer == 'viewer'">
+            <tbody class="divide-y divide-gray-200" *ngIf="viewer === 'viewer'">
               <ng-container *ngFor="let student of students">
                 <tr (click)="route('/app/student-profile/' + student.id)">
                   <td class="ps-6 py-3" *ngIf="checkbox">
@@ -118,7 +118,7 @@
                 </tr>
               </ng-container>
 
-              <div class="" *ngIf="viewer == 'staff'">
+              <div class="" *ngIf="viewer === 'staff'">
               <ng-container *ngFor="let student of studentCourses" >
                 <tr (click)="route('/app/student-profile/' + student.id)">
                   <td class="ps-6 py-3">
@@ -150,6 +150,7 @@
                 </tr>
               </ng-container>
             </div>
+            
             </tbody>
           </table>
 

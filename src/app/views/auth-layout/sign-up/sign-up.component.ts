@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators} from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
@@ -10,11 +10,11 @@ import { MessageService } from 'primeng/api';
   styleUrl: './sign-up.component.scss',
   providers: [MessageService]  // Add MessageService to the component's providers array
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   registrationForm: any;
-  loading:boolean = false;
-  isSubmitted:boolean = false;
-  hidePassword:boolean = true;
+  loading = false;
+  isSubmitted = false;
+  hidePassword = true;
 
   constructor(
     private auth: AuthService,

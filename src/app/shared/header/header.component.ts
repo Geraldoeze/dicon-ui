@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
@@ -7,11 +7,11 @@ import { StorageService } from '../../services/storage.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  dropDown:boolean = false;
-  showMobileMenu:boolean = false;
-  is_mobileMenu:boolean = false;
+  dropDown = false;
+  showMobileMenu = false;
+  is_mobileMenu = false;
   userAccountType:any;
     menu = [
       {

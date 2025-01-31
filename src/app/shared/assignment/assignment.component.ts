@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
 
@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   templateUrl: './assignment.component.html',
   styleUrl: './assignment.component.scss'
 })
-export class AssignmentComponent {
-  viewStaffAssignment:boolean = false;
-  viewStudentAssignment:boolean = false;
+export class AssignmentComponent implements OnInit {
+  viewStaffAssignment = false;
+  viewStudentAssignment = false;
   assignmentDetail = []
   @Input() viewer!:string;
   @Input() assignments:any;
@@ -19,7 +19,7 @@ export class AssignmentComponent {
   constructor(private storage: StorageService, private router: Router){}
 
   ngOnInit(){
-    let data = this.storage.getJson('user')
+    const data = this.storage.getJson('user')
 
     console.log('passed assignment', this.assignments)
   }
@@ -30,8 +30,8 @@ export class AssignmentComponent {
     return this.assignments.find((assignment:any) => assignment.assignment_id === id) || null;
   }
 
-  visibleClass: boolean = false;
-  visibleAssignment: boolean = false;
+  visibleClass = false;
+  visibleAssignment = false;
 
   showClassModal() {
       this.visibleClass = true;

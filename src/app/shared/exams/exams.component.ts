@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../services/http-service.service';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
@@ -9,14 +9,14 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './exams.component.html',
   styleUrl: './exams.component.scss'
 })
-export class ExamsComponent {
+export class ExamsComponent implements OnInit {
 
-  visible: boolean = false;
+  visible = false;
 
   showDialog() {
       this.visible = true;
   }
-  viewDropOut:boolean = false;
+  viewDropOut = false;
   examDetail:any;
   @Input() studentId:any;
   @Input() exams:any;

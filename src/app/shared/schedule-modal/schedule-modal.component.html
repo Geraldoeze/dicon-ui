@@ -1,4 +1,4 @@
-<div class="" *ngIf="viewer == 'class'" >
+<div class="" *ngIf="viewer === 'class'" >
     <!-- <h1 class="text-3xl">Schedule Class</h1> -->
      <form action="" [formGroup]="scheduleForm" (ngSubmit)="save()">
     <div class="my-4">
@@ -25,7 +25,7 @@
   </form>
 </div>
 
-<div class="" *ngIf="viewer == 'assignment'">
+<div class="" *ngIf="viewer === 'assignment'">
     <!-- <h1 class="text-3xl">Assignment</h1> -->
     <div class="my-4">
         <label for="" class="text-xl text-black my-2">Choose Course</label>
@@ -51,7 +51,7 @@
 </div>
 
 
-<div class="" *ngIf="viewer == 'upload'">
+<div class="" *ngIf="viewer === 'upload'">
 <ng-container *ngFor="let item of course">
     
     <!-- <h1 class="text-3xl">Schedule Class</h1> -->

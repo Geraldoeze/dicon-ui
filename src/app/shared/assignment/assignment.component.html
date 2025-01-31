@@ -1,4 +1,4 @@
-<section *ngIf="viewer == 'student'">
+<section *ngIf="viewer === 'student'">
   <div class="md:p-5">
     <h1 class="text-[1.2rem] md:text-[1.5rem]">
       Upcoming Classes
@@ -40,7 +40,7 @@
   </div>
 </section>
 
-<section *ngIf="viewer == 'staff'">
+<section *ngIf="viewer === 'staff'">
 
   <div class="p-5">
     <div class="flex justify-between">
@@ -86,7 +86,7 @@
   </div>
 </section>
 
-<section *ngIf="viewer == 'student'">
+<section *ngIf="viewer === 'student'">
   <div class="md:p-5">
     <h1 class="text-[1.2rem] md:text-[1.5rem]">
       Assignments
@@ -130,7 +130,7 @@
   </div>
 </section>
 
-<section *ngIf="viewer == 'staff'">
+<section *ngIf="viewer === 'staff'">
   <div class="p-5">
     <div class="flex justify-between">
       <h1 class="text-[1.2rem] md:text-[1.5rem]">

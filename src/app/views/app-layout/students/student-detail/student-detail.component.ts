@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../../../services/http-service.service';
 
 @Component({
@@ -6,9 +6,9 @@ import { HttpServiceService } from '../../../../services/http-service.service';
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss'
 })
-export class StudentDetailComponent {
-  addStudent:boolean = false;
-  confirmDelete:boolean = false;
+export class StudentDetailComponent implements OnInit {
+  addStudent = false;
+  confirmDelete = false;
   students:any;
 
 

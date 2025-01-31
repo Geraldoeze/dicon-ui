@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { MessageService } from 'primeng/api';
@@ -10,15 +10,15 @@ import { Router } from '@angular/router';
   styleUrl: './programs.component.scss',
   providers: [MessageService]  // Import MessageService to use it in the component
 })
-export class ProgramsComponent {
+export class ProgramsComponent implements OnInit {
   programes:any = []
-  confirmDelete:boolean = false;
-  addVideo:boolean = false
+  confirmDelete = false;
+  addVideo = false
   files: any;
   imageSrc: any;
   isSubmitted: any;
   uploadForm:any;
-  loading: boolean = false;
+  loading = false;
   departmentId:any;
 
   constructor(private fb: FormBuilder,

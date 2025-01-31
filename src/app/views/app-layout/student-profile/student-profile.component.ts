@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { HttpServiceService } from '../../../services/http-service.service';
@@ -10,7 +10,7 @@ import { StorageService } from '../../../services/storage.service';
   templateUrl: './student-profile.component.html',
   styleUrl: './student-profile.component.scss'
 })
-export class StudentProfileComponent {
+export class StudentProfileComponent implements OnInit {
   items: MenuItem[] | undefined;
   currentMenu:any = 'general';
   student_id:any;
@@ -32,7 +32,7 @@ export class StudentProfileComponent {
 
   getProfile(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
      uri='students/profile?student_id=' + this.getParamsId()
     } 
@@ -53,7 +53,7 @@ export class StudentProfileComponent {
 
   getStudentCourses(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='students/courses'
     } else{
@@ -73,7 +73,7 @@ export class StudentProfileComponent {
 
   getStudentExams(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='students/exams'
     } else{
@@ -94,7 +94,7 @@ export class StudentProfileComponent {
 
   getStudentAssignment(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='students/assignments'
     } else{

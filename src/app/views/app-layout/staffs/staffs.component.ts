@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { MessageService } from 'primeng/api';
@@ -9,17 +9,17 @@ import { MessageService } from 'primeng/api';
   styleUrl: './staffs.component.scss',
   providers: [MessageService]  // Add MessageService to your component providers
 })
-export class StaffsComponent {
-  addStaff:boolean = false;
+export class StaffsComponent implements OnInit {
+  addStaff = false;
   createStaffForm:any;
-  isSubmitted: boolean = false;
-  confirmDelete:boolean = false;
+  isSubmitted = false;
+  confirmDelete = false;
   files:any;
-  loading:boolean = false;
+  loading = false;
   imageSrc:any;
   accommodationImageSrc:any;
-  viewImages:boolean=false;
-  loadings:boolean=false;
+  viewImages=false;
+  loadings=false;
   genders: any = ['Male', 'Female'];
   courses: any = ['Mathematics', 'Science', 'English', 'Social Studies', 'History', 'Geography'];
   batches: any = ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4', 'Batch 5'];

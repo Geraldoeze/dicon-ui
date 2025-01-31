@@ -20,11 +20,11 @@
 </div>
 
 <div class="mt-8 flex gap-4 border-b border-gray-200 cursor-pointer">
-    <nav (click)="toggleTab('courses')" [ngClass]="{'border-seccolor': currentMenu=='courses'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
+    <nav (click)="toggleTab('courses')" [ngClass]="{'border-seccolor': currentMenu==='courses'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
         Courses
       </nav>
 
-      <nav (click)="toggleTab('student-enroled')" [ngClass]="{'border-seccolor': currentMenu=='student-enroled'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
+      <nav (click)="toggleTab('student-enroled')" [ngClass]="{'border-seccolor': currentMenu==='student-enroled'}" class="flex border-b-2 gap-4 text-base" aria-label="Tabs" role="tablist">
         Students Enrolled
       </nav>
 
@@ -37,7 +37,7 @@
 </div>
 
 
-<div *ngIf="currentMenu=='courses'">
+<div *ngIf="currentMenu==='courses'">
     <div class="mt-8  w-full grid grid-cols-3  gap-4">
         <!-- start card -->
         <div (click)="route('app/course-content-detail/1')" class=" w-full flex flex-col bg-white border  shadow-sm rounded-xl  ">
@@ -76,12 +76,12 @@
 </div>
 
 <ng-container *ngIf="user.account_type!=='student'">
-  <div *ngIf="currentMenu=='student-enroled'" class="">
+  <div *ngIf="currentMenu==='student-enroled'" class="">
     <app-student-table [students]="students" [tableHeader]="tableHeader"></app-student-table>
   </div>
 </ng-container>
 
-<div *ngIf="currentMenu=='exams'">
+<div *ngIf="currentMenu==='exams'">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
     <app-exams></app-exams>
   </div>

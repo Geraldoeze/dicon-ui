@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../../services/http-service.service';
 import { FormBuilder } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './support.component.html',
   styleUrl: './support.component.scss'
 })
-export class SupportComponent {
+export class SupportComponent implements OnInit {
   createSupportForm:any;
 
   constructor(private api:HttpServiceService, private fb: FormBuilder){}

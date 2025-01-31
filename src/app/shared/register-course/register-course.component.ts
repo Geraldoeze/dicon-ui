@@ -9,8 +9,10 @@ import { CourseContentComponent } from '../../views/app-layout/course-content/co
   styleUrl: './register-course.component.scss'
 })
 export class RegisterCourseComponent {
-  calender:boolean = false;
-  registered:any;
+  calender = false;
+  registeredElective:any;
+  registeredRequired:any;
+  registeredCarryOver:any;
   @Input() requiredCourses:any;
   @Input() electiveCourses:any;
   @Input() carryOverCourses:any;
@@ -35,36 +37,92 @@ export class RegisterCourseComponent {
   //     }
   //   )
   // }
-registerCourse(courseId: string): void {
- 
+registerElectiveCourse(courseId: string): void {
   this.api.post(`students/courses/register?course_id=${courseId}`, { courseId }).subscribe(
     (response) => {
-      this.registered = response;
+      this.registeredElective = response;
       console.log('Course registered successfully:', response);
-      this.changeButtonText();
+      this.changeElectiveButtonText();
     },
     (error) => {
       console.error('Error registering course:', error);
     }
-
-    
   );
 }
 
-  changeButtonText(){
-    const button = document.querySelector('#register') as HTMLElement;
-    if(button){
-      if(this.registered){
-        button.innerText = 'Registered';
-        button.classList.add('bg-gray-500', 'text-white');
-      } else {
-        button.innerText = 'Register';
-        button.classList.remove('bg-gray-500', 'text-white');
-        button.classList.add('bg-white', 'text-black');
-      }
+
+
+changeElectiveButtonText(): void {
+  const button = document.querySelector('#registerElective') as HTMLElement;
+  if (button) {
+    if (this.registeredElective) {
+      button.innerText = 'Registered';
+      button.classList.add('bg-gray-300', 'text-white');
+    } 
+    // else {
+    //   button.innerText = 'Register';
+    //   button.classList.remove('bg-gray-500', 'text-white');
+    //   button.classList.add('bg-white', 'text-black');
+    // }
+  }
+}
+
+registerRequiredCourse(courseId: string): void {
+  this.api.post(`students/courses/register?course_id=${courseId}`, { courseId }).subscribe(
+    (response) => {
+      this.registeredRequired = response;
+      console.log('Course registered successfully:', response);
+      this.changeRequiredButtonText();
+    },
+    (error) => {
+      console.error('Error registering course:', error);
     }
+  );
+}
+
+changeRequiredButtonText(): void {
+  const button = document.querySelector('#registerRequired') as HTMLElement;
+  if (button) {
+    if (this.registeredRequired) {
+      button.innerText = 'Registered';
+      button.classList.add('bg-gray-300', 'text-white');
+    } 
+    // else {
+    //   button.innerText = 'Register';
+    //   button.classList.remove('bg-gray-500', 'text-white');
+    //   button.classList.add('bg-white', 'text-black');
+    // }
+  }
+}
+
+  registerCarryOverCourse(courseId: string): void {
+    this.api.post(`students/courses/register?course_id=${courseId}`, { courseId }).subscribe(
+      (response) => {
+        this.registeredCarryOver = response;
+        console.log('Course registered successfully:', response);
+        this.changeCarryOverButtonText();
+      },
+      (error) => {
+        console.error('Error registering course:', error);
+      }
+    );
   }
 
+
+changeCarryOverButtonText(): void {
+  const button = document.querySelector('#registerCarryOver') as HTMLElement;
+  if (button) {
+    if (this.registeredCarryOver) {
+      button.innerText = 'Registered';
+      button.classList.add('bg-gray-300', 'text-white');
+    } 
+    // else {
+    //   button.innerText = 'Register';
+    //   button.classList.remove('bg-gray-500', 'text-white');
+    //   button.classList.add('bg-white', 'text-black');
+    // }
+  }
+}
 
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { StorageService } from '../../../../services/storage.service';
@@ -9,7 +9,7 @@ import { HttpServiceService } from '../../../../services/http-service.service';
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
-export class CourseDetailComponent {
+export class CourseDetailComponent implements OnInit {
   items: MenuItem[] | undefined;
   currentMenu:any = 'courses';
   students = [

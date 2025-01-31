@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../../services/http-service.service';
 
 @Component({
@@ -6,17 +6,17 @@ import { HttpServiceService } from '../../../services/http-service.service';
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss'
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnInit {
   data: any;
   options: any=null;
-  confirmDelete: boolean = false;
-  viewDropOut: boolean = false;
+  confirmDelete = false;
+  viewDropOut = false;
   dropoutData:any=[];
-  ActiveStudents:boolean = false;
+  ActiveStudents = false;
   activeStudentsData:any=[];
   students:any=[];
   studentsMetrics:any=[];
-  addStudent: boolean = false;
+  addStudent = false;
 
 
   constructor(private api: HttpServiceService){}
@@ -33,8 +33,8 @@ export class StudentsComponent {
 
   getStudentMetrics(){
     this.api.get('dashboard/student').subscribe(
-      res=>{
-        this.studentsMetrics=res
+      (res: any)=>{
+        this.studentsMetrics=res.data
         console.log(this.students);
       }, err=>{
         console.log(err);
@@ -44,8 +44,8 @@ export class StudentsComponent {
 
   getRecentStudent(){
     this.api.get('students/').subscribe(
-      res=>{
-        this.students=res
+      (res:any)=>{
+        this.students=res.data
         console.log('students', this.students);
       }, err=>{
         console.log(err);
@@ -55,8 +55,8 @@ export class StudentsComponent {
 
   getActiveStudent(){
     this.api.get('students/?page=1&page_size=10&status=Active').subscribe(
-      res=>{
-        this.activeStudentsData=res
+      (res:any)=>{
+        this.activeStudentsData=res.data
         console.log('students', this.students);
       }, err=>{
         console.log(err);
@@ -67,8 +67,8 @@ export class StudentsComponent {
 
   getDropout(){
     this.api.get('students/?page=1&page_size=10&status=Dropout').subscribe(
-      res=>{
-        this.dropoutData=res
+      (res:any)=>{
+        this.dropoutData=res.data
         console.log('students', this.students);
       }, err=>{
         console.log(err);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../services/http-service.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
@@ -15,14 +15,14 @@ enum UploadState {
   templateUrl: './schedule-modal.component.html',
   styleUrl: './schedule-modal.component.scss'
 })
-export class ScheduleModalComponent {
+export class ScheduleModalComponent implements OnInit {
   class:any;
   isDragging = false; // State for drag-and-drop
   file: File | null = null; // Selected file
   assignmentForm:any;
   scheduleForm:any;
   staff_id:any;
-  loading:boolean = false;
+  loading = false;
   result: any;
   @Input() viewer!:string;
   @Input() course!:any;
@@ -41,7 +41,7 @@ export class ScheduleModalComponent {
   save() {
     console.log(this.scheduleForm.value)
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'staff'){
       uri='classes'
     } else{

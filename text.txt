@@ -36,3 +36,27 @@ display current assignment, add assignment, close submissions and view assignmen
 display courses exams, 
 upload exam question paper
 set passing criteria
+
+
+
+Clean up and wrap up updates.
+Fix logo 404 done
+1. Add a spinner to portal login done
+2. Fix mycourses calender
+3. meeting link to join classes
+4.View details should display for individual courses 
+download question paper
+Check responsiveness
+
+Fix Staff upload video
+fix video grid
+fix students fetch
+fix schedule class 
+add meeting link 
+Fix assignment details students
+Fix Add assignment
+Fix close submissions
+Fix upload results
+upload question
+
+

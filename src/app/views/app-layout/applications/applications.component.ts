@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpServiceService } from '../../../services/http-service.service';
 
@@ -7,16 +7,16 @@ import { HttpServiceService } from '../../../services/http-service.service';
   templateUrl: './applications.component.html',
   styleUrl: './applications.component.scss'
 })
-export class ApplicationsComponent {
-  addApplication:boolean = false;
+export class ApplicationsComponent implements OnInit {
+  addApplication = false;
   createApplicationForm:any;
   applications:any;
   singleApplicant:any;
-  isSubmitted: boolean = false;
-  confirmDelete: boolean = false;
-  loading: boolean = false;
-  viewImages:boolean=false;
-  viewDetails:boolean=false;
+  isSubmitted = false;
+  confirmDelete = false;
+  loading = false;
+  viewImages=false;
+  viewDetails=false;
   genders: any = ['Male', 'Female'];
   courses: any = ['Mathematics', 'Science', 'English', 'Social Studies', 'History', 'Geography'];
   batches: any = ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4', 'Batch 5'];

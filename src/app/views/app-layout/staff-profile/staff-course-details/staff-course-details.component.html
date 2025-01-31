@@ -45,8 +45,8 @@
     <hr>
 
     <div class="my-4">
-      <h1> Course Description </h1>
-      <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi libero voluptatem a eos placeat quod quaerat possimus explicabo eveniet nemo excepturi, at provident amet doloremque obcaecati consequatur? Dicta itaque in corporis odio tempora consectetur omnis, architecto minus exercitationem velit quod illo ducimus aut, nobis quisquam. Ut beatae maxime fugit culpa?</p>
+      <h1 class="text-3xl font-medium"> Course Description </h1>
+      <p class="text-base font-normal"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi libero voluptatem a eos placeat quod quaerat possimus explicabo eveniet nemo excepturi, at provident amet doloremque obcaecati consequatur? Dicta itaque in corporis odio tempora consectetur omnis, architecto minus exercitationem velit quod illo ducimus aut, nobis quisquam. Ut beatae maxime fugit culpa?</p>
     </div>
 
     <div class="my-4 flex gap-4">
@@ -55,7 +55,7 @@
     </div>
 
     <div *ngIf="view === 'students'">
-      <app-student-table [tableHeader]= tableHeader [studentCourses]=courseStudents></app-student-table>
+      <app-student-table [tableHeader]= tableHeader [studentCourses]=courseStudents viewer="staff"></app-student-table>
     </div>
 
     <div *ngIf="view === 'videos'">
@@ -65,7 +65,7 @@
               Topic: <span class="">{{videos.topic_name}}</span> 
               <span class="bg-gray-200 rounded-full p-2 text-base text-gray-700">{{videos.length}}</span>
             </h1>
-            <div class="flex gap-2" *ngFor="let video of videos"
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" *ngFor="let video of videos"
             (click)="
             openVideo(
               'https://us06web.zoom.us/rec/share/C6zeHTyNigreKx6MoO5Aj3fGVA6OKXbYRb_zbqBg4eNW-vidYrzSLKCCNceSgj_2.kmi_W4-3CTBGcKSZ Passcode: 4!^heN!^'

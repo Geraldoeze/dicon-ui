@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { HttpServiceService } from '../../../services/http-service.service';
@@ -10,21 +10,21 @@ import { Router } from '@angular/router';
   styleUrl: './course-content.component.scss',
   providers: [MessageService]  // Import MessageService to use it in the component
 })
-export class CourseContentComponent {
+export class CourseContentComponent implements OnInit {
 
   programes:any = []
   courses:any
   assignments:any;
-  confirmDelete:boolean = false;
-  addVideo:boolean = false
+  confirmDelete = false;
+  addVideo = false
   files: any;
   imageSrc: any;
   isSubmitted: any;
   uploadForm:any;
   assignmentForm:any;
-  loading: boolean = false;
+  loading = false;
   programeId:any;
-  createAssignment:boolean = false;
+  createAssignment = false;
 
 
   constructor(private fb: FormBuilder,

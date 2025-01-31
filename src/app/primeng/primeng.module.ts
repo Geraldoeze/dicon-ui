@@ -13,13 +13,13 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { OrderListModule } from 'primeng/orderlist';
+// import { OrderListModule } from 'primeng/orderlist';
 import { AccordionModule } from 'primeng/accordion';
 import { PanelModule } from 'primeng/panel';
 
 
 
-const primeNG: any = [
+const primeNG = [
   ButtonModule,
   ProgressBarModule,
   ToastModule,

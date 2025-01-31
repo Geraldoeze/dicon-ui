@@ -1,4 +1,4 @@
-<section *ngIf="viewer == 'student'">
+<section *ngIf="viewer === 'student'">
 <div  class="flex justify-between">
   <div class="">
       <h1 class="text-gray-500 text-[1.2rem] md:text-[2rem] font-medium">My Courses</h1>
@@ -153,7 +153,7 @@
         <!-- end card -->
 </div>
 </section>
-<section *ngIf="viewer == 'staff'" class="w-full">
+<section *ngIf="viewer === 'staff'" class="w-full">
   <div class="flex items-center gap-2">
   <h1 class="text-3xl font-medium">My Courses
   </h1>

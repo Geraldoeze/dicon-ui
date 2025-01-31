@@ -21,7 +21,7 @@ export class StorageService {
   }
 
   getJson(name:string){
-    let data = localStorage.getItem(name)
+    const data = localStorage.getItem(name)
     return data ? JSON.parse(data) : null;
   }
 

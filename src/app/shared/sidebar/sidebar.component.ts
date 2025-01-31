@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   isActive(arg0: string): boolean {
   return this.router.isActive(arg0, true);
   }
@@ -18,7 +18,7 @@ export class SidebarComponent {
     console.log(this.currentMenu)
   }
 
-  dropdown:boolean = false;
+  dropdown = false;
   userAccountType: any;
   random: any;
   studentPortal:any;

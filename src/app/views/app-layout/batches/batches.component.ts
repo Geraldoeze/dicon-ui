@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../services/http-service.service';
@@ -8,14 +8,14 @@ import { HttpServiceService } from '../../../services/http-service.service';
   templateUrl: './batches.component.html',
   styleUrl: './batches.component.scss'
 })
-export class BatchesComponent {
+export class BatchesComponent implements OnInit {
 
-  addBatch:boolean = false;
+  addBatch = false;
   departments:any;
-  isSubmitted:boolean = false;
-  loading:boolean = false;
+  isSubmitted = false;
+  loading = false;
   createBatchForm:any;
-  confirmDelete:boolean = false;
+  confirmDelete = false;
   batches:any = [];
 
   constructor(private router: Router, private api: HttpServiceService, private fb: FormBuilder){}

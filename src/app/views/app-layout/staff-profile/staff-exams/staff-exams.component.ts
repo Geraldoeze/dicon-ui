@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
 import { StorageService } from '../../../../services/storage.service';
@@ -9,7 +9,7 @@ import { StorageService } from '../../../../services/storage.service';
   templateUrl: './staff-exams.component.html',
   styleUrl: './staff-exams.component.scss'
 })
-export class StaffExamsComponent {
+export class StaffExamsComponent implements OnInit {
   studentExams:any;
   studentExam: any;
   staff_id:any;
@@ -117,7 +117,7 @@ export class StaffExamsComponent {
    
   getStudentExams(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'staff'){
       uri='staffs/courses'
     } else{

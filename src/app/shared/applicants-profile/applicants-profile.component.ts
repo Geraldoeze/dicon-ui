@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpServiceService } from '../../services/http-service.service';
 import { MessageService } from 'primeng/api';
 
@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
   styleUrl: './applicants-profile.component.scss',
   providers: [MessageService]  // Import MessageService to use it in the component
 })
-export class ApplicantsProfileComponent {
+export class ApplicantsProfileComponent implements OnInit {
   @Input() applicant:any;
   @Output() approveApplication=new EventEmitter();
   @Output() rejectApplication=new EventEmitter();

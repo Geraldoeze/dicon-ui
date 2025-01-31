@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service'; 
 import { StorageService } from '../../../../services/storage.service';
@@ -10,7 +10,7 @@ import { StorageService } from '../../../../services/storage.service';
   templateUrl: './student-c-a.component.html',
   styleUrl: './student-c-a.component.scss'
 })
-export class StudentCAComponent {
+export class StudentCAComponent implements OnInit {
   student_id:any;
   StudentAssignment:any;
   classes:any = [];
@@ -47,7 +47,7 @@ export class StudentCAComponent {
 
   getStudentAssignment(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='students/assignments'
     } else{
@@ -67,7 +67,7 @@ export class StudentCAComponent {
   
   getStudentClasses(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='classes/1?period='
     }

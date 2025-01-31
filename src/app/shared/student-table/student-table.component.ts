@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,15 +6,15 @@ import { Router } from '@angular/router';
   templateUrl: './student-table.component.html',
   styleUrl: './student-table.component.scss'
 })
-export class StudentTableComponent {
-  @Input() showHeader: boolean = false;
+export class StudentTableComponent implements OnInit {
+  @Input() showHeader = false;
   @Input() tableTitle!: string;
   @Input() students: any[] = [];
   @Input() studentCourses: any[] = [];
   @Input() tableHeader: any[] = [];
   @Input() checkbox: any
   @Input() viewer:any;
-  @Output() selectedStudent: EventEmitter<any> = new EventEmitter();
+  @Output() selectedStudent = new EventEmitter<any>();
 
   constructor(private router:Router){}
 

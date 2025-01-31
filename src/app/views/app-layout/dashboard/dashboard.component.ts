@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { HttpServiceService } from '../../../services/http-service.service';
 
@@ -8,15 +8,15 @@ import { HttpServiceService } from '../../../services/http-service.service';
   styleUrl: './dashboard.component.scss',
   providers: [MessageService]  // Import MessageService to use it in the component
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   responsiveOptions: any[] | undefined;
     data: any;
     options: any=null;
     metrics: any=null;
     TopSellingProduct: any=null;
     recentApplications: any=null;
-    pageLoading:boolean=false;
-    calender:boolean=false;
+    pageLoading=false;
+    calender=false;
     chartData:any[]=[]
 
 

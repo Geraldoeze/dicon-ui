@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpServiceService } from '../../../../services/http-service.service';
 import { StorageService } from '../../../../services/storage.service';
@@ -9,7 +9,7 @@ import { StorageService } from '../../../../services/storage.service';
   templateUrl: './student-exams.component.html',
   styleUrl: './student-exams.component.scss'
 })
-export class StudentExamsComponent {
+export class StudentExamsComponent implements OnInit {
   studentExams:any;
   student_id:any;
 
@@ -114,7 +114,7 @@ export class StudentExamsComponent {
 
   getStudentExams(){
     let uri:any;
-    let userAccountType = this.storage.getdata('userAccountType')
+    const userAccountType = this.storage.getdata('userAccountType')
     if(userAccountType?.toLowerCase() === 'student'){
       uri='students/exams'
     } else{
