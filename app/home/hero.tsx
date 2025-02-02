@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { Play } from 'lucide-react';
-
 const Hero = () => {
   useEffect(() => {
     const elements = [
@@ -22,7 +21,7 @@ const Hero = () => {
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background with Overlay */}
       <div 
-        className="absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center"
+        className={`absolute inset-0 bg-[url('/262098d7df12552423a8a0fcb6965883.gif')] bg-contain bg-center`}
       >
         <div className="absolute inset-0 bg-[#0F204B]/80 backdrop-blur-xs" />
       </div>

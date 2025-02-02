@@ -1,5 +1,8 @@
 import Image from "next/image";
-
+import commandant from '@/public/commandant.jpg'
+import img from '@/public/22-24.jpg'
+import img2 from '@/public/22.jpg'
+import img3 from '@/public/20-22.jpg'
 const Commandants = () => {
   return (
     <div className="min-h-screen relative bg-[url('/commandants-bg.jpg')] bg-cover bg-center">
@@ -10,7 +13,7 @@ const Commandants = () => {
                 <div className="flex justify-center">
                 <div className="p-4">
                     <div className="max-w-[300px] min-h-[300px]">
-                    <Image src="/commandant.jpg" alt="" className="w-full h-auto"/>
+                    <Image src={commandant} alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold">R ADM. P.E EFFAH</h2>
@@ -25,7 +28,7 @@ const Commandants = () => {
             <div className="flex flex-col md:flex-row justify-center gap-x-5">
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <Image src="/22-24.jpg" alt="" className="w-full h-auto"/>
+                    <Image src={img} width={900} alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre e.o jaiyeola</h2>
@@ -35,7 +38,7 @@ const Commandants = () => {
                   </div>
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <Image src="/22.jpg" alt="" className="w-full h-auto"/>
+                    <Image src={img2} width={900} alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre m.a emuekpere</h2>
@@ -45,7 +48,7 @@ const Commandants = () => {
                   </div>
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <Image src="/20-22.jpg" alt="" className="w-full h-auto"/>
+                    <Image src={img3} alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre e.o jaiyeola</h2>
