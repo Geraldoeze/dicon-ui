@@ -24,7 +24,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center"
       >
-        <div className="absolute inset-0 bg-[#0F204B]/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-[#0F204B]/80 backdrop-blur-xs" />
       </div>
 
       {/* Main Content Container */}
@@ -74,10 +74,10 @@ const Hero = () => {
               Watch our documentary video
             </span>
             <button 
-              className="rounded-full bg-orange-500 p-3 md:p-4 
+              className="rounded-full bg-orange-500 border-none outline-none p-2 custom-ping
                 hover:bg-orange-600 transition-colors duration-300"
             >
-              <Play className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              <Play className="w-2 h-2 md:w-5 md:h-5 text-white" />
             </button>
           </div>
         </div>

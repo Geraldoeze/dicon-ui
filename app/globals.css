@@ -109,4 +109,12 @@ body {
   }
 }
 
-
+@keyframes ping {
+  75%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+  }
+}
+.custom-ping {
+  animation: ping 1s ease-in-out infinite;
+}

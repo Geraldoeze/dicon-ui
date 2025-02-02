@@ -1,10 +1,10 @@
-import Hero from './hero';
-import About from './about';
-import Commandants from './commandants';
-import MisionVision from './mission-vision';
-import NewsBlog from './news-blog';
-import Gallery from './gallery';
-import { blogPosts, galleryImages } from './mock';
+import Hero from './home/hero';
+import About from './home/about';
+import Commandants from './home/commandants';
+import MisionVision from './home/mission-vision';
+import NewsBlog from './home/news-blog';
+import Gallery from './home/gallery';
+import { blogPosts, galleryImages } from './home/mock';
 
 export default function Home() {
  
