@@ -1,4 +1,12 @@
 
+type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  source: string;
+  date: string;
+  time: string;
+}
 
 import Link from 'next/link';
 

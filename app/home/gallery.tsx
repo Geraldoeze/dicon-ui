@@ -2,6 +2,12 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+type GalleryImage = {
+    id: string;
+    src: string;
+    alt: string;
+  }
+  
 interface GalleryProps {
   images: GalleryImage[];
   title?: string;

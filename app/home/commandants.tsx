@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 
 const Commandants = () => {
   return (
@@ -10,7 +10,7 @@ const Commandants = () => {
                 <div className="flex justify-center">
                 <div className="p-4">
                     <div className="max-w-[300px] min-h-[300px]">
-                    <img src="/commandant.jpg" alt="" className="w-full h-auto"/>
+                    <Image src="/commandant.jpg" alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold">R ADM. P.E EFFAH</h2>
@@ -25,7 +25,7 @@ const Commandants = () => {
             <div className="flex flex-col md:flex-row justify-center gap-x-5">
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <img src="/22-24.jpg" alt="" className="w-full h-auto"/>
+                    <Image src="/22-24.jpg" alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre e.o jaiyeola</h2>
@@ -35,7 +35,7 @@ const Commandants = () => {
                   </div>
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <img src="/22.jpg" alt="" className="w-full h-auto"/>
+                    <Image src="/22.jpg" alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre m.a emuekpere</h2>
@@ -45,7 +45,7 @@ const Commandants = () => {
                   </div>
                   <div className="p-4">
                   <div className="max-w-[300px] min-h-[200px]">
-                    <img src="/20-22.jpg" alt="" className="w-full h-auto"/>
+                    <Image src="/20-22.jpg" alt="" className="w-full h-auto"/>
                     </div>
                     <div className="text-center flex flex-col gap-y-2">
                     <h2 className="text-lg font-semibold uppercase">cdre e.o jaiyeola</h2>

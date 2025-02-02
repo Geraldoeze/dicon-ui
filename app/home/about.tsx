@@ -1,4 +1,5 @@
 import Timeline from "./timeline"
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -9,7 +10,7 @@ const About = () => {
                 <p className="text-[1.25rem] mb-5">A lot of DIC history</p>
             </div>
             <div className="min-w-full min-h-full">
-                <img src="/group.jpg" alt="" className='w-full h-auto' />
+                <Image src="/group.jpg" alt="" className='w-full h-auto' />
             </div>
 
             <div className="">

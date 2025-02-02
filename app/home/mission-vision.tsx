@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 
 const MisionVision = () => {
   return (
@@ -11,7 +11,7 @@ const MisionVision = () => {
             <div className="flex flex-col md:flex-row gap-x-10 items-center justify-center">
                 <div className="max-w-[500px] flex flex-col justify-center opacity-50 hover:opacity-100 hover:border-2 p-4">
                     <div className="max-w-[500px] max-h-[500px]">
-                    <img src="/mision.jpg" alt="" className="w-full h-auto mx-auto" />
+                    <Image src="/mision.jpg" alt="" className="w-full h-auto mx-auto" />
                     </div>
                     <div className="text-center my-5">
                         <h1 className="text-xl font-semibold mx-2">Mision Statement</h1>
@@ -20,7 +20,7 @@ const MisionVision = () => {
                 </div>
                 <div className="max-w-[500px] flex flex-col justify-center opacity-50 hover:opacity-100 hover:border-2 p-4">
                     <div className="max-w-[500px] max-h-[500px]">
-                    <img src="/vision.jpg" alt="" className="w-full h-auto mx-auto"/>
+                    <Image src="/vision.jpg" alt="" className="w-full h-auto mx-auto"/>
                     </div>
                     <div className="text-center my-5">
                         <h1 className="text-xl font-semibold mx-2">Vision Statement</h1>
