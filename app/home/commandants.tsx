@@ -3,6 +3,7 @@ import commandant from '@/public/commandant.jpg'
 import img from '@/public/22-24.jpg'
 import img2 from '@/public/22.jpg'
 import img3 from '@/public/20-22.jpg'
+import  {ArrowUpRight} from "lucide-react";
 const Commandants = () => {
   return (
     <div className="min-h-screen relative bg-[url('/commandants-bg.jpg')] bg-cover bg-center">
@@ -56,6 +57,13 @@ const Commandants = () => {
                     <p className="text-gray-600 font-normal text-sm"> sep 2020 - aug 2022 </p>
                     </div>
                   </div>
+                </div>
+
+                <div className="flex justify-center my-5">
+                  <a href="/commandants" className="flex gap-3 items-center bg-gray-200 hover:bg-gray-400 border-gray-600 border-2 text-black font-semibold py-2 px-4 rounded-md">
+                    <span >View all Past Commandants</span> 
+                    <ArrowUpRight/> 
+                  </a>
                 </div>
         </div>
 

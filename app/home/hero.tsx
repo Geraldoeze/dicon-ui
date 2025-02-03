@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { Play } from 'lucide-react';
+import VideoModal from './videomodal';
 const Hero = () => {
   useEffect(() => {
     const elements = [
@@ -21,7 +21,7 @@ const Hero = () => {
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background with Overlay */}
       <div 
-        className={`absolute inset-0 bg-[url('/262098d7df12552423a8a0fcb6965883.gif')] bg-contain bg-center`}
+        className={`absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center`}
       >
         <div className="absolute inset-0 bg-[#0F204B]/80 backdrop-blur-xs" />
       </div>
@@ -65,21 +65,8 @@ const Hero = () => {
         </div>
 
         {/* Video Button Section */}
-        <div className="hero-video absolute bottom-8 md:bottom-12 right-4 
-          md:right-8 opacity-0">
-          <div className="flex flex-col-reverse sm:flex-row items-center 
-            gap-4 sm:gap-6">
-            <span className="text-white text-sm md:text-base">
-              Watch our documentary video
-            </span>
-            <button 
-              className="rounded-full bg-orange-500 border-none outline-none p-2 custom-ping
-                hover:bg-orange-600 transition-colors duration-300"
-            >
-              <Play className="w-2 h-2 md:w-5 md:h-5 text-white" />
-            </button>
-          </div>
-        </div>
+       
+      <VideoModal videoUrl="https://res.cloudinary.com/dydpxiyzj/video/upload/v1736771455/VID-20250110-WA0008_tmkqp4.mp4"/>
       </div>
     </div>
   );
