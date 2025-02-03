@@ -225,7 +225,7 @@ const galleryImages: GalleryImage[] = [
     },
     {
       id: '6',
-      src: '/6.JPG',
+      src: '/image 157.png',
       alt: 'Military personnel speaking at podium'
     },
     

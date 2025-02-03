@@ -61,7 +61,7 @@ const Commandants = () => {
 
                 <div className="flex justify-center my-5">
                   <a href="/commandants" className="flex gap-3 items-center bg-gray-200 hover:bg-gray-400 border-gray-600 border-2 text-black font-semibold py-2 px-4 rounded-md">
-                    <span >View all Past Commandants</span> 
+                    <span className="text-[.8rem] md:text-[1rem] min-w-fit">View all Past Commandants</span> 
                     <ArrowUpRight/> 
                   </a>
                 </div>

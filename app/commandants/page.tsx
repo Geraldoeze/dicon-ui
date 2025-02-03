@@ -178,13 +178,7 @@ const CommandantsGrid = () => {
               <div className="text-center">
                 <h3 className="font-bold text-lg">{commandant.name}</h3>
                 <p className="text-sm text-gray-600 mt-1">{commandant.title}</p>
-                {commandant.role ? (
-                  <p className="text-sm font-semibold text-blue-600 mt-1">
-                    {commandant.role}
-                  </p>
-                ) : (
-                  <p className="text-sm text-gray-500 mt-1">{commandant.period}</p>
-                )}
+                <p className="text-sm text-gray-500 mt-1">{commandant.period}</p>
               </div>
             </CardContent>
           </Card>

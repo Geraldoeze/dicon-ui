@@ -16,6 +16,7 @@ export default function Home() {
       <MisionVision/>
       <NewsBlog 
       posts={blogPosts} columns={3}
+      visible = {false}
       />
       <Gallery 
       images={galleryImages}

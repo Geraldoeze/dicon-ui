@@ -10,7 +10,7 @@ const MisionVision = () => {
             <h1 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-10"> Mision & Vision </h1>
 
             <div className="flex flex-col md:flex-row gap-x-10 items-center justify-center">
-                <div className="max-w-[500px] flex flex-col justify-center opacity-50 hover:opacity-100 hover:border-2 p-4">
+                <div className="max-w-[500px] flex flex-col justify-center opacity-100 md:opacity-50  md:hover:opacity-100 hover:border-2 p-4">
                     <div className="max-w-[500px] max-h-[500px]">
                     <Image src={mission} width={900} alt="" className="w-full h-auto mx-auto" />
                     </div>
@@ -19,7 +19,7 @@ const MisionVision = () => {
                         <p className="text-base font-normal">Provide security and intelligence training for all categories of DIA staff, personnel of the Nigerian Armed Forces and other security agencies, in order to enable them perform optimally wherever they may be deployed</p>
                     </div>
                 </div>
-                <div className="max-w-[500px] flex flex-col justify-center opacity-50 hover:opacity-100 hover:border-2 p-4">
+                <div className="max-w-[500px] flex flex-col justify-center opacity-100 md:opacity-50 md:hover:opacity-100 hover:border-2 p-4">
                     <div className="max-w-[500px] max-h-[500px]">
                     <Image src={vision} alt="" className="w-full h-auto mx-auto"/>
                     </div>
