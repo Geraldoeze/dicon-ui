@@ -6,7 +6,7 @@ import NewsBlog from './../home/news-blog';
 const News = () => {
   return (
     <div>
-      <div className="relative min-h-screen w-full overflow-hidden">
+      <div className="relative min-h-screen lg:min-h-full lg:max-h-[1200px] w-full overflow-hidden">
       {/* Background with Overlay */}
       <div 
         className={`absolute inset-0 bg-[url('/news.jpg')] bg-cover bg-center`}
@@ -15,7 +15,7 @@ const News = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative h-screen max-w-[85vw] mx-auto">
+      <div className="relative h-screen xl:max-h-[1200px] max-w-[85vw] mx-auto">
         
         {/* Center Content Section */}
         <div className="absolute top-[80%] -translate-y-1/2  
@@ -36,7 +36,7 @@ const News = () => {
     </div>
     </div>
     
-
+      
       <NewsBlog 
       columns={3} visible
       />

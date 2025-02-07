@@ -123,7 +123,7 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen lg:min-h-full xl:min-h-[1200px] xl:max-h-[1200px] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
@@ -131,14 +131,14 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen lg:min-h-full xl:min-h-[1200px] xl:max-h-[1200px] flex items-center justify-center">
         <div className="text-red-500">Error: {error}</div>
       </div>
     );
   }
 
   return (
-    <div className="md:min-h-screen relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
+    <div className="md:min-h-screen lg:min-h-full xl:min-h-[1200px] xl:max-h-[1600px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
          <div className="absolute bg-gray-50/80 inset-0 opacity-10"></div>
 
     <div className="max-w-[80vw] mx-auto relative z-1 py-5">

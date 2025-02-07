@@ -11,7 +11,7 @@ const DepartmentCourses = () => {
     const activeDepartment = departments.find(dept => dept.id === activeTab);
   return (
     <div>
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative h-screen lg:min-h-full lg:max-h-[1000px] w-full">
       {/* Background with Overlay */}
       <div 
         className={`absolute inset-0 bg-[url('/IMG_0107.JPG')] bg-cover bg-center`}
@@ -20,7 +20,7 @@ const DepartmentCourses = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative h-screen max-w-[85vw] mx-auto">
+      <div className="relative h-screen lg:max-h-full max-w-[85vw] mx-auto">
         
         {/* Center Content Section */}
         <div className="absolute top-[80%] -translate-y-1/2  
@@ -43,7 +43,7 @@ const DepartmentCourses = () => {
 
 
 
-    <section className="min-h-screen relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
+    <section className="min-h-screen lg:min-h-full lg:max-h-[1400px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
      <div className="absolute bg-gray-50/80 inset-0 opacity-10"></div>
       <div className="max-w-[80vw] mx-auto relative z-1 py-5">
         <h2 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-10">Departments</h2>
@@ -96,7 +96,7 @@ const DepartmentCourses = () => {
     </section>
     
 
-        <div className="min-h-screen relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
+        <div className="min-h-screen lg:min-h-full lg:max-h-[1400px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
         <div className="absolute bg-slate-50/90 inset-0"></div>
         <div className="max-w-[80vw] mx-auto relative z-1 py-5">
 

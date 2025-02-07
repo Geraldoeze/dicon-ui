@@ -31,8 +31,8 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
           <h2 className="text-xl font-bold mb-4">{program.name}</h2>
           
           {/* Degree Level Selection */}
-          <div className="mb-4 flex justify-between items-center flex-col md:flex-row">
-            <h3 className="text-gray-700 mb-2 hidden md:block">Degree level</h3>
+          <div className="mb-4 flex justify-between items-center flex-col lg:flex-row">
+            <h3 className="text-gray-700 mb-2 hidden lg:block">Degree level</h3>
             <div className="flex gap-2">
               {program.degrees.map((degree) => (
                 <button

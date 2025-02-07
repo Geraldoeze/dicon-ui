@@ -23,7 +23,7 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
       <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between space-x-5 h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/home">
@@ -39,12 +39,12 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="flex gap-x-10">
-          <div className="hidden md:flex items-center gap-x-10">
+          <div className="hidden lg:flex items-center lg:gap-x-5 xl:gap-x-10">
             {navLinks.map((link) => (
               <Link 
                 key={link.href}
                 href={link.href}
-                className="text-gray-800 hover:text-blue-600 transition-colors"
+                className="text-gray-800 min-w-fit md:text-[.8rem] lg:text-[1rem] hover:text-blue-600 transition-colors"
               >
                 {link.label}
               </Link>
@@ -52,9 +52,9 @@ const Navigation = () => {
           </div>
 
           {/* Apply Button */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Link 
-              href="/"
+              href="#"
               className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-900 
                 transition-colors duration-300"
             >
@@ -65,7 +65,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden z-50 p-2"
+            className="lg:hidden z-50 p-2"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -79,7 +79,7 @@ const Navigation = () => {
 
         {/* Mobile Menu Overlay */}
         {isOpen && (
-          <div className="fixed inset-0 left-0 top-0 bg-gray-700/95 z-40 md:hidden">
+          <div className="fixed inset-0 left-0 top-0 bg-gray-700/95 z-40 lg:hidden">
             <div className="flex flex-col items-center justify-center bg-gray-600/80 h-screen space-y-8 mt-[-4rem]">
               {navLinks.map((link) => (
                 <Link
@@ -96,7 +96,7 @@ const Navigation = () => {
               ))}
               {/* Mobile Apply Button */}
               <Link 
-                href="/"
+                href="#"
                 className="bg-[#2D2F93] text-white px-8 py-3 rounded-md hover:bg-blue-900 
                   transition-colors duration-300 mt-6"
                 onClick={() => {

@@ -18,7 +18,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative h-screen xl:max-h-[1200px] w-full overflow-hidden">
       {/* Background with Overlay */}
       <div 
         className={`absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center`}
@@ -27,7 +27,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative h-screen px-4 md:px-8 lg:px-16 xl:px-0 
+      <div className="relative h-screen xl:max-h-full px-4 md:px-8 lg:px-16 xl:px-0 
         max-w-[85vw] mx-auto">
         
         {/* Center Content Section */}

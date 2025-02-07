@@ -3,7 +3,7 @@ import mission from '@/public/mision.jpg'
 import vision from '@/public/vision.jpg'
 const MisionVision = () => {
   return (
-    <div className="min-h-screen relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
+    <div className="min-h-screen lg:min-h-full xl:max-h-[1000px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
         <div className="absolute bg-gray-50/80 inset-0 opacity-10"></div>
         <div className="max-w-[80vw] mx-auto relative z-1 py-5">
 

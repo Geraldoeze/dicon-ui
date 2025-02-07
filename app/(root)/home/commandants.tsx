@@ -6,7 +6,7 @@ import img3 from '@/public/20-22.jpg'
 import  {ArrowUpRight} from "lucide-react";
 const Commandants = () => {
   return (
-    <div className="min-h-screen relative bg-[url('/commandants-bg.jpg')] bg-cover bg-center">
+    <div className="min-h-screen lg:min-h-full xl:max-h-[1400px] relative bg-[url('/commandants-bg.jpg')] bg-cover bg-center">
         <div className="absolute bg-slate-50/90 inset-0"></div>
         <div className="max-w-[80vw] mx-auto relative z-1 py-5">
             
