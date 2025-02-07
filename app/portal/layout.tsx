@@ -1,8 +1,7 @@
 import { Montserrat } from 'next/font/google'
-// import './globals.css'
-import { Providers } from './providers'
-// import Navigation from './home/navigation'
-// import Footer from './home/footer'
+import '.././globals.css'
+import Navigation from './portalNavigation'
+
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -14,11 +13,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        {/* <Navigation /> */}
-        <Providers>
-          {children}
-        </Providers>
-        {/* <Footer/> */}
+        <main className='overflow-x-hidden scroll-smooth scroll-none'>
+        <Navigation />
+        {children}
+        </main>
       </body>
     </html>
   )

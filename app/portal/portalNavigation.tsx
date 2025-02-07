@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X, Menu } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { X, Menu, LogOut } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,11 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { href: "home", label: "Home" },
-    { href: "departments&courses", label: "Departments & Courses" },
-    { href: "/pg-program", label: "PG Program" },
-    { href: "/news", label: "News & Blog" },
-    { href: "/contact-us", label: "Contact Us" },
+    { href: "/portal/courses", label: "Courses" },
+    { href: "/portal/classes", label: "Classes" },
+    { href: "/portal/assignments", label: "Assignments" },
+    { href: "/portal/exams", label: "Exams" },
+    { href: "/portal/fees", label: "Fees" },
   ];
 
   return (
@@ -51,16 +52,19 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Apply Button */}
-          <div className="hidden md:block">
-            <Link 
-              href="/apply"
-              className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-900 
-                transition-colors duration-300"
-            >
-              Apply
-            </Link>
+          <div className="flex items-center gap-x-10">
+            <Avatar>
+              <AvatarImage />
+              <AvatarFallback> AB </AvatarFallback>
+            </Avatar>
+            <LogOut/>
           </div>
+
+          {/* Apply Button */}
+          <div className="">
+           
+          </div>
+        
           </div>
 
           {/* Mobile Menu Button */}

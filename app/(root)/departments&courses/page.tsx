@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { courses, departments } from '../home/mock';
+import { courses, departments } from '.././home/mock';
 
 
 
@@ -106,7 +106,7 @@ const DepartmentCourses = () => {
             {courses.map((course) => (
               <div key={course.id} className="p-5 flex flex-col md:flex-row justify-between border-y-[1px] border-gray-200">
                 <div className="">
-                <h1 className='text-[1.2rem] md:text-[2.5rem] my-3 md:my-0 font-semibold'>{course.title}</h1>
+                <h1 className='text-[1.2rem] md:text-[1.5rem] my-3 md:my-0 font-semibold'>{course.title}</h1>
                 </div>
                
                   <ul className='list-disc text-start flex flex-col gap-y-2'>

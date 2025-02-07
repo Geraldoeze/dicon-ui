@@ -1,0 +1,160 @@
+"use client"
+
+import Image from 'next/image';
+import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
+
+interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+const Gallery = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const images: GalleryImage[] = [
+    { src: '/group.jpg', alt: 'Tall landscape' },
+    { src: '/image 157.png', alt: 'Wide cityscape' },
+    { src: '/IMG-20250121-WA0019.jpg', alt: 'Square abstract' },
+    { src: '/group.png', alt: 'Portrait shot' },
+    { src: '/IMG_1332.JPG', alt: 'Portrait shot' }
+  ];
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveIndex(swiper.realIndex);
+  };
+
+  return (
+    <div className="min-h-screen relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center bg-fixed">
+      <div className="absolute inset-0 bg-gray-50/80 opacity-10"></div>
+      <div className="relative z-10 py-8 md:py-12 w-[95vw] lg:w-[70vw] mx-auto">
+        <h1 className="text-2xl md:text-4xl font-semibold text-center mb-4">
+          Gallery
+        </h1>
+        <p className="text-lg md:text-xl text-center mb-8">
+          Take a look at some of our shots
+        </p>
+        
+        <div className="w-full">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+            spaceBetween={30}
+            slidesPerView={'auto'}
+            centeredSlides={true}
+            loop={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            effect="coverflow"
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2.5,
+              slideShadows: false,
+            }}
+            navigation={{
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }}
+            pagination={{
+              clickable: true,
+              renderBullet: function (index, className) {
+                return `<span class="${className} ${
+                  activeIndex === index ? 'w-4 bg-black' : 'w-2 bg-gray-400'
+                } h-2 rounded-full transition-all duration-300"></span>`;
+              },
+            }}
+            onSlideChange={handleSlideChange}
+            className="relative w-full h-[500px]"
+          >
+            {images.map((image, index) => (
+              <SwiperSlide
+                key={index}
+                className="!w-[500px] transition-all duration-500"
+              >
+                {({ isActive }) => (
+                  <div
+                    className={`
+                      relative overflow-hidden rounded-lg transition-all duration-500
+                      ${isActive ? 'lg:scale-110 shadow-xl' : 'lg:scale-90 lg:opacity-75'}
+                    `}
+                    style={{ width: '500px', height: '400px' }}
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={1000}
+                      height={800}
+                      className="object-cover w-full h-full"
+                      quality={100}
+                      priority={index <= 2}
+                      sizes="(max-width: 1024px) 95vw, 70vw"
+                    />
+                  </div>
+                )}
+              </SwiperSlide>
+            ))}
+
+            {/* Custom Navigation Buttons */}
+            <button className="swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10 hidden lg:flex items-center justify-center w-12 h-12 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            <button className="swiper-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-10 hidden lg:flex items-center justify-center w-12 h-12 rounded-full bg-white/80 shadow-lg hover:bg-white transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </Swiper>
+
+          <style jsx global>{`
+            .swiper-pagination {
+              position: relative;
+              margin-top: 2rem;
+            }
+            .swiper-pagination-bullet {
+              margin: 0 4px;
+            }
+            .swiper-button-next::after,
+            .swiper-button-prev::after {
+              display: none;
+            }
+          `}</style>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Gallery;

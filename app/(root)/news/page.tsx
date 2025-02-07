@@ -1,5 +1,5 @@
 import NewsBlog from './../home/news-blog';
-import { blogPosts } from './../home/mock';
+// import { blogPosts } from './../home/mock';
 // import { Clock, Calendar1 } from 'lucide-react';
 // import Image from 'next/image';
 
@@ -38,7 +38,7 @@ const News = () => {
     
 
       <NewsBlog 
-      posts={blogPosts} columns={3} visible
+      columns={3} visible
       />
     </div>
   )

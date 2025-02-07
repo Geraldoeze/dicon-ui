@@ -4,25 +4,24 @@ import Commandants from './commandants';
 import MisionVision from './mission-vision';
 import NewsBlog from './news-blog';
 import Gallery from './gallery';
-import { blogPosts, galleryImages } from './mock';
+// import { blogPosts } from './mock';
 
 export default function Home() {
  
   return (
-    <main>
+    <main className='overflow-x-hidden scroll-smooth scroll-none'>
       <Hero />
       <About/>
       <Commandants/>
       <MisionVision/>
       <NewsBlog 
-      posts={blogPosts} columns={3}
+       columns={3}
       visible = {false}
       />
-      <Gallery 
-      images={galleryImages}
+      <Gallery/>
+      {/* images={galleryImages}
       title="Gallery"
-      subtitle="Take a look at some of our shots"
-      />
+      subtitle="Take a look at some of our shots" */}
     </main>
   );
 }
