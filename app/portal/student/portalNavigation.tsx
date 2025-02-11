@@ -21,12 +21,15 @@ const Navigation = () => {
     { href: "/portal/fees", label: "Fees" },
   ];
 
+
   return (
+    // TopNav: No longer in use.
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
       <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0">
+
+          <div className="flex items-center justify-between md:hidden h-20"> 
+           {/* Logo  */}
+            <div className="flex-shrink-0">
             <Link href="/home">
               <Image
                 src="/logo.png" 
@@ -36,10 +39,10 @@ const Navigation = () => {
                 className="h-12 w-auto"
               />
             </Link>
-          </div>
+          </div>  
 
-          {/* Desktop Navigation */}
-          <div className="flex gap-x-10">
+           {/* Desktop Navigation  */}
+           <div className="flex gap-x-10">
           <div className="hidden md:flex items-center gap-x-10">
             {navLinks.map((link) => (
               <Link 
@@ -58,17 +61,17 @@ const Navigation = () => {
               <AvatarFallback> AB </AvatarFallback>
             </Avatar>
             <LogOut/>
-          </div>
+          </div> 
 
-          {/* Apply Button */}
-          <div className="">
+           Apply Button 
+           <div className="">
            
           </div>
         
-          </div>
+          </div> 
 
-          {/* Mobile Menu Button */}
-          <button 
+           {/* Mobile Menu Button  */}
+           <button 
             className="md:hidden z-50 p-2"
             onClick={toggleMenu}
             aria-label="Toggle menu"
@@ -79,10 +82,10 @@ const Navigation = () => {
               <Menu className="w-6 h-6 text-gray-800" />
             )}
           </button>
-        </div>
+        </div>  
 
-        {/* Mobile Menu Overlay */}
-        {isOpen && (
+         {/* Mobile Menu Overlay  */}
+         {isOpen && (
           <div className="fixed inset-0 left-0 top-0 bg-gray-700/95 z-40 md:hidden">
             <div className="flex flex-col items-center justify-center bg-gray-600/80 h-screen space-y-8 mt-[-4rem]">
               {navLinks.map((link) => (
@@ -97,9 +100,9 @@ const Navigation = () => {
                 >
                   {link.label}
                 </Link>
-              ))}
-              {/* Mobile Apply Button */}
-              <Link 
+              ))} 
+               {/* Mobile Apply Button  */}
+               <Link 
                 href="/apply"
                 className="bg-[#2D2F93] text-white px-8 py-3 rounded-md hover:bg-blue-900 
                   transition-colors duration-300 mt-6"
@@ -111,8 +114,8 @@ const Navigation = () => {
                 Apply
               </Link>
             </div>
-          </div>
-        )}
+          </div> 
+        )} 
       </div>
     </nav>
   );

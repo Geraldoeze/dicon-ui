@@ -51,14 +51,14 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Apply Button */}
+          {/* Log In Button */}
           <div className="hidden lg:block">
             <Link 
-              href="#"
+              href="/portal/login"
               className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-900 
                 transition-colors duration-300"
             >
-              Apply
+              Log In
             </Link>
           </div>
           </div>
@@ -104,7 +104,7 @@ const Navigation = () => {
                   document.body.style.overflow = 'unset';
                 }}
               >
-                Apply
+                Log In
               </Link>
             </div>
           </div>

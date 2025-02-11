@@ -2,7 +2,7 @@
 import { redirect } from 'next/navigation'
 
 function page() {
-    redirect('/portal/login')
+    redirect('/portal/student/courses')
 }
 
 export default page

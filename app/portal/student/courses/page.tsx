@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { studentService } from '@/services/student.service'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -66,6 +67,19 @@ export default function Courses() {
   const [selectedDepartment, setSelectedDepartment] = useState<string>('')
   const [selectedSemester, setSelectedSemester] = useState<string>('')
   const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set())
+  const [courses, setCourses] = useState('');
+
+
+
+  useEffect(() => {
+    const loadCourses = async () => {
+      const response = await studentService.getRegisteredCourses();
+      setCourses(response.data.meta.total);
+    };
+    
+    loadCourses();
+  }, []);
+  
 
   const {
     data,
@@ -84,7 +98,8 @@ export default function Courses() {
   const statsCards = [
     {
       title: "Registered Courses",
-      value: data?.courses.filter(c => c.status === 'active').length || '0',
+      value: setCourses.length,
+      // value: data?.courses.filter(c => c.status === 'active').length || '0',
       description: "Courses you are currently enrolled in",
       icon: Book
     },
@@ -146,8 +161,8 @@ export default function Courses() {
 
 
   return (
-    <div className="max-w-[70vw] mx-auto">
-    <div className="space-y-10 min-h-screen relative mt-24 ">
+    <div className="max-w-[80vw] mx-auto relative">
+    <div className="space-y-10 min-h-screen relative">
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3 md:border-b-2 py-4">
         {statsCards.map((stat) => (

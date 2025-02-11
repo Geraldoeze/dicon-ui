@@ -50,7 +50,7 @@ const page = () => {
       </div>
       <div className="my-5">
       <Link 
-              href="/"
+              href="/apply"
               className="bg-[#2D2F93] text-white px-10 py-2 rounded-md hover:bg-blue-900 
                 transition-colors duration-300"
             >
@@ -124,7 +124,7 @@ const page = () => {
 
         <div className="my-5 flex justify-center">
       <Link 
-              href="/"
+              href="/apply"
               className="bg-[#2D2F93] text-white px-10 py-2 rounded-md hover:bg-blue-900 
                 transition-colors duration-300"
             >

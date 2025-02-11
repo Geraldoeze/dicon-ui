@@ -54,7 +54,7 @@ const Hero = () => {
           {/* CTA Button */}
           <div className="hero-cta mt-8 md:mt-12 opacity-0">
             <Link 
-              href="/programs"
+              href="/pg-program"
               className="inline-block bg-[#2D2F93] text-white px-6 py-3 
                 md:px-8 md:py-4 rounded-md hover:bg-blue-900 
                 transition-colors duration-300 text-sm md:text-base"
