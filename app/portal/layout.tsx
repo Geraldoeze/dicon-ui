@@ -1,23 +1,21 @@
-import { Montserrat } from 'next/font/google'
+import { montserrat } from '@/fonts'
 import '.././globals.css'
 //import Navigation from './student/portalNavigation'
 
 
-const montserrat = Montserrat({ subsets: ['latin'] })
-
-export default function RootLayout({
+export default function PortalLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={montserrat.className}>
-        <main className='overflow-x-hidden scroll-smooth scroll-none'>
+    
+      <main className={montserrat.variable}>
+        <section className='overflow-x-hidden scroll-smooth scroll-none'>
         {/* <Navigation /> */}
         {children}
-        </main>
-      </body>
-    </html>
+        </section>
+      </main>
+    
   )
 }

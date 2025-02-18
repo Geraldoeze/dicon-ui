@@ -1,125 +1,138 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { studentService } from '@/services/student.service'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { useState, useCallback } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Book, Clock, GraduationCap, Search, Filter, Loader2, ArrowRight, RotateCw } from "lucide-react"
-import { api, Course } from '@/lib/mockapi'
-
-
-const ActionButton = ({ status, onAction }: { 
-  status: 'active' | 'pending' | 'carryover', 
-  onAction: () => void 
-}) => {
-  switch (status) {
-    case 'active':
-      return (
-        <Button 
-          variant="ghost" 
-          className="text-primary hover:text-primary/80"
-          onClick={onAction}
-        >
-          View details <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    case 'pending':
-      return (
-        <Button 
-          variant="secondary"
-          className="text-gray-600 hover:text-gray-700"
-          onClick={onAction}
-        >
-          Register
-        </Button>
-      );
-    case 'carryover':
-      return (
-        <Button 
-          variant="secondary"
-          className="text-red-600 hover:text-red-700"
-          onClick={onAction}
-        >
-          <RotateCw className="mr-2 h-4 w-4" />
-          Retake
-        </Button>
-      );
-  }
-};
-
-
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Book, Clock, GraduationCap, Loader2 } from "lucide-react";
+import { studentService } from '@/services/student.service';
+import { Course } from '@/services/types';
+import { Toast } from '@/components/ui/toast';
+import { StatsCard, CourseFilters, ActionButton, Filter } from './courseComponents';
 
 export default function Courses() {
-  const [selectedTab, setSelectedTab] = useState<Course['status']>('active')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedDepartment, setSelectedDepartment] = useState<string>('')
-  const [selectedSemester, setSelectedSemester] = useState<string>('')
-  const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set())
-  const [courses, setCourses] = useState('');
+  const [selectedTab, setSelectedTab] = useState<Course['status']>('registered');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilters, setActiveFilters] = useState<Filter[]>([]);
+  const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set());
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
 
-
-  useEffect(() => {
-    const loadCourses = async () => {
-      const response = await studentService.getRegisteredCourses();
-      setCourses(response.data.meta.total);
-    };
-    
-    loadCourses();
-  }, []);
-  
-
-  const {
-    data,
-    isLoading,
-    isError
+   // Fetch courses based on status
+   const {
+    data: coursesData,
+    isLoading: isCoursesLoading,
+    isError: isCoursesError
   } = useQuery({
-    queryKey: ['courses', selectedTab, searchQuery, selectedDepartment, selectedSemester],
-    queryFn: () => api.getCourses({
-      status: selectedTab,
-      search: searchQuery,
-      department: selectedDepartment || undefined,
-      semester: selectedSemester || undefined,
-    })
+    queryKey: ['courses', selectedTab, searchQuery],
+    queryFn: () => {
+      switch (selectedTab) {
+        case 'registered':
+          return studentService.getRegisteredCourses()
+        case 'unregistered':
+          return studentService.getUnregisteredCourses()
+        case 'carryover':
+          return studentService.getCourses({ status: 'carryover' })
+        default:
+          return studentService.getCourses()
+      }
+    }
   })
+
+  // Fetch stats data
+  const { data: registeredCoursesData } = useQuery({
+    queryKey: ['registeredCourses'],
+    queryFn: () => studentService.getRegisteredCourses()
+  })
+
+  const { data: assignmentsData } = useQuery({
+    queryKey: ['pendingAssignments'],
+    queryFn: () => studentService.getPendingAssignments({ status: 'pending' })
+  })
+
+  const { data: classesData } = useQuery({
+    queryKey: ['upcomingClasses'],
+    queryFn: () => studentService.getUpcomingClasses()
+  })
+
+  // Register course mutation
+  const registerCourseMutation = useMutation({
+    mutationFn: (courseId: string) => studentService.registerCourse(courseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['courses'] })
+      queryClient.invalidateQueries({ queryKey: ['registeredCourses'] })
+      Toast({
+        title: "Success",
+        variant: "default"
+      })
+    },
+    onError: () => {
+      Toast({
+        title: "Error",
+        variant: "destructive"
+      })
+    }
+  })
+
 
   const statsCards = [
     {
       title: "Registered Courses",
-      value: setCourses.length,
-      // value: data?.courses.filter(c => c.status === 'active').length || '0',
+      value: registeredCoursesData?.data?.length || 0,
       description: "Courses you are currently enrolled in",
-      icon: Book
+      icon: Book,
+      className: "bg-green-100 text-green-400 border-s-2 border-green-400"
     },
     {
       title: "Pending Assignments",
-      value: "2",
+      value: assignmentsData?.data?.length || 0,
       description: "Assignments you have not turned in",
-      icon: Clock
+      icon: Clock,
+      className: "bg-yellow-100 text-yellow-300 border-s-2 border-yellow-300"
     },
     {
       title: "New Classes",
-      value: "2",
+      value: classesData?.data?.length || 0,
       description: "Lessons you have not seen yet",
-      icon: GraduationCap
+      icon: GraduationCap,
+      className: "bg-blue-100 text-blue-300 border-s-2 border-blue-300"
     }
-  ]
+  ];
+
+  // Filter courses based on active filters and search
+  const filteredCourses: Course[] = coursesData?.data?.filter(course => {
+    // Search filter
+    const searchLower = searchQuery.toLowerCase();
+    const matchesSearch = !searchQuery || 
+      Object.entries(course).some(([key, value]) => 
+        typeof value === 'string' && value.toLowerCase().includes(searchLower)
+      );
+
+    // Column filters
+    const matchesFilters = activeFilters.every(filter => {
+      const value = course[filter.column as keyof Course];
+      return !filter.value || 
+        (typeof value === 'string' && value.toLowerCase().includes(filter.value.toLowerCase()));
+    });
+
+    return matchesSearch && matchesFilters;
+  });
+
+  const handleFilterChange = useCallback((filters: Filter[]) => {
+    setActiveFilters(filters);
+  }, []);
+
+  const handleSearchChange = useCallback((query: string) => {
+    setSearchQuery(query);
+  }, []);
 
   const handleSelectAll = (checked: boolean) => {
-    if (checked && data) {
-      setSelectedCourses(new Set(data.courses.map(course => course.id)))
+    if (checked && filteredCourses) {
+      setSelectedCourses(new Set(filteredCourses.map(course => course.course_id)))
     } else {
       setSelectedCourses(new Set())
     }
@@ -135,183 +148,132 @@ export default function Courses() {
     setSelectedCourses(newSelected)
   }
 
-
-
-
-  const router = useRouter();
-  const handleAction = (courseId: number, status: 'active' | 'pending' | 'carryover') => {
+  const handleAction = async (courseId: number, status: string) => {
     switch (status) {
-      case 'active':
-        console.log('Viewing details for course:', courseId);
-         // Navigate to the course details page
-         router.push(`courses/${courseId}`);
-         
-         break;
-        break;
-      case 'pending':
-        console.log('Registering course:', courseId);
-        // Implement registration logic
-        break;
+      case 'registered':
+        router.push(`/portal/student/courses/${courseId}`)
+        break
+      case 'unregistered':
+        registerCourseMutation.mutate(courseId.toString())
+        break
       case 'carryover':
-        console.log('Retaking course:', courseId);
-        // Implement retake logic
-        break;
+        registerCourseMutation.mutate(courseId.toString())
+        break
     }
-  };
-
+  }
 
   return (
-    <div className="max-w-[80vw] mx-auto relative">
-    <div className="space-y-10 min-h-screen relative">
-      {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-3 md:border-b-2 py-4">
-        {statsCards.map((stat) => (
-          <Card key={stat.title} className='border-[1px] md:border-e-2 shadow-none md:border-s-0 md:border-y-0 rounded-none'>
-            <CardHeader className="flex flex-row md:items-center gap-x-2 space-y-0 pb-2">
-              <stat.icon className="h-6 w-6 text-muted-foreground" />
-              <CardTitle className="text-[1rem] md:text-[1.2rem] font-medium">
-                {stat.title}
-              </CardTitle>
-              
-            </CardHeader>
-            <CardContent className='space-y-6'>
-              
-              <p className="text-xs text-muted-foreground">
-                {stat.description}
-              </p>
-              <div className="text-[1.2rem] md:text-[1.75rem] font-bold">{stat.value}</div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <div className="md:max-w-[80vw] w-full md:mx-auto relative">
+      <div className="space-y-10 min-h-screen relative">
+        {/* Stats Cards */}
+        <div className="grid gap-4 md:grid-cols-3 md:border-b-2 py-4">
+          {statsCards.map((stat) => (
+            <StatsCard key={stat.title} {...stat} />
+          ))}
+        </div>
 
-      {/* Course Tabs and Tables */}
-      <Card>
-        <CardContent className="pt-6">
-          <Tabs 
-            value={selectedTab} 
-            onValueChange={(value) => setSelectedTab(value as Course['status'])}
-            className="w-full"
-          >
-            <div className="xl:flex flex-col xl:flex-row items-center justify-between">
-            <TabsList className='bg-[#F7F9FC]'>
-              <TabsTrigger value="active">My courses</TabsTrigger>
-              <TabsTrigger value="pending">Register courses</TabsTrigger>
-              <TabsTrigger value="carryover">Carry-over courses</TabsTrigger>
-            </TabsList>
+        <Card className='border-none rounded-none'>
+          <CardContent className="pt-6">
+            <Tabs 
+              value={selectedTab} 
+              onValueChange={(value) => setSelectedTab(value as Course['status'])}
+              className="w-full border-none"
+            >
+              <div className="xl:flex flex-col xl:flex-row items-center justify-between space-y-5 md:space-y-0">
+                <TabsList className="bg-[#F7F9FC] min-h-fit flex flex-col sm:flex-row space-y-4 md:space-y-0 my-5">
+                  <TabsTrigger value="registered" className={`${selectedTab === 'registered' ? 'bg-slate-500' : ''}`}>
+                    My courses
+                  </TabsTrigger>
+                  <TabsTrigger value="unregistered" className={`${selectedTab === 'unregistered' ? 'bg-slate-500' : ''}`}>
+                    Register courses
+                  </TabsTrigger>
+                  <TabsTrigger value="carryover" className={`${selectedTab === 'carryover' ? 'bg-slate-500' : ''}`}>
+                    Carry-over courses
+                  </TabsTrigger>
+                </TabsList>
 
-            {/* Search and Filter Bar */}
-            <div className="my-4 flex items-center justify-around gap-4">
-              <div className="relative flex-1">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search courses..."
-                  className="pl-8 bg-[#F7F9FC]"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                <CourseFilters
+                  activeFilters={activeFilters}
+                  onFilterChange={handleFilterChange}
+                  onSearchChange={handleSearchChange}
+                  searchQuery={searchQuery}
                 />
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="gap-2">
-                    <Filter className="h-4 w-4" />
-                    Filter
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[200px]">
-                  <DropdownMenuItem onClick={() => setSelectedDepartment('')}>
-                    All Departments
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSelectedDepartment('Electrical Engineering')}>
-                    Electrical Engineering
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSelectedSemester('')}>
-                    All Semesters
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setSelectedSemester('First')}>
-                    First Semester
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
 
-            </div>
-
-            {/* Table Content */}
-            <div className="rounded-md border mt-4">
-              <Table>
-                <TableHeader className='bg-[#F7F9FC]'>
-                  <TableRow>
-                    <TableHead className="w-12">
-                      <Checkbox 
-                        checked={data?.courses.length === selectedCourses.size}
-                        onCheckedChange={handleSelectAll}
-                      />
-                    </TableHead>
-                    <TableHead>Course Name</TableHead>
-                    <TableHead>Course Units</TableHead>
-                    <TableHead>Lecturer</TableHead>
-                    <TableHead>Description</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {isLoading ? (
+              {/* Table Content */}
+              <div className="rounded-md border mt-4">
+                <Table>
+                  <TableHeader className='bg-[#F7F9FC] text-[.8rem] lg:text-[1rem]'>
                     <TableRow>
-                      <TableCell colSpan={5} className="h-24 text-center">
-                        <div className="flex items-center justify-center">
-                          <Loader2 className="h-6 w-6 animate-spin" />
-                        </div>
-                      </TableCell>
+                      <TableHead className="w-12">
+                        <Checkbox 
+                          checked={filteredCourses?.length === selectedCourses.size}
+                          onCheckedChange={handleSelectAll}
+                        />
+                      </TableHead>
+                      <TableHead>Course Name</TableHead>
+                      <TableHead>Course Units</TableHead>
+                      <TableHead>Lecturer</TableHead>
+                      <TableHead>Action</TableHead>
                     </TableRow>
-                  ) : isError ? (
-                    <TableRow>
-                      <TableCell colSpan={5} className="h-24 text-center text-red-500">
-                        Error loading courses. Please try again.
-                      </TableCell>
-                    </TableRow>
-                  ) : data?.courses.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={5} className="h-24 text-center">
-                        No courses found.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    data?.courses.map((course) => (
-                      <TableRow key={course.id}>
-                        <TableCell>
-                          <Checkbox 
-                            checked={selectedCourses.has(course.id)}
-                            onCheckedChange={(checked) => 
-                              handleSelectCourse(course.id, checked as boolean)
-                            }
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{course.code}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {course.name}
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{course.units} units</TableCell>
-                        <TableCell>{course.lecturer}</TableCell>
-                        <TableCell>
-                        <ActionButton 
-                            status={selectedTab} 
-                            onAction={() => handleAction(course.id, selectedTab)}
-                          />
+                  </TableHeader>
+                  <TableBody>
+                  {isCoursesLoading ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="h-24 text-center">
+                          <Loader2 className="h-6 w-6 animate-spin mx-auto" />
                         </TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </Tabs>
-        </CardContent>
-      </Card>
+                    ) : isCoursesError ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="h-24 text-center text-red-500">
+                          Error loading courses. Please try again.
+                        </TableCell>
+                      </TableRow>
+                    ) : !filteredCourses?.length ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="h-24 text-center">
+                          No courses found.
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      filteredCourses.map((course) => (
+                        <TableRow key={course.course_id}>
+                          <TableCell>
+                            <Checkbox 
+                              checked={selectedCourses.has(course.course_id)}
+                              onCheckedChange={(checked) => 
+                                handleSelectCourse(course.course_id, checked as boolean)
+                              }
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <div>
+                              <div className="font-medium">{course.course_code}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {course.course_name}
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>{course.units} units</TableCell>
+                          <TableCell>{course.lecturer_in_charge}</TableCell>
+                          <TableCell>
+                            <ActionButton 
+                              status={selectedTab}
+                              isLoading={registerCourseMutation.isPending} 
+                              onAction={() => handleAction(course.course_id, selectedTab)}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </div>
-    </div>
-  )
+  );
 }

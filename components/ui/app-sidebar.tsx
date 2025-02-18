@@ -4,7 +4,6 @@ import * as React from "react"
 import {
   BookOpen,
   Bot,
-  Command,
   Frame,
   LifeBuoy,
   Map,
@@ -18,6 +17,8 @@ import { NavMain } from "./nav-main"
 import { NavProjects } from "./nav-projects"
 import { NavSecondary } from "./nav-secondary"
 import { NavUser } from "./nav-user"
+import Image from "next/image"
+import Link from "next/link"
 import {
   Sidebar,
   SidebarContent,
@@ -36,70 +37,27 @@ const data = {
   },
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Courses",
+      url: "/portal/course",
       icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
+      isActive: true
     },
     {
-      title: "Models",
-      url: "#",
+      title: "Classes",
+      url: "/portal/classes",
       icon: Bot,
       items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
+      title: "Assignments",
+      url: "/portal/assignments",
       icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      items: [],
     },
     {
-      title: "Settings",
-      url: "#",
+      title: "Fees",
+      url: "/portal/fees",
       icon: Settings2,
       items: [
         {
@@ -160,12 +118,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
+                <div className="flex size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <Image
+                src="/logo.png" 
+                alt="Defence Intelligence College"
+                width={50}
+                height={50}
+                className="h-12 w-auto"
+              />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                <Link href="/home">
+            
+            </Link>
+                  <span className="truncate font-semibold">DIC</span>
                 </div>
               </a>
             </SidebarMenuButton>

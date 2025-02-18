@@ -19,11 +19,11 @@ const Gallery = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   
   const images: GalleryImage[] = [
-    { src: '/group.jpg', alt: 'Tall landscape' },
-    { src: '/image 157.png', alt: 'Wide cityscape' },
-    { src: '/IMG-20250121-WA0019.jpg', alt: 'Square abstract' },
-    { src: '/group.png', alt: 'Portrait shot' },
-    { src: '/IMG_1332.JPG', alt: 'Portrait shot' }
+    { src: '/IMG-20250212-WA0021.jpg', alt: 'Tall landscape' },
+    { src: '/IMG-20250212-WA0020.jpg', alt: 'Wide cityscape' },
+    { src: '/IMG-20250212-WA0005.jpg', alt: 'Square abstract' },
+    { src: '/IMG-20250121-WA0017.jpg', alt: 'Portrait shot' },
+    { src: '/IMG_0188.JPG', alt: 'Portrait shot' }
   ];
 
   const handleSlideChange = (swiper: SwiperType) => {

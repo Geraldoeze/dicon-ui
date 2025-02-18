@@ -19,37 +19,89 @@ export const API_ENDPOINTS = {
     GET_STATUS: (id: string) => `/applications/${id}/status`,
     UPDATE: (id: string) => `/applications/${id}`,
     UPLOAD_DOCUMENT: '/applications/upload',
-  },
-  // STUDENT: {
-  //   GET: (id: string) => `/students/${id}`,
-  //   REGISTERED: '/students/courses?student_id=1&search=&course_type=registered',
-  //   PENDING_ASSIGNMENTS: '/assignments/?student_id=1&status=pending',
-  //   GET_CLASSES: '/students/classes?student_id=1',
-  //   GET_COURSES:'/students/courses?student_id=1&page=1&page_size=5&search=&course_type=registered',
-  //   GET_A_COURSE: '/courses/1',
-  //   UNREGISTERED: '/students/courses?student_id=1&search=&course_type=unregistered',
-  //   REGISTER: '/students/courses/register?course_id=1',
-  // }
-
+  }
 };
 
+export const ADMIN_ENDPOINTS = {
+    DASHBOARD: {
+      LIST: '/dashboard'
+    },
+    DEPARTMENTS: {
+      GET: '/departments'
+    },
+    APPLICATIONS: {
+      LIST: '/applications',
+      PENDING: '/applications?page=1&page_size=10&status=pending',
+    },
+    STUDENTS: {
+     
+    },
+    STAFFS: {
+      
+    }
+};
+
+export const STAFF_ENDPOINTS = {
+  PROFILE: {
+    GET: '/staffs/profile',
+  },
+  // Course Endpoints
+  COURSES: {
+    LIST: '/staffs/courses?staff_id=16',
+    DETAILS: (courseId: string) => `/courses/${courseId}`,
+    STUDENTS: (courseId: string) => `/courses/students?course_id=${courseId}`,
+    VIDEOS: (courseId: string) => `/courses/videos?course_id=${courseId}`,
+    UPLOAD: `/courses/videos`
+  },
+  //Classes Endpoints
+  CLASSES: {
+    LIST: `/classes?period=upcoming`,
+    SCHEDULE: '/classes'
+  },
+  //Assignment
+  ASSIGNMENT: {
+    PENDING: `/assignments/?page=1&page_size=10&status=pending`,
+    GRADED:  `/assignments/?page=1&page_size=10&status=graded`,
+    CREATE:  `/assignments/`,
+    SUBMISSIONS: (assignmentId: string) => `/assignments/submissions?assignment_id=${assignmentId}`,
+    DETAILS: `/assignments/1`
+    //DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`
+  },
+  
+  //Exams
+  EXAMS: {
+    LIST: '/exams/?page=1&page_size=10',
+    DETAILS: (examId: string) => `/exams/${examId}`,
+    SETSCORE: '/exams/set-score',
+    SETMARK: '/exams/set-mark',
+    UPLOAD: '/exams/upload',
+    STUDENTS: (examId: string) => `/exams/students?exam_id=${examId}`,
+    RESULTS: (examId: string) => `/exams/results?exam_id=${examId}`,
+  }
+
+
+}
 
 export const STUDENT_ENDPOINTS = {
+  
   // Course endpoints
   COURSES: {
-    LIST: '/students/courses',
+    LIST: '/students/courses?student_id=1&search=',
     REGISTERED: '/students/courses?student_id=1&search=&course_type=registered',
-    UNREGISTERED: '/students/courses/unregistered',
-    REGISTER: (courseId: string) => `/students/courses/${courseId}/register`,
+    UNREGISTERED: '/students/courses?student_id=1&search=&course_type=unregistered',
+    REGISTER: (courseId: string) => `students/courses/register?course_id=${courseId}`,
     UNREGISTER: (courseId: string) => `/students/courses/${courseId}/unregister`,
     DETAILS: (courseId: string) => `/courses/${courseId}`,
-    MATERIALS: (courseId: string) => `/courses/${courseId}/materials`,
+    VIDEOS: (courseId: string) => `/courses/videos?course_id=${courseId}`,
+    ALLVIDEOS: '/courses/videos?course_id=1',
+    CLASSES: `/classes`,
+
   },
   
   // Class endpoints
   CLASSES: {
-    LIST: '/students/classes',
-    UPCOMING: '/students/classes/upcoming',
+    LIST: 'students/classes?student_id=1',
+    UPCOMING: 'students/classes?student_id=1',
     ATTENDANCE: '/students/classes/attendance',
     MARK_ATTENDANCE: (classId: string) => `/students/classes/${classId}/attend`,
     DETAILS: (classId: string) => `/classes/${classId}`,
@@ -57,11 +109,16 @@ export const STUDENT_ENDPOINTS = {
   
   // Assignment endpoints
   ASSIGNMENTS: {
-    LIST: '/students/assignments',
-    PENDING: '/students/assignments/pending',
+    LIST: '/assignments/?student_id=1',
+    ONE: (assignmentId: number) => `/assignments/${assignmentId}`,
+    PENDING: '/students/assignments/?student_id=1&page=1&page_size=10&status=pending',
     SUBMITTED: '/students/assignments/submitted',
-    SUBMIT: (assignmentId: string) => `/students/assignments/${assignmentId}/submit`,
+    SUBMIT: (assignmentId: number) => `/students/assignments/${assignmentId}/submit`,
     DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`,
+  },
+
+  UPLOAD: {
+    FILE: '/api/student/upload',
   },
   
   // Fee endpoints
@@ -77,15 +134,15 @@ export const STUDENT_ENDPOINTS = {
   EXAMS: {
     LIST: '/students/exams',
     UPCOMING: '/students/exams/upcoming',
-    RESULTS: '/students/exams/results',
+    RESULTS: '/students/exams?student_id=1',
     DETAILS: (examId: string) => `/exams/${examId}`,
     SCHEDULE: '/students/exams/schedule',
   },
   
   // Profile endpoints
   PROFILE: {
-    GET: '/students/profile',
-    UPDATE: '/students/profile',
+    GET: (userId: string) => `/students/profile?student_id=${userId}`,
+    UPDATE: '/students/update',
     UPLOAD_PHOTO: '/students/profile/photo',
     CHANGE_PASSWORD: '/students/profile/password',
     DOCUMENTS: '/students/profile/documents',

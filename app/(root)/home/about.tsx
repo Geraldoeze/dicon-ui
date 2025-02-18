@@ -8,14 +8,14 @@ const About = () => {
     const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string; className: string; width: number; height: number; } | null>(null);
     const images = [
         {
-            src: '/group.jpg',
+            src: '/IMG-20250212-WA0019.jpg',
             alt: 'Tall landscape',
             className: 'lg:row-span-2',
             width: 600,
             height: 800
         },
         {
-            src: '/image 157.png',
+            src: '/IMG-20250212-WA0006.jpg',
             alt: 'Wide cityscape',
             className: 'lg:col-span-2',
             width: 600,
@@ -29,14 +29,14 @@ const About = () => {
             height: 400
         },
         {
-            src: '/IMG-20250121-WA0026.jpg',
+            src: '/IMG-20250212-WA0010.jpg',
             alt: 'Portrait shot',
             className: 'lg:row-span-2',
             width: 400,
             height: 600
         },
         {
-            src: '/IMG_1332.JPG',
+            src: '/IMG-20250212-WA0015.jpg',
             alt: 'Portrait shot',
             className: 'lg:col-span-2 hidden lg:block',
             width: 600,

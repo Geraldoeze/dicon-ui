@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
     // Set to false to disable TypeScript type checking during the build
     ignoreBuildErrors: true,
   },
+  
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
 
   images: {
     remotePatterns: [

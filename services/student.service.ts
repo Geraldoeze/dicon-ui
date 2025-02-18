@@ -6,9 +6,20 @@ import type {
   Class, 
   Fee, 
   Exam, 
-  StudentProfile 
+  StudentProfile,
+  CourseDetails,
+  Video
 } from './types';
 
+
+interface UpdateProfileRequest {
+  first_name: string;
+  last_name: string;
+  next_of_kin_name: string;
+  state: string;
+  local_government: string;
+  address: string;
+}
 class StudentService {
   // Course methods
   async getCourses(params?: { 
@@ -37,9 +48,21 @@ class StudentService {
   }
 
   async getCourseDetails(courseId: string) {
-    return apiService.get<Course>(STUDENT_ENDPOINTS.COURSES.DETAILS(courseId));
+    return apiService.get<CourseDetails>(STUDENT_ENDPOINTS.COURSES.DETAILS(courseId));
   }
 
+
+  async getAllVideos() {
+    return apiService.get<Video>(STUDENT_ENDPOINTS.COURSES.ALLVIDEOS);
+  }
+  
+  async getCourseVideos(courseId: string) {
+    return apiService.get<Video>(STUDENT_ENDPOINTS.COURSES.VIDEOS(courseId));
+  }
+  
+  async getCourseClasses() {
+    return apiService.get<Class>(STUDENT_ENDPOINTS.COURSES.CLASSES);
+  }
   // Class methods
   async getClasses(params?: { 
     page?: number; 
@@ -58,19 +81,37 @@ class StudentService {
   }
 
   // Assignment methods
-  async getAssignments(params?: { 
+  async getPendingAssignments(params?: { 
     status?: 'pending' | 'submitted' | 'graded';
     courseId?: string;
   }) {
-    return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.LIST, params);
+    return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.PENDING, params);
   }
 
-  async submitAssignment(assignmentId: string, formData: FormData) {
+  async submitAssignment(assignmentId: number, formData: FormData) {
     return apiService.uploadFormData(
       STUDENT_ENDPOINTS.ASSIGNMENTS.SUBMIT(assignmentId),
       formData
     );
   }
+
+
+  async uploadFile(file: File) {
+    return apiService.uploadFormData(STUDENT_ENDPOINTS.UPLOAD.FILE, file)
+  }
+  async getAssignments() {
+    return apiService.get(STUDENT_ENDPOINTS.ASSIGNMENTS.LIST);
+  }
+
+  async getAssignment(assignmentId: number) {
+    return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.ONE(assignmentId));
+  }
+
+
+
+  
+
+   
 
   // Fee methods
   async getFees(params?: { 
@@ -106,13 +147,31 @@ class StudentService {
   }
 
   // Profile methods
-  async getProfile() {
-    return apiService.get<StudentProfile>(STUDENT_ENDPOINTS.PROFILE.GET);
+  // async getProfile(userId: string) {
+  //   return apiService.get<StudentProfile>(STUDENT_ENDPOINTS.PROFILE.GET(userId));
+  // }
+
+   async getProfile() {
+    try {
+      const response = await apiService.get('/auth/user');
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Failed to fetch profile');
+    }
   }
 
-  async updateProfile(profileData: Partial<StudentProfile>) {
-    return apiService.put(STUDENT_ENDPOINTS.PROFILE.UPDATE, profileData);
+   async updateProfile(data: UpdateProfileRequest) {
+    try {
+      const response = await apiService.post('/students/update', data);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Failed to update profile');
+    }
   }
+
+  // async updateProfile(profileData: Partial<StudentProfile>) {
+  //   return apiService.put(STUDENT_ENDPOINTS.PROFILE.UPDATE, profileData);
+  // }
 
   async uploadProfilePhoto(formData: FormData) {
     return apiService.uploadFormData(STUDENT_ENDPOINTS.PROFILE.UPLOAD_PHOTO, formData);

@@ -66,14 +66,14 @@ export class AuthService {
       TokenService.clearTokens();
       
       // Redirect to login page
-      window.location.href = '/login';
+      window.location.href = '/portal/login';
     }
   }
 
   // Change password method
-  static async changePassword(passwordChange: PasswordChangeRequest): Promise<void> {
+  static async changePassword(passwordForm: PasswordChangeRequest): Promise<void> {
     try {
-      await apiService.post('/auth/change-password', passwordChange);
+      await apiService.post('/students/change-password', passwordForm);
     } catch (error:any) {
       throw new Error('Password change failed. Please try again.');
     }
@@ -86,7 +86,7 @@ export class AuthService {
     }
 
     try {
-      const response = await apiService.get<UserProfile>('/auth/me');
+      const response = await apiService.get<UserProfile>('/auth/user');
       return response.data;
     } catch {
       // If fetching user fails, clear tokens

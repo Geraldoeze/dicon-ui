@@ -1,37 +1,30 @@
-import { Montserrat } from 'next/font/google'
+import { montserrat } from '@/fonts'
 import '../.././globals.css'
-import { AppSidebar } from "@/components/ui/app-sidebar"
-import { SiteHeader } from "@/components/ui/site-header"
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import Layout from './portalNavigation';
 
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const breadcrumbs = [
+  { label: "DIC", href: "/" },
+  { label: "Student Portal", href: "/portal/student/" }
+];
 
-export default function RootLayout({
+
+export default function PortalLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={montserrat.className}>
-        <main className='overflow-x-hidden scroll-smooth scroll-none'>
-           
-      <div className="[--header-height:calc(theme(spacing.14))]">
-      <SidebarProvider className="flex ">
-        
-        <div className="flex flex-1">
-          <AppSidebar />
-          <SidebarInset>
-            <SiteHeader />
-          {children}
-          </SidebarInset>
+   
+      <main className={montserrat.variable}>
+        <section className='overflow-x-hidden scroll-smooth scroll-none'>
+        <Layout breadcrumbs={breadcrumbs}>
+          <div className="bg-slate-50">
+        {children}
         </div>
-      </SidebarProvider>
-    </div>
-        
-        </main>
-      </body>
-    </html>
+        </Layout>
+        </section>
+      </main>
+  
   )
 }

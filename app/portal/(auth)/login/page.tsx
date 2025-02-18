@@ -57,7 +57,7 @@ const LogIn = () => {
   return (
     <div>
             <div className="min-w-screen min-h-screen flex">
-                <div className="md:w-1/2 w-full min-h-full bg-[#080825] p-10">
+                <div className="w-full min-h-full bg-[#080825] p-10">
                 <div className="flex flex-col items-center justify-center max-w-md h-full m-auto space-y-7">
                     <Image src="/logo.png" alt="" width={100} height={100} className=""/>
 
@@ -81,7 +81,7 @@ const LogIn = () => {
                     </form>
                 </div>
                 </div>
-                <div className="w-1/2 hidden md:block bg-[url('/11074101.jpg')] bg-cover bg-center"> </div>
+                {/* <div className="w-1/2 hidden md:block bg-[url('/11074101.jpg')] bg-cover bg-center"> </div> */}
             </div>
 
     </div>

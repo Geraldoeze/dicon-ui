@@ -32,7 +32,7 @@ interface ApplicationFormData {
   first_name: string;
   last_name: string;
   email: string;
-  phone_number: string;
+  phone: string;
   dob: string;
   program_id: string;
   photo?: File;
@@ -166,7 +166,7 @@ const ApplicationPortal: React.FC = () => {
                   </SelectContent>
                 </Select>
                 <input
-                  {...register("phone_number", { required: true })}
+                  {...register("phone", { required: true })}
                   className="flex-1 p-2 border rounded-md ml-2"
                   placeholder="+234 (555) 000-0000"
                 />
