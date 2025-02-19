@@ -57,7 +57,7 @@ const ExamResults = () => {
   return (
     <div className="p-6 bg-white">
       <div className="max-w-[70vw] mx-auto">
-        <div className="my-6 flex justify-between items-center flex-col md:flex-row">
+        <div className="my-6 space-y-6 flex justify-between items-center flex-col md:flex-row">
           <div>
             <h1 className="text-2xl font-semibold">Exams</h1>
             <p className="text-gray-600">View your exam scores here</p>
@@ -107,15 +107,15 @@ const ExamResults = () => {
                 </div>
 
                 <div className="flex flex-col gap-4 bg-slate-50 p-3">
-                  <div className="flex items-center justify-between flex-col md:flex-row">
+                  <div className="flex items-center justify-between">
                       <p className="text-gray-600">Passing %</p>
                       <p className="font-medium">{exam.passing_percentage}%</p>
                   </div>
-                  <div className="flex items-center justify-between flex-col md:flex-row">
+                  <div className="flex items-center justify-between">
                       <p className="text-gray-600">Scored %</p>
                       <p className="font-medium">{exam.scored_percentage}%</p>
                     </div>
-                  <div className="flex items-center justify-between flex-col md:flex-row">
+                  <div className="flex items-center justify-between">
                       <p className="text-gray-600">Status</p>
                       <span className={`inline-block px-2 py-1 rounded-full text-sm ${getStatusColor(exam.scored_percentage, exam.passing_percentage)}`}>
                         {getStatusText(exam.scored_percentage, exam.passing_percentage)}

@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.variable}>
+      <body className={montserrat.className}>
         <Navigation />
         {children}
         <Footer/>

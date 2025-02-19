@@ -79,8 +79,8 @@ const Navigation = () => {
 
         {/* Mobile Menu Overlay */}
         {isOpen && (
-          <div className="fixed inset-0 left-0 top-0 bg-gray-700/95 z-40 lg:hidden">
-            <div className="flex flex-col items-center justify-center bg-gray-600/80 h-screen space-y-8 mt-[-4rem]">
+          <div className="fixed inset-0 left-0 top-0 bg-gray-700/95 min-h-screen z-40 lg:hidden">
+            <div className="flex flex-col items-center justify-center bg-gray-600/80 min-h-screen space-y-8 mt-[-4rem]">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -96,7 +96,7 @@ const Navigation = () => {
               ))}
               {/* Mobile Apply Button */}
               <Link 
-                href="#"
+                href="/portal/login"
                 className="bg-[#2D2F93] text-white px-8 py-3 rounded-md hover:bg-blue-900 
                   transition-colors duration-300 mt-6"
                 onClick={() => {

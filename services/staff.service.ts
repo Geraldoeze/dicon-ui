@@ -45,6 +45,15 @@ class StaffService {
       return apiService.get<AssignmentDetails>(STAFF_ENDPOINTS.ASSIGNMENT.DETAILS);
    }
 
+  //  async getSubmissions (assignmentId: string) {
+  //   return apiService.get(STAFF_ENDPOINTS.ASSIGNMENT.SUBMISSIONS(assignmentId))
+  //  }
+
+  
+    async getSubmissions () {
+     return apiService.get(STAFF_ENDPOINTS.ASSIGNMENT.SUBMISSIONS)
+    }
+
   async scheduleClass(formData: FormData) {
     return apiService.post(STAFF_ENDPOINTS.CLASSES.SCHEDULE, formData);
   }

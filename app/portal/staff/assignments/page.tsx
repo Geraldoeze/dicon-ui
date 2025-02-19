@@ -48,12 +48,12 @@ const Assignment = () => {
           <DialogTrigger asChild>
             <Button className="bg-white hover:bg-gray-300 text-black flex items-center gap-x-5">
              <Plus/>
-              Schedule class
+              Add Assignment
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Schedule New Class</DialogTitle>
+              <DialogTitle>Add New Assignment</DialogTitle>
             </DialogHeader>
             <form onSubmit={(e) => {
               e.preventDefault();
@@ -136,8 +136,8 @@ const Assignment = () => {
                       <hr />
                       
                       <div className="w-full flex justify-end items-center my-3">
-                      <p className='space-x-2 flex'> <Clock/> <span>{assignment.due_time}</span></p>
-                      <p className='space-x-2 flex'><Calendar/> <span>{assignment.due_date}</span></p>
+                      {/* <p className='space-x-2 flex'> <Clock/> <span>{assignment.due_time}</span></p>
+                      <p className='space-x-2 flex'><Calendar/> <span>{assignment.due_date}</span></p> */}
                       <a href={`/portal/staff/assignments/${assignment.id}`} className='space-x-2 flex font-medium'> <span>Details</span> <ArrowRight/></a>
                       </div> 
                   </div>
@@ -165,8 +165,8 @@ const Assignment = () => {
                       </div>
                       <hr />
                       <div className="w-full flex justify-between items-center flex-wrap my-3">
-                      <p className='space-x-2 flex'> <Clock/> <span>{assignment.due_time}</span></p>
-                      <p className='space-x-2 flex'><Calendar/> <span>{assignment.due_date}</span></p>
+                      {/* <p className='space-x-2 flex'> <Clock/> <span>{assignment.due_time}</span></p>
+                      <p className='space-x-2 flex'><Calendar/> <span>{assignment.due_date}</span></p> */}
                       <a href={`/portal/staff/assignments/${assignment.id}`} className='space-x-2 flex font-medium'> <span>Details</span> <ArrowRight/></a>
                       </div> 
                   </div>    

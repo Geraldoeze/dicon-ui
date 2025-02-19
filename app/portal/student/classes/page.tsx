@@ -83,8 +83,8 @@ function Classes() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <div className="flex items-center justify-between">
-          <TabsList>
+        <div className="xl:flex flex-col lg:flex-row items-center justify-between space-y-5 md:space-y-5">
+          <TabsList className='bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center overflow-x-auto'>
             <TabsTrigger value="upcoming">
               Upcoming classes
               <span className="ml-2 bg-gray-100 px-2 py-0.5 rounded-full text-sm">

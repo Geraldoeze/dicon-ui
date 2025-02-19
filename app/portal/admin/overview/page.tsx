@@ -24,13 +24,13 @@ function Overview() {
         // Fetch data from the API
         Promise.all([
             fetch('https://dic.0ps.tech/api/dashboard').then(response => response.json()),
-            fetch('https://dic.0ps.tech/api/department').then(response => response.json()),
+            fetch('https://dic.0ps.tech/api/departments').then(response => response.json()),
             fetch('https://dic.0ps.tech/api/applications').then(response => response.json())
         ])
         .then(([dashboardData, departmentData, applicationsData]) => {
             setDashboard(dashboardData[0]);
-            setDepartment(departmentData);
-            setApplications(applicationsData);
+            setDepartment(departmentData.data);
+            setApplications(applicationsData.data);
            
         })
         .catch(error => console.error('Error fetching data:', error));
@@ -97,7 +97,9 @@ return (
                             {department?.map((dept) => (
                             <Card key={dept.id} className='py-4 px-2'>
                                     <CardContent className='space-y-3'>
-                                     <p className='h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold'> <GraduationCap width={30} height={30}/> {dept.name}</p>
+                                      <a href={`/portal/admin/departments/${dept.id}`}>
+                                     <h1 className='h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold'> <GraduationCap width={30} height={30}/> {dept.name}</h1>
+                                     </a>
                                      <div className='flex items-center justify-between'>
                                         <b>Students: </b>
                                         <span className='text-[1.25rem] md:text-[1.5rem] font-medium'>{dept.total_students}</span> 

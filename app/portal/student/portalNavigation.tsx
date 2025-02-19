@@ -151,17 +151,19 @@ function Sidebar({ className, isMobile }: SidebarProps) {
         </ScrollArea>
 
         <div className="p-4 border-t border-gray-800 space-y-2">
+          <Link href="/contact-us">
           <Button 
             variant="ghost" 
-            className="w-full justify-start gap-3 hover:bg-white/10 transition-colors"
+            className="w-full justify-start text-base gap-3 hover:bg-white/10 hover:text-white transition-colors"
           >
             <HelpCircle className="w-5 h-5" />
             Support
           </Button>
+          </Link>
           <Link href="/">
           <Button 
             variant="ghost" 
-            className="w-full justify-start gap-3 hover:bg-white/10 transition-colors"
+            className="w-full justify-start text-base gap-3 hover:bg-white/10 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             Return to website
@@ -203,7 +205,7 @@ function Header({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLogout}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleLogout} className='bg-indigo-900'>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

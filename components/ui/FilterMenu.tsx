@@ -47,7 +47,7 @@ const FilterMenu: React.FC<FilterMenuProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-around gap-4">
+    <div className="flex items-center justify-around flex-col sm:flex-row gap-4">
       <div className="relative flex-1 items-center">
         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
@@ -58,9 +58,9 @@ const FilterMenu: React.FC<FilterMenuProps> = ({
         />
       </div>
       
-      <DropdownMenu>
+       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="gap-2">
+          <Button variant="outline" className="gap-2 w-full max-w-[150px] bg-[#F7F9FC] sm:w-fit ">
             <Filter className="h-4 w-4" />
             Filter
             {activeFilters.length > 0 && (
@@ -88,7 +88,7 @@ const FilterMenu: React.FC<FilterMenuProps> = ({
             </React.Fragment>
           ))}
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> 
     </div>
   );
 };

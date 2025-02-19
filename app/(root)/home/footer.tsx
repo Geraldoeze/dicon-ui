@@ -43,19 +43,19 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Our Links</h3>
             <nav className="flex flex-col space-y-2">
               <Link 
-                href="/student-login" 
+                href="/portal/login" 
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Student Login
               </Link>
               <Link 
-                href="/staff-login" 
+                href="/portal/login" 
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 Staff login
               </Link>
               <Link 
-                href="/pg-application" 
+                href="/apply" 
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 PG Application

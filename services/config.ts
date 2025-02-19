@@ -27,17 +27,23 @@ export const ADMIN_ENDPOINTS = {
       LIST: '/dashboard'
     },
     DEPARTMENTS: {
-      GET: '/departments'
+      GET: '/departments',
+      CREATE: '/departments'
     },
     APPLICATIONS: {
       LIST: '/applications',
       PENDING: '/applications?page=1&page_size=10&status=pending',
+      ONE: (applicationId: string) => `/applications/${applicationId}`,
+      APPROVE: (applicationId: string) =>  `/applications/${applicationId}/approve`,
+      REJECT: (applicationId: string) =>  `/applications/${applicationId}/reject`
     },
     STUDENTS: {
-     
+      GET: '/students?page=1&page_size=20&status=active',
+      ONE: (studentId: string) => `/students/profile?student_id=${studentId}`
     },
     STAFFS: {
-      
+      GET: '/staffs',
+      ONE: `/staffs/profile`
     }
 };
 
@@ -63,7 +69,8 @@ export const STAFF_ENDPOINTS = {
     PENDING: `/assignments/?page=1&page_size=10&status=pending`,
     GRADED:  `/assignments/?page=1&page_size=10&status=graded`,
     CREATE:  `/assignments/`,
-    SUBMISSIONS: (assignmentId: string) => `/assignments/submissions?assignment_id=${assignmentId}`,
+    // SUBMISSIONS: (assignmentId: string) => `/assignments/submissions?assignment_id=${assignmentId}`,
+    SUBMISSIONS: `/assignments/submissions?assignment_id=1`,
     DETAILS: `/assignments/1`
     //DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`
   },
@@ -110,10 +117,10 @@ export const STUDENT_ENDPOINTS = {
   // Assignment endpoints
   ASSIGNMENTS: {
     LIST: '/assignments/?student_id=1',
-    ONE: (assignmentId: number) => `/assignments/${assignmentId}`,
-    PENDING: '/students/assignments/?student_id=1&page=1&page_size=10&status=pending',
+    ONE: (assignmentId: string) => `/assignments/${assignmentId}`,
+    PENDING: 'students/assignments/?student_id=1&page=1&page_size=10&status=pending',
     SUBMITTED: '/students/assignments/submitted',
-    SUBMIT: (assignmentId: number) => `/students/assignments/${assignmentId}/submit`,
+    SUBMIT: (assignmentId: string) => `/students/assignments/${assignmentId}/submit`,
     DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`,
   },
 
