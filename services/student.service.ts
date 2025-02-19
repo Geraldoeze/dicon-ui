@@ -88,7 +88,7 @@ class StudentService {
     return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.PENDING, params);
   }
 
-  async submitAssignment(assignmentId: number, formData: FormData) {
+  async submitAssignment(assignmentId: string, formData: FormData) {
     return apiService.uploadFormData(
       STUDENT_ENDPOINTS.ASSIGNMENTS.SUBMIT(assignmentId),
       formData
@@ -103,8 +103,8 @@ class StudentService {
     return apiService.get(STUDENT_ENDPOINTS.ASSIGNMENTS.LIST);
   }
 
-  async getAssignment(assignmentId: number) {
-    return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.ONE(assignmentId));
+  async getAssignment(assignmentId: string) {
+    return apiService.get<Assignment>(STUDENT_ENDPOINTS.ASSIGNMENTS.ONE(assignmentId));
   }
 
 

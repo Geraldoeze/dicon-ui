@@ -12,6 +12,7 @@ import { Clock, Calendar, Search, Filter } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { staffService } from "@/services/staff.service"
 import { Class } from '@/services/types';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 interface ScheduleClassForm {
   course_id: string;
   topic_id: string;
@@ -29,6 +30,11 @@ const ClassDashboard = () => {
     queryKey: ['classes'],
     queryFn: () => staffService.getClasses()
   });
+
+  const { data: staffCourses} = useQuery({
+    queryKey: ['courses'],
+    queryFn: () => staffService.getCourses()
+  })
 
   const scheduleMutation = useMutation({
     mutationFn: (data: ScheduleClassForm) => 
@@ -71,6 +77,26 @@ const ClassDashboard = () => {
                 start_time: formData.get('start_time') as string
               });
             }} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="course_id">Choose Course</Label>
+                <Select name="course_id" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a course" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {staffCourses?.data.map((course) => (
+                      <SelectItem key={course.course_id} value={course.course_id.toString()}>
+                        {course.course_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="topic">Enter Topic</Label>
+                <Input id="topic_id" name="topic" required />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="class_link">Class Link</Label>
                 <Input id="class_link" name="class_link" required />
@@ -148,9 +174,10 @@ const ClassDashboard = () => {
                     {classItem.time_left} left
                   </div>
                 ) : (
-                  <Button className="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700">
+                  <a href={classItem.class_link}><Button className="w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700">
                     Join class →
                   </Button>
+                  </a>
                 )}
               </div>
             </CardContent>

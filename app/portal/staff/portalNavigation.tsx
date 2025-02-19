@@ -102,8 +102,8 @@ function Sidebar({ className, isMobile }: SidebarProps) {
           <Link href="/portal/student/profile" className="flex flex-col items-center space-y-3">
             <div className="relative w-20 h-20">
               <Image 
-                src={user?.profileImage || "/male.png"} 
-                alt={user?.name || "User"}
+                src={user?.photo_url || "/male.png"} 
+                alt={user?.first_name || "User"}
                 width={80} 
                 height={80} 
                 className="rounded-full object-cover border-2 border-blue-500"
@@ -111,8 +111,8 @@ function Sidebar({ className, isMobile }: SidebarProps) {
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
             </div>
             <div className="text-center my-2">
-              <h2 className="text-lg font-semibold">{user?.name || "Akinola Emmanuel"}</h2>
-              <p className="text-sm text-gray-400">{user?.role || "Staff"}</p>
+              <h2 className="text-lg font-semibold">{user?.first_name || "Akinola Emmanuel"}</h2>
+              <p className="text-sm text-gray-400">{user?.account_type || "Staff"}</p>
             </div>
           </Link>
         </div>
@@ -178,7 +178,7 @@ function Header({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
           <Breadcrumbs items={breadcrumbs} />
         </div>
         <div className="ml-auto flex items-center space-x-4">
-          <p className="text-gray-700 hidden lg:block">Welcome, {user?.name || "Akinola Emmanuel"}</p>
+          <p className="text-gray-700 hidden lg:block">Welcome, {user?.first_name || "Akinola Emmanuel"}</p>
          
           <Button onClick={handleLogout} variant="ghost" size="icon" className="text-gray-700 hover:text-gray-900">
             <LogOut className="h-5 w-5" />

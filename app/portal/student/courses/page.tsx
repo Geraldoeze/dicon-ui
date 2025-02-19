@@ -75,16 +75,10 @@ export default function Courses() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['courses'] })
       queryClient.invalidateQueries({ queryKey: ['registeredCourses'] })
-      Toast({
-        title: "Success",
-        variant: "default"
-      })
+     
     },
     onError: () => {
-      Toast({
-        title: "Error",
-        variant: "destructive"
-      })
+     
     }
   })
 
@@ -140,37 +134,37 @@ export default function Courses() {
     setSearchQuery(query);
   }, []);
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked && filteredCourses) {
-      setSelectedCourses(new Set(filteredCourses.map(course => course.course_id)))
-    } else {
-      setSelectedCourses(new Set())
-    }
-  }
+  // const handleSelectAll = (checked: boolean) => {
+  //   if (checked && filteredCourses) {
+  //     setSelectedCourses(new Set(filteredCourses.map(course => course.course_id)))
+  //   } else {
+  //     setSelectedCourses(new Set())
+  //   }
+  // }
 
-  const handleSelectCourse = (courseId: number, checked: boolean) => {
-    const newSelected = new Set(selectedCourses)
-    if (checked) {
-      newSelected.add(courseId)
-    } else {
-      newSelected.delete(courseId)
-    }
-    setSelectedCourses(newSelected)
-  }
+  //  const handleSelectCourse = (courseId: number, checked: boolean) => {
+  //   const newSelected = new Set(selectedCourses)
+  //   if (checked) {
+  //     newSelected.add(courseId)
+  //   } else {
+  //     newSelected.delete(courseId)
+  //   }
+  //   setSelectedCourses(newSelected)
+  // } 
 
-  const handleAction = async (courseId: number, status: string) => {
-    switch (status) {
-      case 'registered':
-        router.push(`/portal/student/courses/${courseId}`)
-        break
-      case 'unregistered':
-        registerCourseMutation.mutate(courseId.toString())
-        break
-      case 'carryover':
-        registerCourseMutation.mutate(courseId.toString())
-        break
-    }
-  }
+  // const handleAction = async (courseId: number, status: string) => {
+  //   switch (status) {
+  //     case 'registered':
+  //       router.push(`/portal/student/courses/${courseId}`)
+  //       break
+  //     case 'unregistered':
+  //       registerCourseMutation.mutate(courseId.toString())
+  //       break
+  //     case 'carryover':
+  //       registerCourseMutation.mutate(courseId.toString())
+  //       break
+  //   }
+  // }
 
   return (
     <div className="md:max-w-[80vw] w-full md:mx-auto relative">
@@ -189,8 +183,8 @@ export default function Courses() {
               onValueChange={(value) => setSelectedTab(value as Course['status'])}
               className="w-full border-none"
             >
-              <div className="xl:flex flex-col xl:flex-row items-center justify-between space-y-5 md:space-y-0">
-                <TabsList className="bg-[#F7F9FC] min-h-fit flex flex-col sm:flex-row space-y-4 md:space-y-0 my-5">
+              <div className="xl:flex flex-col lg:flex-row items-center justify-between space-y-5 md:space-y-5">
+                <TabsList className="bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center overflow-x-auto">
                   <TabsTrigger value="registered" className={`${selectedTab === 'registered' ? 'bg-slate-500' : ''}`}>
                     My courses
                   </TabsTrigger>
@@ -215,12 +209,14 @@ export default function Courses() {
                 <Table>
                   <TableHeader className='bg-[#F7F9FC] text-[.8rem] lg:text-[1rem]'>
                     <TableRow>
+                      {/* 
                       <TableHead className="w-12">
                         <Checkbox 
                           checked={filteredCourses?.length === selectedCourses.size}
                           onCheckedChange={handleSelectAll}
-                        />
-                      </TableHead>
+                        /> 
+                      </TableHead> 
+                      */}
                       <TableHead>Course Name</TableHead>
                       <TableHead>Course Units</TableHead>
                       <TableHead>Lecturer</TableHead>
@@ -249,14 +245,14 @@ export default function Courses() {
                     ) : (
                       filteredCourses.map((course) => (
                         <TableRow key={course.course_id}>
-                          <TableCell>
+                          {/* <TableCell>
                             <Checkbox 
                               checked={selectedCourses.has(course.course_id)}
                               onCheckedChange={(checked) => 
                                 handleSelectCourse(course.course_id, checked as boolean)
                               }
                             />
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell>
                             <div>
                               <div className="font-medium">{course.course_code}</div>
@@ -271,7 +267,10 @@ export default function Courses() {
                             <ActionButton 
                               status={selectedTab}
                               isLoading={registerCourseMutation.isPending} 
-                              onAction={() => handleAction(course.course_id, selectedTab)}
+                              onAction={async () => {
+                                await registerCourseMutation.mutateAsync(course.course_id);
+                              }}
+                              disabled={registerCourseMutation.isPending}
                             />
                           </TableCell>
                         </TableRow>

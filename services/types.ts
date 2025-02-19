@@ -40,7 +40,7 @@ export interface ApplicationStatus {
 
 
 export interface Course {
-  course_id: number,
+  course_id: string,
   course_name: string,
   course_code: string,
   units: number,
@@ -110,27 +110,35 @@ export interface Assignment {
   due_date: string;
   due_time: string;
   pass_mark: number;
-  score: number;
-  submission_url?: string;
-  submission_date?: string;
+  score: number | null;
+  submission_url?: string | null;
+  submission_date?: string | null;
+  submissionMode: 'google_docs' | 'pdf';
+  status: 'pending' | 'submitted' | 'graded';
+  due_day_label: 'Upcoming' | 'Today' | 'Past';
 }
 
-export interface Submission {
-  id: string;
-  student_name: string;
-  matric_no: string;
-  score: number;
-  submission_link?: string;
-  submission_file?: string;
-}
 
 export interface AssignmentDetails {
-  id: string;
-  course_code: string;
-  course_name: string;
+  id: number;
+  course_id: number;
+  title: string;
+  assignment_url: string;
   description: string;
-  units: number;
-  submissions: Submission[];
+  due_date: string;
+  due_time: string;
+  pass_mark: number;
+  created_at: string;
+  updated_at: string;
+  student_id: number;
+  submission_url: string;
+  score: number;
+  course_name: string;
+  course_code: string;
+  lecturer_in_charge: string;
+  submission_date: string;
+  due_day_label: string;
+  status: 'passed' | 'failed' | 'pending';
 }
 
 export interface Class {

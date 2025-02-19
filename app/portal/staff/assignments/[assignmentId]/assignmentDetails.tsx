@@ -4,34 +4,25 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, Link as LinkIcon } from "lucide-react";
+import { LinkIcon } from "lucide-react";
 import { staffService } from "@/services/staff.service";
-
-interface StudentSubmission {
-  id: string;
-  student_name: string;
-  matric_no: string;
-  score: number;
-  submission_link?: string;
-  submission_file?: string;
-}
+import { AssignmentDetails } from "@/services/types";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  submission: StudentSubmission;
-  assignmentId: string;
+  assignment: AssignmentDetails;
 }
 
-export function StudentSubmissionDialog({ isOpen, onClose, submission, assignmentId }: Props) {
-  const [score, setScore] = useState(submission.score?.toString() || "");
+export function AssignmentDetailsDialog({ isOpen, onClose, assignment }: Props) {
+  const [score, setScore] = useState(assignment.score?.toString() || "");
   const queryClient = useQueryClient();
 
   const scoreMutation = useMutation({
     mutationFn: (newScore: number) => 
-      staffService.updateAssignmentScore(submission.id, newScore),
+      staffService.updateAssignmentScore(assignment.id.toString(), newScore),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['assignment', assignmentId] });
+      queryClient.invalidateQueries({ queryKey: ['assignment', assignment.id] });
       onClose();
     },
   });
@@ -48,33 +39,28 @@ export function StudentSubmissionDialog({ isOpen, onClose, submission, assignmen
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Student Submission</DialogTitle>
+          <DialogTitle>Assignment Details</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Student Name</Label>
-                <p className="text-gray-700 mt-1">{submission.student_name}</p>
+                <Label>Course Code</Label>
+                <p className="text-gray-700 mt-1">{assignment.course_code}</p>
               </div>
               <div>
-                <Label>Matric Number</Label>
-                <p className="text-gray-700 mt-1">{submission.matric_no}</p>
+                <Label>Course Name</Label>
+                <p className="text-gray-700 mt-1">{assignment.course_name}</p>
               </div>
             </div>
 
             <div>
               <Label>Submission</Label>
               <div className="mt-2">
-                {submission.submission_file ? (
-                  <Button variant="outline" className="w-full gap-2">
-                    <Download className="h-4 w-4" />
-                    Download Submission
-                  </Button>
-                ) : submission.submission_link ? (
+                {assignment.submission_url ? (
                   <Button variant="outline" className="w-full gap-2" asChild>
-                    <a href={submission.submission_link} target="_blank" rel="noopener noreferrer">
+                    <a href={assignment.submission_url} target="_blank" rel="noopener noreferrer">
                       <LinkIcon className="h-4 w-4" />
                       View Submission
                     </a>

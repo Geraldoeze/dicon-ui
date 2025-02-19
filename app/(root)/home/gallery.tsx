@@ -31,9 +31,9 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen lg:min-h-full xl:max-h-[1000px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center bg-fixed">
+    <div className="min-h-fit lg:min-h-full xl:max-h-[1000px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center bg-fixed">
       <div className="absolute inset-0 bg-gray-50/80 opacity-10"></div>
-      <div className="relative z-10 py-8 md:py-12 w-[95vw] lg:w-[70vw] mx-auto">
+      <div className="relative z-10 py-0 md:py-12 w-[95vw] lg:w-[70vw] mx-auto">
         <h1 className="text-2xl md:text-4xl font-semibold text-center mb-4">
           Gallery
         </h1>

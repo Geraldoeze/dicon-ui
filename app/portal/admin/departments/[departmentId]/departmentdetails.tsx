@@ -1,9 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { adminService } from '@/services/admin.service';
+import { useQuery } from '@tanstack/react-query';
 import { Filter, Search } from 'lucide-react';
 import React from 'react'
 
 const DepartmentDetails = ({ departmentId }: {departmentId: string}) => {
+
+
+  // const [ data: department] = useQuery({
+  //   queryKey: ['departments'],
+  //   queryFn: () => adminService.getDepartments()
+  // }
+
+
   return (
     <div className='bg-slate-50'>
         <div className="max-w-[80vw] mx-auto px-10 py-5 space-y-10">

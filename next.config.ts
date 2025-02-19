@@ -10,9 +10,8 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-
-
   images: {
+    domains: ['res.cloudinary.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -27,7 +26,8 @@ const nextConfig: NextConfig = {
         hostname: '**.bytvi.com',
       }
     ]
-  }
+  },
+
   /* config options here */
 
 };
