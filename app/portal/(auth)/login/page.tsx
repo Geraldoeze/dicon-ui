@@ -66,8 +66,8 @@ const LogIn = () => {
                    
                     <form action="" className="space-y-7" onSubmit={handleSubmit} noValidate>
         
-                        <input value={formData.username} onChange={handleChange} type="username"  id="username" name="username" autoComplete="username" required placeholder="Enter your E-mail" className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500" />
-                        <input value={formData.password} onChange={handleChange} type="password"  id="password"name="password" autoComplete="current-password" required placeholder="Enter your Password" className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500" />
+                        <input value={formData.username.trim()} onChange={handleChange} type="username"  id="username" name="username" autoComplete="username" required placeholder="Enter your E-mail" className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500" />
+                        <input value={formData.password.trim()} onChange={handleChange} type="password"  id="password"name="password" autoComplete="current-password" required placeholder="Enter your Password" className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500" />
                         
                         {error && (
                         <div className="text-red-500 text-sm text-center">
