@@ -28,7 +28,7 @@ export default function Courses() {
     isLoading: isCoursesLoading,
     isError: isCoursesError
   } = useQuery({
-    queryKey: ['courses', selectedTab, searchQuery, page, pageSize, status],
+    queryKey: ['courses', selectedTab, searchQuery],
     queryFn: () => {
       switch (selectedTab) {
         case 'registered':
@@ -38,7 +38,7 @@ export default function Courses() {
         case 'carryover':
           return studentService.getCourses({ status: 'carryover' })
         default:
-          return studentService.getCourses({page, pageSize, status})
+          return studentService.getCourses()
       }
     }
   })
