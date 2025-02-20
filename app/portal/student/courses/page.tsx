@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useState, useCallback } from 'react';
@@ -12,6 +13,7 @@ import { studentService } from '@/services/student.service';
 import { Course } from '@/services/types';
 import { Toast } from '@/components/ui/toast';
 import { StatsCard, CourseFilters, ActionButton, Filter } from './courseComponents';
+import { useGetCourses } from '@/app/state/store/courses.store';
 
 export default function Courses() {
   const [selectedTab, setSelectedTab] = useState<Course['status']>('registered');
@@ -20,28 +22,36 @@ export default function Courses() {
   const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set());
   const router = useRouter();
   const queryClient = useQueryClient();
-
+  
+  const {data: coursesData, isLoading: isCoursesLoading, isError: isCoursesError} = useGetCourses(
+    {page: 1,
+    course_type: selectedTab,
+    lecturer_id: '',
+    student_id: '1',
+    session: '',
+    unit: '',
+    search: searchQuery})
 
    // Fetch courses based on status
-   const {
-    data: coursesData,
-    isLoading: isCoursesLoading,
-    isError: isCoursesError
-  } = useQuery({
-    queryKey: ['courses', selectedTab, searchQuery],
-    queryFn: () => {
-      switch (selectedTab) {
-        case 'registered':
-          return studentService.getRegisteredCourses()
-        case 'unregistered':
-          return studentService.getUnregisteredCourses()
-        case 'carryover':
-          return studentService.getCourses({ status: 'carryover' })
-        default:
-          return studentService.getCourses()
-      }
-    }
-  })
+  //  const {
+  //   data: coursesData,
+  //   isLoading: isCoursesLoading,
+  //   isError: isCoursesError
+  // } = useQuery({
+  //   queryKey: ['courses', selectedTab, searchQuery],
+  //   queryFn: () => {
+  //     switch (selectedTab) {
+  //       case 'registered':
+  //         return studentService.getRegisteredCourses()
+  //       case 'unregistered':
+  //         return studentService.getUnregisteredCourses()
+  //       case 'carryover':
+  //         return studentService.getCourses({ status: 'carryover' })
+  //       default:
+  //         return studentService.getCourses()
+  //     }
+  //   }
+  // })
 
   // Fetch stats data
   const { data: registeredCoursesData } = useQuery({
@@ -98,11 +108,11 @@ export default function Courses() {
   ];
 
   // Filter courses based on active filters and search
-  const filteredCourses: Course[] = coursesData?.data?.filter(course => {
+  const filteredCourses: Course[] | undefined = coursesData?.data?.filter(course => {
     // Search filter
     const searchLower = searchQuery.toLowerCase();
     const matchesSearch = !searchQuery || 
-      Object.entries(course).some(([key, value]) => 
+      Object.entries(course).some(([_, value]) => 
         typeof value === 'string' && value.toLowerCase().includes(searchLower)
       );
 

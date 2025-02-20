@@ -96,6 +96,7 @@ export const STUDENT_ENDPOINTS = {
     LIST: '/students/courses?student_id=1&search=',
     REGISTERED: '/students/courses?student_id=1&search=&course_type=registered',
     UNREGISTERED: '/students/courses?student_id=1&search=&course_type=unregistered',
+    CarriedOver: '/students/courses?student_id=1&search=&course_type=unregistered',
     REGISTER: (courseId: string) => `students/courses/register?course_id=${courseId}`,
     UNREGISTER: (courseId: string) => `/students/courses/${courseId}/unregister`,
     DETAILS: (courseId: string) => `/courses/${courseId}`,

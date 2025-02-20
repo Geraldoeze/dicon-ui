@@ -3,8 +3,8 @@ import { API_BASE_URL } from './config';
 import { ApiResponse, ErrorResponse } from './types';
 import { TokenService } from './auth/tokenService';
 import { AuthService } from './auth/auth.service';
-class ApiService {
-  private api: AxiosInstance;
+export class ApiService {
+  api: AxiosInstance;
 
   constructor() {
     this.api = axios.create({
