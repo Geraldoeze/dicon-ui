@@ -13,14 +13,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 //   DropdownMenuCheckboxItem,
 //   DropdownMenuTrigger,
 // } from "@/components/ui/dropdown-menu";
+
+import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from '@/components/ui/dialog';
-import { AlertCircle } from 'lucide-react';
-import { Book, Clock, GraduationCap, Search, Filter, Loader2, ArrowRight, RotateCw } from "lucide-react";
+import { Filter,
+  //  Loader2, ArrowRight, RotateCw, Check, AlertCircle
+   } from "lucide-react";
 import FilterMenu from '@/components/ui/FilterMenu';
 
 // Types
@@ -32,6 +37,7 @@ interface Filter {
 interface FilterOption {
   column: string;
   label: string;
+  group: string;
 }
 
 const courseFilterOptions: FilterOption[] = [
@@ -52,7 +58,7 @@ const StatsCard = ({ title, value, description, icon: Icon, className }: any) =>
     </CardHeader>
     <CardContent className='space-y-6'>
       <p className="text-xs text-muted-foreground">{description}</p>
-      <div className="text-[1.2rem] md:text-[1.75rem] text-black font-bold">{value}</div>
+      <div className="text-[1.2rem] md:text-[1.75rem] text-black font-medium">{value}</div>
     </CardContent>
   </Card>
 );
@@ -83,119 +89,102 @@ interface ActionButtonProps {
   status: 'registered' | 'unregistered' | 'carryover';
   onAction: () => Promise<void>;
   courseId: string;
+  loadingCourseId?: string | null;
+  disabled?: boolean;
 }
-const ActionButton = ({ status, onAction }: ActionButtonProps) => {
 
-  const [isLoading, setIsLoading] = useState(false);
+
+const ActionButton = ({ 
+  status, 
+  onAction, 
+  courseId, 
+  loadingCourseId,
+  disabled = false 
+}: ActionButtonProps) => {
+  const router = useRouter();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState('');
+  const isLoading = loadingCourseId === courseId;
   const handleAction = async () => {
-    setIsLoading(true);
+    if (status === 'registered') {
+      // Route to details page for registered courses
+      router.push(`/portal/student/courses/${courseId}`);
+      return;
+    }
+
     try {
       await onAction();
-      if (status === 'unregistered') {
-        setShowSuccessModal(true);
+      // Show success modal for register and retake actions
+      if (status === 'carryover') {
+        setSuccessMessage('You have successfully registered to retake this course.');
+      } else {
+        setSuccessMessage('You have successfully registered for this course.');
       }
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Action failed:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  if (isLoading) {
-    return (
-      <Button variant="ghost" disabled>
-        <Loader2 className="h-4 w-4 animate-spin mr-2" />
-        Processing...
-      </Button>
-    );
-  }
-  const buttonProps = {
+  const buttonConfig = {
     registered: {
       variant: "ghost" as const,
       className: "text-primary hover:text-primary/80",
-      children: (
-        <>
-          View details <ArrowRight className="ml-2 h-4 w-4" />
-        </>
-      ),
+      label: "View details"
     },
     unregistered: {
       variant: "secondary" as const,
       className: "text-gray-600 hover:text-gray-700",
-      children: "Register",
+      label: "Register"
     },
     carryover: {
       variant: "secondary" as const,
       className: "text-red-600 hover:text-red-700",
-      children: (
-        <>
-          <RotateCw className="mr-2 h-4 w-4" />
-          Retake
-        </>
-      ),
-    },
+      label: "Retake"
+    }
   };
+
+  const config = buttonConfig[status];
 
   return (
     <>
       <Button
-        {...buttonProps[status]}
+        variant={config.variant}
+        className={config.className}
         onClick={handleAction}
-      />
+        disabled={disabled || isLoading}
+      >
+        {isLoading ? (
+          <div className="flex items-center">
+            <div className="w-4 h-4 mr-2 border-2 border-current border-t-transparent rounded-full animate-spin" />
+            Processing...
+          </div>
+        ) : (
+          <>
+            {config.label}
+          </>
+        )}
+      </Button>
 
       <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent>
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-green-500" />
-              Registration Successful
+            <DialogTitle>
+              {status === 'unregistered' ? 'Registration Successful' : 'Retake Registration Successful'}
             </DialogTitle>
+            <DialogDescription>
+            {successMessage}
+            </DialogDescription>
           </DialogHeader>
-          <div className="text-center py-4">
-            <p className="text-gray-600">
-              You have successfully registered for this course.
-            </p>
-          </div>
+          <DialogFooter>
+            <Button onClick={() => setShowSuccessModal(false)}>
+              Close
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
-
-  // switch (status) {
-  //   case 'registered':
-  //     return (
-  //       <Button 
-  //         variant="ghost" 
-  //         className="text-primary hover:text-primary/80"
-  //         onClick={onAction}
-  //       >
-  //         View details <ArrowRight className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   case 'unregistered':
-  //     return (
-  //       <Button 
-  //         variant="secondary"
-  //         className="text-gray-600 hover:text-gray-700"
-  //         onClick={onAction}
-  //       >
-  //         Register
-  //       </Button>
-  //     );
-  //   case 'carryover':
-  //     return (
-  //       <Button 
-  //         variant="secondary"
-  //         className="text-red-600 hover:text-red-700"
-  //         onClick={onAction}
-  //       >
-  //         <RotateCw className="mr-2 h-4 w-4" />
-  //         Retake
-  //       </Button>
-  //     );
-  // }
+  );
 };
 
 export { StatsCard, CourseFilters, ActionButton, type Filter };

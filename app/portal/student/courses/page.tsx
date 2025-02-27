@@ -1,57 +1,81 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Book, Clock, GraduationCap, Loader2 } from "lucide-react";
 import { studentService } from '@/services/student.service';
 import { Course } from '@/services/types';
-import { Toast } from '@/components/ui/toast';
-import { StatsCard, CourseFilters, ActionButton, Filter } from './courseComponents';
-import { useGetCourses } from '@/app/state/store/courses.store';
+import { StatsCard, CourseFilters, ActionButton} from './courseComponents';
+// import { useGetCourses } from '@/app/state/store/courses.store';
+// import { CustomFilter } from '@/proto/filter';
+
 
 export default function Courses() {
   const [selectedTab, setSelectedTab] = useState<Course['status']>('registered');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilters, setActiveFilters] = useState<Filter[]>([]);
-  const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set());
-  const router = useRouter();
+  // const [activeFilters, setActiveFilters] = useState<Filter[]>([]);
+  // const [selectedCourses, setSelectedCourses] = useState<Set<number>>(new Set());
+  const [loadingCourseId, setLoadingCourseId] = useState<string | null>(null);
+  //const router = useRouter();
   const queryClient = useQueryClient();
+
+  // const [filter, setFilter] = useState<CustomFilter>({
+  //   page: 1,
+  //   course_type: 'unregistered',
+  //   lecturer_id: '',
+  //   student_id: '1',
+  //   session: '',
+  //   unit: '',
+  //   search: searchQuery
+  // });
+
+  // const handleFilterChange = (newFilter: Partial<CustomFilter>) => {
+  //   setFilter(prev => ({
+  //     ...prev,
+  //     ...newFilter
+  //   }));
+  // };
+
+  // const handleTabChange = (value: string) => {
+  //  setSelectedTab(value as Course['status']);
+  //  handleFilterChange({ course_type: value });
+  // };
+
+  // const { data: coursesData, isLoading: isCoursesLoading, isError: isCoursesError } = useGetCourses(filter);
   
-  const {data: coursesData, isLoading: isCoursesLoading, isError: isCoursesError} = useGetCourses(
-    {page: 1,
-    course_type: selectedTab,
-    lecturer_id: '',
-    student_id: '1',
-    session: '',
-    unit: '',
-    search: searchQuery})
+  // const {data: coursesData, isLoading: isCoursesLoading, isError: isCoursesError} = useGetCourses(
+  //   {page: 1,
+  //   course_type: selectedTab,
+  //   lecturer_id: '',
+  //   student_id: '1',
+  //   session: '',
+  //   unit: '',
+  //   search: searchQuery})
 
    // Fetch courses based on status
-  //  const {
-  //   data: coursesData,
-  //   isLoading: isCoursesLoading,
-  //   isError: isCoursesError
-  // } = useQuery({
-  //   queryKey: ['courses', selectedTab, searchQuery],
-  //   queryFn: () => {
-  //     switch (selectedTab) {
-  //       case 'registered':
-  //         return studentService.getRegisteredCourses()
-  //       case 'unregistered':
-  //         return studentService.getUnregisteredCourses()
-  //       case 'carryover':
-  //         return studentService.getCourses({ status: 'carryover' })
-  //       default:
-  //         return studentService.getCourses()
-  //     }
-  //   }
-  // })
+   const {
+    data: coursesData,
+    isLoading: isCoursesLoading,
+    isError: isCoursesError
+  } = useQuery({
+    queryKey: ['courses', selectedTab, searchQuery],
+    queryFn: () => {
+      switch (selectedTab) {
+        case 'registered':
+          return studentService.getRegisteredCourses()
+        case 'unregistered':
+          return studentService.getUnregisteredCourses()
+        case 'carryover':
+          return studentService.getCourses({ status: 'carryover' })
+        default:
+          return studentService.getCourses()
+      }
+    }
+  })
 
   // Fetch stats data
   const { data: registeredCoursesData } = useQuery({
@@ -77,10 +101,21 @@ export default function Courses() {
       queryClient.invalidateQueries({ queryKey: ['registeredCourses'] })
      
     },
-    onError: () => {
-     
+    onError: (error) => {
+      console.error('Failed to register course:', error);
     }
-  })
+  });
+
+  const retakeCourseMutation = useMutation({
+    mutationFn: (courseId: string) => studentService.retakeCourse(courseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['courses'] });
+      queryClient.invalidateQueries({ queryKey: ['registeredCourses'] });
+    },
+    onError: (error) => {
+      console.error('Failed to retake course:', error);
+    }
+  });
 
 
   const statsCards = [
@@ -89,21 +124,21 @@ export default function Courses() {
       value: registeredCoursesData?.data?.length || 0,
       description: "Courses you are currently enrolled in",
       icon: Book,
-      className: "bg-green-100 text-green-400 border-s-2 border-green-400"
+      className: "bg-green-100 text-black border-s-2 border-green-400"
     },
     {
       title: "Pending Assignments",
       value: assignmentsData?.data?.length || 0,
       description: "Assignments you have not turned in",
       icon: Clock,
-      className: "bg-yellow-100 text-yellow-300 border-s-2 border-yellow-300"
+      className: "bg-yellow-100 text-black border-s-2 border-yellow-300"
     },
     {
       title: "New Classes",
       value: classesData?.data?.length || 0,
       description: "Lessons you have not seen yet",
       icon: GraduationCap,
-      className: "bg-blue-100 text-blue-300 border-s-2 border-blue-300"
+      className: "bg-blue-100 text-black border-s-2 border-blue-300"
     }
   ];
 
@@ -112,28 +147,42 @@ export default function Courses() {
     // Search filter
     const searchLower = searchQuery.toLowerCase();
     const matchesSearch = !searchQuery || 
-      Object.entries(course).some(([_, value]) => 
+      Object.entries(course).some(([, value]) => 
         typeof value === 'string' && value.toLowerCase().includes(searchLower)
       );
 
-    // Column filters
-    const matchesFilters = activeFilters.every(filter => {
-      const value = course[filter.column as keyof Course];
-      return !filter.value || 
-        (typeof value === 'string' && value.toLowerCase().includes(filter.value.toLowerCase()));
-    });
+    // // Column filters
+    // const matchesFilters = activeFilters.every(filter => {
+    //   const value = course[filter.column as keyof Course];
+    //   return !filter.value || 
+    //     (typeof value === 'string' && value.toLowerCase().includes(filter.value.toLowerCase()));
+    // });
 
-    return matchesSearch && matchesFilters;
+    return matchesSearch 
+    //&& matchesFilters;
   });
 
-  const handleFilterChange = useCallback((filters: Filter[]) => {
-    setActiveFilters(filters);
-  }, []);
+  // const handleFilterChange = useCallback((filters: Filter[]) => {
+  //   setActiveFilters(filters);
+  // }, []);
 
   const handleSearchChange = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
 
+
+  const handleCourseAction = async (courseId: string, status: Course['status']) => {
+    setLoadingCourseId(courseId);
+    try {
+      if (status === 'carryover') {
+        await retakeCourseMutation.mutateAsync(courseId);
+      } else if (status === 'unregistered') {
+        await registerCourseMutation.mutateAsync(courseId);
+      }
+    } finally {
+      setLoadingCourseId(null);
+    }
+  };
   // const handleSelectAll = (checked: boolean) => {
   //   if (checked && filteredCourses) {
   //     setSelectedCourses(new Set(filteredCourses.map(course => course.course_id)))
@@ -184,7 +233,7 @@ export default function Courses() {
               className="w-full border-none"
             >
               <div className="xl:flex flex-col lg:flex-row items-center justify-between space-y-5 md:space-y-5">
-                <TabsList className="bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center overflow-x-auto">
+                <TabsList className="bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center justify-around overflow-x-auto">
                   <TabsTrigger value="registered" className={`${selectedTab === 'registered' ? 'bg-slate-500' : ''}`}>
                     My courses
                   </TabsTrigger>
@@ -197,11 +246,12 @@ export default function Courses() {
                 </TabsList>
 
                 <CourseFilters
-                  activeFilters={activeFilters}
-                  onFilterChange={handleFilterChange}
+                  // onFilterChange={handleFilterChange}
+                  // currentFilters={filter}
                   onSearchChange={handleSearchChange}
                   searchQuery={searchQuery}
                 />
+                 
               </div>
 
               {/* Table Content */}
@@ -266,11 +316,12 @@ export default function Courses() {
                           <TableCell>
                             <ActionButton 
                               status={selectedTab}
-                              isLoading={registerCourseMutation.isPending} 
+                              courseId={course.course_id}
+                              loadingCourseId={loadingCourseId}
                               onAction={async () => {
-                                await registerCourseMutation.mutateAsync(course.course_id);
+                                await handleCourseAction(course.course_id, selectedTab);
                               }}
-                              disabled={registerCourseMutation.isPending}
+                              disabled={registerCourseMutation.isPending || retakeCourseMutation.isPending}
                             />
                           </TableCell>
                         </TableRow>

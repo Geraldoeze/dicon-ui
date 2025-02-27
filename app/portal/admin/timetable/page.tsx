@@ -6,14 +6,15 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Clock, Calendar, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { staffService } from "@/services/staff.service"
+import { staffService } from "@/services/staff.service";
+import { adminService} from '@/services/admin.service';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 interface ScheduleClassForm {
   course_id: string;
-  topic_id: string;
+  topic: string;
   class_link: string;
   start_date: string;
   start_time: string;
@@ -21,11 +22,13 @@ interface ScheduleClassForm {
 
 const ClassDashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
 
   const { data: classes } = useQuery({
     queryKey: ['classes'],
-    queryFn: () => staffService.getClasses()
+    queryFn: () => adminService.getClasses()
   });
 
   const { data: staffCourses} = useQuery({
@@ -38,6 +41,7 @@ const ClassDashboard = () => {
       staffService.scheduleClass(data),
     onSuccess: () => {
       setIsDialogOpen(false);
+      setIsSuccessOpen(true);
     }
   });
 
@@ -57,9 +61,9 @@ const ClassDashboard = () => {
       <div className="flex justify-start md:justify-between items-center flex-col md:flex-row my-7">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Classes</h1>
-          <p className="text-gray-600">This includes upcoming lectures scheduled to happen</p>
+          <p className="text-gray-600">Create the timetable and class schedule for teachers and students </p>
         </div>
-{/*         
+        
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-indigo-700 hover:bg-indigo-800 text-white justify-start">
@@ -75,7 +79,7 @@ const ClassDashboard = () => {
               const formData = new FormData(e.currentTarget);
               handleScheduleClass({
                 course_id: formData.get('course_id') as string,
-                topic_id: formData.get('topic_id') as string,
+                topic: formData.get('topic') as string,
                 class_link: formData.get('class_link') as string,
                 start_date: formData.get('start_date') as string,
                 start_time: formData.get('start_time') as string
@@ -115,18 +119,33 @@ const ClassDashboard = () => {
                   <Input id="start_time" name="start_time" type="time" required />
                 </div>
               </div>
+             
+          <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
+          <DialogTrigger asChild>
               <Button type="submit" className="w-full bg-indigo-700 hover:bg-indigo-800 text-white">
                 Schedule Class
               </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Schedule Class</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              Class has been scheduled successfully
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
             </form>
           </DialogContent>
-        </Dialog> */}
+        </Dialog>
+
+  
       </div>
 
       <div className="flex justify-between items-center flex-col lg:flex-row my-6">
         <div className="flex items-center gap-4">
           <div className="bg-white rounded-md px-3 py-1.5 border">
-            <span className="font-medium">Upcoming classes</span>
+            <span className="font-medium">All Classes</span>
             <span className="ml-2 bg-gray-100 px-2 py-0.5 rounded-full text-sm">
               {classes?.data.length || 0}
             </span>
@@ -169,7 +188,7 @@ const ClassDashboard = () => {
                   </div>
                 </div>
                 
-                {classItem.time_left ? (
+                {/* {classItem.time_left ? (
                   <div className="bg-orange-50 text-orange-600 px-4 py-2 rounded-md text-sm">
                     {classItem.time_left} left
                   </div>
@@ -179,7 +198,7 @@ const ClassDashboard = () => {
                     Join class →
                   </Button>
                   </a>
-                )}
+                )} */}
               </div>
             </CardContent>
           </Card>

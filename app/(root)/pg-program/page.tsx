@@ -36,7 +36,7 @@ const page = () => {
     </div>
     </div>
 
-    <div className="min-h-screen lg:min-h-full lg:max-h-[1800px] relative mx-auto max-w-[85vw] py-10">
+    <div className="min-h-screen lg:min-h-full relative mx-auto max-w-[85vw] py-10">
 
     <div className="flex items-center justify-center flex-col my-5">
       <h1 className='text-center text-[1.5rem] md:text-[2.5rem] font-semibold my-5'> Centre for Strategic Resources </h1>

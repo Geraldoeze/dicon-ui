@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Upload, X } from 'lucide-react';
 import AssignmentHeader from '../../assignmentHeader';
 
-
 const DUMMY_DESCRIPTION = `Complete a comprehensive analysis of international trade policies and their impact on developing economies. Your assignment should include:
 
 1. Analysis of current trade barriers and their effects
@@ -24,13 +23,18 @@ interface DetailsProp {
   assignmentId: string 
 }
 
+// Define a submission interface
+interface AssignmentSubmission {
+  submission_url?: string;
+  submission_file?: File;
+}
 
-const PendingAssignment = ( {assignmentId} : DetailsProp) => {
- 
-  const router = useRouter();
+const PendingAssignment = ({ assignmentId }: DetailsProp) => {
+ // const router = useRouter();
   
   const [submissionUrl, setSubmissionUrl] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const { data: assignment, isLoading } = useQuery({
     queryKey: ['assignment', assignmentId],
@@ -39,21 +43,57 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
 
   const submitMutation = useMutation({
     mutationFn: async () => {
-      const formData = new FormData();
-      if (file) {
-        formData.append('file', file);
-      } else if (submissionUrl) {
-        formData.append('url', submissionUrl);
+      // Create the submission object
+      const submissionData: AssignmentSubmission = {};
+      
+      if (submissionUrl) {
+        submissionData.submission_url = submissionUrl;
       }
-      await studentService.submitAssignment(assignmentId, formData);
+      
+      if (file) {
+        submissionData.submission_file = file;
+      }
+      
+      // Convert the object to FormData for the actual API request
+      const formData = new FormData();
+      
+      // Add the submission URL as a parameter if it exists
+      if (submissionData.submission_url) {
+        formData.append('submission_url', submissionData.submission_url);
+      }
+      
+      // Add the file as a parameter if it exists
+      if (submissionData.submission_file) {
+        formData.append('submission_file', submissionData.submission_file);
+      }
+      
+      // Call the service method with the FormData
+      return studentService.submitAssignment(assignmentId, formData, setUploadProgress);
     },
     onSuccess: () => {
-      router.push(`/portal/student/assignments/${assignmentId}/submitted`);
+      // router.push(`/portal/student/assignments/submitted/${assignmentId}`);
+      window.location.reload();
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSubmissionUrl(e.target.value);
+  };
+
+  const clearUrl = () => setSubmissionUrl('');
+  
+  const clearFile = () => setFile(null);
+
   if (isLoading) return <div className="text-center py-8">Loading...</div>;
   if (!assignment) return <div className="text-center py-8">Assignment not found</div>;
+
+  const isSubmissionValid = Boolean(submissionUrl || file);
 
   return (
     <>
@@ -69,10 +109,10 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
 
           <div className="flex gap-5 flex-col md:flex-row">
             <div className="flex-1">
-            <h3 className="text-lg md:text-2xl font-semibold mb-3">Submission</h3>
-            <p className="text-gray-600 mb-4 max-w-md">
-              If your lecturer insisted on a particular mode of submission, stick to that, otherwise, pick whichever is favourable to you
-            </p>
+              <h3 className="text-lg md:text-2xl font-semibold mb-3">Submission</h3>
+              <p className="text-gray-600 mb-4 max-w-md">
+                If your lecturer insisted on a particular mode of submission, stick to that, otherwise, pick whichever is favourable to you
+              </p>
             </div>
             <div className="space-y-4 p-4 flex-1 bg-slate-50">
               <div>
@@ -82,17 +122,14 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
                     type="url"
                     placeholder="Google docs link"
                     value={submissionUrl}
-                    onChange={(e) => {
-                      setSubmissionUrl(e.target.value);
-                      setFile(null);
-                    }}
+                    onChange={handleUrlChange}
                     className="flex-1"
                   />
                   {submissionUrl && (
                     <Button 
                       variant="ghost" 
                       size="icon"
-                      onClick={() => setSubmissionUrl('')}
+                      onClick={clearUrl}
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -109,12 +146,7 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
                     type="file"
                     className="hidden"
                     accept=".doc,.docx,.pdf"
-                    onChange={(e) => {
-                      if (e.target.files?.[0]) {
-                        setFile(e.target.files[0]);
-                        setSubmissionUrl('');
-                      }
-                    }}
+                    onChange={handleFileChange}
                   />
                   <Button
                     variant="link"
@@ -124,17 +156,42 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
                     <Upload/>
                     Click to upload
                   </Button>
+                  {file && (
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium">{file.name}</p>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={clearFile}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
                   <p className="text-sm text-gray-500">doc, pdf (max. 800×400px)</p>
                 </div>
               </div>
+              
+              {submitMutation.isLoading && (
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className="bg-indigo-600 h-2.5 rounded-full" 
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
+                  <p className="text-xs text-gray-500 text-center mt-1">
+                    Uploading: {uploadProgress}%
+                  </p>
+                </div>
+              )}
+              
               <div className="flex justify-center">
-              <Button 
-                className="w-fit bg-indigo-900 text-white bg-indigo-700/50"
-                onClick={() => submitMutation.mutate()}
-                disabled={!submissionUrl && !file}
-              >
-                Submit Assignment
-              </Button>
+                <Button 
+                  className="w-fit bg-indigo-700 text-white hover:bg-indigo-700/50"
+                  onClick={() => submitMutation.mutate()}
+                  disabled={!isSubmissionValid || submitMutation.isLoading}
+                >
+                  {submitMutation.isLoading ? 'Submitting...' : 'Submit Assignment'}
+                </Button>
               </div>
             </div>
           </div>
@@ -143,6 +200,5 @@ const PendingAssignment = ( {assignmentId} : DetailsProp) => {
     </>
   );
 };
-
 
 export default PendingAssignment;

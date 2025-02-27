@@ -79,18 +79,18 @@ function CourseDetails({ courseId }: CourseDetailsProps) {
   const CourseHeader = () => (
     <div className="flex items-center justify-between flex-col-reverse md:flex-row my-6">
       <div>
-        <h1 className="text-xl md:text-2xl font-bold">{courseDetails?.name}</h1>
-        <p className="text-muted-foreground">{courseDetails?.description}</p>
+        <h1 className="text-xl md:text-2xl font-bold">{courseDetails?.data.name}</h1>
+        <p className="text-muted-foreground">{courseDetails?.data.description}</p>
       </div>
       <Button className="hidden md:flex px-2 py-3 bg-gray-100 items-center space-x-1 rounded-full">
         <Image
           src="/male.png"
-          alt={courseDetails?.lecturer_in_charge || 'Lecturer'}
+          alt={courseDetails?.data.lecturer_in_charge || 'Lecturer'}
           width={32}
           height={32}
           className="w-8 h-8 rounded-full"
         />
-        <span className='text-gray-700'>{courseDetails?.lecturer_in_charge}</span>
+        <span className='text-gray-700'>{courseDetails?.data.lecturer_in_charge}</span>
       </Button>
     </div>
   )
@@ -136,7 +136,7 @@ function CourseDetails({ courseId }: CourseDetailsProps) {
           <Card className="my-5 shadow-none border-none bg-transparent">
           <CourseHeader />
             <h2 className="text-lg font-semibold my-2">Course description</h2>
-            <p className="text-muted-foreground">{courseDetails?.description}</p>
+            <p className="text-muted-foreground">{courseDetails?.data.description}</p>
           </Card>
 
           <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -165,7 +165,7 @@ function CourseDetails({ courseId }: CourseDetailsProps) {
             <TabsContent value="upcoming" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {isLoadingClasses ? (
                 <p>Loading classes...</p>
-              ) : filteredClasses?.map(classItem => (
+              ) : filteredClasses?.length == 0 ? <p className='text-center'>No upcoming classes found </p> : filteredClasses?.map(classItem => (
                 <ClassCard key={classItem.id} classItem={classItem} />
               ))}
             </TabsContent>
@@ -173,7 +173,8 @@ function CourseDetails({ courseId }: CourseDetailsProps) {
             <TabsContent value="videos" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {isLoadingVideos ? (
                 <p>Loading videos...</p>
-              ) : filteredVideos?.map((video: Video) => (
+              ) : filteredVideos?.length == 0 ? <p className='text-center'> No listed videos </p> :
+               filteredVideos?.map((video: Video) => (
                 <VideoCard key={video.id} video={video} />
               ))}
             </TabsContent>

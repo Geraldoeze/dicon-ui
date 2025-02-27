@@ -9,7 +9,7 @@
 //   time: string;
 // }
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { Clock, Calendar } from 'lucide-react';
 import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {
@@ -19,7 +19,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import Image from 'next/image';
+//import Image from 'next/image';
 
 interface BlogGridProps {
   columns?: number;
@@ -77,14 +77,11 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
       className="group hover:-translate-y-1 transition-all duration-300 ease-in-out"
     >
       <CardHeader className="space-y-2 p-4">
-        <Link 
-          href={`/blog/${article.article_id}`}
-          className="inline-block"
-        >
+       
           <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
             {article.title}
           </h3>
-        </Link>
+  
       </CardHeader>
 
       <CardContent className="p-4 pt-0 space-y-4">
@@ -147,7 +144,7 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
     {visible && (
       <div className="flex justify-center items-center my-10">
-      <div className="max-w-4xl">
+      {/* <div className="max-w-4xl">
           <Image src="/image 184.png" alt="" width={750} height={500} />
           <div className="my-5">
             <h1 className='text-xl font-semibold'>Inauguration of Defence Intelligence Agency New Office Complex</h1>
@@ -168,7 +165,7 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
               <time> 20:00</time>
               </div>
           </div>
-      </div>
+      </div> */}
       </div>
     )}
      <div className="w-full py-12">

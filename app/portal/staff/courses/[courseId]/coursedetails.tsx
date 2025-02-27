@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Search, Filter, Loader2, Upload } from "lucide-react";
+import { Search, Loader2, Upload, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -13,12 +13,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+// import {
+//   DropdownMenu,
+//   DropdownMenuTrigger,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+// } from "@/components/ui/dropdown-menu";
 import {
   Tabs,
   TabsList,
@@ -40,10 +40,12 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { staffService } from "@/services/staff.service";
 import VideoCard from "@/components/ui/VideoCard";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 interface CourseDetailsProps {
   courseId: string;
@@ -98,6 +100,7 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
   const [activeTab, setActiveTab] = useState("student");
   const [searchQuery, setSearchQuery] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const {
@@ -145,6 +148,7 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["course-details", courseId, "videos"] });
       setIsDialogOpen(false);
+      setIsSuccessOpen(true);
       reset();
     },
   });
@@ -158,10 +162,24 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
     student.student_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const topicsObject = courseDetails?.topic;
-  const topicsArray = topicsObject ? Object.keys(topicsObject) : [];
+  
+  const router = useRouter();
+
+  // const topicsObject = courseDetails?.topic;
+  // const topicsArray = topicsObject ? Object.keys(topicsObject) : [];
   return (
     <div className="bg-slate-50 min-h-screen">
+        <div className="py-3 md:py-5 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </Button>
+        </div>
+      
       <div className="max-w-[90%] mx-auto bg-white rounded-lg shadow">
         <div className="p-8">
           {/* Header Section */}
@@ -199,7 +217,12 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
 
             <div className="space-y-2">
               <Label htmlFor="topic">Topic</Label>
-              <Select
+              <Input
+              id="topic"
+              placeholder="Enter the Topic"
+              {...register("topic", {required: "Topic is required"})}
+              className={errors.topic ? "border-red-500" : ""}/>
+              {/* <Select
                 onValueChange={(value) => {
                   // Update the form with the selected value
                   register("topic").onChange({
@@ -214,13 +237,19 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                   <SelectValue placeholder="Select a topic" />
                 </SelectTrigger>
                 <SelectContent>
-                  {topicsArray.map((topic) => (
+                  <SelectItem value="Security and Privacy">
+                    Security and Privacy
+                  </SelectItem>
+                  <SelectItem value="Undertanding Terrorism">
+                    Undertanding Terrorism
+                  </SelectItem>
+                  {/* {topicsArray.map((topic) => (
                     <SelectItem key={topic.id} value={topic.id}>
                       {topic}
                     </SelectItem>
-                  ))}
+                  ))} 
                 </SelectContent>
-              </Select>
+              </Select> */}
               {errors.topic && (
                 <p className="text-red-500 text-sm">{errors.topic.message}</p>
               )}
@@ -247,13 +276,33 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
           </div>
 
           <DialogFooter>
-            <Button
+            {/* <Button
+              type="submit"
+              className="bg-indigo-700 w-full"
+              disabled={uploadVideoMutation.isPending}
+            >
+              {uploadVideoMutation.isPending ? "Uploading..." : "Upload Video"}
+            </Button> */}
+
+            <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
+          <DialogTrigger asChild>
+          <Button
               type="submit"
               className="bg-indigo-700 w-full"
               disabled={uploadVideoMutation.isPending}
             >
               {uploadVideoMutation.isPending ? "Uploading..." : "Upload Video"}
             </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Upload Video</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              The video has been uploaded successfully
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -285,7 +334,7 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="gap-2">
                       <Filter className="h-4 w-4" />
@@ -296,7 +345,7 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                     <DropdownMenuItem>By Name</DropdownMenuItem>
                     <DropdownMenuItem>By Department</DropdownMenuItem>
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
               </div>
             </div>
 
@@ -306,9 +355,6 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                 <Table>
                   <TableHeader className="bg-gray-50">
                     <TableRow>
-                      <TableHead className="w-12">
-                        <Checkbox />
-                      </TableHead>
                       <TableHead>Name</TableHead>
                       <TableHead>Department</TableHead>
                       <TableHead>Matric No</TableHead>
@@ -337,9 +383,6 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                     ) : (
                       filteredStudents?.map((student: Student) => (
                         <TableRow key={student.student_id}>
-                          <TableCell>
-                            <Checkbox />
-                          </TableCell>
                           <TableCell>{student.student_name}</TableCell>
                           <TableCell>{student.department}</TableCell>
                           <TableCell>{student.student_id}</TableCell>

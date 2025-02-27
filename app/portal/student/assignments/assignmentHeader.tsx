@@ -39,8 +39,8 @@ const AssignmentHeader = ({ assignment }: AssignmentHeaderProps) => (
   <div className='pt-10 px-10'>
     <div className="flex justify-between items-center w-full space-y-0 pb-4">
       <div>
-        <h2 className="text-xl font-bold">{assignment.course_code}</h2>
-        <p className="text-gray-600">{assignment.course_name}</p>
+        <h2 className="text-xl font-bold">{assignment.title}</h2>
+        <p className="text-gray-600">{assignment.description}</p>
       </div>
       <div className="flex flex-col items-end gap-2">
         <div className="flex items-center gap-2">

@@ -33,7 +33,7 @@ const SubmittedAssignment = ({ params }: { params: Promise<{ assignmentId: strin
   const cancelSubmission = useMutation({
     mutationFn: () => studentService.cancelSubmission(assignmentId),
     onSuccess: () => {
-      router.push(`/portal/student/assignments/${assignmentId}/pending`);
+      router.push(`/portal/student/assignments/pending/${assignmentId}`);
     },
   });
 

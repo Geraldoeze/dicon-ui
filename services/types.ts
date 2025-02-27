@@ -38,6 +38,18 @@ export interface ApplicationStatus {
   updatedAt:  string;
 }
 
+export interface Application {
+  id: number;
+  name: string;
+  program: string;
+  degree: string;
+  department: string;
+  phone_number: string;
+  email: string;
+  status: string;
+  application_date: string;
+}
+
 
 export interface Course {
   course_id: string,
@@ -102,7 +114,7 @@ export type AssignmentStatus = 'pending' | 'submitted' | 'graded';
 // }
 
 export interface Assignment {
-  id: string;
+  id: number;
   student_id: number;
   course_id: number;
   course_name: string;
@@ -113,6 +125,7 @@ export interface Assignment {
   score: number | null;
   submission_url?: string | null;
   submission_date?: string | null;
+  submission_format?: string;
   submissionMode: 'google_docs' | 'pdf';
   status: 'pending' | 'submitted' | 'graded';
   due_day_label: 'Upcoming' | 'Today' | 'Past';
@@ -139,6 +152,15 @@ export interface AssignmentDetails {
   submission_date: string;
   due_day_label: string;
   status: 'passed' | 'failed' | 'pending';
+}
+
+export interface CreateAssignmentData {
+  course_id: number;
+  assignment_url: string;
+  description?: string;
+  due_date?: string;
+  due_time: string;
+  pass_mark: number;
 }
 
 export interface Class {
@@ -176,6 +198,21 @@ export interface Exam {
   total_attempts: number;
 }
 
+export interface staffExam {
+  exam_id: number;
+  department: string;
+  lecturer_in_charge: string;
+  course_name: string;
+  course_code: string;
+  course_unit: number;
+  course_description: string;
+  exam_date: string;
+  time_range: string;
+  passing_percentage: number;
+  total_attempts: number;
+  scored_percentage: number;
+ }
+
 export interface StudentProfile {
   id: number;
   first_name: string;
@@ -198,10 +235,22 @@ export interface LoginCredentials {
 
 export interface UserProfile {
   id: number;
-  name: string;
-  accountType: number;
-  profileImage?: string;
-  role?: string;
+  photo_url: string;
+  title: string | null;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  state: string;
+  local_government: string;
+  address: string;
+  gender: string;
+  date_of_birth: string | null;
+  next_of_kin_name: string;
+  account_type_id: number;
+  created_at: string;
+  updated_at: string;
+  account_type: 'Student';
 }
 
 export interface ServerLoginResponse {
@@ -255,6 +304,7 @@ export interface Dashboard {
   total_courses: number;
 }
 
+
 export interface Department {
   id: number;
   name: string;
@@ -264,6 +314,39 @@ export interface Department {
   total_courses: number;
   total_students: number;
 }
+
+export interface Staffs {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+  state: string;
+  local_government: string;
+  created_at: string;
+  department: string;
+}
+
+export interface Student {
+  student_id: number;
+  photo_url: string;
+  full_name: string;
+  next_of_kin: string | null;
+  state: string;
+  local_government: string;
+  gender: string;
+  department: string;
+  head_of_department_id: number;
+  degree: string;
+  department_created_on: string;
+  program: string;
+  program_start: string;
+  program_end: string;
+  address: string;
+  phone_number: string;
+  email: string;
+};
 
 export interface FilterOption {
   column: string;

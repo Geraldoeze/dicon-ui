@@ -28,22 +28,24 @@ export const ADMIN_ENDPOINTS = {
     },
     DEPARTMENTS: {
       GET: '/departments',
-      CREATE: '/departments'
+      CREATE: '/departments',
+      ONE: (departmentId: string) => `/departments/${departmentId}`
     },
     APPLICATIONS: {
       LIST: '/applications',
-      PENDING: '/applications?page=1&page_size=10&status=pending',
+      PENDING: '/applications?page=1&page_size=10&status=Pending',
       ONE: (applicationId: string) => `/applications/${applicationId}`,
       APPROVE: (applicationId: string) =>  `/applications/${applicationId}/approve`,
       REJECT: (applicationId: string) =>  `/applications/${applicationId}/reject`
     },
     STUDENTS: {
-      GET: '/students?page=1&page_size=20&status=active',
-      ONE: (studentId: string) => `/students/profile?student_id=${studentId}`
+      GET: '/students?page=1&page_size=20&status=Active',
+      ONE: (studentId: string) => `/students/profile?student_id=${studentId}`,
+      DEPARTMENT: (departmentId: string) => `/students?page=1&page_size=20&department_id=${departmentId}`
     },
     STAFFS: {
       GET: '/staffs',
-      ONE: `/staffs/profile`
+      ONE: (staffId: string) => `/staffs/profile?staff_id=${staffId}`
     }
 };
 
@@ -69,16 +71,17 @@ export const STAFF_ENDPOINTS = {
     PENDING: `/assignments/?page=1&page_size=10&status=pending`,
     GRADED:  `/assignments/?page=1&page_size=10&status=graded`,
     CREATE:  `/assignments/`,
-    // SUBMISSIONS: (assignmentId: string) => `/assignments/submissions?assignment_id=${assignmentId}`,
-    SUBMISSIONS: `/assignments/submissions?assignment_id=1`,
+    SUBMISSIONS: (assignmentId: string) => `/assignments/submissions?assignment_id=${assignmentId} `,
+    // SUBMISSIONS: `/assignments/submissions?assignment_id=1`,
     DETAILS: `/assignments/1`
     //DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`
   },
   
   //Exams
   EXAMS: {
-    LIST: '/exams/?page=1&page_size=10',
+    LIST: (staffId: number) => `/staffs/exams?staff_id=${staffId}`,
     DETAILS: (examId: string) => `/exams/${examId}`,
+    GET: (examId: string) => `/exams/${examId}`,
     SETSCORE: '/exams/set-score',
     SETMARK: '/exams/set-mark',
     UPLOAD: '/exams/upload',
@@ -99,10 +102,12 @@ export const STUDENT_ENDPOINTS = {
     CarriedOver: '/students/courses?student_id=1&search=&course_type=unregistered',
     REGISTER: (courseId: string) => `students/courses/register?course_id=${courseId}`,
     UNREGISTER: (courseId: string) => `/students/courses/${courseId}/unregister`,
+    RETAKE: (courseId: string) => `/students/courses/retake?course_id=${courseId}`,
     DETAILS: (courseId: string) => `/courses/${courseId}`,
     VIDEOS: (courseId: string) => `/courses/videos?course_id=${courseId}`,
     ALLVIDEOS: '/courses/videos?course_id=1',
     CLASSES: `/classes`,
+    
 
   },
   
@@ -117,12 +122,14 @@ export const STUDENT_ENDPOINTS = {
   
   // Assignment endpoints
   ASSIGNMENTS: {
-    LIST: '/assignments/?student_id=1',
+    LIST: (status: string)=> `/assignments/?student_id=1&status=${status}`,
     ONE: (assignmentId: string) => `/assignments/${assignmentId}`,
     PENDING: 'students/assignments/?student_id=1&page=1&page_size=10&status=pending',
     SUBMITTED: '/students/assignments/submitted',
     SUBMIT: (assignmentId: string) => `/students/assignments/${assignmentId}/submit`,
+    CANCEL: (assignmentId: string) => `/students/assignments/${assignmentId}/cancel?student_id=1`,
     DETAILS: (assignmentId: string) => `/assignments/${assignmentId}`,
+
   },
 
   UPLOAD: {

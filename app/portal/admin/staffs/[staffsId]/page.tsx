@@ -1,8 +1,9 @@
 import StaffsDetail from "./staffdetails"
 
 
-export default async function StaffsDetailsPage({ params }: { params: { id: string } }) {
+export default async function StaffsDetailsPage({ params }: { params: { staffsId: string } }) {
 
     const staffsId = await params
-    return <StaffsDetail staffId={staffsId.id} />
+    
+    return <StaffsDetail staffId={staffsId.staffsId} />
   }

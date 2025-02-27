@@ -35,16 +35,19 @@ interface StudentProfile {
 }
 
 const SubmissionsTable = ({ assignmentId }: { assignmentId: string }) => {
+
+  console.log(assignmentId);
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [showProfile, setShowProfile] = useState(false);
 
-  const { data: submissions, isLoading } = useQuery<{ data: Submission[] }>({
-    queryKey: ['submissions'],
-    queryFn: () => staffService.getSubmissions()
+  const { data: submissions, isLoading } = useQuery({
+    queryKey: ['submissions', assignmentId],
+    queryFn: () => staffService.getSubmissions(assignmentId)
   });
 
-  const { data: studentProfile, isLoading: profileLoading } = useQuery<{ data: StudentProfile }>({
+  const { data: studentProfile, isLoading: profileLoading } = useQuery({
     queryKey: ['student'],
     queryFn: () => studentService.getProfile(),
     enabled: !!selectedSubmission

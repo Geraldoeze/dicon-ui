@@ -19,7 +19,8 @@ import {
   Pencil, 
   HelpCircle, 
   ArrowLeft,
-  X
+  X,
+  Timer
 } from "lucide-react";
 import { Breadcrumbs } from "../breadcrumb";
 import Link from 'next/link';
@@ -45,8 +46,10 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 const navItems = [
   { title: "Overview", icon: <BookOpen className="w-5 h-5" />, href: "/portal/admin/overview" },
   { title: "Applications", icon: <Users className="w-5 h-5" />, href: "/portal/admin/applications" },
+  { title: "Classes", icon: <Timer className='w-5 h-5'/>, href:'/portal/admin/timetable'},
   { title: "Staffs", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/staffs" },
-  { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students" },
+  { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students"}
+
 ];
 
 export function Layout({ children, breadcrumbs }: LayoutProps) {

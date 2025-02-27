@@ -1,21 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+// import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { Assignment, AssignmentStatus } from '@/services/types';
 import { studentService } from '@/services/student.service';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { AssignmentCard } from './assignmentCard';
 
 function AssignmentList({ status, searchQuery }: { status: AssignmentStatus; searchQuery: string }) {
   const { data: assignments, isLoading, error } = useQuery({
     queryKey: ['assignments', status],
-    queryFn: () => studentService.getAssignments(),
+    queryFn: () => studentService.getAssignments(status),
   });
 
   if (isLoading) return <div className="text-center py-4">Loading assignments...</div>;
@@ -62,7 +62,7 @@ function AssignmentsPage() {
           <TabsList className="justify-start space-x-2">
             <TabsTrigger value="pending" className="flex items-center">
               Pending
-              <span className="ml-2 px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">5</span>
+              <span className="ml-2 px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full"></span>
             </TabsTrigger>
             <TabsTrigger value="submitted">Submitted</TabsTrigger>
             <TabsTrigger value="graded">Graded</TabsTrigger>

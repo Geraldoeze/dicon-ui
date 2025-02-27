@@ -1,25 +1,11 @@
 "use client"
-import { Edit, Phone, Mail, Calendar, Book, Save, MapPin, User, Users } from "lucide-react"
+import { Edit, Phone, Mail, Save, MapPin, User, Users } from "lucide-react"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { useState } from "react"
 import { AuthService } from "@/services/auth/auth.service"
 import { studentService } from "@/services/student.service"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Toast } from "@/components/ui/toast"
 
-interface UserProfile {
-  id: number;
-  photo_url: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone_number: string;
-  state: string;
-  local_government: string;
-  address: string;
-  next_of_kin_name: string | null;
-  date_of_birth: string | null;
-}
 
 interface UpdateProfileRequest {
   first_name: string;
@@ -58,18 +44,8 @@ const Profile = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       setIsEditing(false);
-      toast({
-        title: "Profile Updated",
-        description: "Your profile has been successfully updated",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to update profile",
-        variant: "destructive",
-      });
-    },
+    }
+
   });
 
   // Password change handler
@@ -85,16 +61,9 @@ const Profile = () => {
         new_password: '',
         confirm_password: ''
       });
-      toast({
-        title: "Success",
-        description: "Password changed successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to change password",
-        variant: "destructive",
-      });
+    } 
+    catch (error: Error) {
+      console.log(error);
     }
   };
 
@@ -118,7 +87,7 @@ const Profile = () => {
   return (
     <div className="p-5 bg-white">
       <div className="md:max-w-5xl w-full mx-auto rounded-md">
-        <div className="flex flex-col md:flex-row justify-between p-5">
+        <div className="flex flex-col md:flex-row justify-between p-5 space-y-5 md:space-y-0">
           <div>
             <h1 className="text-[1.25rem] md:text-[1.5rem] font-semibold">Profile</h1>
             <p className="text-gray-600 text-sm md:text-base">view details</p>
@@ -143,7 +112,7 @@ const Profile = () => {
                 <Avatar>
                   <AvatarImage src={profile?.photo_url || "/male.png"} />
                 </Avatar>
-                <span>{profile?.first_name} {profile?.last_name}</span>
+                <span className="min-w-fit">{profile?.first_name} {profile?.last_name}</span>
               </div>
             </div>
             <div className="md:w-2/3 w-full p-3">
@@ -268,7 +237,7 @@ const Profile = () => {
   
           <div className="flex flex-col md:flex-row p-5">
             <div className="md:w-1/3 md:border-e-2 border-gray-600">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full space-y-5 md:space-y-0">
                 <p className="text-semibold">Change Password</p>
                 <div className="flex-grow"></div>
                 <div className="flex items-end">

@@ -1,12 +1,13 @@
 import {apiService} from './api.service';
-import { ADMIN_ENDPOINTS } from './config';
-import { Dashboard } from './types';
+import { ADMIN_ENDPOINTS, STAFF_ENDPOINTS } from './config';
+import { Dashboard, Department, Application, Student, Staffs, Class } from './types';
+
 
 
 class AdminService {
 
     async getApplications() {
-        return apiService.get(ADMIN_ENDPOINTS.APPLICATIONS.PENDING);
+        return apiService.get<Application[]>(ADMIN_ENDPOINTS.APPLICATIONS.PENDING);
     }
 
     async getApplication(applicationId: string) {
@@ -14,19 +15,26 @@ class AdminService {
     }
 
     async approveApplication(applicationId: string) {
-        return apiService.get(ADMIN_ENDPOINTS.APPLICATIONS.APPROVE(applicationId));
+        return apiService.post(ADMIN_ENDPOINTS.APPLICATIONS.APPROVE(applicationId));
     }
 
     async rejectApplication(applicationId: string) {
-        return apiService.get(ADMIN_ENDPOINTS.APPLICATIONS.REJECT(applicationId));
+        return apiService.post(ADMIN_ENDPOINTS.APPLICATIONS.REJECT(applicationId));
     }
 
     async getDashboard(){
-        return apiService.get<Dashboard>(ADMIN_ENDPOINTS.DASHBOARD.LIST)
+        return apiService.get<Dashboard[]>(ADMIN_ENDPOINTS.DASHBOARD.LIST)
     }
 
     async getDepartments(){
-        return apiService.get(ADMIN_ENDPOINTS.DEPARTMENTS.GET)
+        return apiService.get<Department[]>(ADMIN_ENDPOINTS.DEPARTMENTS.GET)
+    }
+
+    async getDepartment(departmentId: string){
+        return apiService.get<Department[]>(ADMIN_ENDPOINTS.DEPARTMENTS.ONE(departmentId))
+    }
+    async getDepartmentStudents(departmentId: string){
+        return apiService.get(ADMIN_ENDPOINTS.STUDENTS.DEPARTMENT(departmentId))
     }
 
     async createDepartment(formData: FormData) {
@@ -38,16 +46,21 @@ class AdminService {
     }
 
     async getStudent(studentId: string){
-        return apiService.get(ADMIN_ENDPOINTS.STUDENTS.ONE(studentId))
+        return apiService.get<Student[]>(ADMIN_ENDPOINTS.STUDENTS.ONE(studentId))
     }
 
     async getStaffs(){
-        return apiService.get(ADMIN_ENDPOINTS.STAFFS.GET)
+        return apiService.get<Staffs[]>(ADMIN_ENDPOINTS.STAFFS.GET)
     }
 
-    async getStaff(){
-        return apiService.get(ADMIN_ENDPOINTS.STAFFS.ONE)
+    async getStaff(staffId: string){
+        return apiService.get<Staffs>(ADMIN_ENDPOINTS.STAFFS.ONE(staffId))
     }
+
+    async getClasses() {
+        return apiService.get<Class>(STAFF_ENDPOINTS.CLASSES.SCHEDULE);
+      }
+    
       
 
 

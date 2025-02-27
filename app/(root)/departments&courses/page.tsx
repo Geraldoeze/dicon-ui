@@ -109,12 +109,17 @@ const DepartmentCourses = () => {
                 <h1 className='text-[1.2rem] md:text-[1.5rem] my-3 md:my-0 font-semibold'>{course.title}</h1>
                 </div>
                
-                  <ul className='list-disc text-start flex flex-col gap-y-2'>
-                    <li>{course.course_types[0]}</li>
+                  <ul className='list-disc text-start flex flex-col md:w-1/2 gap-y-2'>
+
+                    {course.course_types.map((type) => (
+                      <li key={type}>{type}</li>
+                    ))}
+                    {/* <li>{course.course_types[0]}</li>
                     <li>{course.course_types[1]}</li>
                     <li>{course.course_types[2]}</li>
                     <li>{course.course_types[3]}</li>
-                    <li>{course.course_types[4]}</li>  
+                    <li>{course.course_types[4]}</li>   */}
+
                   </ul>
                 
               </div>

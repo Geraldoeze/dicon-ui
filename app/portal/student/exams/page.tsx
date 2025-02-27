@@ -1,7 +1,7 @@
 "use client"
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Download, Search, SlidersHorizontal } from 'lucide-react';
+import { Download, Search } from 'lucide-react';
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { apiService } from '@/services/api.service';
 import { STUDENT_ENDPOINTS } from '@/services/config';
@@ -28,7 +28,7 @@ const ExamResults = () => {
   const [department, setDepartment] = useState('');
   const [dateRange, setDateRange] = useState('');
 
-  const { data: exams, isLoading, refetch } = useQuery({
+  const { data: exams, isLoading } = useQuery({
     queryKey: ['exams', department, dateRange],
     queryFn: async () => {
       const params = {
@@ -54,6 +54,9 @@ const ExamResults = () => {
     return scored >= passing ? 'Passed' : 'Failed';
   };
 
+  const handleDownload = () => {
+    window.location.href = '/api/download';
+  };
   return (
     <div className="p-6 bg-white">
       <div className="max-w-[70vw] mx-auto">
@@ -124,7 +127,7 @@ const ExamResults = () => {
                   </div>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <button onClick={handleDownload} className="w-full flex items-center justify-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
                   <Download size={20} />
                   Question paper
                 </button>

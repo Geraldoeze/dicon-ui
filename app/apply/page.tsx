@@ -8,6 +8,7 @@ import {
   MessageCircleWarning,
   Menu,
   X,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,8 +25,10 @@ import { applicationService } from "@/services/application.service";
 import { DocumentUpload } from "./documentupload";
 
 interface Program {
-  id: number;
+  data: {
+  id: string;
   program: string;
+  }
 }
 
 interface ApplicationFormData {
@@ -73,6 +76,7 @@ const ApplicationPortal: React.FC = () => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [programs, setPrograms] = useState<Program[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<{
     photo: File | null;
@@ -86,14 +90,27 @@ const ApplicationPortal: React.FC = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
-  } = useForm<ApplicationFormData>();
+  } = useForm<ApplicationFormData>({
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      dob: "",
+      program_id: "",
+    }
+  });
+
+  // Watch all form values for debugging
+  const formValues = watch();
 
   useEffect(() => {
     const loadPrograms = async () => {
       try {
         const programsData = await programsService.getPrograms();
-        setPrograms(programsData);
+        setPrograms(programsData?.data);
       } catch (error) {
         console.error("Error loading programs:", error);
       }
@@ -101,11 +118,29 @@ const ApplicationPortal: React.FC = () => {
     loadPrograms();
   }, []);
 
-   const handleProgramChange = (value: string) => {
+  const handleProgramChange = (value: string) => {
     setValue('program_id', value);
-   }
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('dob', e.target.value);
+  };
+
+  const nextStep = () => {
+    if (currentStep === 0) {
+      // Check if basic info is complete before proceeding
+      handleSubmit(() => {
+        setCompletedSteps([...completedSteps, steps[currentStep].id]);
+        setCurrentStep(currentStep + 1);
+      })();
+    } else {
+      // For other steps, just proceed
+      setCurrentStep(prev => prev + 1);
+    }
+  };
 
   const onSubmit = async (data: ApplicationFormData) => {
+    console.log("Submitting form with data:", data); // Debug log
     setIsSubmitting(true);
     try {
       const submissionData = {
@@ -117,13 +152,20 @@ const ApplicationPortal: React.FC = () => {
       const response = await applicationService.submitApplication(submissionData);
       if (response.success) {
         setCompletedSteps([...completedSteps, steps[currentStep].id]);
-        currentStep < steps.length - 1 ? setCurrentStep(currentStep + 1) : setSubmitSuccess(true);
+        setSubmitSuccess(true);
+        setShowSuccessModal(true);
       }
     } catch (error) {
       console.error("Submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+    // Optionally redirect to homepage or application status page
+    // window.location.href = "/";
   };
 
   const renderStepContent = () => {
@@ -172,12 +214,16 @@ const ApplicationPortal: React.FC = () => {
                 />
               </div>
             </div>
-            <FormField
-              label="Date of Birth"
-              error={errors.dob}
-              {...register("dob", { required: true })}
-              type="date"
-            />
+            <div className="space-y-2">
+              <label className="block text-sm font-medium">Date of Birth</label>
+              <input
+                type="date"
+                className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+                {...register("dob", { required: true })}
+                onChange={handleDateChange}
+              />
+              {errors.dob && <span className="text-red-500 text-sm">Required</span>}
+            </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium">Academic Program</label>
               <Select onValueChange={handleProgramChange}>
@@ -193,8 +239,8 @@ const ApplicationPortal: React.FC = () => {
                 </SelectContent>
               </Select>
               {errors.program_id && (
-                    <span className="text-red-500 text-sm">Program selection is required</span>
-                  )}
+                <span className="text-red-500 text-sm">Program selection is required</span>
+              )}
             </div>
           </div>
         );
@@ -315,7 +361,7 @@ const ApplicationPortal: React.FC = () => {
             currentStep={currentStep}
             totalSteps={steps.length}
             onBack={() => setCurrentStep(prev => prev - 1)}
-            onNext={() => setCurrentStep(prev => prev + 1)}
+            onNext={nextStep}
             onSubmit={handleSubmit(onSubmit)}
             isSubmitting={isSubmitting}
           />
@@ -324,13 +370,21 @@ const ApplicationPortal: React.FC = () => {
             {renderStepContent()}
           </div>
 
-          {submitSuccess && (
+          {submitSuccess && !showSuccessModal && (
             <Alert className="mt-6 bg-green-50 text-green-800">
               Application submitted successfully! We&apos;ll review your application and get back to you.
             </Alert>
           )}
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <SuccessModal 
+          onClose={handleCloseModal}
+          applicantName={`${watch('first_name')} ${watch('last_name')}`}
+        />
+      )}
     </div>
   );
 };
@@ -391,6 +445,45 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ step, index, currentStep,
     </div>
   </div>
 );
+
+interface SuccessModalProps {
+  onClose: () => void;
+  applicantName: string;
+}
+
+const SuccessModal: React.FC<SuccessModalProps> = ({ onClose, applicantName }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-fade-in">
+        <div className="flex flex-col items-center text-center">
+          <div className="mb-4 bg-green-100 p-3 rounded-full">
+            <CheckCircle className="h-12 w-12 text-green-600" />
+          </div>
+          <h2 className="text-2xl font-bold mb-2">Application Submitted!</h2>
+          <p className="text-gray-600 mb-6">
+            Thank you, {applicantName}! Your application has been successfully submitted. We will review your application and contact you soon.
+          </p>
+          <div className="border-t border-gray-200 w-full pt-4 mt-2">
+            <div className="flex flex-col md:flex-row gap-3 justify-center">
+              <Button 
+                onClick={onClose}
+                className="bg-[#2D2F93] text-white hover:bg-[#2D2F93]/90"
+              >
+                Close
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => window.location.href = "/"}
+              >
+                Return to Homepage
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 interface NavigationProps {
   currentStep: number;

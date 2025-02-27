@@ -72,7 +72,7 @@ function Classes() {
   // const filteredUploads = filterData(uploads);
 
   return (
-    <div className="max-w-[70vw] mx-auto p-6">
+    <div className="max-w-[85vw] md:max-w-[70vw] mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-2xl font-bold mb-2">
           {headerText[activeTab]}
@@ -82,12 +82,12 @@ function Classes() {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 ">
         <div className="xl:flex flex-col lg:flex-row items-center justify-between space-y-5 md:space-y-5">
-          <TabsList className='bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center overflow-x-auto'>
+          <TabsList className='bg-[#F7F9FC] min-h-fit w-full max-w-fit flex items-center justify-around md:justify-start overflow-x-auto'>
             <TabsTrigger value="upcoming">
               Upcoming classes
-              <span className="ml-2 bg-gray-100 px-2 py-0.5 rounded-full text-sm">
+              <span className="bg-gray-100 px-2 py-0.5 ml-2 rounded-full text-sm">
                 {classesData?.data.length}
               </span>
             </TabsTrigger>
@@ -105,35 +105,19 @@ function Classes() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input 
                 placeholder="Search..." 
-                className="pl-9 w-64"
+                className="pl-9 w-56 md:w-64"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <Filter className="h-4 w-4" />
-                  Filter
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setFilterType('course')}>
-                  By Course
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setFilterType('time')}>
-                  By Time
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
           </div>
         </div>
 
         <TabsContent value="upcoming" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {isClassesLoading ? (
             <div>Loading...</div>
-          ) 
-           : (
+          )  : filteredClasses?.length === 0 ? <p>No upcoming classes found</p> 
+           :  (
             filteredClasses?.map((classItem) => (
               <ClassCard 
                 key={`class-${classItem.id}`} 
@@ -146,7 +130,8 @@ function Classes() {
         <TabsContent value="videos" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {isVideosLoading ? (
             <div>Loading...</div>
-          ) : (
+          ) :  filteredVideos.length === 0 ? <p>No videos found</p> :
+          (
             filteredVideos.map((video, index) => (
               <VideoCard 
                 key={`video-${video.course_id}-${video.topic_id}-${index}`} 

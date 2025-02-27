@@ -4,9 +4,8 @@ import type {
   Course, 
   Assignment, 
   Class, 
-  Fee, 
   Exam, 
-  StudentProfile,
+  UserProfile,
   CourseDetails,
   Video
 } from './types';
@@ -41,6 +40,10 @@ class StudentService {
 
   async registerCourse(courseId: string) {
     return apiService.post(STUDENT_ENDPOINTS.COURSES.REGISTER(courseId), {});
+  }
+
+  async retakeCourse (courseId: string) {
+    return apiService.post(STUDENT_ENDPOINTS.COURSES.RETAKE(courseId), {});
   }
 
   async unregisterCourse(courseId: string) {
@@ -88,19 +91,47 @@ class StudentService {
     return apiService.get<Assignment[]>(STUDENT_ENDPOINTS.ASSIGNMENTS.PENDING, params);
   }
 
-  async submitAssignment(assignmentId: string, formData: FormData) {
+  // async submitAssignment(assignmentId: string, submissionFormData: FormData) {
+  //   return apiService.uploadFormData(
+  //     STUDENT_ENDPOINTS.ASSIGNMENTS.SUBMIT(assignmentId),
+  //     submissionFormData
+  //   );
+  // }
+
+  // async submitAssignment(
+  //   assignmentId: string, 
+  //   submissionFormData: FormData,
+  //   onProgress?: (percentage: number) => void
+  // ) {
+  //   return apiService.uploadFormData(
+  //     STUDENT_ENDPOINTS.ASSIGNMENTS.SUBMIT(assignmentId),
+  //     submissionFormData,
+  //     onProgress
+  //   );
+  // }
+
+  async submitAssignment(
+    assignmentId: string, 
+    formData: FormData, 
+    onProgress?: (percentage: number) => void
+  ) {
     return apiService.uploadFormData(
       STUDENT_ENDPOINTS.ASSIGNMENTS.SUBMIT(assignmentId),
-      formData
+      formData,
+      onProgress
     );
+  }
+
+  async cancelSubmission (assignmentId: string) {
+    return apiService.delete(STUDENT_ENDPOINTS.ASSIGNMENTS.CANCEL(assignmentId));
   }
 
 
   async uploadFile(file: File) {
     return apiService.uploadFormData(STUDENT_ENDPOINTS.UPLOAD.FILE, file)
   }
-  async getAssignments() {
-    return apiService.get(STUDENT_ENDPOINTS.ASSIGNMENTS.LIST);
+  async getAssignments(status: string) {
+    return apiService.get(STUDENT_ENDPOINTS.ASSIGNMENTS.LIST(status));
   }
 
   async getAssignment(assignmentId: string) {
@@ -114,25 +145,25 @@ class StudentService {
    
 
   // Fee methods
-  async getFees(params?: { 
-    status?: 'paid' | 'unpaid' | 'overdue';
-    startDate?: string;
-    endDate?: string;
-  }) {
-    return apiService.get<Fee[]>(STUDENT_ENDPOINTS.FEES.LIST, params);
-  }
+  // async getFees(params?: { 
+  //   status?: 'paid' | 'unpaid' | 'overdue';
+  //   startDate?: string;
+  //   endDate?: string;
+  // }) {
+  //   return apiService.get<Fee[]>(STUDENT_ENDPOINTS.FEES.LIST, params);
+  // }
 
-  async payFee(feeId: string, paymentDetails: {
-    amount: number;
-    payment_method: string;
-    reference: string;
-  }) {
-    return apiService.post(STUDENT_ENDPOINTS.FEES.PAY(feeId), paymentDetails);
-  }
+  // async payFee(feeId: string, paymentDetails: {
+  //   amount: number;
+  //   payment_method: string;
+  //   reference: string;
+  // }) {
+  //   return apiService.post(STUDENT_ENDPOINTS.FEES.PAY(feeId), paymentDetails);
+  // }
 
-  async getPaymentHistory() {
-    return apiService.get<Fee[]>(STUDENT_ENDPOINTS.FEES.HISTORY);
-  }
+  // async getPaymentHistory() {
+  //   return apiService.get<Fee[]>(STUDENT_ENDPOINTS.FEES.HISTORY);
+  // }
 
   // Exam methods
   async getExams(params?: { 
@@ -153,7 +184,7 @@ class StudentService {
 
    async getProfile() {
     try {
-      const response = await apiService.get('/auth/user');
+      const response = await apiService.get<UserProfile>('/auth/user');
       return response.data;
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Failed to fetch profile');

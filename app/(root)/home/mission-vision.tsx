@@ -1,6 +1,6 @@
 import Image from "next/image";
-import mission from '@/public/mision.jpg'
-import vision from '@/public/vision.jpg'
+import mission from '@/public/IMG-20250212-WA0005.jpg';
+import vision from '@/public/group.jpg';
 const MisionVision = () => {
   return (
     <div className="min-h-screen lg:min-h-full xl:max-h-[1000px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">

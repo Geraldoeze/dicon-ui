@@ -20,9 +20,8 @@ const StaffDetail = ({ staffId }: StaffDetailProps) => {
     isLoading, 
     error 
   } = useQuery({
-    queryKey: ['staff'],
-    queryFn: () => adminService.getStaff(),
-    enabled: !!staffId,
+    queryKey: ['staff', staffId],
+    queryFn: () => adminService.getStaff(staffId),
   });
 
   // Handle loading state
@@ -66,8 +65,8 @@ const StaffDetail = ({ staffId }: StaffDetailProps) => {
   }
 
   return (
-    <div className="p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="p-8 md:min-w-[60vw] max-w-[80vw] mx-auto">
+      
         <div className="mb-6 flex items-center justify-between">
           <Button
             variant="ghost"
@@ -75,10 +74,10 @@ const StaffDetail = ({ staffId }: StaffDetailProps) => {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Staff
+            Back
           </Button>
           
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <Button 
               variant="outline"
               className="flex items-center gap-2"
@@ -95,27 +94,30 @@ const StaffDetail = ({ staffId }: StaffDetailProps) => {
               <Key className="w-4 h-4" />
               Reset Password
             </Button>
-          </div>
+          </div> */}
         </div>
 
-        <div className="grid gap-6">
+        <div className="">
           <ProfileView 
             data={staff?.data}
             type="staff"
           />
 
-          {/* Additional staff-specific sections */}
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Assigned Courses</h2>
-            {/* Add courses list here */}
-          </div>
+         
+        
 
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+          {/* Additional staff-specific sections */}
+          {/* <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h2 className="text-lg font-semibold mb-4">Assigned Courses</h2> */}
+            {/* Add courses list here */}
+          {/* </div> */}
+
+          {/* <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h2 className="text-lg font-semibold mb-4">Recent Activity</h2> */}
             {/* Add activity list here */}
-          </div>
-        </div>
-      </div>
+          {/* </div>  */}
+        </div> 
+
     </div>
   );
 };

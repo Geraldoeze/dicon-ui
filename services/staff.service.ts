@@ -1,6 +1,6 @@
 import { apiService } from './api.service';
 import { STAFF_ENDPOINTS } from './config';
-import type { StaffCourses, CourseDetails, Video, CourseStudents, Class, Assignment, AssignmentDetails} from './types';
+import type { StaffCourses, CourseDetails, Video, CourseStudents, Class, Assignment, AssignmentDetails, staffExam, CreateAssignmentData} from './types';
 
 class StaffService {
   // Course methods
@@ -41,6 +41,10 @@ class StaffService {
   //   return apiService.get<AssignmentDetails>(STAFF_ENDPOINTS.ASSIGNMENT.DETAILS(assignmentId));
   // }
 
+  async createAssignment(data: CreateAssignmentData) {
+    return apiService.post(STAFF_ENDPOINTS.ASSIGNMENT.CREATE, data);
+  }
+
   async getAssignment () {
       return apiService.get<AssignmentDetails>(STAFF_ENDPOINTS.ASSIGNMENT.DETAILS);
    }
@@ -50,8 +54,8 @@ class StaffService {
   //  }
 
   
-    async getSubmissions () {
-     return apiService.get(STAFF_ENDPOINTS.ASSIGNMENT.SUBMISSIONS)
+    async getSubmissions (assignmentId: string) {
+     return apiService.get(STAFF_ENDPOINTS.ASSIGNMENT.SUBMISSIONS(assignmentId))
     }
 
   async scheduleClass(formData: FormData) {
@@ -78,6 +82,15 @@ class StaffService {
     const formData = new FormData();
     formData.append('file', file);
     return apiService.post(STAFF_ENDPOINTS.EXAMS.UPLOAD, formData)
+  }
+
+  async getExams(staffId: number) {
+    return apiService.get<staffExam[]>(STAFF_ENDPOINTS.EXAMS.LIST(staffId));
+  }
+
+  
+  async getExam(examId: string) {
+    return apiService.get<staffExam>(STAFF_ENDPOINTS.EXAMS.GET(examId));
   }
 
 }

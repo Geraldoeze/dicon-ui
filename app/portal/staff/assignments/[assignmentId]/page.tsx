@@ -11,7 +11,10 @@ import { AssignmentDetailsDialog } from "./assignmentDetails";
 import { AssignmentDetails } from "@/services/types";
 import SubmissionsTable from "./submissions";
 
-export default function AssignmentDetails({ params }: { params: { id: string } }) {
+export default function AssignmentDetails({ params }: { params: { assignmentId: string } }) {
+
+
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [showDetails, setShowDetails] = useState(false);
 
@@ -94,7 +97,7 @@ export default function AssignmentDetails({ params }: { params: { id: string } }
 
 
 
-      <SubmissionsTable assignmentId={params.id} />
+      <SubmissionsTable assignmentId={params.assignmentId} />
 
       {showDetails && (
         <AssignmentDetailsDialog

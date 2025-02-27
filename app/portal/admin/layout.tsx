@@ -16,7 +16,7 @@ export default function PortalLayout({
 }) {
   return (
    
-      <main className={montserrat.variable}>
+      <main className={montserrat.className}>
         <section className='overflow-x-hidden scroll-smooth scroll-none'>
         <Layout breadcrumbs={breadcrumbs}>
           <div className="bg-slate-50">

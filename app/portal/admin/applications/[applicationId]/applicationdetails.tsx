@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { adminService } from '@/services/admin.service';
 import { ProfileView } from '@/components/ui/reusable-table-and-profile';
 import { useRouter } from 'next/navigation';
-import { Toast } from '@/components/ui/toast';
+import { ArrowLeft } from 'lucide-react';
 
 type ApplicationDetailsProps = {
   applicationId: string;
@@ -23,7 +23,6 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
   } = useQuery({
     queryKey: ['application', applicationId],
     queryFn: () => adminService.getApplication(applicationId),
-    enabled: !!applicationId,
   });
 
   // Approve application mutation
@@ -32,19 +31,9 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['application', applicationId] });
       queryClient.invalidateQueries({ queryKey: ['applications'] });
-      Toast({
-        title: "Application Approved",
-        description: "The application has been successfully approved.",
-      });
       router.push('/portal/admin/applications');
     },
-    onError: (error) => {
-      Toast({
-        title: "Error",
-        description: "Failed to approve application. Please try again.",
-        variant: "destructive",
-      });
-    },
+  
   });
 
   // Reject application mutation
@@ -52,19 +41,7 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
     mutationFn: (id: string) => adminService.rejectApplication(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['application', applicationId] });
-      queryClient.invalidateQueries({ queryKey: ['applications'] });
-      toast({
-        title: "Application Rejected",
-        description: "The application has been rejected.",
-      });
       router.push('/portal/admin/applications');
-    },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: "Failed to reject application. Please try again.",
-        variant: "destructive",
-      });
     },
   });
 
@@ -119,24 +96,23 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
   }
 
   return (
-    <div className="p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-6 flex items-center">
+    <div className="p-3 md:p-5 max-w-[85vw] mx-auto">
+
+        <div className="mb-6">
           <button
             onClick={() => router.back()}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-black font-medium flex items-center"
           >
-            ← Back to Applications
+            <ArrowLeft className="h-4 w-4 mr-2"/> Back
           </button>
         </div>
         
         <ProfileView 
-          data={application.data}
+          data={application?.data as Application}
           type="application"
           onApprove={handleApprove}
           onReject={handleReject}
         />
-      </div>
     </div>
   );
 };

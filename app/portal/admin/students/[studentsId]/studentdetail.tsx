@@ -3,10 +3,11 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { staffService } from '@/services/staff.service';
 import { ProfileView } from '@/components/ui/reusable-table-and-profile';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { adminService } from '@/services/admin.service';
+import { Student } from '@/services/types';
 
 type StudentDetailProps = {
   studentId: string;
@@ -16,13 +17,12 @@ const StudentDetail = ({ studentId }: StudentDetailProps) => {
   const router = useRouter();
 
   const { 
-    data: student, 
+    data: studentData, 
     isLoading, 
     error 
   } = useQuery({
     queryKey: ['student', studentId],
-    queryFn: () => staffService.getStudent(studentId),
-    enabled: !!studentId,
+    queryFn: () => adminService.getStudent(studentId)
   });
 
   // Handle loading state
@@ -52,7 +52,7 @@ const StudentDetail = ({ studentId }: StudentDetailProps) => {
   }
 
   // Handle case where no data is available
-  if (!student?.data) {
+  if (!studentData?.data) {
     return (
       <div className="p-8">
         <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4">
@@ -66,8 +66,8 @@ const StudentDetail = ({ studentId }: StudentDetailProps) => {
   }
 
   return (
-    <div className="p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="max-w-[80vw] mx-auto">
+      <div className="">
         <div className="mb-6 flex items-center justify-between">
           <Button
             variant="ghost"
@@ -75,19 +75,22 @@ const StudentDetail = ({ studentId }: StudentDetailProps) => {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Students
+            Back
           </Button>
-          
-          <div className="flex gap-2">
-            <Button variant="outline">Edit Profile</Button>
-            <Button variant="outline">View Courses</Button>
-          </div>
+        </div>
+        
+
+        <div className="p-10 space-y-7">
+         <h1 className='text-2xl font-semibold'>Student Profile</h1>
+        {studentData?.data && (
+         <ProfileView 
+         data={studentData?.data[0]}
+         type="student"
+         />
+        ) }
         </div>
 
-        <ProfileView 
-          data={student.data}
-          type="student"
-        />
+     
       </div>
     </div>
   );
