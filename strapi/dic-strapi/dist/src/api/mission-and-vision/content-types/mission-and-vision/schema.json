@@ -1,0 +1,30 @@
+{
+    "kind": "collectionType",
+    "collectionName": "mission_and_visions",
+    "info": {
+        "singularName": "mission-and-vision",
+        "pluralName": "mission-and-visions",
+        "displayName": "Mission&Vision"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "images": {
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": true
+        },
+        "missionText": {
+            "type": "blocks"
+        },
+        "visionText": {
+            "type": "blocks"
+        }
+    }
+}

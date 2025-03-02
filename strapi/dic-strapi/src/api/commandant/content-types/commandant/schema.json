@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "commandants",
+  "info": {
+    "singularName": "commandant",
+    "pluralName": "commandants",
+    "displayName": "Commandant"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "images": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "text": {
+      "type": "blocks"
+    }
+  }
+}

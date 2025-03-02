@@ -1,0 +1,38 @@
+App/home
+Nav
+Hero-text
+Hero-video
+
+
+About Us images
+About Us; History text
+
+Commandant images
+Commandant text
+
+Mission & Vision text
+
+
+News and Blog
+
+Gallery images
+
+Footer 
+
+app/departments and courses
+Departments and Departments description
+
+Courses title and courses 
+
+app/pg-program
+Centre for Strategic Studies Information
+
+
+Departments
+Department Courses
+Degree levels and admission requirements (Cgpa and text)
+
+Tuition Information (Degree levels, payment agreement and amount)
+
+app/news and blog
+News and Blog

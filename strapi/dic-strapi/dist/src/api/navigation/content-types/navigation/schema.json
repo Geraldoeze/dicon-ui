@@ -1,0 +1,20 @@
+{
+    "kind": "collectionType",
+    "collectionName": "navigations",
+    "info": {
+        "singularName": "navigation",
+        "pluralName": "navigations",
+        "displayName": "Navigation"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "link": {
+            "type": "string"
+        }
+    }
+}

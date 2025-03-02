@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_and_blogs",
+  "info": {
+    "singularName": "news-and-blog",
+    "pluralName": "news-and-blogs",
+    "displayName": "News&Blog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "published_date": {
+      "type": "datetime"
+    }
+  }
+}
