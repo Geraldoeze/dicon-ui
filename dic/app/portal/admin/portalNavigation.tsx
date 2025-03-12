@@ -47,6 +47,7 @@ const navItems = [
   { title: "Overview", icon: <BookOpen className="w-5 h-5" />, href: "/portal/admin/overview" },
   { title: "Applications", icon: <Users className="w-5 h-5" />, href: "/portal/admin/applications" },
   { title: "Classes", icon: <Timer className='w-5 h-5'/>, href:'/portal/admin/timetable'},
+  { title: "Courses", icon: <Timer className='w-5 h-5'/>, href:'/portal/admin/courses'},
   { title: "Staffs", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/staffs" },
   { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students"}
 

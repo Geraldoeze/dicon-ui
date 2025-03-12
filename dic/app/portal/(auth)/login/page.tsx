@@ -12,6 +12,9 @@ interface LoginFormData {
     password: string;
 }
 
+interface Err {
+  error: string
+}
 const LogIn = () => {
 
     // const router = useRouter();

@@ -1,8 +1,19 @@
+"use client"
+
 import ProgramCard from './program-card';
 import {programs} from '../home/mock';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { strapiService } from '@/services/strapiService';
 
-const page = () => {
+const Page = () => {
+
+  const { data: pg } = useQuery({
+      queryKey: ['pg'],
+      queryFn: () => strapiService.getPG()
+    })
+
+
   return (
     <div>
 
@@ -35,17 +46,18 @@ const page = () => {
     </div>
     </div>
     </div>
-
-    <div className="min-h-screen lg:min-h-full relative mx-auto max-w-[85vw] py-10">
+    
+    {pg?.data.map((pg) => (
+    <div key={pg.id} className="min-h-screen lg:min-h-full relative mx-auto max-w-[85vw] py-10">
 
     <div className="flex items-center justify-center flex-col my-5">
       <h1 className='text-center text-[1.5rem] md:text-[2.5rem] font-semibold my-5'> Centre for Strategic Resources </h1>
       <div className="flex items-center flex-col md:flex-row gap-x-5 my-5 max-w-7xl">
         <p className='text-start text-base max-w-lg'>
-        AVM MS Usman Centre for Strategic Studies (CSS) is a multi-disciplinary academic and research centre designed to initiate programmes in strategic studies and undertake security related research. The CSS anchors the Advanced Defence Intelligence Officers&apos; Course (ADIOC) which is designed to broaden officers&apos; knowledge in determination of intelligence in policy and conflict situations.
+        {pg.css_text}
         </p>
         <p className='text-start text-base max-w-lg'>
-        AVM MS Usman Centre for Strategic Studies (CSS) is a multi-disciplinary academic and research centre designed to initiate programmes in strategic studies and undertake security related research. The CSS anchors the Advanced Defence Intelligence Officers&apos; Course (ADIOC) which is designed to broaden officers&apos; knowledge in determination of intelligence in policy and conflict situations.
+        {pg.css_text}
         </p>
       </div>
       <div className="my-5">
@@ -59,10 +71,15 @@ const page = () => {
       </div>
     </div>
       <div className="mt-10">
-{programs.map(program => (
+      {pg.departments.map((department) => (
         <ProgramCard 
-          key={program.id} 
-          program={program}
+          key={department.id} 
+          program={{
+            id: department.id,
+            name: department.name,
+            courses: department.courses,
+            degrees: department.degrees
+          }}
         />
       ))}
       </div>
@@ -75,22 +92,24 @@ const page = () => {
         </div>
 
         <div className="my-5 flex items-center gap-x-5 flex-col lg:flex-row">
-          <div className="p-4 w-full flex-1">
+          {pg.tuition.map((item) => (
+          <div key={item.id} className="p-4 w-full flex-1">
             <div className="flex justify-between items-center w-full my-2">
             <h1 className='font-medium text-xl'>Degree Level</h1>
-            <p className='rounded-full p-1 bg-gray-200'>PGD</p>
+            <p className='rounded-full p-1 bg-gray-200'>{item.degree_level}</p>
             </div>
             <hr className='text-gray-600' />
-            <p className='text-gray-800 text-base my-2 mb-5'>Full payment required</p>
+            <p className='text-gray-800 text-base my-2 mb-5'>{item.degree_agreement}</p>
 
             <hr className='text-gray-600'/>
             <div className="flex justify-between items-center my-2">
-            <h1 className='font-medium text-base'>2 Semesters</h1>
-            <p className='lg:text-base font-bold'>#1,200,000</p>
+            <h1 className='font-medium text-base'>{item.semesters} Semesters</h1>
+            <p className='lg:text-base font-bold'>#{item.fee}</p>
             </div>
-
-          </div>
-          <div className="p-4 flex-1">
+            </div>
+          ))}
+          
+          {/* <div className="p-4 flex-1">
           <div className="flex justify-between items-center my-2">
             <h1 className='font-medium text-xl'>Degree Level</h1>
             <p className='rounded-full p-1 bg-gray-200'>M.Sc</p>
@@ -120,7 +139,9 @@ const page = () => {
             </div>
 
           </div>
+           */}
         </div>
+
 
         <div className="my-5 flex justify-center">
       <Link 
@@ -133,8 +154,9 @@ const page = () => {
       </div>
       </div>
     </div>
+    ))}
     </div>
   )
 }
 
-export default page
+export default Page

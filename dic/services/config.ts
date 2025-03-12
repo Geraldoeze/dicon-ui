@@ -1,14 +1,30 @@
-import Assignment from "@/app/portal/staff/assignments/page";
+
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dic.0ps.tech/api';
 
+export const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'https://dic-strapi.onrender.com/api'
 
+
+
+
+export const STRAPI_ENDPOINTS = {
+  NAVIGATION: '/navigations',
+  INFO: '/information-headers',
+  HERO: '/heroes',
+  ABOUT: '/about-uses?populate=images',
+  COMMANDANTS: '/commandants?populate=images',
+  MV: '/mission-and-visions?populate=images',
+  GALLERY: '/galleries?populate=images',
+  PG: '/pg-programs',
+  DC: '/departments-and-courses'
+}
 
 export const AUTH_ENDPOINTS = {
+  REGISTER: '/auth/register',
   LOGIN: '/auth/login',
   LOGOUT: '/auth/logout',
-  CHANGE_PASSWORD: '/auth/change-password',
-  VERIFY_TOKEN: '/auth/verify'
+  FORGOT_PASSWORD: (email: string) => `/auth/forgot-password?email=${email}`,
+  RESET_PASSWORD: '/auth/reset-password'
 };
 
 export const API_ENDPOINTS = {
@@ -48,6 +64,10 @@ export const ADMIN_ENDPOINTS = {
     STAFFS: {
       GET: '/staffs',
       ONE: (staffId: string) => `/staffs/profile?staff_id=${staffId}`
+    },
+    COURSES: {
+      CREATE: '/courses',
+      GET: '/courses'
     }
 };
 

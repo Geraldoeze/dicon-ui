@@ -117,7 +117,7 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
       <div className="flex justify-between items-center my-5">
         <h1 className="text-2xl font-semibold">
           {type === 'student' && 'Students'}
-          {type === 'staff' && 'Staff'}
+          {type === 'staff' && 'Staffs'}
           {type === 'application' && 'Student Applications'}
         </h1>
         <div className="flex gap-4 my-5">

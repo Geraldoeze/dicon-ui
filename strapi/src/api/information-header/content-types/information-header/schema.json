@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "information_headers",
+  "info": {
+    "singularName": "information-header",
+    "pluralName": "information-headers",
+    "displayName": "InformationHeader"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "advertisement": {
+      "type": "string"
+    }
+  }
+}

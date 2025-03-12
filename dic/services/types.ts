@@ -214,6 +214,9 @@ export interface staffExam {
   scored_percentage: number;
  }
 
+
+ // Auth types
+
 export interface StudentProfile {
   id: number;
   first_name: string;
@@ -251,7 +254,7 @@ export interface UserProfile {
   account_type_id: number;
   created_at: string;
   updated_at: string;
-  account_type: 'Student';
+  account_type: string;
 }
 
 export interface ServerLoginResponse {
@@ -273,9 +276,20 @@ export interface AuthResponse {
 }
 
 export interface PasswordChangeRequest {
-  old_password: string;
-  current_assword: string;
-  new_assword: string;
+  current_password: string;
+  new_password: string;
+  confirm_password: string;
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  token: string;
+  password: string;
+  confirm_password: string;
 }
 
 // Staff Types

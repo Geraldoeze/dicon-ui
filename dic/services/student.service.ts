@@ -56,7 +56,7 @@ class StudentService {
 
 
   async getAllVideos() {
-    return apiService.get<Video>(STUDENT_ENDPOINTS.COURSES.ALLVIDEOS);
+    return apiService.get<Video[]>(STUDENT_ENDPOINTS.COURSES.ALLVIDEOS);
   }
   
   async getCourseVideos(courseId: string) {

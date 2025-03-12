@@ -49,6 +49,12 @@ function Classes() {
     video.topic_name.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
+  const filteredUploads = uploadsData?.data?.filter((upload: Video) =>
+    upload.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    upload.topic_name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+  
+
 
   const headerText = {
     'upcoming': 'Classes',
@@ -130,9 +136,9 @@ function Classes() {
         <TabsContent value="videos" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {isVideosLoading ? (
             <div>Loading...</div>
-          ) :  filteredVideos.length === 0 ? <p>No videos found</p> :
+          ) :  filteredVideos?.length === 0 ? <p>No videos found</p> :
           (
-            filteredVideos.map((video, index) => (
+            filteredVideos?.map((video, index) => (
               <VideoCard 
                 key={`video-${video.course_id}-${video.topic_id}-${index}`} 
                 video={video} 
@@ -144,10 +150,10 @@ function Classes() {
         <TabsContent value="uploads" className="grid grid-cols-2 gap-4">
           {isUploadsLoading ? (
             <div>Loading...</div>
-          ) : uploadsData?.data.length === 0 ? (
+          ) : filteredUploads?.length === 0 ? (
             <div className="col-span-2 text-center py-8 text-gray-500">No uploads found</div>
           ) : (
-            uploadsData?.data.map((video, index) => (
+            filteredUploads?.map((video, index) => (
               <VideoCard 
                 key={`upload-${video.course_id}-${video.topic_id}-${index}`} 
                 video={video}

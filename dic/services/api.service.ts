@@ -1,14 +1,23 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_BASE_URL } from './config';
+import { API_BASE_URL, STRAPI_BASE_URL } from './config';
 import { ApiResponse, ErrorResponse } from './types';
 import { TokenService } from './auth/tokenService';
 import { AuthService } from './auth/auth.service';
 export class ApiService {
   api: AxiosInstance;
+  strapi: AxiosInstance;
 
   constructor() {
     this.api = axios.create({
       baseURL: API_BASE_URL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+     // Strapi API instance
+     this.strapi = axios.create({
+      baseURL: STRAPI_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -55,6 +64,18 @@ export class ApiService {
 
         return Promise.reject(error);
       }
+    );
+
+    this.strapi.interceptors.request.use(
+      async (config) => {
+        // Get Strapi token if you have authentication set up for Strapi
+        const strapiToken = localStorage.getItem('strapi_token');
+        if (strapiToken) {
+          config.headers.Authorization = `Bearer ${strapiToken}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
     );
   }
 
@@ -125,6 +146,33 @@ export class ApiService {
         }
       },
     });
+  }
+
+
+  // Methods for Strapi API
+  async strapiRequest<T>(config: AxiosRequestConfig): Promise<T> {
+    const response = await this.strapi.request<T>(config);
+    return response.data;
+  }
+
+  async strapiGet<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+    const response = await this.strapi.get<T>(endpoint, { params });
+    return response.data;
+  }
+
+  async strapiPost<T>(endpoint: string, data: any): Promise<T> {
+    const response = await this.strapi.post<T>(endpoint, data);
+    return response.data;
+  }
+
+  async strapiPut<T>(endpoint: string, data: any): Promise<T> {
+    const response = await this.strapi.put<T>(endpoint, data);
+    return response.data;
+  }
+
+  async strapiDelete<T>(endpoint: string): Promise<T> {
+    const response = await this.strapi.delete<T>(endpoint);
+    return response.data;
   }
 }
 

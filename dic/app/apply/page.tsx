@@ -103,8 +103,6 @@ const ApplicationPortal: React.FC = () => {
     }
   });
 
-  // Watch all form values for debugging
-  const formValues = watch();
 
   useEffect(() => {
     const loadPrograms = async () => {
@@ -165,7 +163,7 @@ const ApplicationPortal: React.FC = () => {
   const handleCloseModal = () => {
     setShowSuccessModal(false);
     // Optionally redirect to homepage or application status page
-    // window.location.href = "/";
+    window.location.href = "/";
   };
 
   const renderStepContent = () => {

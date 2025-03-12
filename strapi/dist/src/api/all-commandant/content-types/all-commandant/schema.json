@@ -1,0 +1,17 @@
+{
+    "kind": "collectionType",
+    "collectionName": "all_commandants",
+    "info": {
+        "singularName": "all-commandant",
+        "pluralName": "all-commandants",
+        "displayName": "AllCommandants"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "commandants": {
+            "type": "json"
+        }
+    }
+}

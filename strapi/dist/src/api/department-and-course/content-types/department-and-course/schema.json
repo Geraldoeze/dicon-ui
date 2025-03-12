@@ -1,0 +1,20 @@
+{
+    "kind": "collectionType",
+    "collectionName": "departments_and_courses",
+    "info": {
+        "singularName": "department-and-course",
+        "pluralName": "departments-and-courses",
+        "displayName": "Departments&Courses"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "departments": {
+            "type": "json"
+        },
+        "courses": {
+            "type": "json"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "kind": "collectionType",
+    "collectionName": "pg_programs",
+    "info": {
+        "singularName": "pg-program",
+        "pluralName": "pg-programs",
+        "displayName": "Pg Program"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "css_text": {
+            "type": "text"
+        },
+        "departments": {
+            "type": "json"
+        },
+        "tuition": {
+            "type": "json"
+        }
+    }
+}

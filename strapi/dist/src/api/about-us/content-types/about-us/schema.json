@@ -1,0 +1,29 @@
+{
+    "kind": "collectionType",
+    "collectionName": "about_uses",
+    "info": {
+        "singularName": "about-us",
+        "pluralName": "about-uses",
+        "displayName": "About Us",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "images": {
+            "type": "media",
+            "multiple": true,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "history_content": {
+            "type": "json"
+        }
+    }
+}

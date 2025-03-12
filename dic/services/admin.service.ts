@@ -1,5 +1,5 @@
 import {apiService} from './api.service';
-import { ADMIN_ENDPOINTS, STAFF_ENDPOINTS } from './config';
+import { ADMIN_ENDPOINTS, AUTH_ENDPOINTS, STAFF_ENDPOINTS } from './config';
 import { Dashboard, Department, Application, Student, Staffs, Class } from './types';
 
 
@@ -59,10 +59,20 @@ class AdminService {
 
     async getClasses() {
         return apiService.get<Class>(STAFF_ENDPOINTS.CLASSES.SCHEDULE);
-      }
+    }
+    
+    async register(formData: FormData) {
+        return apiService.post(AUTH_ENDPOINTS.REGISTER, formData)
+    }
     
       
+    async getCourses() {
+        return apiService.get(ADMIN_ENDPOINTS.COURSES.GET)
+    }
 
+    async createCourses(formData: FormData) {
+        return apiService.post(ADMIN_ENDPOINTS.COURSES.CREATE, formData)
+    }
 
 
     // async getTotalStaffs(){

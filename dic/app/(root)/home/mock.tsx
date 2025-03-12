@@ -279,7 +279,7 @@ const courses: CourseTypes[] = [
     ],
   },
 
-]
+];
 
 const galleryImages: GalleryImage[] = [
     {

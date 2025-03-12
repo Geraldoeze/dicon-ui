@@ -5,14 +5,23 @@ import {
   LoginCredentials, 
   UserProfile, 
   PasswordChangeRequest, 
-  ServerLoginResponse
+  ServerLoginResponse,
+  ForgotPasswordRequest,
+  ResetPasswordRequest
 } from '../types';
+import { AUTH_ENDPOINTS } from '@/services/config';
 
 export class AuthService {
-  // Login method
+  /**
+   * Authenticates a user with the given login credentials.
+   *
+   * @param {LoginCredentials} credentials - The username and password of the user.
+   * @returns {Promise<UserProfile>} A promise that resolves to the authenticated user profile.
+   * @throws {Error} Throws an error if the login attempt fails.
+   */
   static async login(credentials: LoginCredentials): Promise<UserProfile> {
     try {
-      const response = await apiService.postForm<ServerLoginResponse>('/auth/login', {
+      const response = await apiService.postForm<ServerLoginResponse>(AUTH_ENDPOINTS.LOGIN, {
         username: credentials.username,
         password: credentials.password
       });
@@ -23,14 +32,35 @@ export class AuthService {
         refreshToken: '' // If refresh token is not provided
       });
 
-       // Create user profile object
-       const userProfile: UserProfile = {
+      // Create user profile object
+      const userProfile: UserProfile = {
         id: response.data.user_id,
-        accountType: response.data.account_type
+        account_type_id: response.data.account_type,
+        account_type: this.getAccountTypeString(response.data.account_type),
+        photo_url: '',
+        title: null,
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        state: '',
+        local_government: '',
+        address: '',
+        gender: '',
+        date_of_birth: null,
+        next_of_kin_name: '',
+        created_at: '',
+        updated_at: ''
       };
+
+      this.redirectToDashboard(response.data.account_type);
       
+      // Fetch complete user profile
+      this.getCurrentUser().catch(() => null);
+
+      setTimeout(() => this.redirectToDashboard(response.data.account_type), 100);
       return userProfile;
-    } catch (error:any) {
+    } catch (error: any) {
       // Standardized error handling
       console.error('Login error:', error);
       
@@ -39,27 +69,21 @@ export class AuthService {
       }
       
       throw new Error('Login failed. Please check your credentials.');
-    
     }
   }
 
-  // Logout method
+  /**
+   * Logs out the current user by invalidating tokens on server and clearing local storage.
+   *
+   * @returns {Promise<void>} A promise that resolves when logout is complete.
+   */
   static async logout(): Promise<void> {
     try {
       // Invalidate refresh token on server
-      await apiService.post('/auth/logout', {
+      await apiService.post(AUTH_ENDPOINTS.LOGOUT, {
         refreshToken: TokenService.getRefreshToken()
       });
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * Authenticates a user with the given login credentials.
- *
- * @param {LoginCredentials} credentials - The email and password of the user.
- * @returns {Promise<User>} A promise that resolves to the authenticated user object.
- * @throws {Error} Throws an error if the login attempt fails.
- */
-
-/******  0f283b2c-1874-4077-8e61-2a3d399eb9fa  *******/    } catch {
+    } catch {
       // Ignore errors, as we want to clear local tokens anyway
     } finally {
       // Always clear local tokens
@@ -70,16 +94,27 @@ export class AuthService {
     }
   }
 
-  // Change password method
+  /**
+   * Changes the user's password.
+   *
+   * @param {PasswordChangeRequest} passwordForm - The current and new password information.
+   * @returns {Promise<void>} A promise that resolves when password change is complete.
+   * @throws {Error} Throws an error if the password change fails.
+   */
   static async changePassword(passwordForm: PasswordChangeRequest): Promise<void> {
     try {
       await apiService.post('/students/change-password', passwordForm);
-    } catch (error:any) {
-      throw new Error('Password change failed. Please try again.');
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.detail || 'Password change failed. Please try again.';
+      throw new Error(errorMessage);
     }
   }
 
-  // Get current user profile
+  /**
+   * Retrieves the current user's profile information.
+   *
+   * @returns {Promise<UserProfile | null>} A promise that resolves to the user profile or null if not authenticated.
+   */
   static async getCurrentUser(): Promise<UserProfile | null> {
     if (!TokenService.isTokenValid(TokenService.getAccessToken())) {
       return null;
@@ -88,14 +123,59 @@ export class AuthService {
     try {
       const response = await apiService.get<UserProfile>('/auth/user');
       return response.data;
-    } catch {
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
       // If fetching user fails, clear tokens
       TokenService.clearTokens();
       return null;
     }
   }
 
-  // Refresh token method
+  /**
+   * Initiates the forgot password process by sending a reset email.
+   *
+   * @param {ForgotPasswordRequest} request - The user's email address.
+   * @returns {Promise<{ success: boolean, message: string }>} A promise that resolves to a success message.
+   * @throws {Error} Throws an error if the request fails.
+   */
+  static async forgotPassword(request: ForgotPasswordRequest): Promise<{ success: boolean, message: string }> {
+    try {
+      const response = await apiService.post(AUTH_ENDPOINTS.FORGOT_PASSWORD(request.email), {});
+      return {
+        success: true,
+        message: 'Password reset instructions have been sent to your email.'
+      };
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.detail || 'Failed to process your request. Please try again.';
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
+   * Resets the user's password using a token from the email.
+   *
+   * @param {ResetPasswordRequest} request - The reset password information including token.
+   * @returns {Promise<{ success: boolean, message: string }>} A promise that resolves to a success message.
+   * @throws {Error} Throws an error if the password reset fails.
+   */
+  static async resetPassword(request: ResetPasswordRequest): Promise<{ success: boolean, message: string }> {
+    try {
+      await apiService.post(AUTH_ENDPOINTS.RESET_PASSWORD, request);
+      return {
+        success: true, 
+        message: 'Your password has been successfully reset. You can now log in with your new password.'
+      };
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.detail || 'Password reset failed. Please try again.';
+      throw new Error(errorMessage);
+    }
+  }
+
+  /**
+   * Refreshes the access token using the refresh token.
+   *
+   * @returns {Promise<string | null>} A promise that resolves to the new access token or null if refresh fails.
+   */
   static async refreshAccessToken(): Promise<string | null> {
     try {
       const refreshToken = TokenService.getRefreshToken();
@@ -106,7 +186,11 @@ export class AuthService {
       });
 
       // Update access token
-      localStorage.setItem('access_token', response.data.accessToken);
+      TokenService.setTokens({
+        accessToken: response.data.accessToken,
+        refreshToken: refreshToken
+      });
+      
       return response.data.accessToken;
     } catch {
       // If refresh fails, logout user
@@ -115,7 +199,11 @@ export class AuthService {
     }
   }
 
-  // Redirect to appropriate dashboard based on account type
+  /**
+   * Redirects the user to the appropriate dashboard based on account type.
+   *
+   * @param {number} accountType - The account type ID.
+   */
   static redirectToDashboard(accountType: number): void {
     switch (accountType) {
       case 1:
@@ -129,6 +217,21 @@ export class AuthService {
         break;
       default:
         window.location.href = '/portal/login';
+    }
+  }
+
+  /**
+   * Gets the string representation of an account type from its numeric ID.
+   * 
+   * @param {number} accountTypeId - The account type ID.
+   * @returns {string} The string representation of the account type.
+   */
+  private static getAccountTypeString(accountTypeId: number): string {
+    switch (accountTypeId) {
+      case 1: return 'Student';
+      case 2: return 'Staff';
+      case 3: return 'Admin';
+      default: return 'Unknown';
     }
   }
 }

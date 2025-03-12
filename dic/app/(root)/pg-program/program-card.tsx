@@ -1,17 +1,20 @@
 "use client"
 import { useState } from 'react';
 
-interface DegreeRequirement {
-  level: 'M.Sc.' | 'PhD' | 'PGD';
-  requirements: string;
-  gpa: string;
-}
+
+
 
 interface Program {
   id: string;
   name: string;
   courses: string[];
-  degrees: DegreeRequirement[];
+  degrees: [
+    {
+    level: string;
+    requirements: string;
+    gpa: string;
+  }
+  ];
 }
 
 interface ProgramCardProps {

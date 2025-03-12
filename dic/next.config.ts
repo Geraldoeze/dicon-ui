@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: [
+      'res.cloudinary.com',
+      'localhost'
+    ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,6 +22,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'dailypost.ng',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
       },
       {
         protocol: 'https',
