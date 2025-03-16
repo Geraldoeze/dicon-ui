@@ -56,7 +56,7 @@ const Gallery = () => {
     }
     
     // Get the base Strapi URL
-    const strapiBaseUrl = 'http://localhost:1337';
+    const strapiBaseUrl = 'https://dic-strapi.onrender.com';
     
     // Return full URL
     return `${strapiBaseUrl}${url}`;

@@ -4,19 +4,20 @@ import { useState } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { strapiService } from "@/services/strapiService";
-
+import { useApiLoader } from "@/hooks/use-api-loader";
 const DepartmentCourses = () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
 
   // Fetch departments & courses from Strapi
-  const { data: DC, isLoading, isError } = useQuery({
+  const { data: DC, isLoading} = useQuery({
     queryKey: ["departments-courses"],
     queryFn: () => strapiService.getDC(),
   });
 
   // Loading & Error States
-  if (isLoading) return <p className="text-center text-lg">Loading...</p>;
-  if (isError) return <p className="text-center text-red-600">Failed to load data</p>;
+  useApiLoader(isLoading)
+  // if (isLoading) return <p className="text-center text-lg">Loading...</p>;
+  // if (isError) return <p className="text-center text-red-600">Failed to load data</p>;
 
   // Extract departments & courses
   const departments = DC?.data[0]?.departments || [];

@@ -103,7 +103,7 @@ const About = () => {
     }
     
     // Get the base Strapi URL
-    const strapiBaseUrl = 'http://localhost:1337';
+    const strapiBaseUrl = 'https://dic-strapi.onrender.com';
     
     // If the URL already includes /uploads, it's a relative path from Strapi
     if (url.startsWith('/uploads')) {

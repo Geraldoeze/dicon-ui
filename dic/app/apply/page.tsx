@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Check,
@@ -18,16 +18,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Alert } from "@/components/ui/alert";
+// import { Alert } from "@/components/ui/alert";
 import Image from "next/image";
 import { programsService } from "@/services/programs.service";
 import { applicationService } from "@/services/application.service";
 import { DocumentUpload } from "./documentupload";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 interface Program {
   data: {
-  id: string;
-  program: string;
+    id: string;
+    program: string;
   }
 }
 
@@ -48,6 +49,25 @@ interface Step {
   subtitle: string;
   icon: string;
 }
+
+interface CountryCode {
+  code: string;
+  dialCode: string;
+  name: string;
+}
+
+const countryCodes: CountryCode[] = [
+  { code: "NG", dialCode: "+234", name: "Nigeria" },
+  { code: "US", dialCode: "+1", name: "United States" },
+  { code: "UK", dialCode: "+44", name: "United Kingdom" },
+  { code: "CA", dialCode: "+1", name: "Canada" },
+  { code: "AU", dialCode: "+61", name: "Australia" },
+  { code: "GH", dialCode: "+233", name: "Ghana" },
+  { code: "KE", dialCode: "+254", name: "Kenya" },
+  { code: "ZA", dialCode: "+27", name: "South Africa" },
+  { code: "DE", dialCode: "+49", name: "Germany" },
+  { code: "FR", dialCode: "+33", name: "France" },
+];
 
 const steps: Step[] = [
   {
@@ -74,10 +94,8 @@ const ApplicationPortal: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [programs, setPrograms] = useState<Program[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<string>("NG");
   const [uploadedFiles, setUploadedFiles] = useState<{
     photo: File | null;
     application_form: File | null;
@@ -103,21 +121,43 @@ const ApplicationPortal: React.FC = () => {
     }
   });
 
+  // TanStack Query for fetching programs
+  const { data: programs = [] } = useQuery({
+    queryKey: ['programs'],
+    queryFn: async () => {
+      const response = await programsService.getPrograms();
+      return response?.data || [];
+    }
+  });
 
-  useEffect(() => {
-    const loadPrograms = async () => {
-      try {
-        const programsData = await programsService.getPrograms();
-        setPrograms(programsData?.data);
-      } catch (error) {
-        console.error("Error loading programs:", error);
+  // TanStack Query mutation for submitting application
+  const { mutate: submitApplication, isPending: isSubmitting } = useMutation({
+    mutationFn: async (data: ApplicationFormData) => {
+      const submissionData = {
+        ...data,
+        photo: uploadedFiles.photo,
+        application_form: uploadedFiles.application_form,
+        phone: `${countryCodes.find(c => c.code === selectedCountry)?.dialCode || ''} ${data.phone}`
+      };
+      return await applicationService.submitApplication(submissionData);
+    },
+    onSuccess: (response) => {
+      if (response.message === "success") {
+        setCompletedSteps([...completedSteps, steps[currentStep].id]);
+        setShowSuccessModal(true);
       }
-    };
-    loadPrograms();
-  }, []);
+    },
+    onError: (error) => {
+      console.error("Submission error:", error);
+    }
+  });
 
   const handleProgramChange = (value: string) => {
     setValue('program_id', value);
+  };
+
+  const handleCountryChange = (value: string) => {
+    setSelectedCountry(value);
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,27 +177,8 @@ const ApplicationPortal: React.FC = () => {
     }
   };
 
-  const onSubmit = async (data: ApplicationFormData) => {
-    console.log("Submitting form with data:", data); // Debug log
-    setIsSubmitting(true);
-    try {
-      const submissionData = {
-        ...data,
-        photo: uploadedFiles.photo,
-        application_form: uploadedFiles.application_form,
-      };
-
-      const response = await applicationService.submitApplication(submissionData);
-      if (response.success) {
-        setCompletedSteps([...completedSteps, steps[currentStep].id]);
-        setSubmitSuccess(true);
-        setShowSuccessModal(true);
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onSubmit = (data: ApplicationFormData) => {
+    submitApplication(data);
   };
 
   const handleCloseModal = () => {
@@ -195,22 +216,25 @@ const ApplicationPortal: React.FC = () => {
             <div className="space-y-2">
               <label className="block text-sm font-medium">Phone Number</label>
               <div className="flex">
-                <Select defaultValue="NG">
-                  <SelectTrigger className="w-24">
+                <Select value={selectedCountry} onValueChange={handleCountryChange}>
+                  <SelectTrigger className="w-32">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="NG">NG</SelectItem>
-                    <SelectItem value="US">US</SelectItem>
-                    <SelectItem value="UK">UK</SelectItem>
+                    {countryCodes.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {country.code} ({country.dialCode})
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <input
                   {...register("phone", { required: true })}
                   className="flex-1 p-2 border rounded-md ml-2"
-                  placeholder="+234 (555) 000-0000"
+                  placeholder="555-000-0000"
                 />
               </div>
+              {errors.phone && <span className="text-red-500 text-sm">Required</span>}
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium">Date of Birth</label>
@@ -367,12 +391,6 @@ const ApplicationPortal: React.FC = () => {
           <div className="mt-8 bg-white rounded-lg p-6">
             {renderStepContent()}
           </div>
-
-          {submitSuccess && !showSuccessModal && (
-            <Alert className="mt-6 bg-green-50 text-green-800">
-              Application submitted successfully! We&apos;ll review your application and get back to you.
-            </Alert>
-          )}
         </div>
       </div>
 
