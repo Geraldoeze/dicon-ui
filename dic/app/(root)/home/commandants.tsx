@@ -37,7 +37,9 @@ interface StrapiResponse {
 
 const Commandants = () => {
   // Use proper typing for the query response
-  const { data: commandantData, isLoading, isError } = useQuery({
+  const { data: commandantData
+    // , isLoading, isError 
+  } = useQuery({
     queryKey: ['Commandants'],
     queryFn: () => strapiService.getCommandants(),
   });
@@ -132,16 +134,16 @@ const Commandants = () => {
       <div className="absolute bg-slate-50/90 inset-0"></div>
       <div className="max-w-[80vw] mx-auto relative z-10 py-5">
         {/* Show loading state or error message if needed */}
-        {isLoading && (
+        {/* {isLoading && (
           <div className="text-center py-8">Loading commandant data...</div>
-        )}
+        )} */}
         
-        {isError && (
+        {/* {isError && (
           <div className="text-center py-8 text-red-600">
             Error loading commandant data. Please try again later.
           </div>
         )}
-        
+         */}
         <h1 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-10">
           Commandants
         </h1>

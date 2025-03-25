@@ -1,18 +1,20 @@
 "use client"
 
 import ProgramCard from './program-card';
-import {programs} from '../home/mock';
+//import {programs} from '../home/mock';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { strapiService } from '@/services/strapiService';
+import { useApiLoader } from '@/hooks/use-api-loader';
 
 const Page = () => {
 
-  const { data: pg } = useQuery({
+  const { data: pg, isLoading } = useQuery({
       queryKey: ['pg'],
       queryFn: () => strapiService.getPG()
     })
 
+    useApiLoader(isLoading);
 
   return (
     <div>

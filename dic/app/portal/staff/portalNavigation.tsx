@@ -146,7 +146,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
             <HelpCircle className="w-5 h-5" />
             Support
           </Button>
-          <Link href="/">
+          <Link href="/contact-us">
           <Button 
             variant="ghost" 
             className="w-full justify-start gap-3 hover:bg-white/10 transition-colors"

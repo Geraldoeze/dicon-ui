@@ -19,6 +19,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { useApiLoader } from '@/hooks/use-api-loader';
 //import Image from 'next/image';
 
 interface BlogGridProps {
@@ -69,6 +70,8 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
     fetchNews();
   }, []);
+
+  useApiLoader(loading);
 
   
   const renderCard = (article: NewsArticle) => (
