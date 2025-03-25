@@ -12,7 +12,7 @@ const InformationHeader = () => {
     })
   return (
     <div>
-        <div className="w-full text-center bg-indigo-600 flex items-center justify-center h-8 md:h-12">
+        <div className="w-full text-center bg-indigo-600 flex items-center justify-center h-12">
         <a href="/apply" className="flex items-center gap-x-1 md:gap-x-2">
         <PartyPopper className="text-green-400"/>
         {info?.data.map((info) => (
