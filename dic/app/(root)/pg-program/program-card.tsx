@@ -70,12 +70,12 @@ const ProgramCard = ({ program }: ProgramCardProps) => {
         {activeDegree && (
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold">Admission Requirements</h3>
+              <h3 className="text-xl font-semibold">{activeDegree.level} Requirements</h3>
               <span className="text-blue-700">{activeDegree.gpa}</span>
             </div>
-            <p className="text-gray-600 leading-relaxed">
+            <li className="text-gray-600 leading-relaxed">
               {activeDegree.requirements}
-            </p>
+            </li>
           </div>
         )}
       </div>

@@ -80,7 +80,7 @@ const CommandantsGrid = () => {
     },
     {
         id: 11,
-        name: 'CDRE SH USMAN',
+        name: 'CDRE UO GIBRIN',
         title: 'MSS psc(+) mni LLB PGCPA',
         period: 'OCT 7 - JAN 9',
         imageUrl: '/7-9.jpg',

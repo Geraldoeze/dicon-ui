@@ -1,6 +1,6 @@
 import { montserrat } from '@/fonts'
 import '.././globals.css'
-
+import { Providers } from  '../providers'
 
 export default function RootLayout({
   children,
@@ -8,12 +8,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={montserrat.className}>
-        
+      <div lang="en" className={montserrat.className}>
+         <Providers>
         {children}
-       
-      </body>
-    </html>
+        </Providers>
+      </div>
   )
 }

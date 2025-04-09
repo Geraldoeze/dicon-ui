@@ -3,17 +3,17 @@ import { Play, X } from 'lucide-react';
 
 interface VideoModalProps {
   videoUrl: string;
-  thumbnailUrl?: string;
+  section: string;
 }
 
-const VideoModal = ({ videoUrl }: VideoModalProps) => {
+const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, section }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       {/* Hero Video Button */}
 
-   
+      {section === "hero" &&
       <div className="hero-video absolute bottom-8 md:bottom-12 right-4 md:right-8">
         <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6">
           <span className="text-white text-sm md:text-base">
@@ -27,7 +27,19 @@ const VideoModal = ({ videoUrl }: VideoModalProps) => {
             <Play className="w-2 h-2 md:w-5 md:h-5 text-white" />
           </button>
         </div>
+      </div>}
+
+      {section === "gallery" &&
+      <div className="">
+           <button 
+            onClick={() => setIsOpen(true)}
+            className="flex items-center gap-2 bg-white hover:bg-gray-200 border-2 border-gray-700 p-2 transition-colors rounded-sm"
+            aria-label="Play video"> 
+            <Play className="w-2 h-2 md:w-5 md:h-5 text-black" />
+            Watch our Graduation Video
+          </button>
       </div>
+      }
 
       {/* Modal */}
       {isOpen && (
@@ -43,7 +55,8 @@ const VideoModal = ({ videoUrl }: VideoModalProps) => {
             </button>
 
             {/* Video container */}
-            <div className="relative pt-[56.25%] bg-black rounded-lg overflow-hidden">
+            <div className="relative pt-[60%] bg-black rounded-lg overflow-hidden">
+              {section === "hero" && 
               <iframe
                 src={videoUrl}
                 className="absolute inset-0 w-full h-full"
@@ -51,7 +64,20 @@ const VideoModal = ({ videoUrl }: VideoModalProps) => {
                 allowFullScreen
                 title="Documentary video"
               />
-            </div>
+              }
+              {section === "gallery" &&
+              <iframe 
+              width="560" 
+              height="315" 
+              src={videoUrl}
+              className="absolute inset-0 w-full h-full"
+              title="YouTube video player" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen></iframe>
+              }
+            </div> 
           </div>
         </div>
       )}

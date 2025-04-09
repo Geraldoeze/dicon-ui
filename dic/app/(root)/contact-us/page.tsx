@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import React, { useState } from 'react'
-import Image from 'next/image'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +46,7 @@ const Contact = () => {
     { code: '+971', country: '🇦🇪 AE' },
   ];
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
@@ -54,7 +54,7 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Form submitted:', formData);
@@ -63,45 +63,35 @@ const Contact = () => {
   };
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center 
-      py-8 sm:py-10 md:py-16 lg:py-20 
-      bg-[url('/misionvision-bg.jpg')] bg-cover bg-center bg-no-repeat relative
-      pb-16 sm:pb-20 md:pb-32 lg:pb-40">
-      {/* Overlay with better opacity control */}
-      <div className="absolute inset-0 bg-white bg-opacity/30"></div>
+    <section className="min-h-screen xl:min-h-full xl:max-h-[1200px] w-full flex items-center justify-center
+      bg-gradient-to-b from-white via-indigo-50 to-indigo-100">
       
-      <div className="relative z-10 w-full max-w-7xl py-10 sm:py-12 md:py-16 lg:py-20 
+      <div className="w-full max-w-6xl py-10 sm:py-12 
         px-4 sm:px-6 lg:px-8 mx-auto">
-        {/* Header with improved spacing */}
-        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold 
-            mb-2 sm:mb-3 md:mb-4 text-gray-900">
-            You have any questions?
+        {/* Header */}
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold 
+            mb-3 sm:mb-4 md:mb-5 text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-indigo-800 to-indigo-600">
+            Get in Touch
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800">
-            Send us a message
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-2xl mx-auto">
+            Have questions or want to learn more? Send us a message and we&apos;ll get back to you shortly.
           </p>
         </div>
 
-        {/* Content Container with better mobile stacking */}
-        <div className="flex flex-col lg:flex-row gap-8 md:gap-10 lg:gap-12">
-          {/* Image Section - Hidden on smallest screens if needed */}
-          <div className="w-full lg:w-1/2 max-w-lg mx-auto lg:mx-0">
-            <Image
-              src="/group.png"
-              alt="Contact illustration"
-              width={600}
-              height={600}
-              className="w-full h-auto object-contain"
-              priority
-            />
+        {/* Form Container with enhanced styling */}
+        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+          {/* Form Header */}
+          <div className="bg-indigo-700 py-4 px-6 text-white">
+            <h2 className="text-xl font-semibold">Contact Form</h2>
+            <p className="text-indigo-100 text-sm">Fill out the form below and we&apos;ll respond within 24 hours</p>
           </div>
-
+          
           {/* Form Section */}
-          <div className="w-full lg:w-1/2 rounded-lg p-4 sm:p-6 md:p-8">
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              {/* Name Inputs - Stack on mobile, side by side on larger screens */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-6 sm:p-8 md:p-10">
+            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+              {/* Name Inputs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">
                     First Name
@@ -113,10 +103,10 @@ const Contact = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 md:py-3
+                    className="w-full px-4 py-3
                       text-base md:text-lg
-                      border border-gray-300 rounded-md 
-                      focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500
+                      border border-gray-300 rounded-lg
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                       transition-all duration-300"
                   />
                 </div>
@@ -131,10 +121,10 @@ const Contact = () => {
                     value={formData.lastName}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 md:py-3
+                    className="w-full px-4 py-3
                       text-base md:text-lg
-                      border border-gray-300 rounded-md 
-                      focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500
+                      border border-gray-300 rounded-lg
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                       transition-all duration-300"
                   />
                 </div>
@@ -143,7 +133,7 @@ const Contact = () => {
               {/* Email Input */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">
-                  Email
+                  Email Address
                 </label>
                 <input
                   type="email"
@@ -152,15 +142,15 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 md:py-3
+                  className="w-full px-4 py-3
                     text-base md:text-lg
-                    border border-gray-300 rounded-md 
-                    focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500
+                    border border-gray-300 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                     transition-all duration-300"
                 />
               </div>
 
-              {/* Phone Number Input - Enhanced with country flags and searchable dropdown */}
+              {/* Phone Number Input */}
               <div>
                 <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">
                   Phone Number
@@ -170,14 +160,14 @@ const Contact = () => {
                     name="phoneCode"
                     value={formData.phoneCode}
                     onChange={handleChange}
-                    className="w-24 sm:w-32 px-1 sm:px-2 py-2 md:py-3
-                      text-xs sm:text-sm
-                      bg-white border border-r-0 border-gray-300 rounded-l-md 
-                      focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500"
+                    className="w-28 sm:w-32 px-2 sm:px-3 py-3
+                      text-sm
+                      bg-white border border-r-0 border-gray-300 rounded-l-lg
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     {countryCodes.map((item) => (
                       <option key={item.country} value={item.code}>
-                        {item.code}
+                         {item.code}
                       </option>
                     ))}
                   </select>
@@ -189,17 +179,17 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="Enter phone number"
-                    className="flex-1 px-3 py-2 md:py-3
+                    className="flex-1 px-4 py-3
                       text-base md:text-lg
-                      border border-gray-300 rounded-r-md 
-                      focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500
+                      border border-gray-300 rounded-r-lg
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                       transition-all duration-300"
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-1">Format: {formData.phoneCode} {formData.phoneNumber}</p>
               </div>
 
-              {/* Message Textarea - Adjusted height for different screen sizes */}
+              {/* Message Textarea */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">
                   Message
@@ -207,21 +197,21 @@ const Contact = () => {
                 <textarea
                   name="message"
                   id="message"
-                  rows={4}
+                  rows={5}
                   value={formData.message}
                   onChange={handleChange}
                   required
                   placeholder="How can we help you?"
-                  className="w-full px-3 py-2 md:py-3
+                  className="w-full px-4 py-3
                     text-base md:text-lg
-                    border border-gray-300 rounded-md 
-                    focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500
+                    border border-gray-300 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                     transition-all duration-300 resize-y"
                 />
               </div>
 
-              {/* Privacy Policy Checkbox - Improved for touch targets */}
-              <div className="flex items-start space-x-2 sm:space-x-3">
+              {/* Privacy Policy Checkbox */}
+              <div className="flex items-start space-x-3">
                 <input 
                   type="checkbox" 
                   id="privacyPolicy"
@@ -229,27 +219,35 @@ const Contact = () => {
                   checked={formData.privacyPolicy}
                   onChange={handleChange}
                   required
-                  className="mt-1 rounded text-[#2D2F93] focus:ring-2 focus:ring-transparent focus:border-gray-500
-                    w-4 h-4"
+                  className="mt-1 rounded text-indigo-600 focus:ring-2 focus:ring-indigo-500
+                    w-5 h-5"
                 />
                 <label htmlFor="privacyPolicy" className="text-sm sm:text-base text-gray-700">
-                  You agree to our friendly privacy policy
+                  I agree to the <span className="text-indigo-600 hover:text-indigo-800 cursor-pointer">privacy policy</span> and consent to being contacted regarding my inquiry
                 </label>
               </div>
 
-              {/* Submit Button - Improved sizing for mobile */}
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-2.5 sm:py-3 md:py-4
+                className="w-full py-3 sm:py-4
                   text-base md:text-lg
-                  bg-[#2D2F93] text-white font-semibold rounded-md 
-                  hover:bg-indigo-800 transition-colors duration-300 
-                  focus:outline-none focus:ring-2 focus:ring-transparent focus:border-gray-500"
+                  bg-indigo-600 text-white font-semibold rounded-lg
+                  hover:bg-indigo-700 transition-colors duration-300 
+                  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                  shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 Send Message
               </button>
             </form>
           </div>
+        </div>
+        
+        {/* Contact Information */}
+        <div className="mt-12 text-center">
+          <p className="text-sm text-gray-600">
+            Prefer to reach us directly? Email us at <span className="font-medium text-indigo-600"><a href="mailto:dicunn.pgs@gmail.com">dicunn.pgs@gmail.com</a></span> or call <span className="font-medium text-indigo-600"><a href="tel:08036326299">08036326299</a></span>
+          </p>
         </div>
       </div>
     </section>

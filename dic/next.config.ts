@@ -37,6 +37,14 @@ const nextConfig: NextConfig = {
       }
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://dic.0ps.tech/api/:path*',
+      },
+    ];
+  },
 
   /* config options here */
 

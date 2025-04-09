@@ -181,6 +181,29 @@ interface Gallery {
     }]
 }
 
+interface News {
+    data: [{
+        id: number;
+    documentId: string;
+    title: string;
+    content: [
+      {
+        type: string;
+        children: [
+          {
+            type: string;
+            text: string;
+          }
+        ]
+      }
+    ],
+    published_date: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    }]
+  }
+
 
 class StrapiService {
 
@@ -218,6 +241,10 @@ class StrapiService {
 
     async getGallery () {
         return apiService.strapiGet<Gallery>(STRAPI_ENDPOINTS.GALLERY)
+    }
+
+    async getNews () {
+        return apiService.strapiGet<News>(STRAPI_ENDPOINTS.NEWS)
     }
 
 }

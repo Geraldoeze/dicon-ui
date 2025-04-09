@@ -1,6 +1,6 @@
 
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dic.0ps.tech/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://0ps.tech/dic/api';
 
 export const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'https://dic-strapi.onrender.com/api'
 
@@ -16,7 +16,8 @@ export const STRAPI_ENDPOINTS = {
   MV: '/mission-and-visions?populate=images',
   GALLERY: '/galleries?populate=images',
   PG: '/pg-programs',
-  DC: '/departments-and-courses'
+  DC: '/departments-and-courses',
+  NEWS: '/news-and-blogs'
 }
 
 export const AUTH_ENDPOINTS = {

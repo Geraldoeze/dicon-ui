@@ -468,6 +468,18 @@ interface SuccessModalProps {
 }
 
 const SuccessModal: React.FC<SuccessModalProps> = ({ onClose, applicantName }) => {
+
+  // Use useEffect for safe mount/unmount
+  React.useEffect(() => {
+    // Prevent scrolling on body when modal is open
+    document.body.style.overflow = 'hidden';
+    
+    // Cleanup function
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-fade-in">

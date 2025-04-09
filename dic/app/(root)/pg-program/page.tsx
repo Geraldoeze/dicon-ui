@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { strapiService } from '@/services/strapiService';
 import { useApiLoader } from '@/hooks/use-api-loader';
+import Image from 'next/image';
 
 const Page = () => {
 
@@ -22,7 +23,7 @@ const Page = () => {
 <div className="relative min-h-screen lg:min-h-full lg:max-h-[1200px] w-full overflow-hidden">
       {/* Background with Overlay */}
       <div 
-        className={`absolute inset-0 bg-[url('/IMG_0040.JPG')] bg-cover bg-center`}
+        className={`absolute inset-0 bg-[url('/photo_2025-04-07_08-34-18.jpg')] bg-cover bg-center`}
       >
         <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-xs" />
       </div>
@@ -53,16 +54,22 @@ const Page = () => {
     <div key={pg.id} className="min-h-screen lg:min-h-full relative mx-auto max-w-[85vw] py-10">
 
     <div className="flex items-center justify-center flex-col my-5">
-      <h1 className='text-center text-[1.5rem] md:text-[2.5rem] font-semibold my-5'> Centre for Strategic Resources </h1>
-      <div className="flex items-center flex-col md:flex-row gap-x-5 my-5 max-w-7xl">
+      <Image src="/unn.png" width={100} height={100} alt="logo"></Image>
+      
+      <div className="flex flex-col items-center">
+        {/* <div 
+        className= "w-full md:w-1/2"
+        > */}
+        <h1 className='text-center text-[1.5rem] md:text-[2.5rem] font-semibold my-5'> Centre for Strategic Resources </h1>
+        <div className="flex items-center flex-col md:flex-row gap-5 my-5 max-w-7xl">
         <p className='text-start text-base max-w-lg'>
         {pg.css_text}
         </p>
         <p className='text-start text-base max-w-lg'>
         {pg.css_text}
         </p>
-      </div>
-      <div className="my-5">
+        </div>
+        <div className="my-5">
       <Link 
               href="/apply"
               className="bg-[#2D2F93] text-white px-10 py-2 rounded-md hover:bg-blue-900 
@@ -71,6 +78,13 @@ const Page = () => {
               Apply
             </Link>
       </div>
+      {/* </div> */}
+
+      {/* <div className="w-full md:w-1/2">
+        <Image src="/flier.jpg" width={100} height={100} alt="flier" className='w-full h-full object-cover' />
+      </div> */}
+      </div>
+     
     </div>
       <div className="mt-10">
       {pg.departments.map((department) => (
@@ -106,7 +120,7 @@ const Page = () => {
             <hr className='text-gray-600'/>
             <div className="flex justify-between items-center my-2">
             <h1 className='font-medium text-base'>{item.semesters} Semesters</h1>
-            <p className='lg:text-base font-bold'>#{item.fee}</p>
+            <p className='lg:text-base font-bold'>₦{item.fee}</p>
             </div>
             </div>
           ))}

@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 import { useQuery } from '@tanstack/react-query';
 import { strapiService } from '@/services/strapiService';
+import VideoModal from './videomodal';
 
 interface GalleryImage {
   src: string;
@@ -92,7 +93,7 @@ const Gallery = () => {
           Gallery
         </h1>
         <p className="text-lg md:text-xl text-center mb-8">
-          Take a look at some of our shots
+          Checkout pictures and memories from our activities
         </p>
         
         <div className="w-full">
@@ -211,6 +212,10 @@ const Gallery = () => {
               display: none;
             }
           `}</style>
+        </div>
+
+        <div className="my-5 flex item-center justify-center">
+          <VideoModal videoUrl={"https://www.youtube.com/embed/q-JkiUyTaLA?si=4YudGPKpg5uGM6z4"} section='gallery'/>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ const InformationHeader = () => {
         <PartyPopper className="text-green-400"/>
         {info?.data.map((info) => (
         <div key={info.id}>
-        <p className="flex items-center gap-x-1 md:gap-x-2 text-white text-xs md:text-base max-w-[70vw]">{info.advertisement} <ArrowRight/></p>
+        <p className="flex items-center gap-x-1 md:gap-x-2 text-white text-xs md:text-base font-semibold max-w-[70vw] custom-ping">{info.advertisement} <ArrowRight/></p>
         </div>
         ))}
         </a>

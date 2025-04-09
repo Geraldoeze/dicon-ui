@@ -1,15 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-// type BlogPost = {
-//   id: string;
-//   title: string;
-//   content: string;
-//   source: string;
-//   date: string;
-//   time: string;
-// }
 import { useEffect, useState } from 'react';
-// import Link from 'next/link';
 import { Clock, Calendar } from 'lucide-react';
 import {Card, CardContent, CardHeader} from '@/components/ui/card';
 import {
@@ -20,7 +12,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { useApiLoader } from '@/hooks/use-api-loader';
-//import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
+import { strapiService } from '@/services/strapiService';
 
 interface BlogGridProps {
   columns?: number;
@@ -37,11 +30,22 @@ type NewsArticle = {
   source_name: string;
 };
 
-const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
+type StrapiNewsItem = {
+  id: number;
+  documentId: string;
+  title: string;
+  content: { type: string; children: { type: string; text: string }[] }[];
+  published_date: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
 
+const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [combinedArticles, setCombinedArticles] = useState<Array<NewsArticle | StrapiNewsItem>>([]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -73,55 +77,100 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
   useApiLoader(loading);
 
-  
-  const renderCard = (article: NewsArticle) => (
-    <Card 
-      key={article.article_id}
-      className="group hover:-translate-y-1 transition-all duration-300 ease-in-out"
-    >
-      <CardHeader className="space-y-2 p-4">
-       
+  const { data: strapiNews, isLoading: strapiLoading } = useQuery({
+    queryKey: ['news'],
+    queryFn: strapiService.getNews,
+    enabled: !loading,
+  });
+
+  useEffect(() => {
+    if (articles.length > 0 && strapiNews?.data) {
+      // Combine both data sources
+      const allArticles = [
+        ...strapiNews.data.map((item: StrapiNewsItem) => ({
+          ...item,
+          isStrapi: true // Flag to identify Strapi items
+        })),
+        ...articles
+      ];
+      
+      // Sort by date if needed
+      const sortedArticles = allArticles.sort((a: any, b: any) => {
+        const dateA = a.isStrapi ? new Date(a.published_date) : new Date(a.pubDate);
+        const dateB = b.isStrapi ? new Date(b.published_date) : new Date(b.pubDate);
+        return dateB.getTime() - dateA.getTime(); // Most recent first
+      });
+      
+      setCombinedArticles(sortedArticles);
+    }
+  }, [articles, strapiNews]);
+
+  const getContentText = (content: any) => {
+    if (Array.isArray(content)) {
+      return content
+        .map(block => 
+          block.children
+            .map((child: any) => child.text)
+            .join('')
+        )
+        .join(' ');
+    }
+    return content;
+  };
+
+  const renderCard = (article: any) => {
+    // Determine if it's a Strapi item or News API item
+    const isStrapi = article.isStrapi;
+    
+    return (
+      <Card 
+        key={isStrapi ? `strapi-${article.id}` : article.article_id}
+        className="group hover:-translate-y-1 transition-all duration-300 ease-in-out"
+      >
+        <CardHeader className="space-y-2 p-4">
           <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
             {article.title}
           </h3>
-  
-      </CardHeader>
+        </CardHeader>
 
-      <CardContent className="p-4 pt-0 space-y-4">
-        <p className="text-gray-600 line-clamp-3 text-sm">
-          {article.description}
-        </p>
+        <CardContent className="p-4 pt-0 space-y-4">
+          <p className="text-gray-600 line-clamp-3 text-sm">
+            {isStrapi 
+              ? getContentText(article.content)
+              : article.description}
+          </p>
 
-        <div className="flex items-center space-x-2 text-sm text-gray-500">
-          <span className="flex items-center gap-1">
-            <span className="text-yellow-500">▲</span>
-            {article.source_name.toUpperCase()}
-          </span>
-        </div>
-
-        <div className="flex flex-wrap gap-4 text-sm text-gray-500 pt-2 border-t">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4" />
-            <time dateTime={article.pubDate} className="text-sm">
-              {new Date(article.pubDate).toLocaleDateString()}
-            </time>
+          <div className="flex items-center space-x-2 text-sm text-gray-500">
+            <span className="flex items-center gap-1">
+              <span className="text-yellow-500">▲</span>
+              {isStrapi ? 'DIC' : article.source_name.toUpperCase()}
+            </span>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4" />
-            <time className="text-sm">
-              {new Date(article.pubDate).toLocaleTimeString([], { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-              })}
-            </time>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
+          <div className="flex flex-wrap gap-4 text-sm text-gray-500 pt-2 border-t">
+            <div className="flex items-center gap-1.5">
+              <Calendar className="w-4 h-4" />
+              <time dateTime={isStrapi ? article.published_date : article.pubDate} className="text-sm">
+                {new Date(isStrapi ? article.published_date : article.pubDate).toLocaleDateString()}
+              </time>
+            </div>
 
-  if (loading) {
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-4 h-4" />
+              <time className="text-sm">
+                {new Date(isStrapi ? article.published_date : article.pubDate).toLocaleTimeString([], { 
+                  hour: '2-digit', 
+                  minute: '2-digit' 
+                })}
+              </time>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  if (loading || strapiLoading) {
     return (
       <div className="min-h-screen lg:min-h-full xl:min-h-[1200px] xl:max-h-[1200px] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
@@ -139,179 +188,42 @@ const NewsBlog = ({ columns = 3, visible }: BlogGridProps) => {
 
   return (
     <div className="md:min-h-screen lg:min-h-full xl:min-h-[1200px] xl:max-h-[1600px] relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
-         <div className="absolute bg-gray-50/80 inset-0 opacity-10"></div>
+      <div className="absolute bg-gray-50/80 inset-0 opacity-10"></div>
 
-    <div className="max-w-[80vw] mx-auto relative z-1 py-5">
-    <h1 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-2"> News & Blog </h1>
-    <p className="text-[1.25rem] text-center my-2"> Stay up to date with the latest info</p>
+      <div className="max-w-[80vw] mx-auto relative z-1 py-5">
+        <h1 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-2"> News & Blog </h1>
+        <p className="text-[1.25rem] text-center my-2"> Stay up to date with the latest info</p>
 
-    {visible && (
-      <div className="flex justify-center items-center my-10">
-      {/* <div className="max-w-4xl">
-          <Image src="/image 184.png" alt="" width={750} height={500} />
-          <div className="my-5">
-            <h1 className='text-xl font-semibold'>Inauguration of Defence Intelligence Agency New Office Complex</h1>
-            <p className='text-base max-w-3xl'>AVM MS Usman Centre for Strategic Studies (CSS) is a multi-disciplinary academic and research centre designed to initiate programmes in strategic studies and undertake security related research. The CSS anchors the Advanced Defence Intelligence Officers&apos; Course (ADIOC) which is designed to broaden officers&apos; knowledge in determination of intelligence in policy and conflict situations.</p>
+        {visible && (
+          <div className="flex justify-center items-center my-10">
+            {/* Featured content could go here */}
           </div>
-          <div className="flex items-center my-1">
-                <span className="text-yellow-500 mr-1">▲</span>
-                <span>TVC News</span>
+        )}
+        
+        <div className="w-full py-12">
+          <div className="container mx-auto px-4">
+            {/* Desktop Grid */}
+            <div className={`md:grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-6`}>
+              {combinedArticles.map(renderCard)}
+            </div>
           </div>
-          <hr />
-          <div className="flex items-center space-x-4 my-3">
-              <div className="flex gap-2">
-               <Calendar/>
-               <time>24th, Jan 2025</time>
-              </div>
-              <div className="flex gap-2">
-              <Clock/>
-              <time> 20:00</time>
-              </div>
+
+          {/* Mobile Carousel */}
+          <div className="block md:hidden px-4">
+            <Carousel>
+              <CarouselContent>
+                {combinedArticles.map((article, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    {renderCard(article)}
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
-      </div> */}
-      </div>
-    )}
-     <div className="w-full py-12">
-      <div className="container mx-auto px-4">
-        {/* Desktop Grid */}
-        <div className={`md:grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-6`}>
-          {articles.map(renderCard)}
         </div>
       </div>
-
-      {/* Mobile Carousel */}
-      <div className="block md:hidden px-4">
-        <Carousel>
-          <CarouselContent>
-            {articles.map((article) => (
-              <CarouselItem key={article.article_id} className="md:basis-1/2 lg:basis-1/3">
-                {renderCard(article)}
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    </div>
-    {/* <div className="w-full py-12">
-
-
-      <div className="container mx-auto px-4">
-      <div className={`md:grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-6`}>
-      {posts.map((post) => (
-        <Card 
-          key={post.id}
-          className="group hover:-translate-y-1 transition-all duration-300 ease-in-out"
-        >
-          
-          <CardHeader className="space-y-2 p-4">
-            <Link 
-              href={`/blog/${post.id}`}
-              className="inline-block"
-            >
-              <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
-                {post.title}
-              </h3>
-            </Link>
-            
-          </CardHeader>
-
-          <CardContent className="p-4 pt-0 space-y-4">
-            <p className="text-gray-600 line-clamp-3 text-sm">
-              {post.content}
-            </p>
-
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <span className="text-yellow-500">▲</span>
-                {post.source}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-4 text-sm text-gray-500 pt-2 border-t">
-              <div className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4" />
-                <time dateTime={post.date} className="text-sm">
-                  {post.date}
-                </time>
-              </div>
-
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4" />
-                <time className="text-sm">
-                  {post.time}
-                </time>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-      </div>
-
-      <div className="block md:hidden">
-      
-<Carousel>
-  <CarouselContent>
-    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-    {posts.map((post) => (
-        <Card 
-          key={post.id}
-          className="group hover:-translate-y-1 transition-all duration-300 ease-in-out"
-        >
-          
-          <CardHeader className="space-y-2 p-4">
-            <Link 
-              href={`/blog/${post.id}`}
-              className="inline-block"
-            >
-              <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
-                {post.title}
-              </h3>
-            </Link>
-            
-          </CardHeader>
-
-          <CardContent className="p-4 pt-0 space-y-4">
-            <p className="text-gray-600 line-clamp-3 text-sm">
-              {post.content}
-            </p>
-
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <span className="text-yellow-500">▲</span>
-                {post.source}
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-4 text-sm text-gray-500 pt-2 border-t">
-              <div className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4" />
-                <time dateTime={post.date} className="text-sm">
-                  {post.date}
-                </time>
-              </div>
-
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4" />
-                <time className="text-sm">
-                  {post.time}
-                </time>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </CarouselItem>
-  </CarouselContent>
-  <CarouselPrevious />
-  <CarouselNext />
-</Carousel>
-
-      </div>
-    </div> */}
-    </div>
     </div>
   );
 };

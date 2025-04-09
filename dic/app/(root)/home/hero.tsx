@@ -67,7 +67,7 @@ const Hero = () => {
         </div>
 
               {/* Video Button Section */}
-         <VideoModal videoUrl={item.videoUrl}/>
+         <VideoModal videoUrl={item.videoUrl} section={"hero"}/>
          </div>
          </section>
           ))}

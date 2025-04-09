@@ -55,7 +55,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="flex gap-x-10">
-          <div className="hidden lg:flex items-center lg:gap-x-5 xl:gap-x-10">
+          <div className="hidden lg:flex items-center  lg:gap-x-5 xl:gap-x-10">
             {navLinks.map((nav) => (
               <Link 
                 key={nav.href}

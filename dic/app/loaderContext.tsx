@@ -31,7 +31,7 @@ export const LoaderProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const handleComplete = () => setTimeout(() => setIsLoading(false), 300);
 
     // For Next.js route events
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && window.next?.router?.events) {
       // @ts-expect-error - Next.js router events
       window.next?.router?.events.on('routeChangeStart', handleStart);
       // @ts-expect-error - Next.js router events
