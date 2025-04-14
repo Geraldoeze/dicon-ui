@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import { useState } from "react";
-import Timeline from "./timeline"
+import Timeline from "./timeline";
 import Image from "next/image";
-import { X } from 'lucide-react';
+import { X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { strapiService } from "@/services/strapiService";
+import Link from "next/link";
 
 // Define image interface based on the API response
 interface ApiImage {
@@ -50,83 +51,85 @@ interface DisplayImage {
 
 const About = () => {
   const { data: aboutData } = useQuery({
-    queryKey: ['Images'],
-    queryFn: () => strapiService.getAbout()
+    queryKey: ["Images"],
+    queryFn: () => strapiService.getAbout(),
   });
 
   const [selectedImage, setSelectedImage] = useState<DisplayImage | null>(null);
-  
+
   // Fallback images array
   const fallbackImages: DisplayImage[] = [
     {
-      src: '/IMG-20250212-WA0019.jpg',
-      alt: 'Tall landscape',
-      className: 'lg:row-span-2',
+      src: "/IMG-20250212-WA0019.jpg",
+      alt: "Tall landscape",
+      className: "lg:row-span-2",
       width: 600,
-      height: 800
+      height: 800,
     },
     {
-      src: '/IMG-20250212-WA0006.jpg',
-      alt: 'Wide cityscape',
-      className: 'lg:col-span-2',
+      src: "/IMG-20250212-WA0006.jpg",
+      alt: "Wide cityscape",
+      className: "lg:col-span-2",
       width: 600,
-      height: 400
+      height: 400,
     },
     {
-      src: '/IMG-20250121-WA0019.jpg',
-      alt: 'Square abstract',
-      className: '',
+      src: "/IMG-20250121-WA0019.jpg",
+      alt: "Square abstract",
+      className: "",
       width: 400,
-      height: 400
+      height: 400,
     },
     {
-      src: '/IMG-20250212-WA0010.jpg',
-      alt: 'Portrait shot',
-      className: 'lg:row-span-2',
+      src: "/IMG-20250212-WA0010.jpg",
+      alt: "Portrait shot",
+      className: "lg:row-span-2",
       width: 400,
-      height: 600
+      height: 600,
     },
     {
-      src: '/IMG-20250212-WA0015.jpg',
-      alt: 'Portrait shot',
-      className: 'lg:col-span-2 hidden lg:block',
+      src: "/IMG-20250212-WA0015.jpg",
+      alt: "Portrait shot",
+      className: "lg:col-span-2 hidden lg:block",
       width: 600,
-      height: 400
-    }
+      height: 400,
+    },
   ];
 
   // Helper function to properly format Strapi image URLs
   const getStrapiImageUrl = (url: string): string => {
     // If the URL already starts with http/https, it's already a full URL
-    if (url.startsWith('http')) {
+    if (url.startsWith("http")) {
       return url;
     }
-    
+
     // Get the base Strapi URL
-    const strapiBaseUrl = 'https://dic-strapi.onrender.com';
-    
+    const strapiBaseUrl = "https://dic-strapi.onrender.com";
+
     // If the URL already includes /uploads, it's a relative path from Strapi
-    if (url.startsWith('/uploads')) {
+    if (url.startsWith("/uploads")) {
       return `${strapiBaseUrl}${url}`;
     }
-    
+
     // Otherwise, assume it needs the full path structure
     return `${strapiBaseUrl}${url}`;
   };
 
   // Transform API images to display format if available
-  const apiImages: DisplayImage[] = aboutData?.data?.[0]?.images?.map((img: ApiImage, index: number) => {
-    // Use the classes from fallback images for layout if they exist
-    const correspondingFallback = index < fallbackImages.length ? fallbackImages[index] : null;
-    
-    return {
-      src: getStrapiImageUrl(img.url),
-      alt: img.alternativeText || img.name || `Image ${index + 1}`,
-      className: correspondingFallback?.className || '',
-      width: img.width,
-      height: img.height
-    };
-  }) || [];
+  const apiImages: DisplayImage[] =
+    aboutData?.data?.[0]?.images?.map((img: ApiImage, index: number) => {
+      // Use the classes from fallback images for layout if they exist
+      const correspondingFallback =
+        index < fallbackImages.length ? fallbackImages[index] : null;
+
+      return {
+        src: getStrapiImageUrl(img.url),
+        alt: img.alternativeText || img.name || `Image ${index + 1}`,
+        className: correspondingFallback?.className || "",
+        width: img.width,
+        height: img.height,
+      };
+    }) || [];
 
   // Use API images if available, otherwise use fallback
   const displayImages = apiImages.length > 0 ? apiImages : fallbackImages;
@@ -154,7 +157,7 @@ const About = () => {
                       priority={index === 0}
                     />
                   </div>
-                  
+
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300" />
                 </div>
@@ -168,11 +171,17 @@ const About = () => {
               About Us
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-center lg:text-start">
-              A lot of DIC history
+              {/* A lot of DIC history */}
               {/* {aboutData?.data?.[0]?.description || 'A lot of DIC history'} */}
             </p>
             <div className="">
               <Timeline />
+            </div>
+            <div>
+              <Link href={'/about'}>
+              <button className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-600 ">
+                Read more
+              </button></Link>
             </div>
           </div>
         </div>
@@ -180,11 +189,11 @@ const About = () => {
 
       {/* Full Screen Modal */}
       {selectedImage && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <button 
+          <button
             className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white hover:text-gray-300 transition-colors p-2"
             onClick={(e) => {
               e.stopPropagation();
@@ -193,7 +202,7 @@ const About = () => {
           >
             <X className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
-          
+
           <div className="relative w-full h-[80vh] max-w-5xl mx-auto">
             <Image
               src={selectedImage.src}
@@ -208,6 +217,6 @@ const About = () => {
       )}
     </div>
   );
-}
+};
 
 export default About;

@@ -13,12 +13,12 @@ export default function Home() {
       <Hero />
       <About/>
       <Commandants/>
-      <MisionVision/>
-      <NewsBlog 
+      {/* <MisionVision/> */}
+      {/* <NewsBlog 
        columns={3}
       visible = {false}
-      />
-      <Gallery/>
+      /> */}
+      {/* <Gallery/> */}
       {/* images={galleryImages}
       title="Gallery"
       subtitle="Take a look at some of our shots" */}

@@ -12,7 +12,7 @@ const CommandantsGrid = () => {
       id: 1,
       name: 'R ADM. JA NWAGU',
       title: 'DSS psc fdc FOSHA MUSNI M.Sc.',
-      period: 'JUL, 3 - JUL, 24',
+      period: 'JUL, 23 - JUL, 24',
       imageUrl: '/22-24.jpg',
     },
     {
@@ -80,10 +80,10 @@ const CommandantsGrid = () => {
     },
     {
         id: 11,
-        name: 'CDRE UO GIBRIN',
+        name: 'CDRE UO JIBRIN',
         title: 'MSS psc(+) mni LLB PGCPA',
         period: 'OCT 7 - JAN 9',
-        imageUrl: '/7-9.jpg',
+        imageUrl: '/25.jpeg',
     },
     // {
     //     id: 12,
