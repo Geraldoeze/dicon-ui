@@ -1,6 +1,5 @@
 "use client";
 
-import ProgramCard from "./program-card";
 //import {programs} from '../home/mock';
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -57,7 +56,7 @@ const Page = () => {
           <div className="w-full lg:w-[48%]">
             <Image
               alt=""
-              src={"/PG-img.jpeg"}
+              src={"/flier.jpg"}
               width={200}
               height={200}
               style={{ width: "100%", height: "100%" }}
@@ -256,50 +255,6 @@ const Page = () => {
               least 3.50 CGPA on a 5-point scale. In addition, the candidate
               must satisfy the Departmental O'Level and /or Direct Entry general
               entry requirements for degree programmes.
-            </p>
-          </div>
-          <div className="my-6">
-            <h4 className="text-gray-900 text-lg underline font-semibold">
-              Application Form Fee
-            </h4>
-            <p className="text-gray-600 my-2 font-medium">PG Form - ₦30,000</p>
-          </div>
-          <div className="my-6">
-            <h4 className="text-gray-900 text-lg underline font-semibold">
-              Admission Acceptanace Fee
-            </h4>
-            <p className="text-gray-600 my-2 font-medium">PG Form - ₦30,000</p>
-            <p className="text-gray-600 my-2 font-medium">PGD ₦80,000</p>
-            <p className="text-gray-600 my-2 font-medium">M.Sc. ₦80,000</p>
-            <p className="text-gray-600 my-2 font-medium">PhD ₦100,000</p>
-          </div>
-          <div className="my-6">
-            <h4 className="text-gray-900 text-lg underline font-semibold">
-              Tuition
-            </h4>
-            <p className="text-gray-600 my-2 font-medium">
-              Generally, candidates can pay fully for their choice programme at
-              once before academic activities.
-            </p>
-            <p className="my-4 text-gray-600 font-medium">
-              PGD: Full payment required.
-            </p>
-            <p className="my-4 text-gray-600 font-medium">
-              M.Sc.: First Semester requires 75 per cent tuition payment, and to
-              be completed in Second Semester.
-            </p>
-            <p className="my-4 text-gray-600 font-medium">
-              PhD Tuition is to be made completely within 4 Semesters starting
-              with 50 percent before commencement of first semester.
-            </p>
-            <p className="text-gray-600 my-2 font-medium">
-              M.Sc. (3 Semesters) ₦2,100,000
-            </p>
-            <p className="text-gray-600 my-2 font-medium">
-              PGD (2 Semesters) ₦1,200,000
-            </p>
-            <p className="text-gray-600 my-2 font-medium">
-              PhD (6 semesters) ₦5,400,000
             </p>
           </div>
 
