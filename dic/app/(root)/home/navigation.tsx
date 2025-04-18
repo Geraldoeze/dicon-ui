@@ -4,8 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { X, Menu, icons } from "lucide-react";
 import InformationHeader from "./informationHeader";
-import { AboutIcon, ContactIcon, CourseIcon, DepartmentIcon, GalleryIcon, HomeIcon, NewsIcon, ProgramIcon } from "@/components/ui/svg-icon";
-
+import {
+  AboutIcon,
+  ContactIcon,
+  CourseIcon,
+  DepartmentIcon,
+  GalleryIcon,
+  HomeIcon,
+  NewsIcon,
+  ProgramIcon,
+  TeamIcon,
+} from "@/components/ui/svg-icon";
 
 // Navigation Component
 
@@ -27,9 +36,10 @@ const Navigation = () => {
     { href: "about", label: "About DIC", icon: <AboutIcon /> },
     { href: "gallery", label: "DIC Gallery", icon: <GalleryIcon /> },
     { href: "departments", label: "Departments", icon: <DepartmentIcon /> },
+    { href: "management", label: "Management", icon: <TeamIcon /> },
     { href: "courses", label: "Courses", icon: <CourseIcon /> },
     { href: "/pg-program", label: "PG Program", icon: <ProgramIcon /> },
-    { href: "/news", label: "News & Blog" , icon: <NewsIcon />},
+    { href: "/news", label: "News & Blog", icon: <NewsIcon /> },
     { href: "/contact-us", label: "Contact Us", icon: <ContactIcon /> },
   ];
 
@@ -42,25 +52,24 @@ const Navigation = () => {
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/home">
-              
                 <Image
                   src="/logo.png"
                   alt="Defence Intelligence College"
                   width={80}
                   height={80}
-                  className="h-20 w-auto"
+                  className="h-16 md:h-20 w-auto"
                 />
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="flex gap-x-6">
-              <div className="hidden lg:flex items-center lg:gap-x-2 xl:gap-x-6">
+            <div className="flex gap-x-4">
+              <div className="hidden lg:flex items-center lg:gap-x-2 xl:gap-x-4">
                 {navLinks.map((nav, id) => (
                   <Link
                     key={id}
                     href={nav.href}
-                    className="text-gray-800 flex items-center gap-1 min-w-fit md:text-[.8rem] lg:text-[.9rem] hover:text-blue-600 font-medium transition-colors"
+                    className="text-gray-800 flex items-center gap-1 min-w-fit md:text-[.6rem] lg:text-[.8rem] hover:text-blue-600 font-medium transition-colors"
                   >
                     {nav.icon}
                     {nav.label}

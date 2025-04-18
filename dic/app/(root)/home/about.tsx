@@ -104,7 +104,7 @@ const About = () => {
     }
 
     // Get the base Strapi URL
-    const strapiBaseUrl = "https://dic-strapi.onrender.com";
+    const strapiBaseUrl = "http://138.197.7.199:1337";
 
     // If the URL already includes /uploads, it's a relative path from Strapi
     if (url.startsWith("/uploads")) {
@@ -178,10 +178,11 @@ const About = () => {
               <Timeline />
             </div>
             <div>
-              <Link href={'/about'}>
-              <button className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-600 ">
-                Read more
-              </button></Link>
+              <Link href={"/about"}>
+                <button className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-600 ">
+                  Read more
+                </button>
+              </Link>
             </div>
           </div>
         </div>
