@@ -53,7 +53,7 @@ const Page = () => {
 
       <div className="container mx-auto my-12">
         <div className="flex flex-col lg:flex-row justify-center gap-10">
-          <div className="w-full lg:w-[48%]">
+          <div className="w-full lg:w-[48%] relative">
             <Image
               alt=""
               src={"/flier.jpg"}
@@ -61,10 +61,13 @@ const Page = () => {
               height={200}
               style={{ width: "100%", height: "100%" }}
             />
+            <div className=" absolute bottom-1 w-full h-10 bg-green-800" >
+              <p className="text-center text-gray-100 font-semibold"><a target="_blank" href="https://dicnigeria.com.ng" >https://dicnigeria.com.ng</a></p>
+            </div>
           </div>
           <div className="w-full lg:w-[48%]">
             <h3 className="text-gray-900 font-bold text-4xl">
-              FSS-UNN & DIC POSTGRADUATE PROGRAMMES
+            FACULTY OF SOCIAL SCIENCES UNN IN AFFILIATION WITH DIC - LIST OF POSTGRADUATE PROGRAMMES.
             </h3>
             <div className="my-6">
               <h4 className="text-gray-900 text-lg underline font-semibold">
@@ -141,7 +144,7 @@ const Page = () => {
             <p className="text-gray-600 my-2 font-medium">
               Criminology, Conflict and Change:
               <br />
-              The criteria for admission into the PGD programme will be as
+              The criteria for admission into the M.Sc programme will be as
               follows:
               <br />
               Matriculation requirement of the University, which is five (5)
@@ -213,8 +216,7 @@ const Page = () => {
               Criminal Psychology and Forensic Studies:
             </p>
             <p className="text-gray-600 my-4 font-medium">
-              The basic entry qualification for admission into the PGD is HND in
-              any academic field.The entry qualification for admission into the
+            The entry qualification for admission into the
               M.Sc. programme is a Bachelor’s Degree with at least a
               Second-Class Lower Division with not less than 3.00 GPA or its
               equivalent in Psychology or other related fields in Criminal and
@@ -235,8 +237,8 @@ const Page = () => {
               Strategic Intelligence and Security Management:
             </p>
             <p className="text-gray-600 my-2 font-medium">
-              The basic entry qualification for admission into the PGD is HND in
-              any academic field.The criteria for admission into M.Sc. Strategic
+              
+              The criteria for admission into M.Sc. Strategic
               Intelligence programme will be as follows:
             </p>
             <p className="text-gray-600 my-4 font-medium">

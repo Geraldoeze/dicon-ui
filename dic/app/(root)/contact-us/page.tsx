@@ -293,7 +293,7 @@ const Contact = () => {
             </span>{" "}
             or call{" "}
             <span className="font-medium text-indigo-600">
-              <a href="tel:08036326299">08036326299</a>
+              <a href="tel:+2348164219007">+234 816 421 9007</a>
             </span>
           </p>
         </div>

@@ -272,7 +272,7 @@ const ApplicationPortal: React.FC = () => {
           <div className="max-w-xl mx-auto space-y-8 p-4">
             <div className="text-center space-y-4">
               <h2 className="text-2xl font-semibold">Payment Information</h2>
-              <p className="text-gray-600">Pay #5000 non-refundable application fee</p>
+              <p className="text-gray-600">Pay &#8358;30000 non-refundable application fee</p>
             </div>
             <div className="space-y-4 border rounded-lg p-6 bg-white">
               <PaymentDetail label="Account Name" value="UNN" />
