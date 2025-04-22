@@ -19,7 +19,8 @@ const MisionVision = () => {
     }
     
     // Get the base Strapi URL
-    const strapiBaseUrl = 'http://138.197.7.199:1337';
+    // const strapiBaseUrl = 'http://138.197.7.199:1337';
+    const strapiBaseUrl = 'https://dic-strapi.onrender.com';
     
     // If the URL already includes /uploads, it's a relative path from Strapi
     if (url.startsWith('/uploads')) {
