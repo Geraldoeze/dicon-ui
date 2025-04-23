@@ -30,7 +30,7 @@ const Hero = () => {
       <div
         className={`absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center`}
       >
-        <div className="absolute inset-0 bg-[#0F204B]/60 backdrop-blur-xs" />
+        <div className="absolute inset-0 bg-[#0F204B]/90 backdrop-blur-xs" />
       </div>
 
       {hero?.data.map((item) => (

@@ -39,7 +39,7 @@ const Departments = () => {
   useEffect(() => {
     // Fetch data from the API
     Promise.all([
-        fetch('https://dic.0ps.tech/api/departments').then(response => response.json()),
+        fetch('https://dicnigeria.com.ng/api/departments').then(response => response.json()),
     ])
     .then(([departmentData]) => {
         setDepartment(departmentData.data);

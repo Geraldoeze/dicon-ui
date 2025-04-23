@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X, Menu, icons } from "lucide-react";
+import { X, Menu } from "lucide-react";
 import InformationHeader from "./informationHeader";
 import {
   AboutIcon,
@@ -47,17 +47,17 @@ const Navigation = () => {
     <div className="sticky top-0 z-50 w-full">
       <InformationHeader />
       <nav className="bg-white/95 backdrop-blur-sm shadow-sm">
-        <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between space-x-5 h-16 md:h-20">
+        <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="flex items-center justify-between space-x-4 h-16 md:h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link href="/home">
                 <Image
                   src="/logo.png"
                   alt="Defence Intelligence College"
-                  width={80}
-                  height={80}
-                  className="h-16 md:h-20 w-auto"
+                  width={50}
+                  height={50}
+                  className="h-16 md:h-16 w-auto"
                 />
               </Link>
             </div>
@@ -81,7 +81,7 @@ const Navigation = () => {
               <div className="hidden lg:block">
                 <Link
                   href="/portal/login"
-                  className="bg-[#2D2F93] text-white px-6 py-2 rounded-md hover:bg-blue-900 
+                  className="bg-[#2D2F93] text-white px-4 py-2 rounded-md hover:bg-blue-900 
                 transition-colors duration-300"
                 >
                   Log In
@@ -123,7 +123,7 @@ const Navigation = () => {
                 {/* Mobile Apply Button */}
                 <Link
                   href="/portal/login"
-                  className="bg-[#2D2F93] text-white px-8 py-3 rounded-md hover:bg-blue-900 
+                  className="bg-[#2D2F93] text-white px-6 py-3 rounded-md hover:bg-blue-900 
                   transition-colors duration-300 mt-6"
                   onClick={() => {
                     setIsOpen(false);

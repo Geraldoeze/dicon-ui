@@ -56,7 +56,7 @@ const imagesArray = [
 
 const AboutUs = () => {
   return (
-    <div className="bg-gray-50 text-slate-800">
+    <div className="min-h-screen lg:min-h-full relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
       {/* Hero Section */}
       <div className="relative w-full px-6 lg:px-12 py-12">
         <div className="max-w-6xl mx-auto">
@@ -90,7 +90,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className="border-2  shadow-xl  rounded p-6 max-w-2xl mx-auto my-8 ">
+          <div className="border-2 bg-white shadow-xl  rounded p-6 max-w-2xl mx-auto my-8 ">
             <h3 className="font-bold text-3xl mb-4 text-center   rounded-t-md py-3">
               Vision Statement
             </h3>
@@ -105,7 +105,7 @@ const AboutUs = () => {
 
           {/* Mission and Vision */}
           <div className="my-16 space-y-12">
-            <div className="border-2  rounded p-6 max-w-2xl mx-auto my-8 shadow-xl">
+            <div className="border-2 bg-white rounded p-6 max-w-2xl mx-auto my-8 shadow-xl">
               <h3 className="font-bold text-3xl mb-4 text-center  rounded-t-md py-3">
                 Mission Statement
               </h3>
