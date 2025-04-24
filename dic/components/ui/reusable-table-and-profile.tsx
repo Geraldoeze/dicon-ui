@@ -60,6 +60,17 @@ interface Application  {
   updated_at: string;
 };
 
+interface Course {
+  id: number;
+  course_id: number;
+  course_name: string;
+  course_code: string;
+  units: number;
+  total_videos: number;
+  total_students: number;
+  lecturer_in_charge: string;
+}
+
 type TableColumn = {
   key: string;
   header: string;
@@ -68,9 +79,9 @@ type TableColumn = {
 
 type DataTableProps = {
   columns: TableColumn[];
-  data: (Student | Staff | Application)[];
+  data: (Student | Staff | Application | Course)[];
   onRowClick?: (row: any) => void;
-  type: 'student' | 'staff' | 'application';
+  type: 'student' | 'staff' | 'application' | 'course';
   actions?: React.ReactNode;
 };
 
@@ -96,8 +107,15 @@ const getDisplayName = (data: Student | Staff | Application): string => {
 };
 
 // Helper function to get the ID
-const getId = (data: Student | Staff | Application): number => {
+// const getId = (data: Student | Staff | Application): number => {
+//   if (isStudent(data)) return data.student_id;
+//   return data.id;
+// };
+
+
+const getId = (data: Student | Staff | Application | any): number => {
   if (isStudent(data)) return data.student_id;
+  if ('course_id' in data) return data.course_id;
   return data.id;
 };
 

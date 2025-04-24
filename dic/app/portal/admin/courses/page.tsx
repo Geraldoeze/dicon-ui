@@ -156,6 +156,7 @@ const AdminCourses = () => {
       <DataTable 
         columns={courseColumns}
         data={courses?.data || []}
+        type='course'
         // onRowClick={(course) => router.push(`/portal/admin/courses/${course.id}`)}
       />
 

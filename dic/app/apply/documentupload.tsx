@@ -5,11 +5,15 @@ import { FileWarning } from 'lucide-react';
 interface DocumentUploadProps {
   onPhotoUpload: (file: File | null) => void;
   onFormUpload: (file: File | null) => void;
+  photoError?: boolean;
+  formError?: boolean;
 }
 
 export const DocumentUpload: React.FC<DocumentUploadProps> = ({
   onPhotoUpload,
-  onFormUpload
+  onFormUpload,
+  photoError,
+  formError
 }) => {
   return (
     <div className="max-w-lg m-auto md:text-center">
@@ -22,6 +26,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({
         accept="image/*"
         maxSize={2}
         onFileSelect={onPhotoUpload}
+        error={photoError ? "Photo upload is required" : ""}
       />
 
       <FileUpload
@@ -30,6 +35,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({
         accept=".pdf"
         maxSize={5}
         onFileSelect={onFormUpload}
+        error={formError ? "PG Form upload is required" : ""}
       />
    
     <div className="text-start flex items-center gap-x-2">
