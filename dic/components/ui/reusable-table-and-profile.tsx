@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Filter, Search, Mail, Phone, MapPin, Calendar, GraduationCap, Download, User } from 'lucide-react';
+import Link from 'next/link';
 
 // Types for different data structures
 interface Student {
@@ -203,8 +204,8 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
         <div className="flex-1 items-center">
           <h2 className="text-2xl font-semibold">{getDisplayName(data)}</h2>
           {(isApplication(data)) || type === 'application' && (
-            <div className="">
-            <h1 className='text-lg md:text-xl font-medium'>{data.first_name} {data.last_name}</h1>
+            <div className="flex items-center">
+            <h1 className='text-base sm:text-lg md:text-xl font-medium'>{data.first_name} {data.last_name}</h1>
             </div>
           )}
           {(isStudent(data)) && (
@@ -212,7 +213,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
           )}
           {isStaff(data) || type === 'staff' && (
             <div className="">
-            <h1 className='text-lg md:text-xl font-medium'>{data.full_name}</h1>
+            <h1 className='text-base sm:text-lg md:text-xl font-medium'>{data.full_name}</h1>
             {/* <p className="text-gray-500">{data.department}</p> */}
             </div>
           )}
@@ -309,6 +310,14 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
           )}
           {isApplication(data) || type === 'application' && (
               <>
+              <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+              <User className="w-5 h-5 text-gray-400" />
+              <span>Date of Birth</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.date_of_birth}</h1>
+              <hr />
+              </div>
                <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <User className="w-5 h-5 text-gray-400" />
@@ -335,7 +344,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
               </div>
             <div className="flex items-center flex-col md:flex-row gap-2">
               <Calendar className="w-5 h-5 text-gray-400" />
-              <span>Applied on: {data.date_of_birth}</span>
+              <span>Applied on: {data.created_at}</span>
             </div>
             </>
           )}
@@ -357,14 +366,23 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
         {isApplication(data) || type === 'application' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Documents</h3>
-            {['Nin.pdf', 'Passport'].map((doc) => (
-              <div key={doc} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+            {['Application Form.pdf', 'Passport'].map((doc) => (
+              <div key={doc} className="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div>
-                  <p className="font-medium">{doc}</p>
-                  <p className="text-sm text-gray-500">11 Sep, 2023 • 13MB</p>
+                  <p className="font-medium text-center md:text-start">{doc}</p>
+                  {/* <p className="text-sm text-gray-500">11 Sep, 2023 • 13MB</p> */}
                 </div>
                 <Button variant="ghost" size="sm">
+                  {doc === 'Application Form.pdf' ?
+                  <Link href={data.application_form_url} target="_blank" className="flex items-center space-x-2">
+                  <span>Download</span>
                   <Download className="w-4 h-4" />
+                  </Link>: 
+                  <Link href={data.photo_url} target="_blank" className="flex items-center space-x-2">
+                    <span>View</span>
+                  <Download className="w-4 h-4" />
+                  </Link>
+                  }
                 </Button>
               </div>
             ))}

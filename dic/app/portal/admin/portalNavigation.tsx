@@ -51,7 +51,7 @@ const navItems = [
   { title: "Courses", icon: <Book className='w-5 h-5'/>, href:'/portal/admin/courses'},
   { title: "Staffs", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/staffs" },
   { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students"},
-  { title: "Admins", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/admins" },
+  { title: "Register a new Admin", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/admins" },
 ];
 
 export function Layout({ children, breadcrumbs }: LayoutProps) {
