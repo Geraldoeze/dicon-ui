@@ -96,6 +96,9 @@ const ApplicationPortal: React.FC = () => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<string>("NG");
+  const [fileUploadError, setFileUploadError] = useState(false);
+  const [photoError, setPhotoError] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<{
     photo: File | null;
     application_form: File | null;
@@ -171,13 +174,36 @@ const ApplicationPortal: React.FC = () => {
         setCompletedSteps([...completedSteps, steps[currentStep].id]);
         setCurrentStep(currentStep + 1);
       })();
-    } else {
+    } else if (currentStep === 1) {
       // For other steps, just proceed
       setCurrentStep(prev => prev + 1);
+    }
+    else if (currentStep === 2) {
+      // Check if files are uploaded before proceeding
+      if (fileUploadError) {
+        
+      } else {
+        setCompletedSteps([...completedSteps, steps[currentStep].id]);
+        submitApplication(watch());
+      }
     }
   };
 
   const onSubmit = (data: ApplicationFormData) => {
+    // Handle form submission
+    if (currentStep === 2 && (!uploadedFiles.photo || !uploadedFiles.application_form)) {
+      setFileUploadError(true);
+      if (!uploadedFiles.photo) {
+        setPhotoError(true);
+      }
+      if (!uploadedFiles.application_form) {
+        setFormError(true);
+      }
+      return;
+      setPhotoError(false);
+      setFormError(false);
+
+    }
     submitApplication(data);
   };
 
@@ -248,12 +274,12 @@ const ApplicationPortal: React.FC = () => {
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium">Academic Program</label>
-              <Select onValueChange={handleProgramChange}>
+              <Select onValueChange={handleProgramChange} {...register("program_id", { required: true })}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a program" />
                 </SelectTrigger>
                 <SelectContent>
-                  {programs.map((program) => (
+                  {programs.map((program: any) => (
                     <SelectItem key={program.id} value={program.id.toString()}>
                       {program.program}
                     </SelectItem>
@@ -297,8 +323,10 @@ const ApplicationPortal: React.FC = () => {
       case 2:
         return (
           <DocumentUpload
-            onPhotoUpload={(file) => setUploadedFiles(prev => ({ ...prev, photo: file }))}
-            onFormUpload={(file) => setUploadedFiles(prev => ({ ...prev, application_form: file }))}
+            onPhotoUpload={(file) => {setUploadedFiles(prev => ({ ...prev, photo: file })); setPhotoError(false)}}
+            onFormUpload={(file) => {setUploadedFiles(prev => ({ ...prev, application_form: file })); setFormError(false)}}
+            photoError={photoError}
+            formError={formError}
           />
         );
 

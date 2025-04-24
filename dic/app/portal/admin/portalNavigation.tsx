@@ -14,6 +14,7 @@ import {
   Menu, 
   LogOut, 
   BookOpen, 
+  Book,
   Users, 
   ClipboardList, 
   Pencil, 
@@ -47,10 +48,10 @@ const navItems = [
   { title: "Overview", icon: <BookOpen className="w-5 h-5" />, href: "/portal/admin/overview" },
   { title: "Applications", icon: <Users className="w-5 h-5" />, href: "/portal/admin/applications" },
   { title: "Classes", icon: <Timer className='w-5 h-5'/>, href:'/portal/admin/timetable'},
-  { title: "Courses", icon: <Timer className='w-5 h-5'/>, href:'/portal/admin/courses'},
+  { title: "Courses", icon: <Book className='w-5 h-5'/>, href:'/portal/admin/courses'},
   { title: "Staffs", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/staffs" },
-  { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students"}
-
+  { title: "Students", icon: <Pencil className="w-5 h-5" />, href: "/portal/admin/students"},
+  { title: "Admins", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/admin/admins" },
 ];
 
 export function Layout({ children, breadcrumbs }: LayoutProps) {
@@ -143,6 +144,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
         </ScrollArea>
 
         <div className="p-4 border-t border-gray-800 space-y-2">
+          <Link href="/contact-us">
           <Button 
             variant="ghost" 
             className="w-full justify-start gap-3 hover:bg-white/10 transition-colors"
@@ -150,6 +152,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
             <HelpCircle className="w-5 h-5" />
             Support
           </Button>
+          </Link>
           <Link href="/">
           <Button 
             variant="ghost" 

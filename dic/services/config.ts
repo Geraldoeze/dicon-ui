@@ -1,7 +1,7 @@
 
 
 // export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://0ps.tech/dic/api';
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/staging/api';
 
 
 // export const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://138.197.7.199:1337/api'

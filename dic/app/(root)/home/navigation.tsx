@@ -47,7 +47,7 @@ const Navigation = () => {
     <div className="sticky top-0 z-50 w-full">
       <InformationHeader />
       <nav className="bg-white/95 backdrop-blur-sm shadow-sm">
-        <div className="max-w-[90vw] mx-auto px-4 sm:px-6 lg:px-6">
+        <div className="max-w-[90vw] lg:max-w-[95vw] mx-auto px-4 sm:px-6 lg:px-6">
           <div className="flex items-center justify-between space-x-4 h-16 md:h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -64,7 +64,7 @@ const Navigation = () => {
 
             {/* Desktop Navigation */}
             <div className="flex gap-x-4">
-              <div className="hidden lg:flex items-center lg:gap-x-2 xl:gap-x-4">
+              <div className="hidden xl:flex items-center lg:gap-x-2 xl:gap-x-4">
                 {navLinks.map((nav, id) => (
                   <Link
                     key={id}
@@ -78,7 +78,7 @@ const Navigation = () => {
               </div>
 
               {/* Log In Button */}
-              <div className="hidden lg:block">
+              <div className="hidden xl:block">
                 <Link
                   href="/portal/login"
                   className="bg-[#2D2F93] text-white px-4 py-2 rounded-md hover:bg-blue-900 
@@ -91,7 +91,7 @@ const Navigation = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden z-50 p-2"
+              className="xl:hidden z-50 p-2"
               onClick={toggleMenu}
               aria-label="Toggle menu"
             >

@@ -10,6 +10,7 @@ interface FileUploadProps {
   accept: string;
   maxSize: number; // in MB
   onFileSelect: (file: File | null) => void;
+  error?: string;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -17,11 +18,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   description,
   accept,
   maxSize,
-  onFileSelect
+  onFileSelect,
+  error: internalError,
+  // error,
 }) => {
   const [error, setError] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+
+  const displayError = error || internalError;
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -111,10 +117,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </div>
       </div>
       
-      {error && (
-        <Alert variant="destructive">
+      {displayError && (
+        <Alert variant="destructive" className='flex items-center gap-x-2'>
           <FileWarning className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>{displayError}</AlertDescription>
         </Alert>
       )}
     </div>
