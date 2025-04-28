@@ -61,6 +61,8 @@ const Staffs = () => {
     queryFn: () => adminService.getStaffs(),
   });
 
+  console.log(staffs)
+
   // Set up mutation for registration
   const registerMutation = useMutation({
     mutationFn: (data: RegisterStaffData) => {
@@ -276,7 +278,7 @@ const Staffs = () => {
                 />
               </div>
               <div>
-                <SelectDepartment onSelect={handleDepartment} stateId={""} />
+                <SelectDepartment onSelect={handleDepartment}  />
               </div>
             </div>
             <DialogFooter>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
@@ -19,6 +19,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Pagination from '@/components/ui/pagination';
+import { QueryParams } from '@/interface/admin';
+import { useDebounce } from '@/hooks/useDebounce';
+import { programsService } from '@/services/programs.service';
 
 
 interface Course {
@@ -32,12 +36,22 @@ interface Course {
   lecturer_in_charge: string
 }
 
-interface CreateCourseData { 
+type CoursesResponse = {
+  data: Course[];
+  meta: {
+    current_page: number;
+    total_pages: number;
+  };
+  message: string
+};
+
+interface CreateCourseData {
   name: string;
   code: string;
   credit_unit: number;
   lecturer_id: number;
   description: string;
+  program_id: number;
 }
 
 // Table configuration for courses
@@ -45,6 +59,7 @@ const courseColumns = [
   { key: 'course_name', header: 'Course Name' },
   { key: 'course_code', header: 'Course Code' },
   { key: 'units', header: 'Units' },
+  { key: 'program', header: 'Program' },
   { key: 'total_students', header: 'Total Students' },
   { key: 'lecturer_in_charge', header: 'Lecturer' }
 ];
@@ -59,27 +74,64 @@ const AdminCourses = () => {
     code: '',
     credit_unit: 3,
     lecturer_id: 0,
+    program_id: 0,
     description: ''
   });
 
+  const [searchInput, setSearchInput] = useState('')
+  const [showFilter, setShowFilter] = useState(false)
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    search: '',
+    page: 1,
+    page_size: 10,
+  })
+
+  const debouncedSearch = useDebounce(searchInput, 500)
+
   // Fetch courses
-  const { 
-    data: courses, 
-    isLoading: isLoadingCourses, 
-    error: coursesError 
+  const {
+    data: courses,
+    isLoading: isLoadingCourses,
+    error: coursesError
   } = useQuery({
-    queryKey: ['courses'],
-    queryFn: () => adminService.getCourses(),
+    queryKey: ['courses', queryParams],
+    queryFn: () => adminService.getCourses(queryParams),
+    staleTime: 5 * 60 * 1000,
   });
 
+  useEffect(() => {
+    setQueryParams((prev) => ({
+      ...prev,
+      search: debouncedSearch,
+      page: 1,
+    }))
+  }, [debouncedSearch])
+
   // Fetch lecturers for selection
-  const { 
-    data: lecturers, 
-    isLoading: isLoadingLecturers 
+  const {
+    data: lecturers,
+    isLoading: isLoadingLecturers
   } = useQuery({
     queryKey: ['lecturers'],
     queryFn: () => adminService.getStaffs(),
   });
+
+  // Fetch programs for selection
+  const {
+    data: programs,
+    isLoading: isLoadingPrograms
+  } = useQuery({
+    queryKey: ['programs'],
+    queryFn: () => programsService.getPrograms(),
+  });
+
+  //
+  const prefetchNextPage = (nextPage: number) => {
+    queryClient.prefetchQuery({
+      queryKey: ['courses', { ...queryParams, page: nextPage }],
+      queryFn: () => adminService.getCourses({ ...queryParams, page: nextPage }),
+    })
+  }
 
   // Add course mutation
   const addCourseMutation = useMutation({
@@ -105,7 +157,21 @@ const AdminCourses = () => {
         description: ''
       });
     },
-    onError: () => {}});
+    onError: () => { }
+  });
+
+  //
+  const handlePageChange = (page: number) => {
+    prefetchNextPage(page + 1)
+    setQueryParams((prev) => ({
+      ...prev,
+      page,
+    }))
+  }
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value)
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -140,6 +206,8 @@ const AdminCourses = () => {
     );
   }
 
+
+
   return (
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-between items-center">
@@ -153,12 +221,21 @@ const AdminCourses = () => {
         </Button>
       </div>
 
-      <DataTable 
+      <DataTable
         columns={courseColumns}
         data={courses?.data || []}
         type='course'
-        // onRowClick={(course) => router.push(`/portal/admin/courses/${course.id}`)}
+        onRowClick={(course) => router.push(`/portal/admin/courses/${course.course_id}`)}
       />
+      {!isLoadingCourses && courses?.meta && courses?.data?.length > 0 && (
+        <Pagination
+          currentPage={courses.meta.current_page}
+          totalPages={courses.meta.total_pages}
+          onPageChange={handlePageChange}
+          disabled={isLoadingCourses}
+        />
+      )}
+
 
       {/* Create Course Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
@@ -182,7 +259,7 @@ const AdminCourses = () => {
                   required
                 />
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="code">Course Code</Label>
                 <Input
@@ -194,7 +271,7 @@ const AdminCourses = () => {
                   required
                 />
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="credit_unit">Credit Units</Label>
                 <Input
@@ -208,10 +285,10 @@ const AdminCourses = () => {
                   required
                 />
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="lecturer_id">Lecturer</Label>
-                <Select 
+                <Select
                   onValueChange={(value) => handleSelectChange(value, 'lecturer_id')}
                   value={formData.lecturer_id.toString()}
                 >
@@ -231,7 +308,29 @@ const AdminCourses = () => {
                   </SelectContent>
                 </Select>
               </div>
-              
+              <div className="grid gap-2">
+                <Label htmlFor="program_id">Program</Label>
+                <Select
+                  onValueChange={(value) => handleSelectChange(value, 'program_id')}
+                  value={formData.program_id.toString()}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a Program" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {isLoadingPrograms ? (
+                      <SelectItem value="loading">Loading programs...</SelectItem>
+                    ) : (
+                      programs?.data?.map((program: any) => (
+                        <SelectItem key={program.id} value={program.id.toString()}>
+                          {program.program}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="grid gap-2">
                 <Label htmlFor="description">Description</Label>
                 <Textarea
@@ -246,15 +345,15 @@ const AdminCourses = () => {
               </div>
             </div>
             <DialogFooter>
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => setIsCreateDialogOpen(false)}
               >
                 Cancel
               </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="bg-indigo-600 hover:bg-indigo-700/50 text-white"
                 disabled={addCourseMutation.isPending}
               >
@@ -275,7 +374,7 @@ const AdminCourses = () => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button 
+            <Button
               onClick={() => setIsSuccessModalOpen(false)}
               className="bg-indigo-600 hover:bg-indigo-700/50 text-white"
             >

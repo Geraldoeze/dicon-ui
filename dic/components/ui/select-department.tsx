@@ -17,7 +17,7 @@ export interface SelectOption {
 
 interface SelectDepartmentProps {
   onSelect: (selected: SelectOption) => void;
-  stateId: string;
+  
 }
 
 const SelectDepartment: React.FC<SelectDepartmentProps> = ({ onSelect }) => {

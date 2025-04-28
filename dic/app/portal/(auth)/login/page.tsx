@@ -49,7 +49,7 @@ const LogIn = () => {
         username: formData.username,
         password: formData.password,
       });
-
+console.log(user)
       // Redirect to appropriate dashboard
       AuthService.redirectToDashboard(user.accountType);
     } catch (err) {

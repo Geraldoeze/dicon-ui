@@ -132,6 +132,7 @@ const ApplicationPortal: React.FC = () => {
       return response?.data || [];
     }
   });
+  console.log(programs)
 
   // TanStack Query mutation for submitting application
   const { mutate: submitApplication, isPending: isSubmitting } = useMutation({

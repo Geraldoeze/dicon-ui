@@ -56,14 +56,12 @@ const Page = () => {
           <div className="w-full lg:w-[48%] relative">
             <Image
               alt=""
-              src={"/flier.jpg"}
+              src={"/flier.jpeg"}
               width={200}
               height={200}
               style={{ width: "100%", height: "100%" }}
             />
-            <div className=" absolute bottom-1 w-full h-10 bg-green-800" >
-              <p className="text-center text-gray-100 font-semibold"><a target="_blank" href="https://dicnigeria.com.ng" >https://dicnigeria.com.ng</a></p>
-            </div>
+          
           </div>
           <div className="w-full lg:w-[48%]">
             <h3 className="text-gray-900 font-bold text-4xl">
