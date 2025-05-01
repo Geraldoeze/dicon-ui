@@ -1,7 +1,7 @@
 
 
 // export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://0ps.tech/dic/api';
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/api';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/staging/api';
 // export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/staging/api';
 
 // export const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://138.197.7.199:1337/api'
@@ -27,7 +27,7 @@ export const STRAPI_ENDPOINTS = {
 export const AUTH_ENDPOINTS = {
   REGISTER: '/auth/register',
   LOGIN: '/auth/login',
-  LOGOUT: '/auth/logout',
+  // LOGOUT: '/auth/logout',
   FORGOT_PASSWORD: (email: string) => `/auth/forgot-password?email=${email}`,
   RESET_PASSWORD: '/auth/reset-password'
 };

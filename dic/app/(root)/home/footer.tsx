@@ -6,8 +6,8 @@ const Footer = () => {
   return (
     <div className="relative bg-[url('/commandants-bg.jpg')] bg-cover bg-center">
         <div className="absolute bg-slate-50/90 inset-0"></div>
-        <div className="max-w-[80vw] mx-auto relative z-1 py-5">
-        <footer className="py-12">
+        <div className="max-w-[80vw] mx-auto relative z-1 pt-5">
+        <footer className="pt-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Follow Us Section */}
@@ -94,17 +94,29 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Copyright Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <p className="text-center text-gray-600">
-            © {currentYear} - Defence Intelligence College
-          </p>
-        </div>
+       
       </div>
     </footer>
 
         </div>
+
+        <div className="flex items-center justify-around mt-5 px-10 py-5 bg-indigo-600 text-center relative">
+          {/* Copyright Section */}
+        <div className="">
+          <p className="text-white text-base">
+            © {currentYear} - Defence Intelligence College.
+          </p>
+        </div>
+       
+        <div className="">
+          <p className='text-white text-base'>Designed and Developed by  
+            <a target='_blank' href="https://aiq.ng" className='ps-2 text-xl font-semibold'>AIQ</a>
+          </p>
+        </div>
+
+        </div>
+
+
 
     </div>
   )
