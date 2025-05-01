@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
@@ -26,6 +26,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SelectDepartment from "@/components/ui/select-department";
+import { useDebounce } from "@/hooks/useDebounce";
+import Pagination from "@/components/ui/pagination";
+import { programsService } from "@/services/programs.service";
+import { QueryParams } from "@/interface/admin";
 
 type Staff = {
   id: string;
@@ -52,16 +56,30 @@ const Staffs = () => {
 
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
+  const [searchInput, setSearchInput] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
+  const [queryParams, setQueryParams] = useState<QueryParams>({
+    search: "",
+    page: 1,
+    page_size: 10,
+  });
+
+  const debouncedSearch = useDebounce(searchInput, 500);
+
   const {
     data: staffs,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["staffs"],
-    queryFn: () => adminService.getStaffs(),
+    queryKey: ["staffs", queryParams],
+    queryFn: () => adminService.getStaffs(queryParams),
   });
 
-  console.log(staffs)
+  // Fetch programs for selection
+  const { data: programs, isLoading: isLoadingPrograms } = useQuery({
+    queryKey: ["programs"],
+    queryFn: () => programsService.getPrograms(),
+  });
 
   // Set up mutation for registration
   const registerMutation = useMutation({
@@ -87,6 +105,14 @@ const Staffs = () => {
     },
     onError: () => {},
   });
+
+  useEffect(() => {
+    setQueryParams((prev) => ({
+      ...prev,
+      search: debouncedSearch,
+      page: 1,
+    }));
+  }, [debouncedSearch]);
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,7 +147,29 @@ const Staffs = () => {
   const handleDepartment = (value: { id: string | number; name: string }) => {
     setFormData((prev) => ({ ...prev, department_id: Number(value.id) }));
   };
+  //
+  const prefetchNextPage = (nextPage: number) => {
+    queryClient.prefetchQuery({
+      queryKey: ["courses", { ...queryParams, page: nextPage }],
+      queryFn: () =>
+        adminService.getCourses({ ...queryParams, page: nextPage }),
+    });
+  };
+  //
+  const handlePageChange = (page: number) => {
+    prefetchNextPage(page + 1);
+    setQueryParams((prev) => ({
+      ...prev,
+      page,
+    }));
+  };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(event.target.value);
+  };
+  const handleSelectChange = (value: string, name: string) => {
+    setFormData(prev => ({ ...prev, [name]: parseInt(value) }));
+  };
   return (
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">
@@ -141,6 +189,14 @@ const Staffs = () => {
         type="staff"
         onRowClick={(staff) => router.push(`/portal/admin/staffs/${staff.id}`)}
       />
+      {!isLoading && staffs?.meta && staffs?.data?.length > 0 && (
+        <Pagination
+          currentPage={staffs.meta.current_page}
+          totalPages={staffs.meta.total_pages}
+          onPageChange={handlePageChange}
+          disabled={isLoading}
+        />
+      )}
 
       {/* Registration Dialog */}
       <Dialog
@@ -278,7 +334,36 @@ const Staffs = () => {
                 />
               </div>
               <div>
-                <SelectDepartment onSelect={handleDepartment}  />
+                <SelectDepartment onSelect={handleDepartment} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="program_id">Program</Label>
+                <Select
+                  onValueChange={(value) =>
+                    handleSelectChange(value, "program_id")
+                  }
+                  value={formData.program_id.toString()}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a Program" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {isLoadingPrograms ? (
+                      <SelectItem value="loading">
+                        Loading programs...
+                      </SelectItem>
+                    ) : (
+                      programs?.data?.map((program: any) => (
+                        <SelectItem
+                          key={program.id}
+                          value={program.id.toString()}
+                        >
+                          {program.program}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <DialogFooter>

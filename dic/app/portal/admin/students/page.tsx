@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { adminService } from '@/services/admin.service';
@@ -16,6 +16,9 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { QueryParams, QueryStudentParams } from '@/interface/admin';
+import { useDebounce } from '@/hooks/useDebounce';
+import Pagination from '@/components/ui/pagination';
 
 
 // Table configuration
@@ -44,16 +47,41 @@ const Students = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  
+    const [searchInput, setSearchInput] = useState('')
+    const [showFilter, setShowFilter] = useState(false)
+    const [queryParams, setQueryParams] = useState<QueryStudentParams>({
+      search: '',
+      page: 1,
+      page_size: 10,
+      status: 'Active'
+    })
+
+      const debouncedSearch = useDebounce(searchInput, 500)
+    
   // Set up the query correctly
   const { 
     data: students, 
     isLoading, 
     error 
   } = useQuery({
-    queryKey: ['students'],
-    queryFn: () => adminService.getStudents(),
+    queryKey: ['students', queryParams],
+    queryFn: () => adminService.getStudents(queryParams),
   });
+  
+   useEffect(() => {
+      setQueryParams((prev) => ({
+        ...prev,
+        search: debouncedSearch,
+        page: 1,
+      }))
+    }, [debouncedSearch])
+
+      const prefetchNextPage = (nextPage: number) => {
+        queryClient.prefetchQuery({
+          queryKey: ['students', { ...queryParams, page: nextPage }],
+          queryFn: () => adminService.getStudents({ ...queryParams, page: nextPage }),
+        })
+      }
 
   // Set up mutation for registration
   const registerMutation = useMutation({
@@ -85,6 +113,18 @@ const Students = () => {
       account_type_id: 1 // For student
     });
   };
+
+    //
+    const handlePageChange = (page: number) => {
+      prefetchNextPage(page + 1)
+      setQueryParams((prev) => ({
+        ...prev,
+        page,
+      }))
+    }
+      const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchInput(event.target.value)
+      }
 
   // Handle loading state
   if (isLoading) {
@@ -118,6 +158,14 @@ const Students = () => {
         type='student'
         onRowClick={(student) => router.push(`/portal/admin/students/${student.id}`)}
       />
+         {!isLoading && students?.meta && students?.data?.length > 0 && (
+        <Pagination
+          currentPage={students.meta.current_page}
+          totalPages={students.meta.total_pages}
+          onPageChange={handlePageChange}
+          disabled={isLoading}
+        />
+      )}
 
       {/* Registration Dialog */}
       <Dialog open={isRegisterDialogOpen} onOpenChange={setIsRegisterDialogOpen}>

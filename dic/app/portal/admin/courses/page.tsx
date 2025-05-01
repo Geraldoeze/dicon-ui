@@ -113,8 +113,9 @@ const AdminCourses = () => {
     isLoading: isLoadingLecturers
   } = useQuery({
     queryKey: ['lecturers'],
-    queryFn: () => adminService.getStaffs(),
+    queryFn: () => adminService.getStaffs({page: 1, page_size: 20, search: ''}),
   });
+  
 
   // Fetch programs for selection
   const {
@@ -160,6 +161,7 @@ const AdminCourses = () => {
     onError: () => { }
   });
 
+ 
   //
   const handlePageChange = (page: number) => {
     prefetchNextPage(page + 1)
@@ -212,13 +214,13 @@ const AdminCourses = () => {
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-between items-center">
         <h1 className="text-xl md:text-2xl font-semibold">Courses</h1>
-        <Button
+        {/* <Button
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700/50 text-white"
           onClick={() => setIsCreateDialogOpen(true)}
         >
           <Plus className="w-4 h-4" />
           Add Course
-        </Button>
+        </Button> */}
       </div>
 
       <DataTable
