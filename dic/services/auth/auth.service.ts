@@ -1,4 +1,5 @@
-// src/lib/auth/authService.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// src/lib/auth/improvedAuthService.ts
 import { apiService } from '../api.service';
 import { TokenService } from './tokenService';
 import { 
@@ -29,7 +30,7 @@ export class AuthService {
       // Store tokens
       TokenService.setTokens({
         accessToken: response.data.access_token,
-        refreshToken: '' // If refresh token is not provided
+        refreshToken: response.data.refresh_token || '' // Handle case where refresh token isn't provided
       });
 
       // Create user profile object
@@ -52,11 +53,18 @@ export class AuthService {
         created_at: '',
         updated_at: ''
       };
-
-      this.redirectToDashboard(response.data.account_type);
       
-      // Fetch complete user profile
-      this.getCurrentUser().catch(() => null);
+      // Cache initial user profile
+      TokenService.cacheUserData(userProfile);
+      
+      // Fetch complete user profile and update cache
+      this.getCurrentUser()
+        .then(fullProfile => {
+          if (fullProfile) {
+            TokenService.cacheUserData(fullProfile);
+          }
+        })
+        .catch(() => null);
 
       setTimeout(() => this.redirectToDashboard(response.data.account_type), 100);
       return userProfile;
@@ -73,24 +81,29 @@ export class AuthService {
   }
 
   /**
-   * Logs out the current user by invalidating tokens on server and clearing local storage.
+   * Logs out the current user by clearing local storage and redirecting to login page.
+   * No server-side logout endpoint needed with token-based authentication.
+   * 
+   * Important: This method handles clearing all application cache and user data.
    *
-   * @returns {Promise<void>} A promise that resolves when logout is complete.
+   * @returns {void}
    */
-  static async logout(): Promise<void> {
+  static logout(): void {
     try {
-      // Invalidate refresh token on server
-      await apiService.post(AUTH_ENDPOINTS.LOGOUT, {
-        refreshToken: TokenService.getRefreshToken()
-      });
-    } catch {
-      // Ignore errors, as we want to clear local tokens anyway
-    } finally {
-      // Always clear local tokens
+      // Clear auth tokens and all user-related cached data
       TokenService.clearTokens();
       
-      // Redirect to login page
-      window.location.href = '/portal/login';
+      // When running in browser environment
+      if (typeof window !== 'undefined') {
+        // Force page reload to clear any in-memory state
+        window.location.href = '/portal/login';
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Even if something goes wrong, still try to redirect
+      if (typeof window !== 'undefined') {
+        window.location.href = '/portal/login';
+      }
     }
   }
 
@@ -112,16 +125,27 @@ export class AuthService {
 
   /**
    * Retrieves the current user's profile information.
+   * Uses cached data first if available and valid token exists.
    *
    * @returns {Promise<UserProfile | null>} A promise that resolves to the user profile or null if not authenticated.
    */
   static async getCurrentUser(): Promise<UserProfile | null> {
+    // First check if token is valid
     if (!TokenService.isTokenValid(TokenService.getAccessToken())) {
       return null;
     }
 
+    // Check for cached user data
+    const cachedUser = TokenService.getCachedUserData<UserProfile>();
+    if (cachedUser) {
+      return cachedUser;
+    }
+
+    // Fetch from API if no cache
     try {
       const response = await apiService.get<UserProfile>('/auth/user');
+      // Cache the fetched user data
+      TokenService.cacheUserData(response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching user profile:', error);

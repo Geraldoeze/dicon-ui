@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { API_BASE_URL, STRAPI_BASE_URL } from './config';
 import { ApiResponse, ErrorResponse } from './types';
 import { TokenService } from './auth/tokenService';
 import { AuthService } from './auth/auth.service';
+
 export class ApiService {
   api: AxiosInstance;
   strapi: AxiosInstance;
@@ -43,7 +45,7 @@ export class ApiService {
       async (error) => {
         const originalRequest = error.config;
 
-        // If unauthorized and we haven't already tried to refresh
+        // Fix: Properly check for 401 status
         if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
@@ -57,9 +59,15 @@ export class ApiService {
               return this.api(originalRequest);
             }
           } catch {
-            // If refresh fails, logout user
-            AuthService.logout();
+            // If refresh fails, logout user and redirect to login
+            this.handleUnauthorized();
+            return Promise.reject(error);
           }
+        }
+
+        // Handle other 401 errors that weren't fixed by token refresh
+        if (error.response?.status === 401) {
+          this.handleUnauthorized();
         }
 
         return Promise.reject(error);
@@ -79,10 +87,20 @@ export class ApiService {
     );
   }
 
+  // New centralized method to handle unauthorized responses
+private handleUnauthorized() {
+  // Clear tokens first
+  TokenService.clearTokens();
+  
+  // Then redirect to unauthorized page instead of directly to login
+  if (typeof window !== 'undefined') {
+    window.location.href = '/portal/unauthorized';
+  }
+}
+
   private handleError(error: AxiosError<ErrorResponse>) {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
+      this.handleUnauthorized();
     }
     return Promise.reject(error);
   }
@@ -97,16 +115,24 @@ export class ApiService {
       formData.append(key, data[key]);
     });
 
-    return this.api.post<T>(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    try {
+      return this.api.post<T>(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async request<T>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    const response = await this.api.request<ApiResponse<T>>(config);
-    return response.data;
+    try {
+      const response = await this.api.request<ApiResponse<T>>(config);
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async get<T>(endpoint: string, params?: Record<string, any>): Promise<ApiResponse<T>> {
@@ -149,28 +175,48 @@ export class ApiService {
 
   // Methods for Strapi API
   async strapiRequest<T>(config: AxiosRequestConfig): Promise<T> {
-    const response = await this.strapi.request<T>(config);
-    return response.data;
+    try {
+      const response = await this.strapi.request<T>(config);
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async strapiGet<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
-    const response = await this.strapi.get<T>(endpoint, { params });
-    return response.data;
+    try {
+      const response = await this.strapi.get<T>(endpoint, { params });
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async strapiPost<T>(endpoint: string, data: any): Promise<T> {
-    const response = await this.strapi.post<T>(endpoint, data);
-    return response.data;
+    try {
+      const response = await this.strapi.post<T>(endpoint, data);
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async strapiPut<T>(endpoint: string, data: any): Promise<T> {
-    const response = await this.strapi.put<T>(endpoint, data);
-    return response.data;
+    try {
+      const response = await this.strapi.put<T>(endpoint, data);
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 
   async strapiDelete<T>(endpoint: string): Promise<T> {
-    const response = await this.strapi.delete<T>(endpoint);
-    return response.data;
+    try {
+      const response = await this.strapi.delete<T>(endpoint);
+      return response.data;
+    } catch (error) {
+      return this.handleError(error as AxiosError<ErrorResponse>);
+    }
   }
 }
 

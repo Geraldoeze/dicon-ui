@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 // import { useRouter } from "next/router";
 import { AuthService } from "@/services/auth/auth.service";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, EyeClosed, EyeIcon } from "lucide-react";
 import Link from "next/link";
 
 interface LoginFormData {
@@ -12,9 +12,9 @@ interface LoginFormData {
   password: string;
 }
 
-interface Err {
-  error: string;
-}
+// interface Err {
+//   error: string;
+// }
 const LogIn = () => {
   // const router = useRouter();
   const [formData, setFormData] = useState<LoginFormData>({
@@ -23,7 +23,12 @@ const LogIn = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsOpen(!isOpen);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -32,7 +37,7 @@ const LogIn = () => {
     }));
   };
 
-  const togglePassword = () => setShowPassword(!showPassword);
+  // const togglePassword = () => setShowPassword(!showPassword);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -52,6 +57,7 @@ const LogIn = () => {
         password: formData.password,
       });
       console.log(user);
+
       // Redirect to appropriate dashboard
       // AuthService.redirectToDashboard(user.accountType);
     } catch (err) {
@@ -90,7 +96,7 @@ const LogIn = () => {
 
             <form
               action=""
-              className="space-y-7"
+              className="space-y-7 w-full"
               onSubmit={handleSubmit}
               noValidate
             >
@@ -105,36 +111,26 @@ const LogIn = () => {
                 placeholder="Enter your E-mail"
                 className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              <div className="w-full p-1 border-b bg-white flex items-center outline-none rounded-md focus:ring-2 focus:ring-blue-500">
+
+              <div className="relative">
                 <input
                   value={formData.password.trim()}
                   onChange={handleChange}
-                  type={showPassword ? "text" : "password"}
+                  type={isOpen ? "text" : "password"}
                   id="password"
                   name="password"
                   autoComplete="current-password"
                   required
                   placeholder="Enter your Password"
-                   className="w-full border-none focus:outline-none bg-white p-1 transition placeholder-gray-400"
-                
+                  className="w-full p-2 border-b outline-none rounded-md focus:ring-2 focus:ring-blue-500"
                 />
-                <span className="w-[30px]" onClick={togglePassword}>
-                  {showPassword ? (
-                    <img
-                      src="/assets/icons/eye-open.svg"
-                      alt=""
-                      width="24"
-                      height="24"
-                    />
+                <div className="absolute right-2 top-2">
+                  {isOpen ? (
+                    <EyeClosed onClick={togglePasswordVisibility} />
                   ) : (
-                    <img
-                      src="/assets/icons/eye-close.svg"
-                      alt=""
-                      width="24"
-                      height="24"
-                    />
+                    <EyeIcon onClick={togglePasswordVisibility} />
                   )}
-                </span>
+                </div>
               </div>
 
               {error && (
@@ -169,3 +165,4 @@ const LogIn = () => {
 };
 
 export default LogIn;
+
