@@ -95,6 +95,25 @@ export class TokenService {
     }
   }
 
+  
+/**
+ * Extract account type from a given token
+ * Useful for server-side middleware
+ * 
+ * @param token The JWT token to decode
+ * @returns The user account type or null
+ */
+static getUserAccountTypeFromToken(token: string): 'student' | 'staff' | 'admin' | null {
+  if (!token) return null;
+
+  try {
+    const decoded = jwtDecode<TokenPayload>(token);
+    return decoded.accountType;
+  } catch {
+    return null;
+  }
+}
+
   /**
    * Get user ID from token
    * 

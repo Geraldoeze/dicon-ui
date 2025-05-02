@@ -88,15 +88,15 @@ export class ApiService {
   }
 
   // New centralized method to handle unauthorized responses
-  private handleUnauthorized() {
-    // Clear tokens first
-    TokenService.clearTokens();
-    
-    // Then redirect to login page
-    if (typeof window !== 'undefined') {
-      window.location.href = '/portal/login';
-    }
+private handleUnauthorized() {
+  // Clear tokens first
+  TokenService.clearTokens();
+  
+  // Then redirect to unauthorized page instead of directly to login
+  if (typeof window !== 'undefined') {
+    window.location.href = '/portal/unauthorized';
   }
+}
 
   private handleError(error: AxiosError<ErrorResponse>) {
     if (error.response?.status === 401) {

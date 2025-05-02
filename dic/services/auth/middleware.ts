@@ -5,18 +5,24 @@ import { TokenService } from './tokenService';
 
 export function authMiddleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const token = TokenService.getAccessToken();
-  const userType = TokenService.getUserAccountType();
-
+  
   // Public routes that don't require authentication
-  const publicRoutes = ['/login', '/register', '/forgot-password'];
-  if (publicRoutes.includes(path)) {
+  const publicRoutes = ['/login', '/register', '/forgot-password', '/reset-password', '/unauthorized'];
+  if (publicRoutes.includes(path) || path === '/') {
     return NextResponse.next();
   }
-
-  // Check if token exists and is valid
-  if (!token || !TokenService.isTokenValid(token)) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  
+  // For client-side rendering, we need to check token in cookies or localStorage
+  const token = request.cookies.get('access_token')?.value;
+  
+  // Check if token exists
+  if (!token) {
+    return NextResponse.redirect(new URL('/unauthorized', request.url));
+  }
+  
+  // For API routes, we'll let the endpoints handle their own auth
+  if (path.startsWith('/api/')) {
+    return NextResponse.next();
   }
 
   // Route-specific access control
@@ -32,8 +38,16 @@ export function authMiddleware(request: NextRequest) {
   );
 
   if (matchingRoute) {
-    const [, requiredType] = matchingRoute;
-    if (userType !== requiredType) {
+    try {
+      // Get user type from token
+      const userType = TokenService.getUserAccountTypeFromToken(token);
+      const [, requiredType] = matchingRoute;
+      
+      if (userType !== requiredType) {
+        return NextResponse.redirect(new URL('/unauthorized', request.url));
+      }
+    } catch {
+      // If token is invalid or can't be decoded
       return NextResponse.redirect(new URL('/unauthorized', request.url));
     }
   }
@@ -46,6 +60,7 @@ export const config = {
   matcher: [
     '/portal/:path*',
     '/login',
-    '/logout'
+    '/logout',
+    '/unauthorized'
   ]
 };
