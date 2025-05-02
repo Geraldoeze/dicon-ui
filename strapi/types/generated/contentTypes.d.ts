@@ -612,6 +612,38 @@ export interface ApiInformationHeaderInformationHeader
   };
 }
 
+export interface ApiManagementManagement extends Struct.CollectionTypeSchema {
+  collectionName: 'managements';
+  info: {
+    description: '';
+    displayName: 'Management';
+    pluralName: 'managements';
+    singularName: 'management';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    commandantdetails: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deputycommandantdetails: Schema.Attribute.JSON;
+    directorofstudiesdetails: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::management.management'
+    > &
+      Schema.Attribute.Private;
+    otherstaffs: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMissionAndVisionMissionAndVision
   extends Struct.CollectionTypeSchema {
   collectionName: 'mission_and_visions';
@@ -1257,6 +1289,7 @@ declare module '@strapi/strapi' {
       'api::gallery.gallery': ApiGalleryGallery;
       'api::hero.hero': ApiHeroHero;
       'api::information-header.information-header': ApiInformationHeaderInformationHeader;
+      'api::management.management': ApiManagementManagement;
       'api::mission-and-vision.mission-and-vision': ApiMissionAndVisionMissionAndVision;
       'api::navigation.navigation': ApiNavigationNavigation;
       'api::news-and-blog.news-and-blog': ApiNewsAndBlogNewsAndBlog;

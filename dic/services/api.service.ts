@@ -46,7 +46,7 @@ export class ApiService {
         const originalRequest = error.config;
 
         // Fix: Properly check for 401 status
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (error.response === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
@@ -66,7 +66,7 @@ export class ApiService {
         }
 
         // Handle other 401 errors that weren't fixed by token refresh
-        if (error.response?.status === 401) {
+        if (error.response === 401) {
           this.handleUnauthorized();
         }
 

@@ -98,6 +98,7 @@ type ProfileViewProps = {
 const isStudent = (data: any): data is Student => 'student_id' in data;
 const isStaff = (data: any): data is Staff => 'first_name' in data && 'last_name' in data;
 const isApplication = (data: any): data is Application => 'status' in data && 'application_date' in data;
+const isCourse = (data: any): data is Course => 'course_id' in data;
 
 // Helper function to get the display name
 const getDisplayName = (data: Student | Staff | Application): string => {
@@ -114,9 +115,9 @@ const getDisplayName = (data: Student | Staff | Application): string => {
 // };
 
 
-const getId = (data: Student | Staff | Application | any): number => {
+const getId = (data: Student | Staff | Application | Course | any): number => {
   if (isStudent(data)) return data.student_id;
-  if ('course_id' in data) return data.course_id;
+  if (isCourse(data)) return data.id;
   return data.id;
 };
 
@@ -162,16 +163,16 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
           <thead className='bg-slate-100'>
             <tr className="border-b bg-slate-50">
               {columns.map((column, index) => (
-                <th key={`${type}-${getId(column) ?? JSON.stringify(column)}`} className="text-left py-4 px-4 font-medium">
+                <th key={index} className="text-left py-4 px-4 font-medium">
                   {column.header}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((row) => (
+            {filteredData.map((row, index) => (
               <tr
-                key={getId(row)}
+                key={index}
                 className="border-b hover:bg-slate-50 cursor-pointer"
                 onClick={() => onRowClick?.(row)}
               >

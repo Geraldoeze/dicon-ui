@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "managements",
+  "info": {
+    "singularName": "management",
+    "pluralName": "managements",
+    "displayName": "Management",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "deputycommandantdetails": {
+      "type": "json"
+    },
+    "directorofstudiesdetails": {
+      "type": "json"
+    },
+    "otherstaffs": {
+      "type": "json"
+    },
+    "commandantdetails": {
+      "type": "json"
+    }
+  }
+}

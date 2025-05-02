@@ -14,8 +14,8 @@ const VideoModal: React.FC<VideoModalProps> = ({ videoUrl, section }) => {
       {/* Hero Video Button */}
 
       {section === "hero" &&
-      <div className="hero-video absolute bottom-8 md:bottom-12 right-4 md:right-8">
-        <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6">
+      <div className="hero-video absolute bottom-4 md:bottom-12 right-4 md:right-8">
+        <div className="flex flex-row items-center gap-4 sm:gap-6">
           <span className="text-white text-sm md:text-base">
             Watch our documentary video
           </span>

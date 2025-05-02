@@ -28,9 +28,9 @@ const Hero = () => {
     <div className="relative h-screen xl:max-h-[1200px] w-full overflow-hidden">
       {/* Background with Overlay */}
       <div
-        className={`absolute inset-0 bg-[url('/hero.gif')] bg-cover bg-center`}
+        className={`absolute inset-0 bg-[url('/IMG-20250212-WA0019.jpg')] bg-cover bg-center`}
       >
-        <div className="absolute inset-0 bg-[#0F204B]/90 backdrop-blur-xs" />
+        <div className="absolute inset-0 bg-[#0F204B]/80 backdrop-blur-xs" />
       </div>
 
       {hero?.data.map((item) => (
@@ -73,7 +73,7 @@ const Hero = () => {
             </div>
 
             {/* Video Button Section */}
-            <VideoModal videoUrl={item.videoUrl} />
+            <VideoModal videoUrl={item.videoUrl} section="hero" />
           </div>
         </section>
       ))}

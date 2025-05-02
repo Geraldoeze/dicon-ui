@@ -50,7 +50,7 @@ interface LayoutProps {
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
-  onClose?: () => void;3
+  onClose?: () => void;
   isMobile?: boolean;
 }
 
