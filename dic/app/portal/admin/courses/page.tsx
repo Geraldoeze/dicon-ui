@@ -140,8 +140,8 @@ const AdminCourses = () => {
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('code', data.code);
-      formData.append('credit_unit', data.credit_unit.toString());
-      formData.append('lecturer_id', data.lecturer_id.toString());
+      formData.append('credit_unit', data.credit_unit ? data.credit_unit.toString() : '');
+      formData.append('lecturer_id', data.lecturer_id ? data.lecturer_id?.toString() : '');
       formData.append('description', data.description);
       return adminService.createCourses(formData);
     },
@@ -155,6 +155,7 @@ const AdminCourses = () => {
         code: '',
         credit_unit: 3,
         lecturer_id: 0,
+        program_id: 0,
         description: ''
       });
     },
@@ -214,13 +215,13 @@ const AdminCourses = () => {
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-between items-center">
         <h1 className="text-xl md:text-2xl font-semibold">Courses</h1>
-        {/* <Button
+        <Button
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700/50 text-white"
           onClick={() => setIsCreateDialogOpen(true)}
         >
           <Plus className="w-4 h-4" />
           Add Course
-        </Button> */}
+        </Button>
       </div>
 
       <DataTable

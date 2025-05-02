@@ -141,7 +141,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
         <div className="p-4 border-t border-gray-800 space-y-2">
           <Button 
             variant="ghost" 
-            className="w-full justify-start gap-3 hover:bg-white/50 hover:text-white transition-colors"
+            className="w-full justify-start gap-3 hover:bg-white/10 hover:text-white transition-colors"
           >
             <HelpCircle className="w-5 h-5" />
             Support
@@ -149,7 +149,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
           <Link href="/contact-us">
           <Button 
             variant="ghost" 
-            className="w-full justify-start gap-3 hover:bg-white/50 hover:text-white transition-colors"
+            className="w-full justify-start gap-3 hover:bg-white/10 hover:text-white transition-colors"
             
           >
             <ArrowLeft className="w-5 h-5" />
