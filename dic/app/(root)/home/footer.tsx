@@ -95,6 +95,16 @@ const Footer = () => {
           </div>
         </div>
        
+
+        {/* Copyright Section */}
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <p className="text-center text-gray-600">
+            © {currentYear} - Defence Intelligence College 
+          </p>
+          <p className='text-center text-gray-600'>Launched by: {' '}
+          <a href="https://aiq.ng" target='_blank' className='border-b border-gray-800'>AIQ</a>
+          </p>
+        </div>
       </div>
     </footer>
 

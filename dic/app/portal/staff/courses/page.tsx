@@ -32,6 +32,7 @@ const Courses = () => {
     queryKey: ['staffCourses'],
     queryFn: () => staffService.getCourses()
   })
+  
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading courses</div>;

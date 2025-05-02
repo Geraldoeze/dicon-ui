@@ -1,3 +1,5 @@
+import { departments } from "@/app/(root)/home/mock";
+
 export interface RegisterStaffData {
   email: string;
   password: string;
@@ -11,6 +13,7 @@ export interface RegisterStaffData {
   local_government: string;
   address: string;
   gender: string;
+  program_id: number;
   department_id: number;
   role_id: number;
 }
@@ -28,5 +31,6 @@ export const RegisterStaffDummyData = {
   address: "",
   gender: "",
   department_id: 0,
+  program_id: 0,
   role_id: 1,
 };

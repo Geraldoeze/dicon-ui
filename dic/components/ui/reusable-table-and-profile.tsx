@@ -161,8 +161,8 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
         <table className="w-full">
           <thead className='bg-slate-100'>
             <tr className="border-b bg-slate-50">
-              {columns.map((column) => (
-                <th key={column.key} className="text-left py-4 px-4 font-medium">
+              {columns.map((column, index) => (
+                <th key={`${type}-${getId(column) ?? JSON.stringify(column)}`} className="text-left py-4 px-4 font-medium">
                   {column.header}
                 </th>
               ))}

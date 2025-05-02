@@ -1,10 +1,14 @@
 'use client'
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
 import { DataTable } from "@/components/ui/reusable-table-and-profile";
 import { Application } from "@/services/types";
+import { useEffect, useState } from "react";
+import { QueryStudentParams } from "@/interface/admin";
+import { useDebounce } from "@/hooks/useDebounce";
+import Pagination from "@/components/ui/pagination";
 
 // Define the application type
 // type Application = {
@@ -46,12 +50,52 @@ const applicationColumns = [
 
 const Applications = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const [searchInput, setSearchInput] = useState('')
+    const [showFilter, setShowFilter] = useState(false)
+    const [queryParams, setQueryParams] = useState<QueryStudentParams>({
+      search: '',
+      page: 1,
+      page_size: 10,
+      status: 'Pending'
+    })
+  
+    const debouncedSearch = useDebounce(searchInput, 500)
+  
   
   // Correctly set up the query
   const { data: applications, isLoading, error } = useQuery({
-    queryKey: ['applications'],
-    queryFn: () => adminService.getApplications(),
+    queryKey: ['applications', queryParams],
+    queryFn: () => adminService.getApplications(queryParams),
   });
+   useEffect(() => {
+      setQueryParams((prev) => ({
+        ...prev,
+        search: debouncedSearch,
+        page: 1,
+      }))
+    }, [debouncedSearch])
+
+      //
+      const prefetchNextPage = (nextPage: number) => {
+        queryClient.prefetchQuery({
+          queryKey: ['courses', { ...queryParams, page: nextPage }],
+          queryFn: () => adminService.getCourses({ ...queryParams, page: nextPage }),
+        })
+      }
+       
+        //
+        const handlePageChange = (page: number) => {
+          prefetchNextPage(page + 1)
+          setQueryParams((prev) => ({
+            ...prev,
+            page,
+          }))
+        }
+      
+        const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          setSearchInput(event.target.value)
+        }
 
   // Handle loading state
   if (isLoading) {
@@ -71,6 +115,14 @@ const Applications = () => {
         onRowClick={(application) => router.push(`/portal/admin/applications/${application.id}`)}
         type="application"
       />
+          {!isLoading && applications?.meta && applications?.data?.length > 0 && (
+        <Pagination
+          currentPage={applications.meta.current_page}
+          totalPages={applications.meta.total_pages}
+          onPageChange={handlePageChange}
+          disabled={isLoading}
+        />
+      )}
     </div>
   );
 };

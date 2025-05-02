@@ -50,7 +50,7 @@ interface LayoutProps {
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
-  onClose?: () => void;
+  onClose?: () => void;3
   isMobile?: boolean;
 }
 
@@ -58,7 +58,7 @@ const navItems = [
   { title: "Courses", icon: <BookOpen className="w-5 h-5" />, href: "/portal/student/courses" },
   { title: "Classes", icon: <Users className="w-5 h-5" />, href: "/portal/student/classes" },
   { title: "Assignments", icon: <ClipboardList className="w-5 h-5" />, href: "/portal/student/assignments" },
-  { title: "Fees", icon: <CreditCard className="w-5 h-5" />, href: "/portal/student/fees" },
+  // { title: "Fees", icon: <CreditCard className="w-5 h-5" />, href: "/portal/student/fees" },
   { title: "Exams", icon: <Pencil className="w-5 h-5" />, href: "/portal/student/exams" },
 ];
 

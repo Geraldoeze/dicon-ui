@@ -36,6 +36,8 @@ const LogIn = () => {
       [name]: value,
     }));
   };
+
+  // const togglePassword = () => setShowPassword(!showPassword);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -57,7 +59,7 @@ const LogIn = () => {
       console.log(user);
 
       // Redirect to appropriate dashboard
-      AuthService.redirectToDashboard(user.accountType);
+      // AuthService.redirectToDashboard(user.accountType);
     } catch (err) {
       // Handle login error
       setError(err instanceof Error ? err.message : "Login failed");
