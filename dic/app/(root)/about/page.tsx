@@ -2,59 +2,68 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import { strapiService } from "@/services/strapiService";
 
-const imagesArray = [
-  {
-    image: "/about/004.jpeg",
-    title: "Director Center for Strategic studies ",
-    name: "Mr Kenneth Iheasirim",
-    role: "(Director)",
-  },
-  {
-    image: "/about/005.jpeg",
-    title: "Principal Staff Officer Training ",
-    name: "Lt Col BA Abibo",
-    role: "",
-  },
-  {
-    image: "/about/008.jpeg",
-    title: "Chief Instructor General Studies",
-    name: "Mrs OE Oyediran",
-    role: "(Ast Director)",
-  },
-  {
-    image: "/about/006.jpeg",
-    title: "Chief Instructor Joint Military Attachè ",
-    name: "Mr OJ Anyiam",
-    role: "(Ast Director)",
-  },
-  {
-    image: "/about/007.jpeg",
-    title: "Chief Instructor Technical ",
-    name: "Mr AA Ayodele",
-    role: "(Ast Director)",
-  },
-  {
-    image: "/about/009.jpeg",
-    title: "Chief Instructor Counter Intelligence",
-    name: "Mr CT Ezema",
-    role: "(Ast Director)",
-  },
-  {
-    image: "/about/011.jpeg",
-    title: "Chief Instructor Professional Studies ",
-    name: "Mrs EA Andre",
-    role: "(CDIO)",
-  },
-  {
-    image: "/about/010.jpeg",
-    title: "Chief Instructor Languages ",
-    name: "Mrs IA Ogah",
-    role: "(SDIO)",
-  },
-];
+// const imagesArray = [
+//   {
+//     image: "/about/004.jpeg",
+//     title: "Director Center for Strategic studies ",
+//     name: "Mr Kenneth Iheasirim",
+//     role: "(Director)",
+//   },
+//   {
+//     image: "/about/005.jpeg",
+//     title: "Principal Staff Officer Training ",
+//     name: "Lt Col BA Abibo",
+//     role: "",
+//   },
+//   {
+//     image: "/about/008.jpeg",
+//     title: "Chief Instructor General Studies",
+//     name: "Mrs OE Oyediran",
+//     role: "(Ast Director)",
+//   },
+//   {
+//     image: "/about/006.jpeg",
+//     title: "Chief Instructor Joint Military Attachè ",
+//     name: "Mr OJ Anyiam",
+//     role: "(Ast Director)",
+//   },
+//   {
+//     image: "/about/007.jpeg",
+//     title: "Chief Instructor Technical ",
+//     name: "Mr AA Ayodele",
+//     role: "(Ast Director)",
+//   },
+//   {
+//     image: "/about/009.jpeg",
+//     title: "Chief Instructor Counter Intelligence",
+//     name: "Mr CT Ezema",
+//     role: "(Ast Director)",
+//   },
+//   {
+//     image: "/about/011.jpeg",
+//     title: "Chief Instructor Professional Studies ",
+//     name: "Mrs EA Andre",
+//     role: "(CDIO)",
+//   },
+//   {
+//     image: "/about/010.jpeg",
+//     title: "Chief Instructor Languages ",
+//     name: "Mrs IA Ogah",
+//     role: "(SDIO)",
+//   },
+// ];
+
 
 const AboutUs = () => {
+
+  const { data: mv } = useQuery({
+    queryKey: ['mv'],
+    queryFn: () => strapiService.getMV()
+  })
+
   return (
     <div className="min-h-screen lg:min-h-full relative bg-[url('/misionvision-bg.jpg')] bg-cover bg-center">
       {/* Hero Section */}
@@ -90,33 +99,33 @@ const AboutUs = () => {
             </div>
           </div>
 
+          {mv?.data.map((item, index) => (
+          <div key={index}>
+          {/* Vision Statement */}
           <div className="border-2 bg-white shadow-xl  rounded p-6 max-w-2xl mx-auto my-8 ">
             <h3 className="font-bold text-3xl mb-4 text-center   rounded-t-md py-3">
               Vision Statement
             </h3>
             <p className="text-lg lg:text-xl text-slate-900 text-center font-medium">
-              To produce well trained, patriotic and highly motivated manpower
-              working with cutting edge technology under an effective leadership
-              in collaboration with friendly forces that will provide
-              comprehensive and timely defence intelligence in support of
-              national security strategy.
+              {item.visionText}
             </p>
           </div>
 
-          {/* Mission and Vision */}
+          {/* Mission Statement */}
           <div className="my-16 space-y-12">
             <div className="border-2 bg-white rounded p-6 max-w-2xl mx-auto my-8 shadow-xl">
               <h3 className="font-bold text-3xl mb-4 text-center  rounded-t-md py-3">
                 Mission Statement
               </h3>
               <p className="text-lg lg:text-xl text-slate-900 text-center font-medium">
-                To provide security and intelligence training for all categories
-                of DIA staff, personnel of the Nigerian Armed Forces and other
-                security agencies, in order to enable them perform optimally
-                wherever they may be deployed.
+                {item.missionText}
               </p>
             </div>
           </div>
+          </div>
+          ))}
+
+
           <div className="my-4 flex justify-center">
             <Image
               src="/001.jpeg"

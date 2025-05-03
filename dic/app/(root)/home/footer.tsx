@@ -111,16 +111,16 @@ const Footer = () => {
 
         </div>
 
-        <div className="flex items-center justify-around mt-5 px-10 py-5 bg-indigo-600 text-center relative">
+        <div className="flex flex-col md:flex-row gap-y-5 items-center md:justify-around mt-5 md:px-10 py-5 bg-indigo-600 text-center relative">
           {/* Copyright Section */}
         <div className="">
-          <p className="text-white text-base">
+          <p className="text-white text-sm md:text-base">
             © {currentYear} - Defence Intelligence College.
           </p>
         </div>
        
         <div className="">
-          <p className='text-white text-base'>Designed and Developed by  
+          <p className='text-white text-sm md:text-base'>Designed and Developed by  
             <a target='_blank' href="https://aiq.ng" className='ps-2 text-xl font-semibold'>AIQ</a>
           </p>
         </div>

@@ -21,6 +21,7 @@ export const STRAPI_ENDPOINTS = {
   PG: "/pg-programs",
   DC: "/departments-and-courses",
   NEWS: "/news-and-blogs",
+  MANAGEMENT: "/managements",
 };
 
 export const AUTH_ENDPOINTS = {

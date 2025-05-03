@@ -34,14 +34,14 @@ const Department = () => {
       {/* Hero Section */}
       <div className="relative h-screen lg:min-h-full lg:max-h-[1000px] w-full">
         <div className="absolute inset-0 bg-[url('/IMG_1971.JPG')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-slate-650/50 backdrop-blur-xs" />
+          <div className="absolute inset-0 bg-slate-600/30 backdrop-blur-xs" />
         </div>
         <div className="relative h-screen lg:max-h-full max-w-[85vw] mx-auto">
           <div className="absolute top-[80%] -translate-y-1/2 max-w-2xl md:max-w-3xl">
             {/* <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold text-white my-2">
               Our Departments
             </h1> */}
-            <p className="hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-xl">
+            <p className="hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 font-semibold max-w-xl">
               Pioneering Excellence in Intelligence and Strategic Leadership
               since 2001
             </p>
