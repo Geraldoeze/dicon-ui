@@ -204,6 +204,53 @@ interface News {
     }]
   }
 
+  interface MANAGEMENT {
+    data: [{
+        id: 2,
+        documentId: string
+        createdAt: string
+        updatedAt: string
+        publishedAt: string
+        deputycommandantdetails: [
+              {
+                name: string
+                role: string
+                image: string
+                header: string
+                qualifications: string
+                secondary_qualifications: string
+              }
+            ],
+            directorofstudiesdetails: [
+              {
+                name: string
+                role: string
+                image: string
+                header: string
+                qualifications: string
+                secondary_qualifications: string
+              }
+            ],
+            otherstaffs: [
+              {
+                name: string
+                role: string
+                image: string
+                title: string
+              }
+            ],
+            commandantdetails: [
+              {
+                name: string
+                role: string
+                image: string
+                header: string
+                qualifications: string
+              }
+            ]
+    }]
+  }
+
 
 class StrapiService {
 
@@ -247,6 +294,9 @@ class StrapiService {
         return apiService.strapiGet<News>(STRAPI_ENDPOINTS.NEWS)
     }
 
+    async getManagement () {
+        return apiService.strapiGet<MANAGEMENT>(STRAPI_ENDPOINTS.MANAGEMENT)
+    }
 }
 
 export const strapiService = new StrapiService();

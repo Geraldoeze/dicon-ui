@@ -22,7 +22,7 @@ const Page = () => {
         <div
           className={`absolute inset-0 bg-[url('/photo_2025-04-07_08-34-18.jpg')] bg-cover bg-center`}
         >
-          <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-xs" />
+          <div className="absolute inset-0 bg-slate-800/50 backdrop-blur-xs" />
         </div>
 
         {/* Main Content Container */}
@@ -43,7 +43,7 @@ const Page = () => {
             {/* Subtitle Section */}
             <p
               className="hero-subtitle text-base sm:text-lg md:text-xl lg:text-2xl 
-              text-white/90 max-w-xl"
+              text-white/90 font-semibold max-w-sm"
             >
               Checkout our post graduate programmes.
             </p>
