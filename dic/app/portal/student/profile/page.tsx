@@ -63,7 +63,7 @@ const Profile = () => {
       });
     } 
     catch (error: Error) {
-      console.log(error);
+      (error);
     }
   };
 

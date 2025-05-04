@@ -57,7 +57,7 @@ const Contact = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    
     // Reset form after submission if needed
     // setFormData({ firstName: '', lastName: '', email: '', phoneCode: '+234', phoneNumber: '', message: '', privacyPolicy: false });
   };
