@@ -196,17 +196,17 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
 export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: ProfileViewProps) => {
   return (
     <Card className="md:max-w-[80vw] mx-auto md:p-7 py-5">
-      <div className="flex justify-between flex-col lg:flex-row">
+      <div className="flex justify-center flex-col">
       <CardContent className="flex-1 flex sm:flex-row items-start gap-4">
-        <Avatar className="w-16 h-16">
+        {/* <Avatar className="w-16 h-16">
           <AvatarImage src={isStudent(data) ? data.photo_url : isApplication(data) ? data.photo_url : undefined} />
           <AvatarFallback>{'A'}</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
         <div className="flex-1 items-center">
           <h2 className="text-2xl font-semibold">{getDisplayName(data)}</h2>
           {(isApplication(data)) || type === 'application' && (
             <div className="flex items-center">
-            <h1 className='text-base sm:text-lg md:text-xl font-medium'>{data.first_name} {data.last_name}</h1>
+            <h1 className='text-base sm:text-lg md:text-2xl lg:text-3xl font-bold'>{data.first_name} {data.last_name}</h1>
             </div>
           )}
           {(isStudent(data)) && (
@@ -214,7 +214,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
           )}
           {isStaff(data) || type === 'staff' && (
             <div className="">
-            <h1 className='text-base sm:text-lg md:text-xl font-medium'>{data.full_name}</h1>
+            <h1 className='text-base sm:text-lg md:text-2xl lg:text-3xl font-bold'>{data.full_name}</h1>
             {/* <p className="text-gray-500">{data.department}</p> */}
             </div>
           )}
@@ -242,14 +242,14 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
           </div>
           {isStudent(data) && (
             <>
-              <div className='space-y-3'>
+              {/* <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-gray-400" />
                <span>Address</span>
               </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.address}</h1>
                <hr />
-              </div>
+              </div> */}
               <div className='space-y-3'>
                <div className="flex items-center gap-2">
                <GraduationCap className="w-5 h-5 text-gray-400" />
@@ -271,28 +271,29 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
 
 {isStaff(data) || type === 'staff' && (
             <>
-              <div className='space-y-3'>
+              {/* <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-gray-400" />
                <span>Address</span>
               </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.address}</h1>
                <hr />
-              </div>
-              <div className='space-y-3'>
+              </div> */}
+              {/* <div className='space-y-3'>
                <div className="flex items-center gap-2">
                <GraduationCap className="w-5 h-5 text-gray-400" />
                <span>Local Government</span>
                </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.local_government}</h1>
                <hr />
-               </div>
+               </div> */}
                <div className='space-y-3'>
-               <div className="flex items-center gap-2">
+               {/* <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
                 <span>State</span>
                </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.state}</h1>
+                */}
                <hr />
                <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
@@ -311,6 +312,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
           )}
           {isApplication(data) || type === 'application' && (
               <>
+              {/* 
               <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <User className="w-5 h-5 text-gray-400" />
@@ -326,7 +328,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
               </div>
               <h1 className='text-base md:text-lg font-semibold'>{data.description}</h1>
               <hr />
-              </div>
+              </div> */}
               <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <GraduationCap className="w-5 h-5 text-gray-400" />
@@ -343,15 +345,15 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
               <h1 className='text-base md:text-lg font-semibold'>{data.degree}</h1>
               <hr />
               </div>
-            <div className="flex items-center flex-col md:flex-row gap-2">
+            {/* <div className="flex items-center flex-col md:flex-row gap-2">
               <Calendar className="w-5 h-5 text-gray-400" />
               <span>Applied on: {data.created_at}</span>
-            </div>
+            </div> */}
             </>
           )}
         </div>
 
-        {(isStudent(data) || isStaff(data)) && type !== 'application' && (
+        {/* {(isStudent(data) || isStaff(data)) && type !== 'application' && (
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-base font-medium text-gray-500">State</p>
@@ -362,7 +364,7 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
               <p>{data.local_government}</p>
             </div>
           </div>
-        )}
+        )} */}
 
         {isApplication(data) || type === 'application' && (
           <div className="space-y-4">

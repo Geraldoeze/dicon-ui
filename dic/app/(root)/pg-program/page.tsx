@@ -51,7 +51,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="container mx-auto my-12">
+      <div className="container mx-auto my-12 p-2">
         <div className="flex flex-col lg:flex-row justify-center gap-10">
           <div className="w-full lg:w-[48%] relative">
             <Image

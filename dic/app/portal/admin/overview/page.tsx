@@ -143,10 +143,10 @@ function Overview() {
                     {dept.total_students}
                   </span>
                 </div>
-                <p className="flex items-center justify-between flex-col lg:flex-row">
+                {/* <p className="flex items-center justify-between flex-col lg:flex-row">
                   <b>HOD:</b>
                   <span className="w-fit">{dept.head_of_department}</span>
-                </p>
+                </p> */}
               </CardContent>
             </Card>
           ))}

@@ -270,10 +270,13 @@ const Staffs = () => {
                       <SelectItem value="Mr">Mr</SelectItem>
                       <SelectItem value="Mrs">Mrs</SelectItem>
                       <SelectItem value="Miss">Miss</SelectItem>
+                      <SelectItem value="Dr">Dr</SelectItem>
+                      <SelectItem value="Prof">Prof</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid gap-2 w-[48%]">
+                {/* <div className="grid gap-2 w-[48%]">
                   <Label htmlFor="email">Role</Label>
                   <Select
                     onValueChange={handleRole}
@@ -287,7 +290,7 @@ const Staffs = () => {
                       <SelectItem value={"2"}>Non Teaching</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Gender</Label>

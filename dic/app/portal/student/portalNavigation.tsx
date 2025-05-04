@@ -116,7 +116,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
             <div className="relative w-20 h-20">
               <Avatar className='w-20 h-20'>
               <AvatarImage src={user?.photo_url || ""} alt={user?.first_name || ""} />
-              <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "A"}</AvatarFallback>
+              <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "S"}</AvatarFallback>
               </Avatar>
               {/*
               <Image 
@@ -198,7 +198,7 @@ function Header({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
           <Breadcrumbs items={breadcrumbs} />
         </div>
         <div className="ml-auto flex items-center space-x-4">
-          <p className="text-gray-700 hidden lg:block">Welcome, {user?.first_name || "Akinola Emmanuel"}</p>
+          <p className="text-gray-700 hidden lg:block">Welcome, {user?.first_name || "User"}</p>
           
           <AlertDialog>
       <AlertDialogTrigger asChild>
