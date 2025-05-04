@@ -111,47 +111,33 @@ function Overview() {
         ))}
       </div>
 
-      <div className="my-5 space-y-5">
-        <div className="flex items-center justify-between flex-col md:flex-row gap-y-3">
-          <div className="flex items-center gap-x-2">
-            <h1 className="text-[1.25rem] md:text-[1.5rem]">Departments</h1>
-            <span className="p-2 bg-gray-200 rounded-md text-black">
-              {department?.data.length}
-            </span>
-          </div>
-          <div className="border-none">
-            <Link href="/portal/admin/departments">
-              <button className="flex items-center gap-x-2">
-                View all <ArrowRight />
-              </button>
-            </Link>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-          {departmentData.map((dept) => (
-            <Card key={dept.id} className="py-4 px-2">
-              <CardContent className="space-y-3">
-                <a href={`/portal/admin/departments/${dept.id}`}>
-                  <h1 className="h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold">
-                    {" "}
-                    <GraduationCap width={30} height={30} /> {dept.name}
-                  </h1>
-                </a>
-                <div className="flex items-center justify-between flex-col md:flex-row">
-                  <b>Students: </b>
-                  <span className="text-[1.25rem] md:text-[1.5rem] font-medium">
-                    {dept.total_students}
-                  </span>
-                </div>
-                {/* <p className="flex items-center justify-between flex-col lg:flex-row">
-                  <b>HOD:</b>
-                  <span className="w-fit">{dept.head_of_department}</span>
-                </p> */}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+            <div className="my-5 space-y-5">
+                    <div className="flex items-center justify-between flex-col md:flex-row gap-y-3">
+                            <div className="flex items-center gap-x-2">
+                                    <h1 className='text-[1.25rem] md:text-[1.5rem]'>Departments</h1>
+                                    <span className='p-2 bg-gray-200 rounded-md text-black'>{department?.data.length}</span>
+                            </div>
+                            <div className="border-none">
+                                    <Link href="/portal/admin/departments"><button className='flex items-center gap-x-2'>View all <ArrowRight/></button></Link>
+                            </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                            {departmentData.map((dept) => (
+                            <Card key={dept.id} className='py-4 px-2'>
+                                    <CardContent className='space-y-3'>
+                                      <a href={`/portal/admin/departments/${dept.id}`}>
+                                     <h1 className='h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold'> <GraduationCap width={30} height={30}/> {dept.name}</h1>
+                                     </a>
+                                     <div className='flex items-center justify-between flex-col md:flex-row'>
+                                        <b>Students: </b>
+                                        <span className='text-[1.25rem] md:text-[1.5rem] font-medium'>{dept.total_students}</span> 
+                                    </div>
+                                     {/* <p className='flex items-center justify-between flex-col lg:flex-row'><b>HOD:</b><span className='w-fit'>{dept.head_of_department}</span></p> */}
+                                    </CardContent>
+                            </Card>
+                            ))}
+                    </div>
+            </div>
 
       <Card className="my-5">
         <CardHeader className="flex items-center justify-between flex-col md:flex-row">
