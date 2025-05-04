@@ -309,8 +309,8 @@ export const ProfileView = ({
                <h1 className='text-base md:text-lg font-semibold'>{data.local_government}</h1>
                <hr />
                </div> */}
-                  <div className="space-y-3">
-                    {/* <div className="flex items-center gap-2">
+               <div className='space-y-3'>
+               {/* <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
                 <span>State</span>
                </div>
@@ -387,7 +387,7 @@ export const ProfileView = ({
             </div> */}
             </div>
           </div>
-        )}
+        )} */}
 
           {isApplication(data) ||
             (type === "application" && (
