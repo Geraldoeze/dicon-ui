@@ -239,8 +239,8 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
           <div className="sm:flex-row items-start gap-4">
             <CardContent>
               <div className="flex-1 items-center">
-                <h2 className="text-2xl font-semibold">{course.data.name}</h2>
-                <p className="text-gray-500">{course.data.course_code}</p>
+                <h2 className="text-2xl font-semibold">{course.data.course_code}</h2>
+                {/* <p className="text-gray-500">{course.data.course_code}</p> */}
               </div>
             </CardContent>
           </div>
@@ -250,10 +250,10 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
                 <div className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <span>Description</span>
+                      <span>Course</span>
                     </div>
                     <h1 className="text-base md:text-lg font-semibold">
-                      {course.data.description}
+                      {course.data.name}
                     </h1>
                     <hr />
                   </div>

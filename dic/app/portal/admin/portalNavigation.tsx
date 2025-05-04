@@ -107,7 +107,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
           <Link href="/portal/amin/profile" className="flex flex-col items-center space-y-3">
             <div className="relative w-20 h-20">
               <Image 
-                src={user?.photo_url || "/male.png"} 
+                src={user?.photo_url || "/dic.png"} 
                 alt={user?.first_name || "User"}
                 width={80} 
                 height={80} 
