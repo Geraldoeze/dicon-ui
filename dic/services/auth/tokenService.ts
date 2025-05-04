@@ -1,25 +1,28 @@
-import { jwtDecode } from 'jwt-decode';
-import { StorageUtils } from '../../lib/storageUtils';
+import { jwtDecode } from "jwt-decode";
+import { StorageUtils } from "../../lib/storageUtils";
 
 interface TokenPayload {
   sub: string;
   exp: number;
-  accountType: 'student' | 'staff' | 'admin';
+  accountType: "student" | "staff" | "admin";
 }
 
 export class TokenService {
   // Storage keys with app prefix for better organization
-  private static APP_PREFIX = 'dic_portal_';
+  private static APP_PREFIX = "dic_portal_";
   private static ACCESS_TOKEN_KEY = `${TokenService.APP_PREFIX}access_token`;
   private static REFRESH_TOKEN_KEY = `${TokenService.APP_PREFIX}refresh_token`;
   private static USER_CACHE_KEY = `${TokenService.APP_PREFIX}user_cache`;
 
   /**
    * Store tokens securely
-   * 
+   *
    * @param tokens The access and refresh tokens to store
    */
-  static setTokens(tokens: { accessToken: string; refreshToken: string }): void {
+  static setTokens(tokens: {
+    accessToken: string;
+    refreshToken: string;
+  }): void {
     // For production, consider using HttpOnly cookies instead
     localStorage.setItem(this.ACCESS_TOKEN_KEY, tokens.accessToken);
     if (tokens.refreshToken) {
@@ -34,17 +37,17 @@ export class TokenService {
     // Clear all token storage
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
-    
+
     // Clear user cache
     localStorage.removeItem(this.USER_CACHE_KEY);
-    
+
     // Clear all items with our app prefix
     StorageUtils.clearItemsByPrefix(this.APP_PREFIX);
   }
 
   /**
    * Get access token
-   * 
+   *
    * @returns The current access token or null
    */
   static getAccessToken(): string | null {
@@ -53,7 +56,7 @@ export class TokenService {
 
   /**
    * Get refresh token
-   * 
+   *
    * @returns The current refresh token or null
    */
   static getRefreshToken(): string | null {
@@ -62,7 +65,7 @@ export class TokenService {
 
   /**
    * Check if token is valid and not expired
-   * 
+   *
    * @param token The token to validate
    * @returns Whether the token is valid
    */
@@ -72,7 +75,7 @@ export class TokenService {
     try {
       const decoded = jwtDecode<TokenPayload>(token);
       // Add buffer time (30 seconds) to prevent edge cases
-      return (decoded.exp * 1000) > (Date.now() + 30000);
+      return decoded.exp * 1000 > Date.now() + 30000;
     } catch {
       return false;
     }
@@ -80,11 +83,32 @@ export class TokenService {
 
   /**
    * Get user account type from token
-   * 
+   *
    * @returns The user account type or null
    */
-  static getUserAccountType(): 'student' | 'staff' | 'admin' | null {
+  static getUserAccountType(): "student" | "staff" | "admin" | null {
     const token = this.getAccessToken();
+    if (!token) return null;
+
+    try {
+      const decoded = jwtDecode<TokenPayload>(token);
+      console.log(decoded, "DD");
+      return decoded.accountType;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Extract account type from a given token
+   * Useful for server-side middleware
+   *
+   * @param token The JWT token to decode
+   * @returns The user account type or null
+   */
+  static getUserAccountTypeFromToken(
+    token: string
+  ): "student" | "staff" | "admin" | null {
     if (!token) return null;
 
     try {
@@ -95,28 +119,9 @@ export class TokenService {
     }
   }
 
-  
-/**
- * Extract account type from a given token
- * Useful for server-side middleware
- * 
- * @param token The JWT token to decode
- * @returns The user account type or null
- */
-static getUserAccountTypeFromToken(token: string): 'student' | 'staff' | 'admin' | null {
-  if (!token) return null;
-
-  try {
-    const decoded = jwtDecode<TokenPayload>(token);
-    return decoded.accountType;
-  } catch {
-    return null;
-  }
-}
-
   /**
    * Get user ID from token
-   * 
+   *
    * @returns The user ID or null
    */
   static getUserId(): string | null {
@@ -133,7 +138,7 @@ static getUserAccountTypeFromToken(token: string): 'student' | 'staff' | 'admin'
 
   /**
    * Cache user data in local storage
-   * 
+   *
    * @param userData The user data to cache
    */
   static cacheUserData<T>(userData: T): void {
@@ -142,7 +147,7 @@ static getUserAccountTypeFromToken(token: string): 'student' | 'staff' | 'admin'
 
   /**
    * Get cached user data
-   * 
+   *
    * @returns The cached user data or null
    */
   static getCachedUserData<T>(): T | null {

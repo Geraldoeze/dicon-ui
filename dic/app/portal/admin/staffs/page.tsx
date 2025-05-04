@@ -116,8 +116,8 @@ const Staffs = () => {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    registerMutation.mutate(formData);
+    // console.log(formData);
+    // registerMutation.mutate(formData);
   };
 
   // Handle loading state
@@ -168,7 +168,7 @@ const Staffs = () => {
     setSearchInput(event.target.value);
   };
   const handleSelectChange = (value: string, name: string) => {
-    setFormData(prev => ({ ...prev, [name]: parseInt(value) }));
+    setFormData((prev) => ({ ...prev, [name]: parseInt(value) }));
   };
   return (
     <div className="p-8">
@@ -267,13 +267,16 @@ const Staffs = () => {
                       <SelectValue placeholder={"Select Title"} />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="Mr">Prof</SelectItem>
+                      <SelectItem value="Mr">Dr</SelectItem>
+                      
                       <SelectItem value="Mr">Mr</SelectItem>
                       <SelectItem value="Mrs">Mrs</SelectItem>
                       <SelectItem value="Miss">Miss</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid gap-2 w-[48%]">
+                {/* <div className="grid gap-2 w-[48%]">
                   <Label htmlFor="email">Role</Label>
                   <Select
                     onValueChange={handleRole}
@@ -287,7 +290,7 @@ const Staffs = () => {
                       <SelectItem value={"2"}>Non Teaching</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Gender</Label>

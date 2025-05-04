@@ -9,6 +9,7 @@ class StaffService {
     pageSize?: number; 
     search?: string; 
     status?: string;
+    id?: string
   }) {
     return apiService.get<StaffCourses[]>(STAFF_ENDPOINTS.COURSES.LIST, params);
   }
