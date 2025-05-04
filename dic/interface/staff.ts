@@ -15,7 +15,7 @@ export interface RegisterStaffData {
   gender: string;
   program_id: number;
   department_id: number;
-  role_id: number;
+  
 }
 export const RegisterStaffDummyData = {
   email: "",
@@ -32,5 +32,4 @@ export const RegisterStaffDummyData = {
   gender: "",
   department_id: 0,
   program_id: 0,
-  role_id: 1,
 };

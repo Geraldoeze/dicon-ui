@@ -10,6 +10,7 @@ import { Book, Clock, GraduationCap, Loader2 } from "lucide-react";
 import { studentService } from '@/services/student.service';
 import { Course } from '@/services/types';
 import { StatsCard, CourseFilters, ActionButton} from './courseComponents';
+import { TokenService } from '@/services/auth/tokenService';
 // import { useGetCourses } from '@/app/state/store/courses.store';
 // import { CustomFilter } from '@/proto/filter';
 
@@ -22,6 +23,8 @@ export default function Courses() {
   const [loadingCourseId, setLoadingCourseId] = useState<string | null>(null);
   //const router = useRouter();
   const queryClient = useQueryClient();
+    const user = TokenService.getCachedUserData();
+  
 
   // const [filter, setFilter] = useState<CustomFilter>({
   //   page: 1,
@@ -62,35 +65,36 @@ export default function Courses() {
     isLoading: isCoursesLoading,
     isError: isCoursesError
   } = useQuery({
-    queryKey: ['courses', selectedTab, searchQuery],
+    queryKey: ['courses', selectedTab, searchQuery, user?.id],
     queryFn: () => {
       switch (selectedTab) {
         case 'registered':
-          return studentService.getRegisteredCourses()
+          return studentService.getRegisteredCourses({student_id: user?.id, course_type:"registered"})
         case 'unregistered':
-          return studentService.getUnregisteredCourses()
+          return studentService.getUnregisteredCourses({student_id: user?.id, course_type:"unregistered"})
         case 'carryover':
-          return studentService.getCourses({ status: 'carryover' })
+          return studentService.getCourses({ status: 'carryover', student_id: user?.id })
         default:
-          return studentService.getCourses()
+          return studentService.getCourses({student_id: user?.id})
       }
     }
   })
+  console.log(user?.id, "TT")
 
   // Fetch stats data
   const { data: registeredCoursesData } = useQuery({
-    queryKey: ['registeredCourses'],
-    queryFn: () => studentService.getRegisteredCourses()
+    queryKey: ['registeredCourses', user?.id],
+    queryFn: () => studentService.getRegisteredCourses({student_id: user?.id})
   })
 
   const { data: assignmentsData } = useQuery({
-    queryKey: ['pendingAssignments'],
-    queryFn: () => studentService.getPendingAssignments({ status: 'pending' })
+    queryKey: ['pendingAssignments', user?.id],
+    queryFn: () => studentService.getPendingAssignments({ status: 'pending', student_id: user?.id })
   })
 
   const { data: classesData } = useQuery({
-    queryKey: ['upcomingClasses'],
-    queryFn: () => studentService.getUpcomingClasses()
+    queryKey: ['upcomingClasses', user?.id],
+    queryFn: () => studentService.getUpcomingClasses({student_id: user?.id})
   })
 
   // Register course mutation

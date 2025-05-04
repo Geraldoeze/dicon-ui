@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
 import { DataTable } from "@/components/ui/reusable-table-and-profile";
-import { Application } from "@/services/types";
 import { useEffect, useState } from "react";
 import { QueryStudentParams } from "@/interface/admin";
 import { useDebounce } from "@/hooks/useDebounce";

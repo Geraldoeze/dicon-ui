@@ -95,7 +95,7 @@ export const STAFF_ENDPOINTS = {
   },
   // Course Endpoints
   COURSES: {
-    LIST: "/staffs/courses?staff_id=16",
+    LIST: "/staffs/courses",
     DETAILS: (courseId: string) => `/courses/${courseId}`,
     STUDENTS: (courseId: string) => `/courses/students?course_id=${courseId}`,
     VIDEOS: (courseId: string) => `/courses/videos?course_id=${courseId}`,
@@ -136,10 +136,10 @@ export const STAFF_ENDPOINTS = {
 export const STUDENT_ENDPOINTS = {
   // Course endpoints
   COURSES: {
-    LIST: "/students/courses?student_id=1&search=",
-    REGISTERED: "/students/courses?student_id=1&search=&course_type=registered",
+    LIST: "/students/courses",
+    REGISTERED: "/students/courses",
     UNREGISTERED:
-      "/students/courses?student_id=1&search=&course_type=unregistered",
+      "/students/courses",
     CarriedOver:
       "/students/courses?student_id=1&search=&course_type=unregistered",
     REGISTER: (courseId: string) =>
@@ -156,8 +156,8 @@ export const STUDENT_ENDPOINTS = {
 
   // Class endpoints
   CLASSES: {
-    LIST: "students/classes?student_id=1",
-    UPCOMING: "students/classes?student_id=1",
+    LIST: "students/classes",
+    UPCOMING: "students/classes",
     ATTENDANCE: "/students/classes/attendance",
     MARK_ATTENDANCE: (classId: string) => `/students/classes/${classId}/attend`,
     DETAILS: (classId: string) => `/classes/${classId}`,
@@ -165,10 +165,10 @@ export const STUDENT_ENDPOINTS = {
 
   // Assignment endpoints
   ASSIGNMENTS: {
-    LIST: (status: string) => `/assignments/?student_id=1&status=${status}`,
+    LIST: (status: string) => `/assignments/?status=${status}`,
     ONE: (assignmentId: string) => `/assignments/${assignmentId}`,
     PENDING:
-      "students/assignments/?student_id=1&page=1&page_size=10&status=pending",
+      "students/assignments",
     SUBMITTED: "/students/assignments/submitted",
     SUBMISSIONS: (assignmentId: string) =>
       `/assignments/${assignmentId}/submissions`,

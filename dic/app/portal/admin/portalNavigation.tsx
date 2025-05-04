@@ -113,6 +113,8 @@ function Sidebar({ className, isMobile }: SidebarProps) {
                 </Avatar>
               {/* <Image 
                 src={user?.photo_url || "/male.png"} 
+              <Image 
+                src={user?.photo_url || "/dic.png"} 
                 alt={user?.first_name || "User"}
                 width={80} 
                 height={80} 

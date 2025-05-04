@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_BASE_URL, STRAPI_BASE_URL } from './config';
-import { ApiResponse, ErrorResponse } from './types';
-import { TokenService } from './auth/tokenService';
-import { AuthService } from './auth/auth.service';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
+import { API_BASE_URL, STRAPI_BASE_URL } from "./config";
+import { ApiResponse, ErrorResponse } from "./types";
+import { TokenService } from "./auth/tokenService";
+import { AuthService } from "./auth/auth.service";
 
 export class ApiService {
   api: AxiosInstance;
@@ -13,15 +18,15 @@ export class ApiService {
     this.api = axios.create({
       baseURL: API_BASE_URL,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
-     // Strapi API instance
-     this.strapi = axios.create({
+    // Strapi API instance
+    this.strapi = axios.create({
       baseURL: STRAPI_BASE_URL,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -30,7 +35,7 @@ export class ApiService {
 
   private setupInterceptors() {
     this.api.interceptors.request.use(
-     async (config) => {
+      async (config) => {
         const token = TokenService.getAccessToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -52,7 +57,7 @@ export class ApiService {
           try {
             // Attempt to refresh token
             const newToken = await AuthService.refreshAccessToken();
-            
+
             if (newToken) {
               // Retry the original request with new token
               originalRequest.headers.Authorization = `Bearer ${newToken}`;
@@ -77,7 +82,7 @@ export class ApiService {
     this.strapi.interceptors.request.use(
       async (config) => {
         // Get Strapi token if you have authentication set up for Strapi
-        const strapiToken = localStorage.getItem('strapi_token');
+        const strapiToken = localStorage.getItem("strapi_token");
         if (strapiToken) {
           config.headers.Authorization = `Bearer ${strapiToken}`;
         }
@@ -88,15 +93,15 @@ export class ApiService {
   }
 
   // New centralized method to handle unauthorized responses
-private handleUnauthorized() {
-  // Clear tokens first
-  TokenService.clearTokens();
-  
-  // Then redirect to unauthorized page instead of directly to login
-  if (typeof window !== 'undefined') {
-    window.location.href = '/portal/unauthorized';
+  private handleUnauthorized() {
+    // Clear tokens first
+    TokenService.clearTokens();
+
+    // Then redirect to unauthorized page instead of directly to login
+    if (typeof window !== "undefined") {
+      window.location.href = "/portal/unauthorized";
+    }
   }
-}
 
   private handleError(error: AxiosError<ErrorResponse>) {
     if (error.response?.status === 401) {
@@ -105,21 +110,23 @@ private handleUnauthorized() {
     return Promise.reject(error);
   }
 
-  
   // Method to handle form data submission
-  async postForm<T>(url: string, data: Record<string, any>): Promise<AxiosResponse<T>> {
+  async postForm<T>(
+    url: string,
+    data: Record<string, any>
+  ): Promise<AxiosResponse<T>> {
     const formData = new FormData();
-    
+
     // Convert object to FormData
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
 
     try {
       return this.api.post<T>(url, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
     } catch (error) {
       return this.handleError(error as AxiosError<ErrorResponse>);
@@ -135,20 +142,23 @@ private handleUnauthorized() {
     }
   }
 
-  async get<T>(endpoint: string, params?: Record<string, any>): Promise<ApiResponse<T>> {
-    return this.request<T>({ method: 'GET', url: endpoint, params });
+  async get<T>(
+    endpoint: string,
+    params?: Record<string, any>
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>({ method: "GET", url: endpoint, params });
   }
 
   async post<T>(endpoint: string, data: any): Promise<ApiResponse<T>> {
-    return this.request<T>({ method: 'POST', url: endpoint, data });
+    return this.request<T>({ method: "POST", url: endpoint, data });
   }
 
   async put<T>(endpoint: string, data: any): Promise<ApiResponse<T>> {
-    return this.request<T>({ method: 'PUT', url: endpoint, data });
+    return this.request<T>({ method: "PUT", url: endpoint, data });
   }
 
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>({ method: 'DELETE', url: endpoint });
+    return this.request<T>({ method: "DELETE", url: endpoint });
   }
 
   async uploadFormData<T>(
@@ -157,21 +167,22 @@ private handleUnauthorized() {
     onProgress?: (percentage: number) => void
   ): Promise<ApiResponse<T>> {
     return this.request<T>({
-      method: 'POST',
+      method: "POST",
       url: endpoint,
       data: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
       onUploadProgress: (progressEvent) => {
         if (onProgress && progressEvent.total) {
-          const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          const percentage = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
           onProgress(percentage);
         }
       },
     });
   }
-
 
   // Methods for Strapi API
   async strapiRequest<T>(config: AxiosRequestConfig): Promise<T> {
@@ -183,7 +194,10 @@ private handleUnauthorized() {
     }
   }
 
-  async strapiGet<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+  async strapiGet<T>(
+    endpoint: string,
+    params?: Record<string, any>
+  ): Promise<T> {
     try {
       const response = await this.strapi.get<T>(endpoint, { params });
       return response.data;

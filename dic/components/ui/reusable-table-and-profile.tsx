@@ -1,10 +1,20 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Filter, Search, Mail, Phone, MapPin, Calendar, GraduationCap, Download, User } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Filter,
+  Search,
+  Mail,
+  Phone,
+  MapPin,
+  Calendar,
+  GraduationCap,
+  Download,
+  User,
+} from "lucide-react";
+import Link from "next/link";
 
 // Types for different data structures
 interface Student {
@@ -25,7 +35,7 @@ interface Student {
   address: string;
   phone_number: string;
   email: string;
-};
+}
 
 interface Staff {
   id: number;
@@ -37,10 +47,9 @@ interface Staff {
   local_government: string;
   created_at: string;
   department: string;
-};
+}
 
-
-interface Application  {
+interface Application {
   id: number;
   first_name: string;
   last_name: string;
@@ -59,7 +68,7 @@ interface Application  {
   description: string;
   created_at: string;
   updated_at: string;
-};
+}
 
 interface Course {
   id: number;
@@ -82,23 +91,25 @@ type DataTableProps = {
   columns: TableColumn[];
   data: (Student | Staff | Application | Course)[];
   onRowClick?: (row: any) => void;
-  type: 'student' | 'staff' | 'application' | 'course';
+  type: "student" | "staff" | "application" | "course";
   actions?: React.ReactNode;
 };
 
 type ProfileViewProps = {
   data: Student | Staff | Application;
-  type: 'student' | 'staff' | 'application';
+  type: "student" | "staff" | "application";
   onApprove?: () => void;
   onReject?: () => void;
   onRemove?: () => void;
 };
 
 // Type guards
-const isStudent = (data: any): data is Student => 'student_id' in data;
-const isStaff = (data: any): data is Staff => 'first_name' in data && 'last_name' in data;
-const isApplication = (data: any): data is Application => 'status' in data && 'application_date' in data;
-const isCourse = (data: any): data is Course => 'course_id' in data;
+const isStudent = (data: any): data is Student => "student_id" in data;
+const isStaff = (data: any): data is Staff =>
+  "first_name" in data && "last_name" in data;
+const isApplication = (data: any): data is Application =>
+  "status" in data && "application_date" in data;
+const isCourse = (data: any): data is Course => "course_id" in data;
 
 // Helper function to get the display name
 const getDisplayName = (data: Student | Staff | Application): string => {
@@ -114,7 +125,6 @@ const getDisplayName = (data: Student | Staff | Application): string => {
 //   return data.id;
 // };
 
-
 const getId = (data: Student | Staff | Application | Course | any): number => {
   if (isStudent(data)) return data.student_id;
   if (isCourse(data)) return data.id;
@@ -122,12 +132,18 @@ const getId = (data: Student | Staff | Application | Course | any): number => {
 };
 
 // Reusable Table Component
-export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTableProps) => {
-  const [searchTerm, setSearchTerm] = React.useState('');
+export const DataTable = ({
+  columns,
+  data,
+  onRowClick,
+  type,
+  actions,
+}: DataTableProps) => {
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
 
-  const filteredData = data.filter(item =>
-    Object.values(item).some(value =>
+  const filteredData = data.filter((item) =>
+    Object.values(item).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
@@ -136,9 +152,9 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
     <div className="max-w-[70vw] mx-auto">
       <div className="flex justify-between items-center my-5">
         <h1 className="text-2xl font-semibold">
-          {type === 'student' && 'Students'}
-          {type === 'staff' && 'Staffs'}
-          {type === 'application' && 'Student Applications'}
+          {type === "student" && "Students"}
+          {type === "staff" && "Staffs"}
+          {type === "application" && "Student Applications"}
         </h1>
         <div className="flex gap-4 my-5">
           <div className="relative">
@@ -160,7 +176,7 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
 
       <div className="overflow-x-auto my-5">
         <table className="w-full">
-          <thead className='bg-slate-100'>
+          <thead className="bg-slate-100">
             <tr className="border-b bg-slate-50">
               {columns.map((column, index) => (
                 <th key={index} className="text-left py-4 px-4 font-medium">
@@ -193,7 +209,13 @@ export const DataTable = ({ columns, data, onRowClick, type, actions }: DataTabl
 };
 
 // Reusable Profile View Component
-export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: ProfileViewProps) => {
+export const ProfileView = ({
+  data,
+  type,
+  onApprove,
+  onReject,
+  onRemove,
+}: ProfileViewProps) => {
   return (
     <Card className="md:max-w-[80vw] mx-auto md:p-7 py-5">
       <div className="flex justify-center flex-col">
@@ -244,8 +266,8 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
             <>
               {/* <div className='space-y-3'>
               <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-gray-400" />
-               <span>Address</span>
+                <Mail className="w-5 h-5 text-gray-400" />
+                <span>Email</span>
               </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.address}</h1>
                <hr />
@@ -287,8 +309,8 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
                <h1 className='text-base md:text-lg font-semibold'>{data.local_government}</h1>
                <hr />
                </div> */}
-               <div className='space-y-3'>
-               {/* <div className="flex items-center gap-2">
+                  <div className="space-y-3">
+                    {/* <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
                 <span>State</span>
                </div>
@@ -362,52 +384,72 @@ export const ProfileView = ({ data, type, onApprove, onReject, onRemove }: Profi
             <div>
               <p className="text-base font-medium text-gray-500">Local Government</p>
               <p>{data.local_government}</p>
+            </div> */}
             </div>
           </div>
-        )} */}
+        )}
 
-        {isApplication(data) || type === 'application' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Documents</h3>
-            {['Application Form.pdf', 'Passport'].map((doc) => (
-              <div key={doc} className="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="font-medium text-center md:text-start">{doc}</p>
-                  {/* <p className="text-sm text-gray-500">11 Sep, 2023 • 13MB</p> */}
-                </div>
-                <Button variant="ghost" size="sm">
-                  {doc === 'Application Form.pdf' ?
-                  <Link href={data.application_form_url} target="_blank" className="flex items-center space-x-2">
-                  <span>Download</span>
-                  <Download className="w-4 h-4" />
-                  </Link>: 
-                  <Link href={data.photo_url} target="_blank" className="flex items-center space-x-2">
-                    <span>View</span>
-                  <Download className="w-4 h-4" />
-                  </Link>
-                  }
-                </Button>
+          {isApplication(data) ||
+            (type === "application" && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Documents</h3>
+                {["Application Form.pdf", "Passport"].map((doc) => (
+                  <div
+                    key={doc}
+                    className="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  >
+                    <div>
+                      <p className="font-medium text-center md:text-start">
+                        {doc}
+                      </p>
+                      {/* <p className="text-sm text-gray-500">11 Sep, 2023 • 13MB</p> */}
+                    </div>
+                    <Button variant="ghost" size="sm">
+                      {doc === "Application Form.pdf" ? (
+                        <Link
+                          href={data.application_form_url}
+                          target="_blank"
+                          className="flex items-center space-x-2"
+                        >
+                          <span>Download</span>
+                          <Download className="w-4 h-4" />
+                        </Link>
+                      ) : (
+                        <Link
+                          href={data.photo_url}
+                          target="_blank"
+                          className="flex items-center space-x-2"
+                        >
+                          <span>View</span>
+                          <Download className="w-4 h-4" />
+                        </Link>
+                      )}
+                    </Button>
+                  </div>
+                ))}
               </div>
             ))}
-          </div>
-        )}
 
-        {type === 'application' && (
-          <div className="flex items-center flex-col lg:flex-row gap-2">
-            <Button onClick={onReject} variant="outline" className="text-indigo-600 bg-transparent">
-              Reject Application
+          {type === "application" && (
+            <div className="flex items-center flex-col lg:flex-row gap-2">
+              <Button
+                onClick={onReject}
+                variant="outline"
+                className="text-indigo-600 bg-transparent"
+              >
+                Reject Application
+              </Button>
+              <Button onClick={onApprove} className="bg-indigo-600 text-white">
+                Approve Application
+              </Button>
+            </div>
+          )}
+          {type === "staff" && onRemove && (
+            <Button onClick={onRemove} variant="destructive">
+              Remove staff
             </Button>
-            <Button onClick={onApprove} className='bg-indigo-600 text-white'>
-              Approve Application
-            </Button>
-          </div>
-        )}
-        {type === 'staff' && onRemove && (
-          <Button onClick={onRemove} variant="destructive">
-            Remove staff
-          </Button>
-        )}    
-      </CardContent>
+          )}
+        </CardContent>
       </div>
     </Card>
   );
@@ -418,8 +460,8 @@ export const tableConfig = {
   students: {
     columns: [
       {
-        key: 'full_name',
-        header: 'Name',
+        key: "full_name",
+        header: "Name",
         render: (value: string, row: Student) => (
           <div className="flex items-center gap-2">
             <Avatar className="w-8 h-8">
@@ -428,13 +470,13 @@ export const tableConfig = {
             </Avatar>
             <span>{value}</span>
           </div>
-        )
+        ),
       },
-      { key: 'program', header: 'Program' },
-      { key: 'email', header: 'Email' },
+      { key: "program", header: "Program" },
+      { key: "email", header: "Email" },
       {
-        key: 'details',
-        header: 'Details',
+        key: "details",
+        header: "Details",
         render: () => (
           <Button variant="link" className="text-blue-600">
             View details →
@@ -446,8 +488,8 @@ export const tableConfig = {
   staff: {
     columns: [
       {
-        key: 'name',
-        header: 'Name',
+        key: "name",
+        header: "Name",
         render: (_, row: Staff) => (
           <div className="flex items-center gap-2">
             <Avatar className="w-8 h-8">
@@ -455,13 +497,13 @@ export const tableConfig = {
             </Avatar>
             <span>{`${row.first_name} ${row.last_name}`}</span>
           </div>
-        )
+        ),
       },
-      { key: 'department', header: 'Department' },
-      { key: 'email', header: 'Email' },
+      { key: "department", header: "Department" },
+      { key: "email", header: "Email" },
       {
-        key: 'details',
-        header: 'Details',
+        key: "details",
+        header: "Details",
         render: () => (
           <Button variant="link" className="text-blue-600">
             View details →
@@ -473,8 +515,8 @@ export const tableConfig = {
   applications: {
     columns: [
       {
-        key: 'name',
-        header: 'Name',
+        key: "name",
+        header: "Name",
         render: (value: string) => (
           <div className="flex items-center gap-2">
             <Avatar className="w-8 h-8">
@@ -482,26 +524,30 @@ export const tableConfig = {
             </Avatar>
             <span>{value}</span>
           </div>
-        )
+        ),
       },
-      { key: 'program', header: 'Program' },
-      { key: 'email', header: 'Email' },
+      { key: "program", header: "Program" },
+      { key: "email", header: "Email" },
       {
-        key: 'status',
-        header: 'Status',
+        key: "status",
+        header: "Status",
         render: (value: string) => (
-          <span className={`px-3 py-1 rounded-full text-sm ${
-            value.toLowerCase() === 'approved' ? 'bg-green-100 text-green-800' :
-            value.toLowerCase() === 'rejected' ? 'bg-red-100 text-red-800' :
-            'bg-yellow-100 text-yellow-800'
-          }`}>
+          <span
+            className={`px-3 py-1 rounded-full text-sm ${
+              value.toLowerCase() === "approved"
+                ? "bg-green-100 text-green-800"
+                : value.toLowerCase() === "rejected"
+                ? "bg-red-100 text-red-800"
+                : "bg-yellow-100 text-yellow-800"
+            }`}
+          >
             {value}
           </span>
         ),
       },
       {
-        key: 'details',
-        header: 'Details',
+        key: "details",
+        header: "Details",
         render: () => (
           <Button variant="link" className="text-gray-900">
             View details →
