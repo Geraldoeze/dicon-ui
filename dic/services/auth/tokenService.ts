@@ -92,7 +92,7 @@ export class TokenService {
 
     try {
       const decoded = jwtDecode<TokenPayload>(token);
-      console.log(decoded, "DD");
+      
       return decoded.accountType;
     } catch {
       return null;

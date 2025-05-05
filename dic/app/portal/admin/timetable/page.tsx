@@ -63,6 +63,7 @@ const ClassDashboard = () => {
   const handleScheduleClass = (formData: ScheduleClassForm) => {
     scheduleMutation.mutate(formData);
   };
+  
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -101,7 +102,7 @@ const ClassDashboard = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {staffCourses?.data.map((course: any, index: number) => (
-                      <SelectItem key={`${course.id}-${course.course_id}`} value={course.id.toString()}>
+                      <SelectItem key={`${course.course_id}-${course.course_id}`} value={course?.course_id.toString()}>
                         {course.program}
                       </SelectItem>
                     ))}

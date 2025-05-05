@@ -124,7 +124,7 @@ const Staffs = () => {
   if (isLoading) {
     return <div className="p-8">Loading staff members...</div>;
   }
-  console.log(formData);
+  
 
   // Handle error state
   if (error) {
@@ -138,7 +138,7 @@ const Staffs = () => {
     setFormData((prev) => ({ ...prev, title: value }));
   };
   const handleRole = (value: string) => {
-    console.log(value);
+    
     setFormData((prev) => ({ ...prev, role_id: Number(value) }));
   };
   const handleGender = (value: string) => {

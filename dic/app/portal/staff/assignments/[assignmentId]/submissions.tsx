@@ -36,7 +36,7 @@ interface StudentProfile {
 
 const SubmissionsTable = ({ assignmentId }: { assignmentId: string }) => {
 
-  console.log(assignmentId);
+  
   
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);

@@ -79,7 +79,7 @@ export default function Courses() {
       }
     }
   })
-  console.log(user?.id, "TT")
+  
 
   // Fetch stats data
   const { data: registeredCoursesData } = useQuery({

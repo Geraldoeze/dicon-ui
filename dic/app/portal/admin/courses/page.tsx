@@ -209,7 +209,7 @@ const AdminCourses = () => {
     );
   }
 
-
+console.log(programs)
 
   return (
     <div className="p-8">
@@ -325,8 +325,8 @@ const AdminCourses = () => {
                       <SelectItem value="loading">Loading programs...</SelectItem>
                     ) : (
                       programs?.data?.map((program: any) => (
-                        <SelectItem key={program.id} value={program.id.toString()}>
-                          {program.program}
+                        <SelectItem key={program?.course_id} value={program?.course_id.toString()}>
+                          {program?.program}
                         </SelectItem>
                       ))
                     )}
