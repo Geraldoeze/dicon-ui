@@ -100,7 +100,7 @@ export function Layout({ children, breadcrumbs }: LayoutProps) {
 }
 
 function Sidebar({ className, isMobile }: SidebarProps) {
-  const { user} = useUser();
+  const { user } = useUser();
   return (
     <div className={cn("bg-[#080825] text-white h-full relative", className)}>
       {isMobile && (

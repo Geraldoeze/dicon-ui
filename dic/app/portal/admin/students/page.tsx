@@ -212,15 +212,15 @@ const Students = () => {
 
   return (
     <div className="p-8">
-      <div className="max-w-[70vw] mx-auto mb-6 flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Students</h1>
-        <div className="flex space-x-2">
-          <Input
+      <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">
+        {/* <h1 className="text-2xl font-semibold">Students</h1> */}
+        <div className="flex justify-end space-x-2">
+          {/* <Input
             placeholder="Search students..."
             className="max-w-xs"
             value={searchInput}
             onChange={handleSearchChange}
-          />
+          /> */}
           <Button 
             className='bg-indigo-600 hover:bg-indigo-700/50 text-white'
             onClick={() => setIsRegisterDialogOpen(true)}
@@ -348,6 +348,7 @@ const Students = () => {
                   type="date"
                   value={formData.date_of_birth}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -434,7 +435,7 @@ const Students = () => {
                   {programs?.data ? (
                     programs.data.map((program: any) => (
                       <option key={program.id} value={program.id}>
-                        {program.name}
+                        {program.program}
                       </option>
                     ))
                   ) : (

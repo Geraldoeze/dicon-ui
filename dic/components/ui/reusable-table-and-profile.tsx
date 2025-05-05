@@ -155,6 +155,7 @@ export const DataTable = ({
           {type === "student" && "Students"}
           {type === "staff" && "Staffs"}
           {type === "application" && "Student Applications"}
+          {type === "course" && "Courses"}
         </h1>
         <div className="flex gap-4 my-5">
           <div className="relative">
@@ -384,7 +385,7 @@ export const ProfileView = ({
             <div>
               <p className="text-base font-medium text-gray-500">Local Government</p>
               <p>{data.local_government}</p>
-            </div> */}
+            </div> 
             </div>
           </div>
         )} */}

@@ -23,6 +23,7 @@ interface ScheduleClassForm {
 const ClassDashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
 
@@ -33,20 +34,27 @@ const ClassDashboard = () => {
 
   const { data: staffCourses} = useQuery({
     queryKey: ['courses'],
-    queryFn: () => staffService.getCourses()
+    queryFn: () => adminService.getProgram()
   })
 
   const scheduleMutation = useMutation({
     mutationFn: (data: ScheduleClassForm) => 
       staffService.scheduleClass(data),
+      
     onSuccess: () => {
       setIsDialogOpen(false);
       setIsSuccessOpen(true);
+    },
+
+    onError: () => {
+      setIsDialogOpen(true);
+      setError(true);
     }
+    
   });
 
   const filteredClasses = classes?.data.filter(
-    (classItem) =>
+    (classItem: any) =>
       classItem.course_name.toLowerCase().includes(
         searchQuery.toLowerCase()
       )
@@ -92,9 +100,9 @@ const ClassDashboard = () => {
                     <SelectValue placeholder="Select a course" />
                   </SelectTrigger>
                   <SelectContent>
-                    {staffCourses?.data.map((course) => (
-                      <SelectItem key={course.course_id} value={course.course_id.toString()}>
-                        {course.course_name}
+                    {staffCourses?.data.map((course: any, index: number) => (
+                      <SelectItem key={`${course.id}-${course.course_id}`} value={course.id.toString()}>
+                        {course.program}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -118,14 +126,20 @@ const ClassDashboard = () => {
                   <Label htmlFor="start_time">Time</Label>
                   <Input id="start_time" name="start_time" type="time" required />
                 </div>
+                 <div className="flex flex-col items-center justify-center w-full">
+                {error && (
+                      <p className="text-red-500 my-5">{error.message || "Error scheduling class" }</p>
+                )}
+              <Button type="submit" className="w-full mx-auto bg-indigo-700 hover:bg-indigo-800 text-white">
+                Schedule Class
+              </Button>
+              </div>
+
+             
+          
               </div>
              
           <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
-          <DialogTrigger asChild>
-              <Button type="submit" className="w-full bg-indigo-700 hover:bg-indigo-800 text-white">
-                Schedule Class
-              </Button>
-          </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Schedule Class</DialogTitle>
@@ -166,7 +180,7 @@ const ClassDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredClasses?.map((classItem) => (
+        {filteredClasses?.map((classItem: any) => (
           <Card key={classItem.id} className="border-2 border-gray-100">
             <CardContent className="p-6">
               <div className="space-y-4">

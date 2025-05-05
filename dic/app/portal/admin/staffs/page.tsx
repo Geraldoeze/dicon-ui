@@ -117,7 +117,7 @@ const Staffs = () => {
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
     // console.log(formData);
-    // registerMutation.mutate(formData);
+    registerMutation.mutate(formData);
   };
 
   // Handle loading state
@@ -267,8 +267,8 @@ const Staffs = () => {
                       <SelectValue placeholder={"Select Title"} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Mr">Prof</SelectItem>
-                      <SelectItem value="Mr">Dr</SelectItem>
+                      {/* <SelectItem value="Mr">Prof</SelectItem>
+                      <SelectItem value="Mr">Dr</SelectItem> */}
                       
                       <SelectItem value="Mr">Mr</SelectItem>
                       <SelectItem value="Mrs">Mrs</SelectItem>

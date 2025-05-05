@@ -20,6 +20,73 @@ export class AuthService {
    * @returns {Promise<UserProfile>} A promise that resolves to the authenticated user profile.
    * @throws {Error} Throws an error if the login attempt fails.
    */
+  // static async login(credentials: LoginCredentials): Promise<UserProfile> {
+  //   try {
+  //     const response = await apiService.postForm<ServerLoginResponse>(AUTH_ENDPOINTS.LOGIN, {
+  //       username: credentials.username,
+  //       password: credentials.password
+  //     });
+      
+  //     // Store tokens
+  //     TokenService.setTokens({
+  //       accessToken: response.data.access_token,
+  //       refreshToken: response.data.refresh_token || '' // Handle case where refresh token isn't provided
+  //     });
+
+  //     // Create user profile object
+  //     const userProfile: UserProfile = {
+  //       id: response.data.user_id,
+  //       account_type_id: response.data.account_type,
+  //       account_type: this.getAccountTypeString(response.data.account_type),
+  //       photo_url: '',
+  //       title: null,
+  //       first_name: '',
+  //       last_name: '',
+  //       email: '',
+  //       phone_number: '',
+  //       state: '',
+  //       local_government: '',
+  //       address: '',
+  //       gender: '',
+  //       date_of_birth: null,
+  //       next_of_kin_name: '',
+  //       created_at: '',
+  //       updated_at: ''
+  //     };
+      
+  //     // Cache initial user profile
+  //     TokenService.cacheUserData(userProfile);
+      
+  //     // Fetch complete user profile and update cache
+  //     this.getCurrentUser()
+  //       .then(fullProfile => {
+  //         if (fullProfile) {
+  //           TokenService.cacheUserData(fullProfile);
+  //         }
+  //       })
+  //       .catch(() => null);
+
+  //     setTimeout(() => this.redirectToDashboard(response.data.account_type), 100);
+  //     return userProfile;
+  //   } catch (error: any) {
+  //     // Standardized error handling
+  //     console.error('Login error:', error);
+      
+  //     if (error.response?.data) {
+  //       throw new Error(error.response.data.detail || 'Login failed');
+  //     }
+      
+  //     throw new Error('Login failed. Please check your credentials.');
+  //   }
+  // }
+
+  /**
+   * Authenticates a user with the given login credentials.
+   *
+   * @param {LoginCredentials} credentials - The username and password of the user.
+   * @returns {Promise<UserProfile>} A promise that resolves to the authenticated user profile.
+   * @throws {Error} Throws an error if the login attempt fails.
+   */
   static async login(credentials: LoginCredentials): Promise<UserProfile> {
     try {
       const response = await apiService.postForm<ServerLoginResponse>(AUTH_ENDPOINTS.LOGIN, {
@@ -33,8 +100,8 @@ export class AuthService {
         refreshToken: response.data.refresh_token || '' // Handle case where refresh token isn't provided
       });
 
-      // Create user profile object
-      const userProfile: UserProfile = {
+      // Create initial user profile object with available data
+      const initialUserProfile: UserProfile = {
         id: response.data.user_id,
         account_type_id: response.data.account_type,
         account_type: this.getAccountTypeString(response.data.account_type),
@@ -54,20 +121,27 @@ export class AuthService {
         updated_at: ''
       };
       
-      // Cache initial user profile
-      TokenService.cacheUserData(userProfile);
+      // Don't cache initial profile yet - wait for full profile
       
-      // Fetch complete user profile and update cache
-      this.getCurrentUser()
-        .then(fullProfile => {
-          if (fullProfile) {
-            TokenService.cacheUserData(fullProfile);
-          }
-        })
-        .catch(() => null);
-
-      setTimeout(() => this.redirectToDashboard(response.data.account_type), 100);
-      return userProfile;
+      try {
+        // Explicitly fetch the complete user profile from API
+        const response = await apiService.get<UserProfile>(AUTH_ENDPOINTS.USER);
+        const fullProfile = response.data;
+        
+        // Now cache the complete profile data
+        TokenService.cacheUserData(fullProfile);
+        
+        // After successfully getting full profile data, redirect to dashboard
+        setTimeout(() => this.redirectToDashboard(fullProfile.account_type_id), 100);
+        
+        return fullProfile;
+      } catch (error) {
+        console.error('Error fetching complete user profile:', error);
+        // If fetching full profile fails, use and cache initial data
+        TokenService.cacheUserData(initialUserProfile);
+        setTimeout(() => this.redirectToDashboard(initialUserProfile.account_type_id), 100);
+        return initialUserProfile;
+      }
     } catch (error: any) {
       // Standardized error handling
       console.error('Login error:', error);
@@ -143,7 +217,7 @@ export class AuthService {
 
     // Fetch from API if no cache
     try {
-      const response = await apiService.get<UserProfile>('/auth/user');
+      const response = await apiService.get<UserProfile>(AUTH_ENDPOINTS.USER);
       // Cache the fetched user data
       TokenService.cacheUserData(response.data);
       return response.data;

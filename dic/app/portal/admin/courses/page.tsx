@@ -213,8 +213,8 @@ const AdminCourses = () => {
 
   return (
     <div className="p-8">
-      <div className="max-w-[70vw] mx-auto mb-6 flex justify-between items-center">
-        <h1 className="text-xl md:text-2xl font-semibold">Courses</h1>
+      <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">
+        {/* <h1 className="text-xl md:text-2xl font-semibold">Courses</h1> */}
         <Button
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700/50 text-white"
           onClick={() => setIsCreateDialogOpen(true)}
