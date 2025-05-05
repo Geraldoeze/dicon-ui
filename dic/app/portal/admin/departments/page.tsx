@@ -20,9 +20,9 @@ const Departments = () => {
   const [department, setDepartment] = useState<any[]>([]);
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false)
 
-  const { data: staffs }= useQuery({
-    queryKey: ['staffs'], 
-    queryFn: () => adminService.getStaffs()});
+  // const { data: staffs }= useQuery({
+  //   queryKey: ['staffs'], 
+  //   queryFn: () => adminService.getStaffs()});
 
   const createDepartment = useMutation({
     mutationFn: (data: createDepartmentForm) => 
@@ -106,10 +106,10 @@ const Departments = () => {
               </select>
                 
               </div> */}
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="description">Enter description</Label>
                 <textarea cols={5} rows={5} id="description" name="description" required className="border-2 border-gray-100 py-2 w-full"></textarea>
-              </div>
+              </div> */}
 
               <Button type="submit" className="w-full bg-indigo-700 hover:bg-indigo-800 text-white">
                 Add Department

@@ -159,7 +159,7 @@ const Students = () => {
         gender: 'Male',
         date_of_birth: '',
         next_of_kin_name: '',
-        program_id: 7,
+        program_id: 2,
         batch_id: 1,
         enrollment_date: ''
       });
@@ -363,7 +363,7 @@ const Students = () => {
                 />
               </div>
 
-              {/* Address Information */}
+              {/* Address Information
               <div className="col-span-2">
                 <h3 className="font-semibold text-lg mt-4">Address Information</h3>
               </div>
@@ -400,8 +400,9 @@ const Students = () => {
                   placeholder=""
                 />
               </div>
+              */}
 
-              {/* Emergency Contact */}
+              {/* Emergency Contact 
               <div className="col-span-2">
                 <h3 className="font-semibold text-lg mt-4">Emergency Contact</h3>
               </div>
@@ -416,6 +417,7 @@ const Students = () => {
                   placeholder="Jane Doe"
                 />
               </div>
+              */}
 
               {/* Academic Information */}
               <div className="col-span-2">

@@ -380,7 +380,7 @@ const AdminRegistration = () => {
                 )}
               </div>
 
-              <div className="space-y-1">
+              {/* <div className="space-y-1">
                 <Label htmlFor="next_of_kin_name" className="text-sm font-medium">
                   Next of Kin
                 </Label>
@@ -392,7 +392,7 @@ const AdminRegistration = () => {
                   className="w-full"
                   placeholder="Enter next of kin name"
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Contact Information */}
@@ -434,7 +434,7 @@ const AdminRegistration = () => {
                   )}
                 </div>
 
-                <div className="space-y-1">
+                {/* <div className="space-y-1">
                   <Label htmlFor="state" className="text-sm font-medium">
                     State
                   </Label>
@@ -475,6 +475,7 @@ const AdminRegistration = () => {
                     placeholder="Enter full address"
                   />
                 </div>
+                 */}
               </div>
             </div>
 

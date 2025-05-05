@@ -49,10 +49,10 @@ const DepartmentDetails = ({ departmentId }: { departmentId: string }) => {
               </div> */}
             </div>
 
-            <div className="my-10">
+            {/* <div className="my-10">
               <h1 className="text-base md:text-lg font-semibold">About Department</h1>
               <p>{department.description}</p>
-            </div>
+            </div> */}
           </div>
         ))}
         <hr />
