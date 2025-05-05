@@ -163,6 +163,14 @@ class AdminService {
     return apiService.put(ADMIN_ENDPOINTS.COURSES.EDIT(formData.program_id), formData);
   }
 
+  async getBatch() {
+    return apiService.get(ADMIN_ENDPOINTS.BATCH.GET);
+  }
+
+  async getProgram() {
+    return apiService.get(ADMIN_ENDPOINTS.PROGRAM.GET);
+  }
+
   // async getTotalStaffs(){
   //     return apiService.get(ADMIN_ENDPOINTS.STAFFS.DASHBOARD)
   // }

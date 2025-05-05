@@ -12,7 +12,7 @@ import Image from "next/image"
 
 interface createDepartmentForm {
     name: string;
-    head_of_department_id: number;
+    // head_of_department_id: number;
     description: string;
 }
 const Departments = () => {
@@ -87,7 +87,7 @@ const Departments = () => {
               // }
               handleCreateDepartment({
                 name: formData.get('name') as string,
-                head_of_department_id: formData.get('head_of_department_id') as number,
+                // head_of_department_id: formData.get('head_of_department_id') as number,
                 description: formData.get('description') as string
               })
             }} className="space-y-4">
@@ -95,7 +95,7 @@ const Departments = () => {
                 <Label htmlFor="name">Enter Department Name</Label>
                 <Input id="name" name="name" required />
               </div>
-              <div className="space-y-4">
+              {/* <div className="space-y-4">
                 <Label>Assign HOD</Label>
                 
               <select className="border-2 border-gray-100  py-2 w-full">
@@ -105,7 +105,7 @@ const Departments = () => {
               ))}
               </select>
                 
-              </div>
+              </div> */}
               <div className="space-y-2">
                 <Label htmlFor="description">Enter description</Label>
                 <textarea cols={5} rows={5} id="description" name="description" required className="border-2 border-gray-100 py-2 w-full"></textarea>
@@ -140,7 +140,7 @@ const Departments = () => {
                                         <b>Students: </b>
                                         <span className='text-[1.25rem] md:text-[1.5rem] font-medium'>{dept.total_students}</span> 
                                     </div>
-                                     <p className='flex items-center justify-start md:justify-between flex-col lg:flex-row'><b>HOD:</b><span>{dept.head_of_department}</span></p>
+                                     {/* <p className='flex items-center justify-start md:justify-between flex-col lg:flex-row'><b>HOD:</b><span>{dept.head_of_department}</span></p> */}
                                     </CardContent>
                             </Card>
                             ))}

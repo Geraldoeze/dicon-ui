@@ -21,6 +21,7 @@ import { studentService } from '@/services/student.service'
 import { Video } from '@/services/types'
 import ClassCard from '@/components/ui/ClassCard'
 import VideoCard from '@/components/ui/VideoCard'
+import { Avatar } from '@/components/ui/avatar'
 // Types
 interface CourseDetails {
   course_code: string
@@ -80,16 +81,21 @@ function CourseDetails({ courseId }: CourseDetailsProps) {
     <div className="flex items-center justify-between flex-col-reverse md:flex-row my-6">
       <div>
         <h1 className="text-xl md:text-2xl font-bold">{courseDetails?.data.name}</h1>
-        <p className="text-muted-foreground">{courseDetails?.data.description}</p>
+        {/* <p className="text-muted-foreground">{courseDetails?.data.description}</p> */}
       </div>
       <Button className="hidden md:flex px-2 py-3 bg-gray-100 items-center space-x-1 rounded-full">
-        <Image
+        <span className='text-black'>Lecturer : </span>
+      {/* <Avatar className='w-20 h-20'>
+              <AvatarImage src={courseDetails?.data.lecturer_in_charge || ""} alt={user?.first_name || ""} />
+              <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "A"}</AvatarFallback>
+      </Avatar> */}
+        {/* <Image
           src="/male.png"
           alt={courseDetails?.data.lecturer_in_charge || 'Lecturer'}
           width={32}
           height={32}
           className="w-8 h-8 rounded-full"
-        />
+        /> */}
         <span className='text-gray-700'>{courseDetails?.data.lecturer_in_charge}</span>
       </Button>
     </div>

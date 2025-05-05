@@ -28,6 +28,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AuthService} from '@/services/auth/auth.service'
 import { useUser } from '@/app/userContext';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 interface Breadcrumb {
   label: string;
   href: string;
@@ -104,22 +105,28 @@ function Sidebar({ className, isMobile }: SidebarProps) {
       )}
       <div className="flex flex-col h-full">
         <div className="p-6 border-b border-gray-800">
-          <Link href="/portal/amin/profile" className="flex flex-col items-center space-y-3">
+          <div className="flex flex-col items-center space-y-3">
             <div className="relative w-20 h-20">
+                <Avatar className='w-20 h-20'>
+                    <AvatarImage src={user?.photo_url || ""} alt={user?.first_name || ""} />
+                    <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "A"}</AvatarFallback>
+                </Avatar>
+              {/* <Image 
+                src={user?.photo_url || "/male.png"} 
               <Image 
                 src={user?.photo_url || "/dic.png"} 
                 alt={user?.first_name || "User"}
                 width={80} 
                 height={80} 
                 className="rounded-full object-cover border-2 border-blue-500"
-              />
+              /> */}
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
             </div>
             <div className="text-center my-2">
               <h2 className="text-lg font-semibold">{user?.first_name || "Loading..."}</h2>
               <p className="text-sm text-gray-400">{user?.account_type || "User"}</p>
             </div>
-          </Link>
+          </div>
         </div>
 
         <ScrollArea className="flex-1 px-4">

@@ -43,10 +43,10 @@ const DepartmentDetails = ({ departmentId }: { departmentId: string }) => {
               <div>
                 <h1 className="text-lg md:text-2xl font-medium">{department.name}</h1>
               </div>
-              <div className="flex items-center gap-x-2 border rounded-md p-1 md:p-2 bg-gray-100 text-black">
+              {/* <div className="flex items-center gap-x-2 border rounded-md p-1 md:p-2 bg-gray-100 text-black">
                 <h1 className='font-semibold'>HOD:</h1>
                 <p>{department.head_of_department_name}</p>
-              </div>
+              </div> */}
             </div>
 
             <div className="my-10">
@@ -99,7 +99,7 @@ const DepartmentDetails = ({ departmentId }: { departmentId: string }) => {
                 </TableCell>
               </TableRow>
             ) : (
-              applicationsData?.data.map(({ id, name, course_name, email, phone_number }) => (
+              applicationsData?.data.map(({ id, name, course_name, email, phone_number }: any) => (
                 <TableRow key={id}>
                   <TableCell><a href={`/portal/admin/students/${id.toString()}`}>{name}</a></TableCell>
                   <TableCell>{course_name}</TableCell>

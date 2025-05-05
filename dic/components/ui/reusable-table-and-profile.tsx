@@ -155,6 +155,7 @@ export const DataTable = ({
           {type === "student" && "Students"}
           {type === "staff" && "Staffs"}
           {type === "application" && "Student Applications"}
+          {type === "course" && "Courses"}
         </h1>
         <div className="flex gap-4 my-5">
           <div className="relative">
@@ -218,103 +219,82 @@ export const ProfileView = ({
 }: ProfileViewProps) => {
   return (
     <Card className="md:max-w-[80vw] mx-auto md:p-7 py-5">
-      <div className="flex justify-between flex-col lg:flex-row">
-        <CardContent className="flex-1 flex sm:flex-row items-start gap-4">
-          <Avatar className="w-16 h-16">
-            <AvatarImage
-              src={
-                isStudent(data)
-                  ? data.photo_url
-                  : isApplication(data)
-                  ? data.photo_url
-                  : undefined
-              }
-            />
-            <AvatarFallback>{"A"}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1 items-center">
-            <h2 className="text-2xl font-semibold">{getDisplayName(data)}</h2>
-            {isApplication(data) ||
-              (type === "application" && (
-                <div className="flex items-center">
-                  <h1 className="text-base sm:text-lg md:text-xl font-medium">
-                    {data.first_name} {data.last_name}
-                  </h1>
-                </div>
-              ))}
-            {isStudent(data) && <p className="text-gray-500">{data.program}</p>}
-            {isStaff(data) ||
-              (type === "staff" && (
-                <div className="">
-                  <h1 className="text-base sm:text-lg md:text-xl font-medium">
-                    {data.full_name}
-                  </h1>
-                  {/* <p className="text-gray-500">{data.department}</p> */}
-                </div>
-              ))}
+      <div className="flex justify-center flex-col">
+      <CardContent className="flex-1 flex sm:flex-row items-start gap-4">
+        {/* <Avatar className="w-16 h-16">
+          <AvatarImage src={isStudent(data) ? data.photo_url : isApplication(data) ? data.photo_url : undefined} />
+          <AvatarFallback>{'A'}</AvatarFallback>
+        </Avatar> */}
+        <div className="flex-1 items-center">
+          <h2 className="text-2xl font-semibold">{getDisplayName(data)}</h2>
+          {(isApplication(data)) || type === 'application' && (
+            <div className="flex items-center">
+            <h1 className='text-base sm:text-lg md:text-2xl lg:text-3xl font-bold'>{data.first_name} {data.last_name}</h1>
+            </div>
+          )}
+          {(isStudent(data)) && (
+            <p className="text-gray-500">{data.program}</p>
+          )}
+          {isStaff(data) || type === 'staff' && (
+            <div className="">
+            <h1 className='text-base sm:text-lg md:text-2xl lg:text-3xl font-bold'>{data.full_name}</h1>
+            {/* <p className="text-gray-500">{data.department}</p> */}
+            </div>
+          )}
+        
+        </div>
+      </CardContent>
+      <CardContent className="flex-1 space-y-6">
+        
+        <div className="space-y-4">
+          <div className='space-y-3'>
+          <div className="flex items-center gap-2">
+            <Mail className="w-5 h-5 text-gray-400" />
+            <span>Email</span>
           </div>
-        </CardContent>
-        <CardContent className="flex-1 space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-3">
+          <h1 className='text-base md:text-lg font-semibold'>{data.email}</h1>
+          <hr />
+          </div>
+          <div className='space-y-3'>
+          <div className="flex items-center gap-2">
+            <Phone className="w-5 h-5 text-gray-400" />
+            <span>Phone Number</span>
+          </div>
+          <h1 className='text-base md:text-lg font-semibold'>{data.phone_number}</h1>
+          <hr />
+          </div>
+          {isStudent(data) && (
+            <>
+              {/* <div className='space-y-3'>
               <div className="flex items-center gap-2">
                 <Mail className="w-5 h-5 text-gray-400" />
                 <span>Email</span>
               </div>
-              <h1 className="text-base md:text-lg font-semibold">
-                {data.email}
-              </h1>
-              <hr />
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Phone className="w-5 h-5 text-gray-400" />
-                <span>Phone Number</span>
-              </div>
-              <h1 className="text-base md:text-lg font-semibold">
-                {data.phone_number}
-              </h1>
-              <hr />
-            </div>
-            {isStudent(data) && (
-              <>
-                {/* <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-gray-400" />
-                    <span>Address</span>
-                  </div>
-                  <h1 className="text-base md:text-lg font-semibold">
-                    {data.address}
-                  </h1>
-                  <hr />
-                </div> */}
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5 text-gray-400" />
-                    <span>Department</span>
-                  </div>
-                  <h1 className="text-base md:text-lg font-semibold">
-                    {data.department}
-                  </h1>
-                  <hr />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5 text-gray-400" />
-                    <span>Degree</span>
-                  </div>
-                  <h1 className="text-base md:text-lg font-semibold">
-                    {data.degree}
-                  </h1>
-                  <hr />
-                </div>
-              </>
-            )}
+               <h1 className='text-base md:text-lg font-semibold'>{data.address}</h1>
+               <hr />
+              </div> */}
+              <div className='space-y-3'>
+               <div className="flex items-center gap-2">
+               <GraduationCap className="w-5 h-5 text-gray-400" />
+               <span>Department</span>
+               </div>
+               <h1 className='text-base md:text-lg font-semibold'>{data.department}</h1>
+               <hr />
+               </div>
+               <div className='space-y-3'>
+               <div className="flex items-center gap-2">
+                <GraduationCap className="w-5 h-5 text-gray-400" />
+                <span>Degree</span>
+               </div>
+               <h1 className='text-base md:text-lg font-semibold'>{data.degree}</h1>
+               <hr />
+               </div>
+            </>
+          )}
 
-            {isStaff(data) ||
-              (type === "staff" && (
-                <>
-                  {/* <div className='space-y-3'>
+{isStaff(data) || type === 'staff' && (
+            <>
+              {/* <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-gray-400" />
                <span>Address</span>
@@ -322,7 +302,7 @@ export const ProfileView = ({
                <h1 className='text-base md:text-lg font-semibold'>{data.address}</h1>
                <hr />
               </div> */}
-                  {/* <div className='space-y-3'>
+              {/* <div className='space-y-3'>
                <div className="flex items-center gap-2">
                <GraduationCap className="w-5 h-5 text-gray-400" />
                <span>Local Government</span>
@@ -330,91 +310,85 @@ export const ProfileView = ({
                <h1 className='text-base md:text-lg font-semibold'>{data.local_government}</h1>
                <hr />
                </div> */}
-                  <div className="space-y-3">
-                    {/* <div className="flex items-center gap-2">
+               <div className='space-y-3'>
+               {/* <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
                 <span>State</span>
                </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.state}</h1>
-               <hr /> */}
-                    <div className="flex items-center gap-2">
-                      <GraduationCap className="w-5 h-5 text-gray-400" />
-                      <span>Gender</span>
-                    </div>
-                    <h1 className="text-base md:text-lg font-semibold">
-                      {data.gender}
-                    </h1>
-                    <hr />
-                    {/* <div className="flex items-center gap-2">
+                */}
+               <hr />
+               <div className="flex items-center gap-2">
+                <GraduationCap className="w-5 h-5 text-gray-400" />
+                <span>Gender</span>
+               </div>
+               <h1 className='text-base md:text-lg font-semibold'>{data.gender}</h1>
+               <hr />
+               <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-gray-400" />
                 <span>Phone Number</span>
                </div>
                <h1 className='text-base md:text-lg font-semibold'>{data.phone_number}</h1>
-               <hr /> */}
-                  </div>
-                </>
-              ))}
-            {isApplication(data) ||
-              (type === "application" && (
-                <>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <User className="w-5 h-5 text-gray-400" />
-                      <span>Date of Birth</span>
-                    </div>
-                    <h1 className="text-base md:text-lg font-semibold">
-                      {data.date_of_birth}
-                    </h1>
-                    <hr />
-                  </div>
-                  <div className="space-y-3">
-                    {/* <div className="flex items-center gap-2">
+               <hr />
+               </div>
+            </>
+          )}
+          {isApplication(data) || type === 'application' && (
+              <>
+              {/* 
+              <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+              <User className="w-5 h-5 text-gray-400" />
+              <span>Date of Birth</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.date_of_birth}</h1>
+              <hr />
+              </div>
+               <div className='space-y-3'>
+              <div className="flex items-center gap-2">
               <User className="w-5 h-5 text-gray-400" />
               <span>Description</span>
               </div>
               <h1 className='text-base md:text-lg font-semibold'>{data.description}</h1>
-              <hr /> */}
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <GraduationCap className="w-5 h-5 text-gray-400" />
-                      <span>Course</span>
-                    </div>
-                    <h1 className="text-base md:text-lg font-semibold">
-                      {data.department}
-                    </h1>
-                    <hr />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <GraduationCap className="w-5 h-5 text-gray-400" />
-                      <span>Degree</span>
-                    </div>
-                    <h1 className="text-base md:text-lg font-semibold">
-                      {data.degree}
-                    </h1>
-                    <hr />
-                  </div>
-                  <div className="flex items-center flex-col md:flex-row gap-2">
-                    <Calendar className="w-5 h-5 text-gray-400" />
-                    <span>Applied on: {data.created_at}</span>
-                  </div>
-                </>
-              ))}
-          </div>
+              <hr />
+              </div> */}
+              <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-gray-400" />
+              <span>Course</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.department}</h1>
+              <hr />
+              </div>
+              <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+               <GraduationCap className="w-5 h-5 text-gray-400" />
+               <span>Degree</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.degree}</h1>
+              <hr />
+              </div>
+            {/* <div className="flex items-center flex-col md:flex-row gap-2">
+              <Calendar className="w-5 h-5 text-gray-400" />
+              <span>Applied on: {data.created_at}</span>
+            </div> */}
+            </>
+          )}
+        </div>
 
-          {(isStudent(data) || isStaff(data)) && type !== "application" && (
-            <div className="grid grid-cols-2 gap-4">
-              {/* <div>
+        {/* {(isStudent(data) || isStaff(data)) && type !== 'application' && (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
               <p className="text-base font-medium text-gray-500">State</p>
               <p>{data.state}</p>
             </div>
             <div>
               <p className="text-base font-medium text-gray-500">Local Government</p>
               <p>{data.local_government}</p>
-            </div> */}
+            </div> 
             </div>
-          )}
+          </div>
+        )} */}
 
           {isApplication(data) ||
             (type === "application" && (

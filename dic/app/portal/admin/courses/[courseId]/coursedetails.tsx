@@ -139,6 +139,17 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
 
   return (
     <div>
+      <div className="mb-6">
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </Button>
+        </div>
+
       <div className="flex items-center justify-end gap-5">
         <Button className="py-2 px-4 my-5 bg-blue-600" onClick={openEditDialog}>
           Edit Course
@@ -224,18 +235,8 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
       </Dialog>
 
       <Card className="md:max-w-[80vw] mx-auto md:p-7 py-5">
-        <div className="mb-6 flex items-center justify-between">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-        </div>
-
-        <div className="flex justify-between flex-col lg:flex-row">
+        
+        <div className="flex justify-center flex-col">
           <div className="sm:flex-row items-start gap-4">
             <CardContent>
               <div className="flex-1 items-center">
@@ -244,7 +245,7 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
               </div>
             </CardContent>
           </div>
-          <div className="p-8 md:min-w-[60vw] max-w-[80vw] mx-auto">
+          <div className="p-5 md:min-w-[60vw] max-w-[80vw] mx-auto">
             <div className="">
               <CardContent>
                 <div className="space-y-4">

@@ -104,7 +104,7 @@ function Sidebar({ className, isMobile }: SidebarProps) {
             <div className="relative w-20 h-20">
               <Avatar className='w-20 h-20'>
                 <AvatarImage src={user?.photo_url || ""} alt={user?.first_name || ""} />
-                <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "A"}</AvatarFallback>
+                <AvatarFallback className="text-black">{user?.first_name?.charAt(0) || "L"}</AvatarFallback>
               </Avatar>
               {/* <Image 
                 src={user?.photo_url || "/male.png"} 

@@ -39,7 +39,7 @@ function AssignmentList({ status, searchQuery }: { status: AssignmentStatus; sea
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {filteredAssignments.map((assignment) => (
+      {filteredAssignments.map((assignment: any) => (
         <AssignmentCard
           key={assignment.id}
           assignment={assignment}
