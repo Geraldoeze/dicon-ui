@@ -289,6 +289,14 @@ export const ProfileView = ({
                <h1 className='text-base md:text-lg font-semibold'>{data.degree}</h1>
                <hr />
                </div>
+               <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+              <User className="w-5 h-5 text-gray-400" />
+              <span>Program</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.program}</h1>
+              <hr />
+              </div> 
             </>
           )}
 
@@ -344,14 +352,7 @@ export const ProfileView = ({
               <h1 className='text-base md:text-lg font-semibold'>{data.date_of_birth}</h1>
               <hr />
               </div>
-               <div className='space-y-3'>
-              <div className="flex items-center gap-2">
-              <User className="w-5 h-5 text-gray-400" />
-              <span>Description</span>
-              </div>
-              <h1 className='text-base md:text-lg font-semibold'>{data.description}</h1>
-              <hr />
-              </div> */}
+              */}
               <div className='space-y-3'>
               <div className="flex items-center gap-2">
               <GraduationCap className="w-5 h-5 text-gray-400" />
@@ -360,6 +361,14 @@ export const ProfileView = ({
               <h1 className='text-base md:text-lg font-semibold'>{data.department}</h1>
               <hr />
               </div>
+              <div className='space-y-3'>
+              <div className="flex items-center gap-2">
+              <User className="w-5 h-5 text-gray-400" />
+              <span>Program</span>
+              </div>
+              <h1 className='text-base md:text-lg font-semibold'>{data.program}</h1>
+              <hr />
+              </div> 
               <div className='space-y-3'>
               <div className="flex items-center gap-2">
                <GraduationCap className="w-5 h-5 text-gray-400" />

@@ -267,6 +267,8 @@ const ApplicationPortal: React.FC = () => {
               <label className="block text-sm font-medium">Date of Birth</label>
               <input
                 type="date"
+                max="2025-05-31"
+                min="1900-01-01"
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
                 {...register("dob", { required: true })}
                 onChange={handleDateChange}
