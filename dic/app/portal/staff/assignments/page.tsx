@@ -274,7 +274,7 @@ const Assignment = () => {
               <DialogContent className="sm:max-w-[425px]">
                 <div className="flex flex-col items-center justify-center py-6">
                   <DialogTitle className="text-center">
-                  <Image src="/approve.svg" alt="Success" width={50} height={50} />
+                  {/* <Image src="/approve.svg" alt="Success" width={50} height={50} /> */}
                   <p className="text-xl font-semibold text-center">Assignment Created Successfully!</p>
                   </DialogTitle>
                   <p className="text-gray-600 text-center mt-2">
@@ -335,13 +335,13 @@ const Assignment = () => {
                                 <span>Due Date</span>
                                 <button className="flex gap-x-2 bg-slate-50 rounded-md px-2 py-1"> {assignment.due_date}</button>
                               </div>
-                              <div className="flex justify-between">
+                              {/* <div className="flex justify-between">
                                 <span>Mode of Submission</span>
                                 <button className="flex gap-x-2 bg-slate-50 rounded-md px-2 py-1">
                                   <Link className="h-4 w-4"/> 
                                   {assignment.submission_format}
                                 </button>
-                              </div>
+                              </div> */}
                               <div className="my-3">
                                 <a href={`/portal/staff/assignments/${assignment.id}`} className='space-x-2 flex font-medium'> 
                                   <span>Details</span> 

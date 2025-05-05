@@ -9,10 +9,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, LinkIcon } from "lucide-react";
+import { Search, LinkIcon, ArrowLeft } from "lucide-react";
 import { staffService } from "@/services/staff.service";
 import { studentService } from "@/services/student.service";
 import { AssignmentDetails } from "@/services/types";
+import { useRouter } from "next/navigation";
 
 interface Submission {
   id: string;
@@ -44,6 +45,7 @@ export default function AssignmentPage({ params }: Params) {
   const [showStudentProfile, setShowStudentProfile] = useState(false);
   
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const assignmentId = use<Params>(params).assignmentId;
   
@@ -131,6 +133,16 @@ export default function AssignmentPage({ params }: Params) {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Assignment Details Card */}
+      <div className="py-3 md:py-5 flex items-center justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </Button>
+        </div>
       <Card className="mb-6">
         <CardHeader>
           <div className="flex justify-between items-start">
@@ -149,11 +161,12 @@ export default function AssignmentPage({ params }: Params) {
             {/* <div>
               <h3 className="font-semibold mb-2">Assignment Title</h3>
               <p className="text-gray-600">{assignmentData.title}</p>
-            </div> */}
+            </div> 
             <div>
               <h3 className="font-semibold mb-2">Description</h3>
               <p className="text-gray-600">{assignmentData.description}</p>
             </div>
+            */}
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="font-semibold mb-2">Pass Mark</h3>

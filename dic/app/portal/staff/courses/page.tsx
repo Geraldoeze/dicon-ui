@@ -28,7 +28,13 @@ import { TokenService } from "@/services/auth/tokenService";
 //   ]
 
 const Courses = () => {
-  const user = TokenService.getCachedUserData();
+
+  const [user, setUser] = React.useState<any>(null);
+ 
+  React.useEffect(() => {
+    const u = TokenService.getCachedUserData();
+    setUser(u);
+  }, []);
 
   const {
     data: staffCourses,
@@ -40,8 +46,7 @@ const Courses = () => {
     enabled: Boolean(user?.id),
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading courses</div>;
+  
 
   return (
     <div className="bg-slate-50">
@@ -53,6 +58,8 @@ const Courses = () => {
               View the courses you are taking
             </p>
           </div>
+          {isLoading && <div className="text-center text-lg my-5">Loading...</div>}
+          {error && <div className="text-center text-lg my-5">Error loading courses</div> }
           <div className="border-y-2 my-5 gap-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {staffCourses?.data.map((course) => (
               <div

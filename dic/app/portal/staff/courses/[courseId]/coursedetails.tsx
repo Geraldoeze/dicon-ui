@@ -149,7 +149,6 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
       queryClient.invalidateQueries({ queryKey: ["course-details", courseId, "videos"] });
       setIsDialogOpen(false);
       setIsSuccessOpen(true);
-      reset();
     },
   });
 
@@ -185,8 +184,8 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
           {/* Header Section */}
           <div className="flex justify-between gap-y-3 md:gap-y-0 items-start flex-wrap mb-8">
             <div>
-              <h1 className="text-2xl font-bold">{courseDetails?.name || "ELE 321"}</h1>
-              <p className="text-gray-600">{courseDetails?.description || "Electricity & power"}</p>
+              <h1 className="text-2xl font-bold">{courseDetails?.name || "Loading..."}</h1>
+              {/* <p className="text-gray-600">{courseDetails?.description}</p> */}
             </div>
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -262,10 +261,10 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
                 placeholder="Enter the video URL"
                 {...register("video_url", {
                   required: "Video URL is required",
-                  pattern: {
-                    value: /^https?:\/\/.+/,
-                    message: "Please enter a valid URL",
-                  },
+                  // pattern: {
+                  //   value: /^https?:\/\/.+/,
+                  //   message: "Please enter a valid URL",
+                  // },
                 })}
                 className={errors.video_url ? "border-red-500" : ""}
               />
@@ -276,6 +275,13 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
           </div>
 
           <DialogFooter>
+          <Button
+              type="submit"
+              className="bg-indigo-700 w-full"
+              disabled={uploadVideoMutation.isPending}
+            >
+              {uploadVideoMutation.isPending ? "Uploading..." : "Upload Video"}
+            </Button>
             {/* <Button
               type="submit"
               className="bg-indigo-700 w-full"
@@ -285,15 +291,6 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
             </Button> */}
 
             <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
-          <DialogTrigger asChild>
-          <Button
-              type="submit"
-              className="bg-indigo-700 w-full"
-              disabled={uploadVideoMutation.isPending}
-            >
-              {uploadVideoMutation.isPending ? "Uploading..." : "Upload Video"}
-            </Button>
-          </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Upload Video</DialogTitle>
@@ -301,6 +298,7 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
             <DialogDescription>
               The video has been uploaded successfully
             </DialogDescription>
+            <button onClick={() => setIsSuccessOpen(false)}>Close</button>
           </DialogContent>
         </Dialog>
           </DialogFooter>
@@ -309,12 +307,13 @@ const CourseDetails = ({ courseId }: CourseDetailsProps) => {
     </Dialog>
           </div>
 
-          {/* Course Description */}
+          {/* Course Description
           <div className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Course Description</h2>
             <p className="text-gray-700">{courseDetails?.description || "A dummy course description..."}</p>
             <hr className="my-6" />
           </div>
+           */}
 
           {/* Tabs Section */}
           <Tabs value={activeTab} onValueChange={setActiveTab}>
