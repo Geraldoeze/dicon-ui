@@ -203,7 +203,7 @@ const Staffs = () => {
         open={isRegisterDialogOpen}
         onOpenChange={setIsRegisterDialogOpen}
       >
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Register New Staff</DialogTitle>
             <DialogDescription>
@@ -359,10 +359,10 @@ const Staffs = () => {
                         Loading programs...
                       </SelectItem>
                     ) : (
-                      programs?.data?.map((program: any) => (
+                      programs?.data?.map((program: any, index: any) => (
                         <SelectItem
-                          key={program.id}
-                          value={program.id.toString()}
+                          key={index}
+                          value={program.course_id.toString()}
                         >
                           {program.program}
                         </SelectItem>

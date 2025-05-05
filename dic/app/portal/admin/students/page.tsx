@@ -375,7 +375,7 @@ const Students = () => {
                   name="state"
                   value={formData.state}
                   onChange={handleInputChange}
-                  placeholder="California"
+                  placeholder=""
                 />
               </div>
               
@@ -386,7 +386,7 @@ const Students = () => {
                   name="local_government"
                   value={formData.local_government}
                   onChange={handleInputChange}
-                  placeholder="Los Angeles"
+                  placeholder=""
                 />
               </div>
               
@@ -397,7 +397,7 @@ const Students = () => {
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
-                  placeholder="123 Main St, Los Angeles, CA, 90001"
+                  placeholder=""
                 />
               </div>
 
@@ -433,8 +433,8 @@ const Students = () => {
                   required
                 >
                   {programs?.data ? (
-                    programs.data.map((program: any) => (
-                      <option key={program.id} value={program.id}>
+                    programs.data.map((program: any, index: any) => (
+                      <option key={index} value={program.id}>
                         {program.program}
                       </option>
                     ))
@@ -455,8 +455,8 @@ const Students = () => {
                   required
                 >
                   {batches?.data ? (
-                    batches.data.map((batch: any) => (
-                      <option key={batch.id} value={batch.id}>
+                    batches.data.map((batch: any, index: any) => (
+                      <option key={index} value={batch.id}>
                         {batch.name}
                       </option>
                     ))

@@ -280,8 +280,8 @@ const ApplicationPortal: React.FC = () => {
                   <SelectValue placeholder="Select a program" />
                 </SelectTrigger>
                 <SelectContent>
-                  {programs.map((program: any) => (
-                    <SelectItem key={program.id} value={program.id.toString()}>
+                  {programs.map((program: any, index) => (
+                    <SelectItem key={index} value={program.course_id.toString()}>
                       {program.program}
                     </SelectItem>
                   ))}
