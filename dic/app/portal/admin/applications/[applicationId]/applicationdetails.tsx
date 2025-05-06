@@ -47,6 +47,7 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
 
   // Handle approve action
   const handleApprove = async () => {
+    
     approveMutation.mutate(applicationId);
   };
 
@@ -103,7 +104,7 @@ const ApplicationDetails = ({ applicationId }: ApplicationDetailsProps) => {
             onClick={() => router.back()}
             className="text-black font-medium flex items-center"
           >
-            <ArrowLeft className="h-4 w-4 mr-2"/> Back
+            <ArrowLeft className="h-4 w-4 mr-2"/> Back 
           </button>
         </div>
         

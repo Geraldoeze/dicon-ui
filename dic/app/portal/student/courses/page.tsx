@@ -123,13 +123,13 @@ export default function Courses() {
 
 
   const statsCards = [
-    {
-      title: "Registered Courses",
-      value: registeredCoursesData?.data?.length || 0,
-      description: "Courses you are currently enrolled in",
-      icon: Book,
-      className: "bg-green-100 text-black border-s-2 border-green-400"
-    },
+    // {
+    //   title: "Registered Courses",
+    //   value: registeredCoursesData?.data?.length || 0,
+    //   description: "Courses you are currently enrolled in",
+    //   icon: Book,
+    //   className: "bg-green-100 text-black border-s-2 border-green-400"
+    // },
     {
       title: "Pending Assignments",
       value: assignmentsData?.data?.length || 0,
@@ -241,12 +241,12 @@ export default function Courses() {
                   <TabsTrigger value="registered" className={`${selectedTab === 'registered' ? 'bg-slate-500' : ''}`}>
                     My courses
                   </TabsTrigger>
-                  <TabsTrigger value="unregistered" className={`${selectedTab === 'unregistered' ? 'bg-slate-500' : ''}`}>
+                  {/* <TabsTrigger value="unregistered" className={`${selectedTab === 'unregistered' ? 'bg-slate-500' : ''}`}>
                     Register courses
                   </TabsTrigger>
                   <TabsTrigger value="carryover" className={`${selectedTab === 'carryover' ? 'bg-slate-500' : ''}`}>
                     Carry-over courses
-                  </TabsTrigger>
+                  </TabsTrigger> */}
                 </TabsList>
 
                 <CourseFilters

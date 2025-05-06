@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { adminService } from "@/services/admin.service";
 import Link from "next/link";
 import {
@@ -27,6 +27,9 @@ import { Input } from "@/components/ui/input";
 // import { Button } from '@/components/ui/button';
 import { Application } from "@/services/types";
 import { QueryStudentParams } from "@/interface/admin";
+import Pagination from "@/components/ui/pagination";
+import { useRouter } from "next/navigation";
+
 function Overview() {
   // const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   // const [department, setDepartment] = useState<any[]>([]);
@@ -35,9 +38,11 @@ function Overview() {
   const [queryParams, setQueryParams] = useState<QueryStudentParams>({
     search: "",
     page: 1,
-    page_size: 10,
+    page_size: 20,
     status: "Pending",
   });
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   // Correctly set up the query
   const {
@@ -102,6 +107,23 @@ function Overview() {
     },
   ];
 
+  //
+  const prefetchNextPage = (nextPage: number) => {
+    queryClient.prefetchQuery({
+      queryKey: ["courses", { ...queryParams, page: nextPage }],
+      queryFn: () =>
+        adminService.getCourses({ ...queryParams, page: nextPage }),
+    });
+  };
+
+  const handlePageChange = (page: number) => {
+    prefetchNextPage(page + 1);
+    setQueryParams((prev) => ({
+      ...prev,
+      page,
+    }));
+  };
+
   return (
     <div className="max-w-[90vw] md:max-w-[80vw] mx-auto p-10 space-y-10">
       {/* Stats Cards */}
@@ -111,33 +133,44 @@ function Overview() {
         ))}
       </div>
 
-            <div className="my-5 space-y-5">
-                    <div className="flex items-center justify-between flex-col md:flex-row gap-y-3">
-                            <div className="flex items-center gap-x-2">
-                                    <h1 className='text-[1.25rem] md:text-[1.5rem]'>Departments</h1>
-                                    <span className='p-2 bg-gray-200 rounded-md text-black'>{department?.data.length}</span>
-                            </div>
-                            <div className="border-none">
-                                    <Link href="/portal/admin/departments"><button className='flex items-center gap-x-2'>View all <ArrowRight/></button></Link>
-                            </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                            {departmentData.map((dept) => (
-                            <Card key={dept.id} className='py-4 px-2'>
-                                    <CardContent className='space-y-3'>
-                                      <a href={`/portal/admin/departments/${dept.id}`}>
-                                     <h1 className='h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold'> <GraduationCap width={30} height={30}/> {dept.name}</h1>
-                                     </a>
-                                     <div className='flex items-center justify-between flex-col md:flex-row'>
-                                        <b>Students: </b>
-                                        <span className='text-[1.25rem] md:text-[1.5rem] font-medium'>{dept.total_students}</span> 
-                                    </div>
-                                     {/* <p className='flex items-center justify-between flex-col lg:flex-row'><b>HOD:</b><span className='w-fit'>{dept.head_of_department}</span></p> */}
-                                    </CardContent>
-                            </Card>
-                            ))}
-                    </div>
-            </div>
+      <div className="my-5 space-y-5">
+        <div className="flex items-center justify-between flex-col md:flex-row gap-y-3">
+          <div className="flex items-center gap-x-2">
+            <h1 className="text-[1.25rem] md:text-[1.5rem]">Departments</h1>
+            <span className="p-2 bg-gray-200 rounded-md text-black">
+              {department?.data.length}
+            </span>
+          </div>
+          <div className="border-none">
+            <Link href="/portal/admin/departments">
+              <button className="flex items-center gap-x-2">
+                View all <ArrowRight />
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {departmentData.map((dept) => (
+            <Card key={dept.id} className="py-4 px-2">
+              <CardContent className="space-y-3">
+                <a href={`/portal/admin/departments/${dept.id}`}>
+                  <h1 className="h-20 min-h-fit text-indigo-900 text-[1rem] md:text-[1.25rem] font-semibold">
+                    {" "}
+                    <GraduationCap width={30} height={30} /> {dept.name}
+                  </h1>
+                </a>
+                <div className="flex items-center justify-between flex-col md:flex-row">
+                  <b>Students: </b>
+                  <span className="text-[1.25rem] md:text-[1.5rem] font-medium">
+                    {dept.total_students}
+                  </span>
+                </div>
+                {/* <p className='flex items-center justify-between flex-col lg:flex-row'><b>HOD:</b><span className='w-fit'>{dept.head_of_department}</span></p> */}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
 
       <Card className="my-5">
         <CardHeader className="flex items-center justify-between flex-col md:flex-row">
@@ -189,12 +222,13 @@ function Overview() {
                     ) : ( */}
 
               {filteredApplications.map((application) => (
-                <TableRow key={application.id}>
-                  <TableCell>
-                    <a href={`/portal/admin/applications/${application.id}`}>
-                      <div> {application.name}</div>
-                    </a>
-                  </TableCell>
+                <TableRow
+                  key={application.id} className="cursor-pointer"
+                  onClick={() =>
+                    router.push(`/portal/admin/applications/${application.id}`)
+                  }
+                >
+                  <TableCell>{application.name}</TableCell>
                   <TableCell>{application.program}</TableCell>
                   <TableCell>{application.email}</TableCell>
                   <TableCell> {application.phone_number} </TableCell>
@@ -202,6 +236,17 @@ function Overview() {
               ))}
             </TableBody>
           </Table>
+          {filteredApplications?.length === 0 && <p className="my-8 text-center font-medium">No Applicants </p>}
+          {!isLoading &&
+            applications?.meta &&
+            applications?.data?.length > 0 && (
+              <Pagination
+                currentPage={applications.meta.current_page}
+                totalPages={applications.meta.total_pages}
+                onPageChange={handlePageChange}
+                disabled={isLoading}
+              />
+            )}
         </CardContent>
       </Card>
     </div>

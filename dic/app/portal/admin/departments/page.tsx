@@ -20,6 +20,7 @@ const Departments = () => {
   const [department, setDepartment] = useState<any[]>([]);
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false)
 
+  //  add param and pagination to getstaff 
   // const { data: staffs }= useQuery({
   //   queryKey: ['staffs'], 
   //   queryFn: () => adminService.getStaffs()});
@@ -53,10 +54,10 @@ const Departments = () => {
             <h1 className="text-[1.5rem] text-center md:text-[2.5rem] font-semibold my-10 flex items-center gap-x-5"> Departments <span className='text-[1.25rem] md:text-[1.5rem] font-medium bg-gray-100 p-1 rounded-full'>{department?.length}</span> </h1>
 
             <div className="flex items-center flex-col md:flex-row gap-5 my-5">
-            <div className="relative flex-1 items-center">
+            {/* <div className="relative flex-1 items-center">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input placeholder="Search departments..." className="pl-8 bg-[#F7F9FC] placeholder:text-[.8rem] placeholder:lg:text-[1rem]" />
-            </div>
+            </div> */}
               {/* <Button className="bg-indigo-700 text-white hover:bg-indigo-800 flex items-center gap-2">
               <Plus className="h-4 w-4" />
                Add Assignment

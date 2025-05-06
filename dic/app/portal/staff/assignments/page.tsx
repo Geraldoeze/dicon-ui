@@ -34,7 +34,7 @@ const Assignment = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeTab, setActiveTab] = useState('graded');
+    const [activeTab, setActiveTab] = useState('pending');
     const [formError, setFormError] = useState<string | null>(null);
     
     // Form state
@@ -299,7 +299,7 @@ const Assignment = () => {
                 <div className="bg-slate-50 px-2 py-1 rounded-md">
                 <TabsList>
                     <TabsTrigger value="pending">Pending</TabsTrigger>
-                    <TabsTrigger value="graded">Graded</TabsTrigger>
+                    {/* <TabsTrigger value="graded">Graded</TabsTrigger> */}
                 </TabsList>
                 </div>
                     <div className="flex items-center gap-x-2">

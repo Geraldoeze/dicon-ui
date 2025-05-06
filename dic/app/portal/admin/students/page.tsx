@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { adminService } from '@/services/admin.service';
-import { DataTable } from '@/components/ui/reusable-table-and-profile';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { adminService } from "@/services/admin.service";
+import { DataTable } from "@/components/ui/reusable-table-and-profile";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,12 +13,12 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { QueryParams, QueryStudentParams } from '@/interface/admin';
-import { useDebounce } from '@/hooks/useDebounce';
-import Pagination from '@/components/ui/pagination';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { QueryParams, QueryStudentParams } from "@/interface/admin";
+import { useDebounce } from "@/hooks/useDebounce";
+import Pagination from "@/components/ui/pagination";
 
 // Student registration form interface
 interface StudentRegistrationData {
@@ -43,17 +43,21 @@ interface StudentRegistrationData {
 
 // Table configuration
 const studentColumns = [
-  { key: 'name', header: 'Name' },
-  { key: 'department', header: 'Department' },
-  { key: 'email', header: 'Email' },
-  { key: 'phone_number', header: 'Phone Number' },
+  { key: "name", header: "Name" },
+  { key: "department", header: "Department" },
+  { key: "email", header: "Email" },
+  { key: "phone_number", header: "Phone Number" },
   {
-    key: 'status',
-    header: 'Status',
+    key: "status",
+    header: "Status",
     render: (value: string) => (
-      <span className={`px-3 py-1 rounded-full text-sm ${
-        value === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-      }`}>
+      <span
+        className={`px-3 py-1 rounded-full text-sm ${
+          value === "active"
+            ? "bg-green-100 text-green-800"
+            : "bg-gray-100 text-gray-800"
+        }`}
+      >
         {value.charAt(0).toUpperCase() + value.slice(1)}
       </span>
     ),
@@ -65,60 +69,61 @@ const Students = () => {
   const queryClient = useQueryClient();
   const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-  
+
   // Form data state
   const [formData, setFormData] = useState<StudentRegistrationData>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     account_type_id: 1, // 1 for student
-    photo_url: 'https://res.cloudinary.com/dsueaitln/image/upload/v1733239113/istockphoto-522855255-612x612_eyv1vf.jpg',
-    title: 'Mr.',
-    first_name: '',
-    last_name: '',
-    phone_number: '',
-    state: '',
-    local_government: '',
-    address: '',
-    gender: 'Male',
-    date_of_birth: '',
-    next_of_kin_name: '',
-    program_id: 7,
+    photo_url:
+      "https://res.cloudinary.com/dsueaitln/image/upload/v1733239113/istockphoto-522855255-612x612_eyv1vf.jpg",
+    title: "Mr.",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    state: "",
+    local_government: "",
+    address: "",
+    gender: "Male",
+    date_of_birth: "",
+    next_of_kin_name: "",
+    program_id: 1,
     batch_id: 1,
-    enrollment_date: ''
+    enrollment_date: "",
   });
 
   const [queryParams, setQueryParams] = useState<QueryStudentParams>({
-    search: '',
+    search: "",
     page: 1,
     page_size: 10,
-    status: 'Active'
+    status: "Active",
   });
 
   const debouncedSearch = useDebounce(searchInput, 500);
-    
+
   // Set up the query correctly
-  const { 
-    data: students, 
-    isLoading, 
-    error 
+  const {
+    data: students,
+    isLoading,
+    error,
   } = useQuery({
-    queryKey: ['students', queryParams],
+    queryKey: ["students", queryParams],
     queryFn: () => adminService.getStudents(queryParams),
   });
 
   // Fetch programs and batches for dropdowns
   const { data: programs } = useQuery({
-    queryKey: ['programs'],
+    queryKey: ["programs"],
     queryFn: () => adminService.getProgram(),
   });
 
   const { data: batches } = useQuery({
-    queryKey: ['batches'],
+    queryKey: ["batches"],
     queryFn: () => adminService.getBatch(),
   });
-  
+
   useEffect(() => {
     setQueryParams((prev) => ({
       ...prev,
@@ -129,8 +134,9 @@ const Students = () => {
 
   const prefetchNextPage = (nextPage: number) => {
     queryClient.prefetchQuery({
-      queryKey: ['students', { ...queryParams, page: nextPage }],
-      queryFn: () => adminService.getStudents({ ...queryParams, page: nextPage }),
+      queryKey: ["students", { ...queryParams, page: nextPage }],
+      queryFn: () =>
+        adminService.getStudents({ ...queryParams, page: nextPage }),
     });
   };
 
@@ -140,45 +146,58 @@ const Students = () => {
       return adminService.register(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['students'] });
+      queryClient.invalidateQueries({ queryKey: ["students"] });
       setIsRegisterDialogOpen(false);
       setIsSuccessModalOpen(true);
       // Reset form
       setFormData({
-        email: '',
-        password: '',
+        email: "",
+        password: "",
         account_type_id: 1,
-        photo_url: 'https://res.cloudinary.com/dsueaitln/image/upload/v1733239113/istockphoto-522855255-612x612_eyv1vf.jpg',
-        title: 'Mr.',
-        first_name: '',
-        last_name: '',
-        phone_number: '',
-        state: '',
-        local_government: '',
-        address: '',
-        gender: 'Male',
-        date_of_birth: '',
-        next_of_kin_name: '',
+        photo_url:
+          "https://res.cloudinary.com/dsueaitln/image/upload/v1733239113/istockphoto-522855255-612x612_eyv1vf.jpg",
+        title: "Mr.",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        state: "",
+        local_government: "",
+        address: "",
+        gender: "Male",
+        date_of_birth: "",
+        next_of_kin_name: "",
         program_id: 2,
         batch_id: 1,
-        enrollment_date: ''
+        enrollment_date: "",
       });
     },
     onError: (error) => {
-      console.error('Registration error:', error);
-    }
+      console.error("Registration error:", error);
+    },
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'program_id' || name === 'batch_id' 
-        ? parseInt(value, 10) 
-        : value
+      [name]:
+        name === "program_id" || name === "batch_id"
+          ? parseInt(value, 10)
+          : value,
     }));
   };
-
+  const handleProgramChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: parseInt(value, 10), // Convert to number
+    }));
+  };
+  console.log(programs)
+  
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
     registerMutation.mutate(formData);
@@ -209,7 +228,7 @@ const Students = () => {
       </div>
     );
   }
-
+  console.log(formData.program_id);
   return (
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">
@@ -221,8 +240,8 @@ const Students = () => {
             value={searchInput}
             onChange={handleSearchChange}
           /> */}
-          <Button 
-            className='bg-indigo-600 hover:bg-indigo-700/50 text-white'
+          <Button
+            className="bg-indigo-600 hover:bg-indigo-700/50 text-white"
             onClick={() => setIsRegisterDialogOpen(true)}
           >
             Register Student
@@ -230,13 +249,15 @@ const Students = () => {
         </div>
       </div>
 
-      <DataTable 
+      <DataTable
         columns={studentColumns}
         data={students?.data || []}
-        type='student'
-        onRowClick={(student) => router.push(`/portal/admin/students/${student.id}`)}
+        type="student"
+        onRowClick={(student) =>
+          router.push(`/portal/admin/students/${student.id}`)
+        }
       />
-      
+
       {!isLoading && students?.meta && students?.data?.length > 0 && (
         <Pagination
           currentPage={students.meta.current_page}
@@ -247,12 +268,16 @@ const Students = () => {
       )}
 
       {/* Enhanced Registration Dialog */}
-      <Dialog open={isRegisterDialogOpen} onOpenChange={setIsRegisterDialogOpen}>
+      <Dialog
+        open={isRegisterDialogOpen}
+        onOpenChange={setIsRegisterDialogOpen}
+      >
         <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Register New Student</DialogTitle>
             <DialogDescription>
-              Create a new student account by providing the required information.
+              Create a new student account by providing the required
+              information.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleRegister} className="space-y-4">
@@ -302,7 +327,7 @@ const Students = () => {
                   <option value="Dr.">Dr.</option>
                 </select>
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="first_name">First Name</Label>
                 <Input
@@ -313,7 +338,7 @@ const Students = () => {
                   placeholder="John"
                 />
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="last_name">Last Name</Label>
                 <Input
@@ -324,7 +349,7 @@ const Students = () => {
                   placeholder="Doe"
                 />
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="gender">Gender</Label>
                 <select
@@ -421,21 +446,24 @@ const Students = () => {
 
               {/* Academic Information */}
               <div className="col-span-2">
-                <h3 className="font-semibold text-lg mt-4">Academic Information</h3>
+                <h3 className="font-semibold text-lg mt-4">
+                  Academic Information
+                </h3>
               </div>
-              
-              <div className="grid gap-2">
+
+              {/* <div className="grid gap-2">
                 <Label htmlFor="program_id">Program*</Label>
                 <select
                   id="program_id"
                   name="program_id"
+                  
                   value={formData.program_id}
-                  onChange={handleInputChange}
+                  onChange={handleProgramChange}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
                   required
                 >
                   {programs?.data ? (
-                    programs.data.map((program: any, index: any) => (
+                    programs?.data?.map((program: any, index: any) => (
                       <option key={index} value={program.id}>
                         {program.program}
                       </option>
@@ -444,8 +472,29 @@ const Students = () => {
                     <option value="7">Default Program</option>
                   )}
                 </select>
+              </div> */}
+              <div className="grid gap-2">
+                <Label htmlFor="program_id">Program*</Label>
+                <select
+                  id="program_id"
+                  name="program_id"
+                  value={formData.program_id}
+                  onChange={handleProgramChange}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                  required
+                >
+                  {programs?.data && programs.data.length > 0 ? (
+                    programs.data.map((program: any, index: number) => (
+                      <option key={index} value={program.degree_id}>
+                        {program.program}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="7">Default Program</option>
+                  )}
+                </select>
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="batch_id">Batch*</Label>
                 <select
@@ -467,7 +516,7 @@ const Students = () => {
                   )}
                 </select>
               </div>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="enrollment_date">Enrollment Date</Label>
                 <Input
@@ -479,21 +528,23 @@ const Students = () => {
                 />
               </div>
             </div>
-            
+
             <DialogFooter className="mt-6">
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => setIsRegisterDialogOpen(false)}
               >
                 Cancel
               </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="bg-indigo-600 hover:bg-indigo-700/50 text-white"
                 disabled={registerMutation.isPending}
               >
-                {registerMutation.isPending ? "Registering..." : "Register Student"}
+                {registerMutation.isPending
+                  ? "Registering..."
+                  : "Register Student"}
               </Button>
             </DialogFooter>
           </form>
@@ -510,7 +561,7 @@ const Students = () => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button 
+            <Button
               onClick={() => setIsSuccessModalOpen(false)}
               className="bg-indigo-600 hover:bg-indigo-700/50 text-white"
             >

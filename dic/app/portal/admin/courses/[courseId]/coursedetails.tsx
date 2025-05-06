@@ -34,7 +34,7 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
   // Move ALL hooks to the top of the component
   const router = useRouter();
   const queryClient = useQueryClient();
-  
+
   // State hooks
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -90,14 +90,17 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
     setFormData((prev) => ({ ...prev, [name]: parseInt(value) }));
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    const form = {
-      lecturer_id: formData.lecturer_id,
-      program_id: Number(courseId),
-    };
-    editCourseMutation.mutate(form);
-  }, [formData.lecturer_id, courseId, editCourseMutation]);
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      const form = {
+        lecturer_id: formData.lecturer_id,
+        program_id: Number(courseId),
+      };
+      editCourseMutation.mutate(form);
+    },
+    [formData.lecturer_id, courseId, editCourseMutation]
+  );
 
   // Handle loading and error cases after all hooks are defined
   if (isLoading) {
@@ -140,15 +143,15 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
   return (
     <div>
       <div className="mb-6">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </Button>
-        </div>
+        <Button
+          variant="ghost"
+          onClick={() => router.back()}
+          className="flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </Button>
+      </div>
 
       <div className="flex items-center justify-end gap-5">
         <Button className="py-2 px-4 my-5 bg-blue-600" onClick={openEditDialog}>
@@ -235,12 +238,13 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
       </Dialog>
 
       <Card className="md:max-w-[80vw] mx-auto md:p-7 py-5">
-        
         <div className="flex justify-center flex-col">
           <div className="sm:flex-row items-start gap-4">
             <CardContent>
               <div className="flex-1 items-center">
-                <h2 className="text-2xl font-semibold">{course.data.course_code}</h2>
+                <h2 className="text-2xl font-semibold">
+                  {course.data.course_code}
+                </h2>
                 {/* <p className="text-gray-500">{course.data.course_code}</p> */}
               </div>
             </CardContent>
@@ -260,10 +264,21 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
+                      <span>Program</span>
+                    </div>
+                    <h1 className="text-base md:text-lg font-semibold">
+                      {course.data?.program}
+                    </h1>
+                    <hr />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
                       <span>Lecturer in Charge</span>
                     </div>
                     <h1 className="text-base md:text-lg font-semibold">
-                      {course.data.lecturer_in_charge}
+                      {course.data?.lecturer_in_charge?.length > 2
+                        ? course.data?.lecturer_in_charge
+                        : "None assigned, kindly edit course to assign"}
                     </h1>
                     <hr />
                   </div>

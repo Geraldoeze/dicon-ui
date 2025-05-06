@@ -77,9 +77,11 @@ const Staffs = () => {
 
   // Fetch programs for selection
   const { data: programs, isLoading: isLoadingPrograms } = useQuery({
-    queryKey: ["programs"],
-    queryFn: () => programsService.getPrograms(),
+    queryKey: ["programs", formData?.department_id],
+    queryFn: () => programsService.getProgram(formData?.department_id),
+    enabled: Boolean(formData?.department_id),
   });
+
 
   // Set up mutation for registration
   const registerMutation = useMutation({
@@ -124,7 +126,6 @@ const Staffs = () => {
   if (isLoading) {
     return <div className="p-8">Loading staff members...</div>;
   }
-  
 
   // Handle error state
   if (error) {
@@ -138,7 +139,6 @@ const Staffs = () => {
     setFormData((prev) => ({ ...prev, title: value }));
   };
   const handleRole = (value: string) => {
-    
     setFormData((prev) => ({ ...prev, role_id: Number(value) }));
   };
   const handleGender = (value: string) => {
@@ -269,7 +269,7 @@ const Staffs = () => {
                     <SelectContent>
                       {/* <SelectItem value="Mr">Prof</SelectItem>
                       <SelectItem value="Mr">Dr</SelectItem> */}
-                      
+
                       <SelectItem value="Mr">Mr</SelectItem>
                       <SelectItem value="Mrs">Mrs</SelectItem>
                       <SelectItem value="Miss">Miss</SelectItem>
@@ -342,35 +342,37 @@ const Staffs = () => {
               <div>
                 <SelectDepartment onSelect={handleDepartment} />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="program_id">Program</Label>
-                <Select
-                  onValueChange={(value) =>
-                    handleSelectChange(value, "program_id")
-                  }
-                  value={formData.program_id.toString()}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a Program" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {isLoadingPrograms ? (
-                      <SelectItem value="loading">
-                        Loading programs...
-                      </SelectItem>
-                    ) : (
-                      programs?.data?.map((program: any, index: any) => (
-                        <SelectItem
-                          key={index}
-                          value={program.course_id.toString()}
-                        >
-                          {program.program}
+              {formData?.department_id > 0 && (
+                <div className="grid gap-2">
+                  <Label htmlFor="program_id">Program</Label>
+                  <Select
+                    onValueChange={(value) =>
+                      handleSelectChange(value, "program_id")
+                    }
+                    value={formData.program_id.toString()}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a Program" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {isLoadingPrograms ? (
+                        <SelectItem value="loading">
+                          Loading programs...
                         </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
-              </div>
+                      ) : (
+                        programs?.data?.map((program: any, index: any) => (
+                          <SelectItem
+                            key={Number(index) + program.id}
+                            value={program.id.toString()}
+                          >
+                            {program.course}
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </div>
             <DialogFooter>
               <Button
