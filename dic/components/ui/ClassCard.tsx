@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Clock, Calendar } from "lucide-react"
 import { format, parseISO, isWithinInterval, addMinutes, isBefore, differenceInMinutes } from 'date-fns';
+import { formatDateFromString } from "@/lib/sub-functions";
 
 
 interface Class {
@@ -67,6 +68,7 @@ const ClassCard = ({ classItem }: { classItem: Class }) => {
       'HH:mm'
     );
     
+    
     return (
       <Card className="bg-white hover:shadow-md transition-shadow border-none duration-200">
         <div className="p-4 space-y-3">
@@ -80,7 +82,7 @@ const ClassCard = ({ classItem }: { classItem: Class }) => {
             <span>{formattedTime}</span>
             
             <Calendar className="h-4 w-4 ml-2" />
-            <span>Today</span>
+            <span>{formatDateFromString(classItem?.end_date)}</span>
           </div>
   
           <div className="flex items-center justify-between">
