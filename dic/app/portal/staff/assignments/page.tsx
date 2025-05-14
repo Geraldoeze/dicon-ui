@@ -56,6 +56,7 @@ const Assignment = () => {
       queryFn: () => staffService.getPendingAssignments(),
       enabled: activeTab === 'pending',
     });
+    console.log(pendingAssignments)
 
     const { data: gradedAssignments, isLoading: isGradedLoading } = useQuery({
         queryKey: ['assignments'],
@@ -133,9 +134,9 @@ const Assignment = () => {
     };
 
     const filteredAssignments = activeTab === 'pending' ? pendingAssignments : gradedAssignments;
-    const filter = filteredAssignments?.data.filter((assignment: Assignment) => 
-      assignment.course_code.toLowerCase().includes(searchQuery.toLowerCase()));
-
+    // const filter = filteredAssignments?.data.filter((assignment: Assignment) => 
+    //   assignment.course_code.toLowerCase().includes(searchQuery.toLowerCase()));
+const filter = pendingAssignments?.data
   return (
     <div className='p-6 max-w-7xl mx-auto'>
         <div className="flex items-center justify-start md:justify-between flex-col md:flex-row my-5">

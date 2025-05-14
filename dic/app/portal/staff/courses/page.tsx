@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { staffService } from "@/services/staff.service";
 import { TokenService } from "@/services/auth/tokenService";
+import { useRouter } from "next/navigation";
 
 // const staffCourses = [
 //   {
@@ -28,9 +29,9 @@ import { TokenService } from "@/services/auth/tokenService";
 //   ]
 
 const Courses = () => {
-
+  const router = useRouter();
   const [user, setUser] = React.useState<any>(null);
- 
+
   React.useEffect(() => {
     const u = TokenService.getCachedUserData();
     setUser(u);
@@ -42,11 +43,9 @@ const Courses = () => {
     isLoading,
   } = useQuery({
     queryKey: ["staffCourses", user?.id],
-    queryFn: () => staffService.getCourses({id: user?.id}),
+    queryFn: () => staffService.getCourses({ id: user?.id }),
     enabled: Boolean(user?.id),
   });
-
-  
 
   return (
     <div className="bg-slate-50">
@@ -58,8 +57,14 @@ const Courses = () => {
               View the courses you are taking
             </p>
           </div>
-          {isLoading && <div className="text-center text-lg my-5">Loading...</div>}
-          {error && <div className="text-center text-lg my-5">Error loading courses</div> }
+          {isLoading && (
+            <div className="text-center text-lg my-5">Loading...</div>
+          )}
+          {error && (
+            <div className="text-center text-lg my-5">
+              Error loading courses
+            </div>
+          )}
           <div className="border-y-2 my-5 gap-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {staffCourses?.data.map((course) => (
               <div
@@ -87,13 +92,12 @@ const Courses = () => {
                 <div className="w-full flex justify-end items-center my-3">
                   {/* <p className='space-x-2 flex'> <Clock/> <span>{course.course_time}</span></p>
                       <p className='space-x-2 flex'><Calendar/> <span>{course.course_day}</span></p> */}
-                  <a
-                    href={`/portal/staff/courses/${course.course_id}`}
+                  <p
+                    onClick={() => router.push(`courses/${course.course_id}`)}
                     className="space-x-2 flex font-medium"
                   >
-                    {" "}
                     <span>Details</span> <ArrowRight />
-                  </a>
+                  </p>
                 </div>
               </div>
             ))}

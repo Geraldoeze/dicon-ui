@@ -2,7 +2,8 @@ import { GET } from "@/app/api/download/route";
 
 // export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://0ps.tech/dic/api';
 // export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/staging/api';
- export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dicnigeria.com.ng/api';
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://dicnigeria.com.ng/api";
 
 // export const STRAPI_BASE_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://138.197.7.199:1337/api'
 
@@ -27,9 +28,9 @@ export const STRAPI_ENDPOINTS = {
 };
 
 export const AUTH_ENDPOINTS = {
-  REGISTER: '/auth/register',
-  LOGIN: '/auth/login',
-  USER: '/auth/user',
+  REGISTER: "/auth/register",
+  LOGIN: "/auth/login",
+  USER: "/auth/user",
   // LOGOUT: '/auth/logout',
   FORGOT_PASSWORD: (email: string) => `/auth/forgot-password?email=${email}`,
   RESET_PASSWORD: "/auth/reset-password",
@@ -84,9 +85,9 @@ export const ADMIN_ENDPOINTS = {
   BATCH: {
     GET: "/batches",
   },
-  PROGRAM:{
-    GET: "/programs"
-  }
+  PROGRAM: {
+    GET: "/programs",
+  },
 };
 
 export const STAFF_ENDPOINTS = {
@@ -134,12 +135,14 @@ export const STAFF_ENDPOINTS = {
 };
 
 export const STUDENT_ENDPOINTS = {
+  DASHBOARD: {
+    STUDENT: "/students/dashboard",
+  },
   // Course endpoints
   COURSES: {
     LIST: "/students/courses",
     REGISTERED: "/students/courses",
-    UNREGISTERED:
-      "/students/courses",
+    UNREGISTERED: "/students/courses",
     CarriedOver:
       "/students/courses?student_id=1&search=&course_type=unregistered",
     REGISTER: (courseId: string) =>
@@ -150,7 +153,7 @@ export const STUDENT_ENDPOINTS = {
       `/students/courses/retake?course_id=${courseId}`,
     DETAILS: (courseId: string) => `/courses/${courseId}`,
     VIDEOS: (courseId: string) => `/courses/videos?course_id=${courseId}`,
-    ALLVIDEOS: "/courses/videos?course_id=1",
+    ALLVIDEOS: "/courses/videos",
     CLASSES: `/classes`,
   },
 
@@ -165,10 +168,9 @@ export const STUDENT_ENDPOINTS = {
 
   // Assignment endpoints
   ASSIGNMENTS: {
-    LIST: (status: string) => `/assignments/?status=${status}`,
+    LIST: (status: string) => `/students/assignments/?status=${status}`,
     ONE: (assignmentId: string) => `/assignments/${assignmentId}`,
-    PENDING:
-      "students/assignments",
+    PENDING: "students/assignments",
     SUBMITTED: "/students/assignments/submitted",
     SUBMISSIONS: (assignmentId: string) =>
       `/assignments/${assignmentId}/submissions`,

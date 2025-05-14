@@ -32,14 +32,18 @@ class StudentService {
 
   async getRegisteredCourses(params?: {
     student_id?: string;
-    course_type?: string;
+    page: number;
+    page_Size: number
   }) {
     return apiService.get<Course[]>(
       STUDENT_ENDPOINTS.COURSES.REGISTERED,
       params
     );
-  }
 
+  }
+  async studentDashboard() {
+    return apiService.get<Video[]>(STUDENT_ENDPOINTS.DASHBOARD.STUDENT);
+  }
   async getUnregisteredCourses() {
     return apiService.get<Course[]>(STUDENT_ENDPOINTS.COURSES.UNREGISTERED);
   }
@@ -78,7 +82,8 @@ class StudentService {
     page?: number;
     pageSize?: number;
     date?: string;
-    student_id: string
+    student_id: string;
+    course_id: string;
   }) {
     return apiService.get<Class[]>(STUDENT_ENDPOINTS.CLASSES.LIST, params);
   }

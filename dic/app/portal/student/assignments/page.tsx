@@ -24,8 +24,8 @@ function AssignmentList({ status, searchQuery }: { status: AssignmentStatus; sea
   const filteredAssignments = assignments?.data.filter((assignment) => {
     const searchString = searchQuery.toLowerCase();
     return (
-      assignment.course_code.toLowerCase().includes(searchString) ||
-      assignment.course_name.toLowerCase().includes(searchString)
+      // assignment?.course_code.toLowerCase().includes(searchString) ||
+      assignment?.course_name.toLowerCase().includes(searchString)
     );
   });
 
