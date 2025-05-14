@@ -96,8 +96,6 @@ export default function Courses() {
     },
   });
 
-  console.log(coursesData, user.id)
-
   // Fetch stats data
   const { data: dashboard } = useQuery({
     queryKey: ["studentDashboard"],
@@ -126,7 +124,6 @@ export default function Courses() {
       console.error("Failed to retake course:", error);
     },
   });
-  console.log();
   const statsCards = [
     {
       title: "Registered Courses",
