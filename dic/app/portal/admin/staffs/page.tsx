@@ -82,7 +82,6 @@ const Staffs = () => {
     enabled: Boolean(formData?.department_id),
   });
 
-
   // Set up mutation for registration
   const registerMutation = useMutation({
     mutationFn: (data: RegisterStaffData) => {
@@ -99,13 +98,18 @@ const Staffs = () => {
       return adminService.register(formFeilds);
     },
     onSuccess: () => {
+      // reload data
       queryClient.invalidateQueries({ queryKey: ["staffs"] });
       setIsRegisterDialogOpen(false);
       setIsSuccessModalOpen(true);
       // Reset form
       setFormData(RegisterStaffDummyData);
+      
+
     },
-    onError: () => {},
+    onError: (value) => {
+      window.alert(value?.response?.data?.error ?? "An error occurred");
+    },
   });
 
   useEffect(() => {
@@ -118,7 +122,9 @@ const Staffs = () => {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log(formData);
+    if (!formData.department_id || !formData.program_id) {
+      window.alert("Kindly select department and program");
+    }
     registerMutation.mutate(formData);
   };
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { staffService } from "@/services/staff.service";
 import { adminService} from '@/services/admin.service';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { formatDateFromString } from '@/lib/sub-functions';
 interface ScheduleClassForm {
   course_id: string;
   topic: string;
@@ -24,6 +25,7 @@ const ClassDashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [error, setError] = useState(false);
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
 
 
@@ -44,6 +46,8 @@ const ClassDashboard = () => {
     onSuccess: () => {
       setIsDialogOpen(false);
       setIsSuccessOpen(true);
+      // reload 
+      queryClient.invalidateQueries({ queryKey: ["classes"] });
     },
 
     onError: () => {
@@ -199,7 +203,7 @@ const ClassDashboard = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Today
+                    {formatDateFromString(classItem?.end_date)}
                   </div>
                 </div>
                 

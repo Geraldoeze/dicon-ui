@@ -11,6 +11,7 @@ import { Clock, Calendar, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { staffService } from "@/services/staff.service"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { formatDateFromString } from '@/lib/sub-functions';
 interface ScheduleClassForm {
   course_id: string;
   topic_id: string;
@@ -165,7 +166,7 @@ const ClassDashboard = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Today
+                    {formatDateFromString(classItem?.end_date)}
                   </div>
                 </div>
                 
