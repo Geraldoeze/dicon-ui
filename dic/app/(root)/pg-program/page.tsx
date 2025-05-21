@@ -56,7 +56,7 @@ const Page = () => {
           <div className="w-full lg:w-[48%] relative">
             <Image
               alt=""
-              src={"/flier.jpeg"}
+              src={"/pg-prom.jpeg"}
               width={200}
               height={200}
               style={{ width: "100%", height: "100%" }}
