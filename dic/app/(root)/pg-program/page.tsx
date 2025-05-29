@@ -54,12 +54,12 @@ const Page = () => {
       <div className="container mx-auto my-12 p-2">
         <div className="flex flex-col lg:flex-row justify-center gap-10">
           <div className="w-full lg:w-[50%] relative">
-            <Image
+            <img
               alt=""
               src={"/pg-prom.jpeg"}
-              width={200}
-              height={200}
-              style={{ width: "100%", height: "100%" }}
+              width={"100%"}
+              height={"100%"}
+              
             />
           
           </div>
