@@ -196,7 +196,7 @@ const Students = () => {
       [name]: parseInt(value, 10), // Convert to number
     }));
   };
-  console.log(programs)
+  
   
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -228,7 +228,7 @@ const Students = () => {
       </div>
     );
   }
-  console.log(formData.program_id);
+  
   return (
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">

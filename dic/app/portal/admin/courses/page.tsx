@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { adminService } from '@/services/admin.service';
-import { DataTable } from '@/components/ui/reusable-table-and-profile';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { adminService } from "@/services/admin.service";
+import { DataTable } from "@/components/ui/reusable-table-and-profile";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -14,26 +14,31 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Pagination from '@/components/ui/pagination';
-import { QueryParams } from '@/interface/admin';
-import { useDebounce } from '@/hooks/useDebounce';
-import { programsService } from '@/services/programs.service';
-
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Pagination from "@/components/ui/pagination";
+import { QueryParams } from "@/interface/admin";
+import { useDebounce } from "@/hooks/useDebounce";
+import { programsService } from "@/services/programs.service";
 
 interface Course {
   id: number;
-  course_id: number
-  course_name: string
-  course_code: string
-  units: number
-  total_videos: number
-  total_students: number
-  lecturer_in_charge: string
+  course_id: number;
+  course_name: string;
+  course_code: string;
+  units: number;
+  total_videos: number;
+  total_students: number;
+  lecturer_in_charge: string;
 }
 
 type CoursesResponse = {
@@ -42,7 +47,7 @@ type CoursesResponse = {
     current_page: number;
     total_pages: number;
   };
-  message: string
+  message: string;
 };
 
 interface CreateCourseData {
@@ -51,17 +56,17 @@ interface CreateCourseData {
   credit_unit: number;
   lecturer_id: number;
   description: string;
-  program_id: number;
+  department_id: number;
 }
 
 // Table configuration for courses
 const courseColumns = [
-  { key: 'course_name', header: 'Course Name' },
-  { key: 'course_code', header: 'Course Code' },
-  { key: 'units', header: 'Units' },
-  { key: 'program', header: 'Program' },
-  { key: 'total_students', header: 'Total Students' },
-  { key: 'lecturer_in_charge', header: 'Lecturer' }
+  { key: "course_name", header: "Course Name" },
+  { key: "course_code", header: "Course Code" },
+  { key: "units", header: "Units" },
+  { key: "program", header: "Program" },
+  { key: "total_students", header: "Total Students" },
+  { key: "lecturer_in_charge", header: "Lecturer" },
 ];
 
 const AdminCourses = () => {
@@ -70,31 +75,31 @@ const AdminCourses = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [formData, setFormData] = useState<CreateCourseData>({
-    name: '',
-    code: '',
+    name: "",
+    code: "",
     credit_unit: 3,
     lecturer_id: 0,
-    program_id: 0,
-    description: ''
+    department_id: 0,
+    description: "",
   });
 
-  const [searchInput, setSearchInput] = useState('')
-  const [showFilter, setShowFilter] = useState(false)
+  const [searchInput, setSearchInput] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
   const [queryParams, setQueryParams] = useState<QueryParams>({
-    search: '',
+    search: "",
     page: 1,
     page_size: 10,
-  })
+  });
 
-  const debouncedSearch = useDebounce(searchInput, 500)
+  const debouncedSearch = useDebounce(searchInput, 500);
 
   // Fetch courses
   const {
     data: courses,
     isLoading: isLoadingCourses,
-    error: coursesError
+    error: coursesError,
   } = useQuery({
-    queryKey: ['courses', queryParams],
+    queryKey: ["courses", queryParams],
     queryFn: () => adminService.getCourses(queryParams),
     staleTime: 5 * 60 * 1000,
   });
@@ -104,95 +109,103 @@ const AdminCourses = () => {
       ...prev,
       search: debouncedSearch,
       page: 1,
-    }))
-  }, [debouncedSearch])
+    }));
+  }, [debouncedSearch]);
 
   // Fetch lecturers for selection
-  const {
-    data: lecturers,
-    isLoading: isLoadingLecturers
-  } = useQuery({
-    queryKey: ['lecturers'],
-    queryFn: () => adminService.getStaffs({page: 1, page_size: 20, search: ''}),
+  const { data: lecturers, isLoading: isLoadingLecturers } = useQuery({
+    queryKey: ["lecturers"],
+    queryFn: () =>
+      adminService.getStaffs({ page: 1, page_size: 20, search: "" }),
   });
-  
 
   // Fetch programs for selection
-  const {
-    data: programs,
-    isLoading: isLoadingPrograms
-  } = useQuery({
-    queryKey: ['programs'],
+  const { data: programs, isLoading: isLoadingPrograms } = useQuery({
+    queryKey: ["programs"],
     queryFn: () => programsService.getPrograms(),
   });
 
   //
   const prefetchNextPage = (nextPage: number) => {
     queryClient.prefetchQuery({
-      queryKey: ['courses', { ...queryParams, page: nextPage }],
-      queryFn: () => adminService.getCourses({ ...queryParams, page: nextPage }),
-    })
-  }
+      queryKey: ["courses", { ...queryParams, page: nextPage }],
+      queryFn: () =>
+        adminService.getCourses({ ...queryParams, page: nextPage }),
+    });
+  };
 
   // Add course mutation
   const addCourseMutation = useMutation({
     mutationFn: (data: CreateCourseData) => {
       const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('code', data.code);
-      formData.append('credit_unit', data.credit_unit ? data.credit_unit.toString() : '');
-      formData.append('lecturer_id', data.lecturer_id ? data.lecturer_id?.toString() : '');
-      formData.append('description', data.description);
+      formData.append("name", data.name);
+      formData.append("code", data.code);
+      formData.append(
+        "credit_unit",
+        data.credit_unit ? data.credit_unit.toString() : ""
+      );
+      formData.append(
+        "lecturer_id",
+        data.lecturer_id ? data.lecturer_id?.toString() : ""
+      );
+      formData.append("description", data.description);
       return adminService.createCourses(formData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['courses'] });
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
       setIsCreateDialogOpen(false);
       setIsSuccessModalOpen(true);
       // Reset form
       setFormData({
-        name: '',
-        code: '',
+        name: "",
+        code: "",
         credit_unit: 3,
         lecturer_id: 0,
         program_id: 0,
-        description: ''
+        description: "",
       });
     },
-    onError: () => { }
+    onError: () => {},
   });
+  const { data: department } = useQuery({
+    queryKey: ["department"],
+    queryFn: () => adminService.getDepartments(),
+  });
+  
 
- 
   //
   const handlePageChange = (page: number) => {
-    prefetchNextPage(page + 1)
+    prefetchNextPage(page + 1);
     setQueryParams((prev) => ({
       ...prev,
       page,
-    }))
-  }
+    }));
+  };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(event.target.value)
-  }
+    setSearchInput(event.target.value);
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: parseInt(value) || 0 }));
+    setFormData((prev) => ({ ...prev, [name]: parseInt(value) || 0 }));
   };
 
   const handleSelectChange = (value: string, name: string) => {
-    setFormData(prev => ({ ...prev, [name]: parseInt(value) }));
+    setFormData((prev) => ({ ...prev, [name]: parseInt(value) }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addCourseMutation.mutate(formData);
+    
+    // addCourseMutation.mutate(formData);
   };
 
   // Handle loading state
@@ -209,7 +222,7 @@ const AdminCourses = () => {
     );
   }
 
-console.log(programs)
+  
 
   return (
     <div className="p-8">
@@ -227,8 +240,10 @@ console.log(programs)
       <DataTable
         columns={courseColumns}
         data={courses?.data || []}
-        type='course'
-        onRowClick={(course) => router.push(`/portal/admin/courses/${course.course_id}`)}
+        type="course"
+        onRowClick={(course) =>
+          router.push(`/portal/admin/courses/${course.course_id}`)
+        }
       />
       {!isLoadingCourses && courses?.meta && courses?.data?.length > 0 && (
         <Pagination
@@ -238,7 +253,6 @@ console.log(programs)
           disabled={isLoadingCourses}
         />
       )}
-
 
       {/* Create Course Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
@@ -292,7 +306,9 @@ console.log(programs)
               <div className="grid gap-2">
                 <Label htmlFor="lecturer_id">Lecturer</Label>
                 <Select
-                  onValueChange={(value) => handleSelectChange(value, 'lecturer_id')}
+                  onValueChange={(value) =>
+                    handleSelectChange(value, "lecturer_id")
+                  }
                   value={formData.lecturer_id.toString()}
                 >
                   <SelectTrigger>
@@ -300,11 +316,17 @@ console.log(programs)
                   </SelectTrigger>
                   <SelectContent>
                     {isLoadingLecturers ? (
-                      <SelectItem value="loading">Loading lecturers...</SelectItem>
+                      <SelectItem value="loading">
+                        Loading lecturers...
+                      </SelectItem>
                     ) : (
                       lecturers?.data?.map((lecturer: any) => (
-                        <SelectItem key={lecturer.id} value={lecturer.id.toString()}>
-                          {lecturer.full_name || `${lecturer.first_name} ${lecturer.last_name}`}
+                        <SelectItem
+                          key={lecturer.id}
+                          value={lecturer.id.toString()}
+                        >
+                          {lecturer.full_name ||
+                            `${lecturer.first_name} ${lecturer.last_name}`}
                         </SelectItem>
                       ))
                     )}
@@ -312,21 +334,28 @@ console.log(programs)
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="program_id">Program</Label>
+                <Label htmlFor="program_id">Department</Label>
                 <Select
-                  onValueChange={(value) => handleSelectChange(value, 'program_id')}
-                  value={formData.program_id.toString()}
+                  onValueChange={(value) =>
+                    handleSelectChange(value, "department_id")
+                  }
+                  value={formData.department_id.toString()}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a Program" />
+                    <SelectValue placeholder="Select a Department" />
                   </SelectTrigger>
                   <SelectContent>
                     {isLoadingPrograms ? (
-                      <SelectItem value="loading">Loading programs...</SelectItem>
+                      <SelectItem value="loading">
+                        Loading department...
+                      </SelectItem>
                     ) : (
-                      programs?.data?.map((program: any) => (
-                        <SelectItem key={program?.course_id} value={program?.course_id.toString()}>
-                          {program?.program}
+                      department?.data?.map((department: any) => (
+                        <SelectItem
+                          key={department?.id}
+                          value={department?.id.toString()}
+                        >
+                          {department?.name}
                         </SelectItem>
                       ))
                     )}
