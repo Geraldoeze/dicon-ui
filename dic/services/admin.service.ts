@@ -120,6 +120,10 @@ class AdminService {
     return apiService.get<Staffs>(ADMIN_ENDPOINTS.STAFFS.ONE(staffId));
   }
 
+  async deleteStaff(data: any) {
+    return apiService.delete(ADMIN_ENDPOINTS.STAFFS.DELETE, data);
+  }
+
   async getClasses() {
     return apiService.get<Class>(STAFF_ENDPOINTS.CLASSES.SCHEDULE);
   }
@@ -169,6 +173,11 @@ class AdminService {
 
   async getProgram() {
     return apiService.get(ADMIN_ENDPOINTS.PROGRAM.GET);
+  }
+
+
+  async getDegree() {
+    return apiService.get<any[]>(ADMIN_ENDPOINTS.DEGREE.GET);
   }
 
   // async getTotalStaffs(){

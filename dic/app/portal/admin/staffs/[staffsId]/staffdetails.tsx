@@ -1,12 +1,20 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { adminService } from '@/services/admin.service';
-import { ProfileView } from '@/components/ui/reusable-table-and-profile';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Edit, Key } from 'lucide-react';
+import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { adminService } from "@/services/admin.service";
+import { ProfileView } from "@/components/ui/reusable-table-and-profile";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Delete, Edit, Key } from "lucide-react";
 
 type StaffDetailProps = {
   staffId: string;
@@ -14,15 +22,31 @@ type StaffDetailProps = {
 
 const StaffDetail = ({ staffId }: StaffDetailProps) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const { 
-    data: staff, 
-    isLoading, 
-    error 
+  const {
+    data: staff,
+    isLoading,
+    error,
   } = useQuery({
-    queryKey: ['staff', staffId],
+    queryKey: ["staff", staffId],
     queryFn: () => adminService.getStaff(staffId),
   });
+  const deleteMutation = useMutation({
+    mutationFn: () => {
+      const form = JSON.stringify([staffId]);
+      return adminService.deleteStaff(form);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["staffs"] });
+      router.back();
+    },
+    onError: () => {},
+  });
+  const handleDelete = () => {
+    deleteMutation.mutate();
+  };
 
   // Handle loading state
   if (isLoading) {
@@ -66,58 +90,71 @@ const StaffDetail = ({ staffId }: StaffDetailProps) => {
 
   return (
     <div className="p-8 md:min-w-[60vw] max-w-[80vw] mx-auto">
-      
-        <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between">
+        <Button
+          variant="ghost"
+          onClick={() => router.back()}
+          className="flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </Button>
+
+        <div className="flex gap-2">
           <Button
-            variant="ghost"
-            onClick={() => router.back()}
+            variant="outline"
             className="flex items-center gap-2"
+            onClick={() => setIsCreateDialogOpen(true)}
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back
+            <Delete className="w-4 h-4" />
+            Delete
           </Button>
-          
-          {/* <div className="flex gap-2">
-            <Button 
-              variant="outline"
-              className="flex items-center gap-2"
-              onClick={() => router.push(`/staffs/${staffId}/edit`)}
-            >
-              <Edit className="w-4 h-4" />
-              Edit Profile
-            </Button>
-            <Button 
-              variant="outline"
-              className="flex items-center gap-2"
-              onClick={() => console.log('Reset password')}
-            >
-              <Key className="w-4 h-4" />
-              Reset Password
-            </Button>
-          </div> */}
         </div>
+      </div>
 
-        <div className="">
-          <ProfileView 
-            data={staff?.data}
-            type="staff"
-          />
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete Staff</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this staff?
+            </DialogDescription>
+          </DialogHeader>
 
-         
-        
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsCreateDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              onClick={handleDelete}
+              className="bg-red-600 hover:bg-red-700/50 text-white"
+              disabled={deleteMutation.isPending}
+            >
+              {deleteMutation.isPending ? "Deleting..." : "Delete Staff"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-          {/* Additional staff-specific sections */}
-          {/* <div className="bg-white rounded-lg p-6 shadow-sm">
+      <div className="">
+        <ProfileView data={staff?.data} type="staff" />
+
+        {/* Additional staff-specific sections */}
+        {/* <div className="bg-white rounded-lg p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-4">Assigned Courses</h2> */}
-            {/* Add courses list here */}
-          {/* </div> */}
+        {/* Add courses list here */}
+        {/* </div> */}
 
-          {/* <div className="bg-white rounded-lg p-6 shadow-sm">
+        {/* <div className="bg-white rounded-lg p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-4">Recent Activity</h2> */}
-            {/* Add activity list here */}
-          {/* </div>  */}
-        </div> 
-
+        {/* Add activity list here */}
+        {/* </div>  */}
+      </div>
     </div>
   );
 };

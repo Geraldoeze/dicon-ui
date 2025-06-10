@@ -157,8 +157,8 @@ export class ApiService {
     return this.request<T>({ method: "PUT", url: endpoint, data });
   }
 
-  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-    return this.request<T>({ method: "DELETE", url: endpoint });
+  async delete<T>(endpoint: string, data: any): Promise<ApiResponse<T>> {
+    return this.request<T>({ method: "DELETE", url: endpoint, data });
   }
 
   async uploadFormData<T>(

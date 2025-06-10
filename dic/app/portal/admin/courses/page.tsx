@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
-import { DataTable } from "@/components/ui/reusable-table-and-profile";
+import {
+  CourseDataTable,
+  DataTable,
+} from "@/components/ui/reusable-table-and-profile";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import {
@@ -55,6 +58,7 @@ interface CreateCourseData {
   code: string;
   credit_unit: number;
   lecturer_id: number;
+  degree_id: number;
   description: string;
   department_id: number;
 }
@@ -79,6 +83,7 @@ const AdminCourses = () => {
     code: "",
     credit_unit: 3,
     lecturer_id: 0,
+    degree_id: 0,
     department_id: 0,
     description: "",
   });
@@ -104,6 +109,22 @@ const AdminCourses = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  // Fetch degree
+  // const {
+  //   data: degree,
+  //   isLoading: isLoadingDegree,
+  //   error: degreesError,
+  // } = useQuery({
+  //   queryKey: ["degrees"],
+  //   queryFn: () => adminService.getDegree(),
+  //   staleTime: 3 * 60 * 1000,
+  // });
+
+  const { data: degree, isLoading: isLoadingDegree } = useQuery({
+    queryKey: ["degree"],
+    queryFn: () => adminService.getDegree(),
+  });
+
   useEffect(() => {
     setQueryParams((prev) => ({
       ...prev,
@@ -117,12 +138,6 @@ const AdminCourses = () => {
     queryKey: ["lecturers"],
     queryFn: () =>
       adminService.getStaffs({ page: 1, page_size: 20, search: "" }),
-  });
-
-  // Fetch programs for selection
-  const { data: programs, isLoading: isLoadingPrograms } = useQuery({
-    queryKey: ["programs"],
-    queryFn: () => programsService.getPrograms(),
   });
 
   //
@@ -149,9 +164,12 @@ const AdminCourses = () => {
         data.lecturer_id ? data.lecturer_id?.toString() : ""
       );
       formData.append("description", data.description);
+      formData.append("degree_id", data.degree_id.toString());
+      formData.append("department_id", data.department_id.toString());
       return adminService.createCourses(formData);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      
       queryClient.invalidateQueries({ queryKey: ["courses"] });
       setIsCreateDialogOpen(false);
       setIsSuccessModalOpen(true);
@@ -160,18 +178,19 @@ const AdminCourses = () => {
         name: "",
         code: "",
         credit_unit: 3,
+        degree_id: 0,
         lecturer_id: 0,
-        program_id: 0,
+        department_id: 0,
         description: "",
       });
     },
     onError: () => {},
   });
-  const { data: department } = useQuery({
+
+  const { data: department, isLoading: isLoadingDepartment } = useQuery({
     queryKey: ["department"],
     queryFn: () => adminService.getDepartments(),
   });
-  
 
   //
   const handlePageChange = (page: number) => {
@@ -204,8 +223,7 @@ const AdminCourses = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // addCourseMutation.mutate(formData);
+    addCourseMutation.mutate(formData);
   };
 
   // Handle loading state
@@ -222,8 +240,6 @@ const AdminCourses = () => {
     );
   }
 
-  
-
   return (
     <div className="p-8">
       <div className="max-w-[70vw] mx-auto mb-6 flex justify-end items-center">
@@ -237,7 +253,7 @@ const AdminCourses = () => {
         </Button>
       </div>
 
-      <DataTable
+      <CourseDataTable
         columns={courseColumns}
         data={courses?.data || []}
         type="course"
@@ -304,6 +320,34 @@ const AdminCourses = () => {
               </div>
 
               <div className="grid gap-2">
+                <Label htmlFor="degree_id">Degree</Label>
+                <Select
+                  onValueChange={(value) =>
+                    handleSelectChange(value, "degree_id")
+                  }
+                  value={formData.degree_id.toString()}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a Degree" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {isLoadingDegree ? (
+                      <SelectItem value="loading">Loading degree...</SelectItem>
+                    ) : (
+                      degree?.data?.map((degree: any) => (
+                        <SelectItem
+                          key={degree?.id}
+                          value={degree?.id.toString()}
+                        >
+                          {degree?.name}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="grid gap-2">
                 <Label htmlFor="lecturer_id">Lecturer</Label>
                 <Select
                   onValueChange={(value) =>
@@ -320,11 +364,8 @@ const AdminCourses = () => {
                         Loading lecturers...
                       </SelectItem>
                     ) : (
-                      lecturers?.data?.map((lecturer: any) => (
-                        <SelectItem
-                          key={lecturer.id}
-                          value={lecturer.id.toString()}
-                        >
+                      lecturers?.data?.map((lecturer: any, id: number) => (
+                        <SelectItem key={id} value={lecturer.id.toString()}>
                           {lecturer.full_name ||
                             `${lecturer.first_name} ${lecturer.last_name}`}
                         </SelectItem>
@@ -334,7 +375,7 @@ const AdminCourses = () => {
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="program_id">Department</Label>
+                <Label htmlFor="department_id">Department</Label>
                 <Select
                   onValueChange={(value) =>
                     handleSelectChange(value, "department_id")
@@ -345,7 +386,7 @@ const AdminCourses = () => {
                     <SelectValue placeholder="Select a Department" />
                   </SelectTrigger>
                   <SelectContent>
-                    {isLoadingPrograms ? (
+                    {isLoadingDepartment ? (
                       <SelectItem value="loading">
                         Loading department...
                       </SelectItem>

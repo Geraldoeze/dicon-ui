@@ -219,6 +219,99 @@ export const DataTable = ({
   );
 };
 
+
+export const CourseDataTable = ({
+  columns,
+  data,
+  onRowClick,
+  type,
+  actions,
+}: DataTableProps) => {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [selectedRows, setSelectedRows] = React.useState<number[]>([]);
+
+  const filteredData = data.filter((item) =>
+    Object.values(item).some((value) =>
+      String(value).toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
+  // Helper function to generate stable keys
+  const getRowKey = (row: any, index: number) => {
+    // Option 1: Use a unique ID field if available
+    if (row.id) return `row-${row.id}`;
+    
+    // Option 2: Use a combination of stable fields
+    if (row.courseId || row.code) return `row-${row.courseId || row.code}`;
+    
+    // Option 3: Create a hash from the original data index + some stable field
+    const originalIndex = data.findIndex(item => item === row);
+    return `row-${originalIndex}-${row.name || row.title || 'item'}`;
+  };
+
+  const getColumnKey = (column: any, rowIndex: number) => {
+    // Use column key + row identifier for stable column keys
+    const rowId = getRowKey(filteredData[rowIndex], rowIndex);
+    return `${rowId}-${column.key}`;
+  };
+
+  return (
+    <div className="max-w-[70vw] mx-auto">
+      <div className="flex justify-between items-center my-5">
+        <h1 className="text-2xl font-semibold">
+          {type === "course" && "Courses"}
+        </h1>
+        <div className="flex gap-4 my-5">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto my-5">
+        <table className="w-full">
+          <thead className="bg-slate-100">
+            <tr className="border-b bg-slate-50">
+              {columns.map((column, index) => (
+                <th key={`header-${column.key || index}`} className="text-left py-4 px-4 font-medium">
+                  {column.header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.map((row, index) => (
+              <tr
+                key={getRowKey(row, index)}
+                className="border-b hover:bg-slate-50 cursor-pointer"
+                onClick={() => onRowClick?.(row)}
+              >
+                {columns.map((column) => (
+                  <td key={getColumnKey(column, index)} className="py-4 px-4">
+                    {column.render
+                      ? column.render(row[column.key], row)
+                      : row[column.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {filteredData?.length === 0 && (
+          <p className="my-8 text-center font-medium">No Data Available</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 // Reusable Profile View Component
 export const ProfileView = ({
   data,

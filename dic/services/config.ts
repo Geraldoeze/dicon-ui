@@ -75,6 +75,7 @@ export const ADMIN_ENDPOINTS = {
   STAFFS: {
     GET: "/staffs",
     ONE: (staffId: string) => `/staffs/profile?staff_id=${staffId}`,
+    DELETE: `/accounts`,
   },
   COURSES: {
     CREATE: "/courses",
@@ -88,6 +89,9 @@ export const ADMIN_ENDPOINTS = {
   PROGRAM: {
     GET: "/programs",
   },
+  DEGREE: {
+    GET: "/degrees"
+  }
 };
 
 export const STAFF_ENDPOINTS = {
