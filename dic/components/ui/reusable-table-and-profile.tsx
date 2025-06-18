@@ -165,7 +165,7 @@ export const DataTable = ({
           {type === "course" && "Courses"}
         </h1>
         <div className="flex gap-4 my-5">
-          <div className="relative">
+          {/* <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               placeholder="Search"
@@ -173,7 +173,7 @@ export const DataTable = ({
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
             />
-          </div>
+          </div> */}
           {/* <Button variant="outline">
             <Filter className="w-4 h-4 mr-2" />
             Filter

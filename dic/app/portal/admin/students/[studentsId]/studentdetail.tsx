@@ -24,7 +24,7 @@ const StudentDetail = ({ studentId }: StudentDetailProps) => {
     queryKey: ['student', studentId],
     queryFn: () => adminService.getStudent(studentId)
   });
-
+  console.log(studentData)
   // Handle loading state
   if (isLoading) {
     return (
