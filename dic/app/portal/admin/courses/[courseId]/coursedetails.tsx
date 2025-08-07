@@ -4,7 +4,7 @@ import React, { useState, useCallback } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
-import { ProfileView } from "@/components/ui/reusable-table-and-profile";
+
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Edit, Key } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -38,6 +38,8 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
   // State hooks
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
   const [formData, setFormData] = useState({
     lecturer_id: 0,
   });
@@ -75,6 +77,19 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
       console.error("Failed to edit course:", error);
     },
   });
+  // mutation to delete course
+  const deleteCourseMutation = useMutation({
+    mutationFn: (id: string) => adminService.deleteCourse(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      setOpenDeleteDialog(false);
+      router.push("/admin/courses"); // redirect if needed
+    },
+  });
+
+  const handleDelete = () => {
+    // deleteCourseMutation.mutate(courseId); // pass the course ID here
+  };
 
   // Handler functions - defined using useCallback to avoid recreation on each render
   const openEditDialog = useCallback(() => {
@@ -84,6 +99,15 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
       });
     }
     setIsEditDialogOpen(true);
+  }, [course?.data]);
+
+  const openDeleteModal = useCallback(() => {
+    if (course?.data) {
+      setFormData({
+        lecturer_id: course.data.lecturer_id || 0,
+      });
+    }
+    setOpenDeleteDialog(true);
   }, [course?.data]);
 
   const handleSelectChange = useCallback((value: string, name: string) => {
@@ -152,10 +176,19 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
           Back
         </Button>
       </div>
-
+      {/* 
       <div className="flex items-center justify-end gap-5">
         <Button className="py-2 px-4 my-5 bg-blue-600" onClick={openEditDialog}>
           Edit Course
+        </Button>
+      </div> */}
+      <div className="flex items-center justify-end gap-2">
+        <Button onClick={openEditDialog} className="py-2 px-4 my-5 bg-blue-600">
+          Edit Course
+        </Button>
+
+        <Button onClick={openDeleteModal} className="text-white bg-red-600">
+          Delete
         </Button>
       </div>
 
@@ -233,6 +266,30 @@ const CourseDetails = ({ courseId }: courseDetailProps) => {
           </DialogHeader>
           <DialogFooter>
             <Button onClick={() => setIsSuccessModalOpen(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openDeleteDialog} onOpenChange={setIsSuccessModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Course</DialogTitle>
+            Are you sure you want to delete this course? This action cannot be
+            undone.
+          </DialogHeader>
+
+          <DialogFooter>
+            <Button onClick={() => setOpenDeleteDialog(false)} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDelete}
+              color="error"
+              className="text-white bg-red-600"
+              // disabled={deleteCourseMutation.isLoading}
+            >
+              {/* {deleteCourseMutation.isLoading ? "Deleting..." : "Delete"} */}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

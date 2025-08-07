@@ -31,7 +31,6 @@ class AdminService {
         message: "error",
       };
     }
-    
   }
 
   async getApplication(applicationId: string) {
@@ -94,7 +93,7 @@ class AdminService {
   }
 
   async getStaffs(params?: QueryParams) {
-    try { 
+    try {
       const result = await apiService.get<Staffs[]>(
         `${ADMIN_ENDPOINTS.STAFFS.GET}?page=${params?.page}&page_size=${params?.page_size}&search=${params?.search}`
       );
@@ -113,7 +112,6 @@ class AdminService {
         message: "error",
       };
     }
-    
   }
 
   async getStaff(staffId: string) {
@@ -163,8 +161,14 @@ class AdminService {
   }
 
   async editCourses(formData: any) {
-    const data = JSON.stringify(formData.lecturer_id)
-    return apiService.put(ADMIN_ENDPOINTS.COURSES.EDIT(formData.program_id), formData);
+    const data = JSON.stringify(formData.lecturer_id);
+    return apiService.put(
+      ADMIN_ENDPOINTS.COURSES.EDIT(formData.program_id),
+      formData
+    );
+  }
+  async deleteCourse(courseId: string) {
+    return apiService.delete(ADMIN_ENDPOINTS.STAFFS.DELETE, courseId);
   }
 
   async getBatch() {
@@ -174,7 +178,6 @@ class AdminService {
   async getProgram() {
     return apiService.get(ADMIN_ENDPOINTS.PROGRAM.GET);
   }
-
 
   async getDegree() {
     return apiService.get<any[]>(ADMIN_ENDPOINTS.DEGREE.GET);
