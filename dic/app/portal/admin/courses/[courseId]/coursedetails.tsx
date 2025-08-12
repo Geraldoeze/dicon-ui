@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { adminService } from "@/services/admin.service";
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Edit, Key } from "lucide-react";
+import { ArrowLeft, } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
